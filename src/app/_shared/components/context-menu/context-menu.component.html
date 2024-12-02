@@ -1,0 +1,18 @@
+<ng-container *transloco="let t;">
+  <span class="so-action" nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" name="opend-so-action">
+    <img class="so-action--icon-opend filter-color-azure" src="assets/images/svg/three_vertical_dot_icon.svg" alt="">
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <ng-container *ngFor="let item of option">
+          <ng-container *ngIf="!item?.isHide">
+            <ng-template ngxPermissionsOnly="{{item.permission}}">
+              <li nz-menu-item class="fs-13 fw-600 text-color-black" (click)="handleClickOption($event, item)">
+                <img *ngIf="item.svgIcon" class="so-action--icon {{ item?.danger == '1' ? 'icon-danger' : '' }}" [src]="item.svgIcon" alt="">{{ t(item.label) }}
+              </li>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </nz-dropdown-menu>
+  </span>
+</ng-container>

@@ -1,0 +1,55 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Điểm danh</h3>
+
+  <div class="d-flex justify-content-between">
+    <p>
+      <span>Số lượng học sinh: 08 lớp</span> |
+      <span>Số học sinh vắng mặt: 08 lớp</span> |
+      <span>Số học sinh có mặt: 08 lớp</span>
+    </p>
+    <div class="d-flex">
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-input-search [width]="'w-250px'"></app-input-search>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ tên</th>
+          <th>Ngày sinh</th>
+          <th>Ghi chú</th>
+          <th>Có mặt</th>
+          <th>Nghỉ có phép</th>
+          <th>Nghỉ không phép</th>
+          <th>Đến muộn có phép</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList, let i = index">
+          <td>1</td>
+          <td>Nguyễn Duy kiên - HN001 </td>
+          <td>1/1/2000</td>
+          <td>
+            <app-input [placeholder]="'Ghi chú học sinh...'"></app-input>
+          </td>
+          <td class="text-center p-0">
+            <input type="radio">
+          </td>
+          <td class="text-center p-0">
+            <input type="radio">
+          </td>
+          <td class="text-center p-0">
+            <input type="radio">
+          </td>
+          <td class="text-center p-0">
+            <input type="radio">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

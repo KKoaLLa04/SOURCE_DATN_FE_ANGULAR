@@ -1,0 +1,96 @@
+<ng-container *transloco="let t;">
+
+  <div class="d-flex search-menu ant-flex-justify-center">
+<!--    <app-input-search [value]="keyword" [bgColor]="'bg-color-white-smoke'"-->
+<!--                      [placeholder]="t('searchFeature')" [showBorder]="true" [fontWeight]="'fw-700'" [checkEnter]="true"-->
+<!--                      (valueChange)="search($event)"></app-input-search>-->
+  </div>
+
+  <ng-container *ngFor="let menu of menuLayout">
+    <div class="menu-recursion-wrapper">
+      <div class="menu-item menu-accordion menu-with-border so-menu-item " data-kt-menu-trigger="click">
+        <ng-container
+          [ngTemplateOutlet]="(menu?.children?.length == 0 || menu.code === 'home') ? rootNoSub : rootWithSub"
+          [ngTemplateOutletContext]="{dataMenu: menu, level: 1}">
+        </ng-container>
+        <ng-container *ngIf="menu.children.length > 0">
+          <div class="menu-sub menu-sub-accordion" [ngStyle]="{'padding-left': '20px'}">
+            <ng-container *ngFor="let childMenu of menu.children">
+              <ng-container
+                [ngTemplateOutlet]="childMenu?.children?.length > 0 ? withSubmenu : noSubmenu"
+                [ngTemplateOutletContext]="{dataMenu: childMenu, level: 1}">
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <!--Template UI for Menu with Submenu-->
+  <ng-template #withSubmenu let-dataMenu="dataMenu" let-level="level">
+    <div class="menu-item menu-accordion menu-with-border so-menu-item" data-kt-menu-trigger="click">
+    <span class="menu-link so-menu-link so-menu-link-staff">
+      <span class="menu-bullet menu-bullet-inactive" routerLinkActive="menu-bullet-active">
+        <span class="bullet bullet-dot"></span>
+      </span>
+      <span class="menu-title so-menu-title so-menu-title-staff">{{ dataMenu.name }}</span>
+      <span class="menu-arrow"></span>
+    </span>
+      <div class="menu-sub menu-sub-accordion" [ngStyle]="{'padding-left': ((level + 1) * 20) + 'px'}">
+        <ng-container *ngFor="let childMenu of dataMenu.children">
+          <ng-container
+            [ngTemplateOutlet]="childMenu?.children?.length > 0 ? withSubmenu : noSubmenu"
+            [ngTemplateOutletContext]="{dataMenu: childMenu, level: level + 1}">
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+
+  <!--Template UI for Menu with No Submenu-->
+  <ng-template #noSubmenu let-dataMenu="dataMenu">
+    <div class="menu-item so-menu-item">
+      <a class="menu-link without-sub so-menu-link so-menu-link-staff" [routerLink]="dataMenu.url"
+         routerLinkActive="menu-bullet-active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="menu-bullet menu-bullet-inactive" routerLinkActive="menu-bullet-active">
+          <span class="bullet bullet-dot"></span>
+        </span>
+        <span class="menu-title so-menu-title so-menu-title-staff">{{ dataMenu.name }}</span>
+      </a>
+    </div>
+  </ng-template>
+
+</ng-container>
+
+
+<ng-template #rootNoSub let-dataMenu="dataMenu">
+  <a class="menu-link root-menu so-menu-link so-menu-link-staff" [routerLink]="dataMenu.url"
+     routerLinkActive="active">
+        <span class="menu-icon so-menu-icon">
+            <img [src]="dataMenu.icon" alt="">
+        </span>
+    <span class="menu-title so-menu-title so-menu-title-staff" data-link="">{{ dataMenu.name }}</span>
+    <ng-container *ngIf="dataMenu.children.length > 0">
+      <span class="menu-arrow"></span>
+    </ng-container>
+  </a>
+</ng-template>
+
+<ng-template #rootWithSub let-dataMenu="dataMenu">
+  <span class="menu-link root-menu so-menu-link so-menu-link-staff">
+        <span class="menu-icon so-menu-icon">
+            <img [src]="dataMenu.icon" alt="">
+        </span>
+        <span class="menu-title so-menu-title so-menu-title-staff" data-link="">{{ dataMenu.name }}</span>
+        <ng-container *ngIf="dataMenu.children.length > 0">
+          <span class="menu-arrow"></span>
+        </ng-container>
+      </span>
+</ng-template>
+
+
+
+
+

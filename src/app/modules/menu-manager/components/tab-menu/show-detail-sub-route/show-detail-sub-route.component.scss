@@ -1,0 +1,16 @@
+.show-detail-wub-route{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .menu-name{
+        color: #BCCBDF;
+    }
+    .list-sub-route{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .item-sub-route{
+            color: #495057;
+        }
+    }
+}

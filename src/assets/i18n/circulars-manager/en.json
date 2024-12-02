@@ -1,0 +1,45 @@
+{
+    "circularsList": "Circulars list",
+    "circularsManagerApply": "Circulars manager apply",
+    "circularsManager": "Circulars manager",
+    "enterNameCodeCirculars": "Enter name, code circulars",
+    "order": "Order",
+    "circularsName": "Circulars name",
+    "circularsCode": "Circulars code",
+    "schoolYearApply": "School year apply",
+    "gradeApply": "Grade apply",
+    "link":"Link",
+    "releaseDate":"Release date",
+    "stillValidated":"Still validated",
+    "expired":"Expired",
+    "addCirculars":"Add circulars",
+    "updateCirculars":"Update circulars",
+    "content":"Content",
+    "enterCircularsName":"Enter circulars name",
+    "enterCircularsCode":"Enter circulars code",
+    "enterLink":"Enter link",
+    "enterContent":"Enter content",
+    "validators":{
+        "name":{
+            "required":"name is required",
+            "maxlength":"circular name must not exceed 255 characters"
+        },
+        "code":{
+            "required":"code is required",
+            "pattern":"code is invalid",
+            "maxlength":"circular code must not exceed 50 characters"
+        },
+        "url":{
+            "required":"url is required",
+            "pattern":"url is invalid"
+        },
+        "dateIssued":{
+            "required":"dateIssued is required"
+        },
+        "content":{
+            "required":"content is required"
+        }
+    },
+    "circularsContent":"Circulars content",
+    "circularsDetail":"Circulars detail"
+}

@@ -1,0 +1,45 @@
+{
+    "circularsList": "Danh sách thông tư",
+    "circularsManagerApply": "Quản lý thông tư áp dụng",
+    "circularsManager": "Quản lý thông tư",
+    "enterNameCodeCirculars": "Nhập tên, mã thông tư",
+    "order": "STT",
+    "circularsName": "Tên thông tư",
+    "circularsCode": "Mã thông tư",
+    "schoolYearApply": "Năm học áp dụng",
+    "gradeApply": "Khối áp dụng",
+    "link":"Đường dẫn",
+    "releaseDate":"Ngày ban hành",
+    "stillValidated":"Còn hiệu lực",
+    "expired":"Đã hết hạn",
+    "addCirculars":"Thêm thông tư",
+    "updateCirculars":"Cập nhật thông tư",
+    "content":"Nội dung",
+    "enterCircularsName":"Nhập tên thông tư",
+    "enterCircularsCode":"Nhập mã thông tư",
+    "enterLink":"Nhập đường dẫn",
+    "enterContent":"Nhập nội dung",
+    "validators":{
+        "name":{
+            "required":"Bạn chưa nhập tên thông tư",
+            "maxlength":"Tên thông tư không vượt quá 255 ký tự"
+        },
+        "code":{
+            "required":"Bạn chưa nhập mã thông tư",
+            "pattern":"Mã thông tư không hợp lệ",
+            "maxlength":"Mã thông tư không vượt quá 50 ký tự"
+        },
+        "url":{
+            "required":"Bạn chưa nhập đường dẫn",
+            "pattern":"Đường dẫn không hợp lệ"
+        },
+        "dateIssued":{
+            "required":"Bạn chưa chọn ngày phát hành"
+        },
+        "content":{
+            "required":"Bạn chưa nhập nội dung thông tư"
+        }
+    },
+    "circularsContent":"Nội dung thông tư",
+    "circularsDetail":"Chi tiết thông tư"
+}

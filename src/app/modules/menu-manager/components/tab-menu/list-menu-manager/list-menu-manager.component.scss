@@ -1,0 +1,52 @@
+.custom-icon-menu {
+    width: 17px;
+    height: 17px;
+}
+
+.type-menu-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(132, 181, 255, 0.37);
+    border-radius: 8px;
+    width: 150px;
+    height: 30px;
+    font-weight: 700;
+    font-size: 11px;
+    color: #73B2FF;
+}
+
+.type-menu-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(250, 172, 84, 0.49);
+    border-radius: 8px;
+    width: 150px;
+    height: 30px;
+    font-weight: 700;
+    font-size: 11px;
+    color: #F69220;
+}
+
+.link-menu {
+    color: #73B2FF;
+}
+
+.custom-sub-route {
+    color: #73B2FF;
+    cursor: pointer;
+}
+
+.custom-action-update {
+    color: #556EE6;
+    cursor: pointer;
+
+    .custom-action-menu {
+        margin-right: 5px;
+    }
+}
+
+.menu-item-name {
+    color: #50A5F1;
+}

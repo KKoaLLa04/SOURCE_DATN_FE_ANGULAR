@@ -1,0 +1,37 @@
+<ng-container *transloco="let t;">
+  <div class="select-2 cursor-pointer {{ width }} {{ bgColor }} fw-{{fontWeight}} {{ color }} {{ showBorder ? 'border rounded ' + borderColor : '' }}">
+    <ng-container *ngIf="formControlNameInput">
+      <div *ngIf="formGroupInput" [formGroup]="formGroupInput"
+           [class.is-invalid-select-2]="formGroupInput.get(formControlNameInput).invalid && (formGroupInput.get(formControlNameInput).dirty || formGroupInput.get(formControlNameInput).touched)"
+           [class.is-invalid-server-select-2]="validateFormServer?.hasOwnProperty('message')">
+        <nz-select [(ngModel)]="value" (ngModelChange)="changeValue($event)" id="gender" [formControlName]="formControlNameInput" class="form-control so-form-control {{disabled ? 'disabled' : ''}}" nzShowSearch
+           [nzPlaceHolder]="placeholder" [nzAllowClear]="allowClear" [nzDisabled]="disabled">
+          <nz-option *ngFor="let option of options" [nzLabel]="isTranslate ? t(option.label) : option.label" [nzValue]="option.value">
+          </nz-option>
+        </nz-select>
+        <ng-container *ngFor="let validate of validateForm">
+          <app-field-error-display
+            [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+            [errorMsg]="validate.message">
+          </app-field-error-display>
+        </ng-container>
+        <ng-container *ngIf="validateFormServer">
+          <app-field-error-display [errorServer]="validateFormServer"
+                                   [displayErrorServer]="(formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)">
+          </app-field-error-display>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!formControlNameInput">
+      <div [class.is-invalid-select-2]="isShowError">
+        <nz-select class="form-control so-form-control {{disabled ? 'disabled' : ''}}" nzShowSearch [nzAllowClear]="allowClear" [nzDisabled]="disabled"
+        [nzPlaceHolder]="placeholder" [ngModelOptions]="{standalone: true}" [(ngModel)]="value" (ngModelChange)="changeValue($event)">
+          <nz-option *ngFor="let option of options" [nzLabel]="isTranslate ? t(option.label) : option.label" [nzValue]="option.value">
+          </nz-option>
+        </nz-select>
+      </div>
+    </ng-container>
+  </div>
+
+</ng-container>

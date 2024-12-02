@@ -1,0 +1,81 @@
+{
+    "omtUser":"Người dùng OMT",
+    "userList":"Danh sách người dùng",
+    "customer":"Khách hàng",
+    "school":"Trường học",
+    "placeholderSearch":"Nhập tài khoản, email, SĐT",
+    "order":"STT",
+    "fullName":"Tên người dùng",
+    "userCode":"Mã người dùng",
+    "gender":"Giới tính",
+    "role":"Phân quyền",
+    "username":"Tên đăng nhập",
+    "assignPermissionsToUsers":"Gán phân quyền cho người dùng",
+    "userLock":"Khóa người dùng",
+    "locked":"Đã khóa",
+    "userUnlock":"Mở khóa người dùng",
+    "roleHasBeenAssigned":"Phân quyền đã được gán",
+    "addUser":"Thêm người dùng",
+    "updateUser":"Chỉnh sửa người dùng",
+    "activated":"Kích hoạt",
+    "enterNameCodeRole":"Nhập tên, mã phân quyền",
+    "newPassword":"Mật khẩu mới",
+    "confirmPassword":"Xác nhận mật khẩu",
+    "lock":"Khóa",
+    "unlock":"Mở khóa",
+    "validators":{
+        "fullName":{
+            "required":"Bạn chưa nhập tên người dùng",
+            "maxLength":"Tên người dùng không vượt quá 100 kí tự"
+        },
+        "code":{
+            "required":"Bạn chưa nhập mã người dùng",
+            "pattern":"Mã người dùng tối đa 50 kí tự, không chứa khoảng trắng và dấu"
+        },
+        "username":{
+            "required":"Bạn chưa nhập tài khoản",
+            "pattern":"Tài khoản tối đa 50 kí tự, không chứa khoảng trắng và dấu"
+        },
+        "password":{
+            "required":"Bạn chưa nhập mật khẩu",
+            "pattern":"Mật khẩu phải từ 6 đến 50 kí tự, không chứa khoảng trắng và dấu"
+        },
+        "rePassword":{
+            "required":"Bạn chưa nhập lại mật khẩu xác nhận"
+        },
+        "email":{
+            "required":"Bạn chưa nhập email",
+            "pattern":"Email không hợp lệ"
+        },
+        "phone":{
+            "required":"Bạn chưa nhập số điện thoại",
+            "pattern":"Số điện thoại không hợp lệ"
+        }
+    },
+    "placeholder": {
+        "enterPassword": "Nhập mật khẩu",
+        "enterRepassword": "Nhập mật khẩu xác nhận"
+    },
+    "form":{
+        "avatar":"Ảnh đại diện",
+        "chooseRole":"Chọn phân quyền",
+        "and":"và",
+        "otherRole":"phân quyền khác",
+        "name":"Tên",
+        "enterFullname":"Nhập tên người dùng",
+        "code":"Mã",
+        "enterCode":"Nhập mã người dùng",
+        "username":"Tài khoản",
+        "enterUsername":"Nhập tài khoản",
+        "password":"Mật khẩu",
+        "enterPassword":"Nhập mật khẩu",
+        "phone":"SĐT",
+        "enterPhone":"Nhập SĐT",
+        "email":"Email",
+        "enterEmail":"Nhập email",
+        "gender":"Giới tính",
+        "selectGender":"Chọn giới tính",
+        "status":"Trạng thái"
+    },
+    "checkRepassword":"Mật khẩu nhập lại không đúng"
+}

@@ -1,0 +1,25 @@
+<ng-container *transloco="let t">
+<!-- loi validate FE -->
+<div *ngIf="displayError" class="mt-3">
+  <span class="glyphicon glyphicon-remove form-control-feedback fix-error-icon"></span>
+  <span class="sr-only">(error)</span>
+  <div class="error-msg">
+    {{ t(errorMsg) }}
+  </div>
+</div>
+<!-- loi validate FE -->
+<!-- loi validate server -->
+<ng-container *ngIf="!displayError">
+  <div *ngIf="displayErrorServer && errorServer?.message" class="mt-3">
+    <span class="glyphicon glyphicon-remove form-control-feedback fix-error-icon"></span>
+    <span class="sr-only">(error)</span>
+    <ng-container *ngFor="let itemMess of errorServer.message">
+      <div class="error-msg">
+        {{ t(itemMess) }}
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+<!-- loi validate server -->
+
+</ng-container>

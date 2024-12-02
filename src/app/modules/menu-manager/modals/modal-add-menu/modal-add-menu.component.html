@@ -1,0 +1,77 @@
+<ng-container *transloco="let t; scope: 'menu-manager'">
+  <div class="modal-header">
+    <h5 class="title-modal-global">{{dataModal?.titleModal}}</h5>
+    <app-button [otherClass]="'close modal-btn-close'" (onClick)="closeModal()" [text]="'&times;'" [hidden]="!dataModal?.isHiddenBtnClose"></app-button>
+  </div>
+  <div class="modal-body" *ngIf="formGroup">
+    <form [formGroup]="formGroup" class="custom-form-add-menu fs-13 text-color-black">
+      <div class="col-md-12 row mb-6">
+        <div class="col-md-2 lb-form fs-13 fw-700">{{ t('menuManager.menuName') }} <span class="text-danger">*</span>
+        </div>
+        <div class="col-md-10">
+          <app-input [placeholder]="t('menuManager.enterMenuName')" [formControlNameInput]="'name'" [formGroupInput]="formGroup" [validateForm]="validation_messages.name" [validateFormServer]="validationMessagesServer?.name"></app-input>
+        </div>
+      </div>
+      <div class="col-md-12 row mb-6">
+        <div class="col-md-2 lb-form fs-13 fw-700">{{ t('menuManager.menuCode') }} <span class="text-danger">*</span>
+        </div>
+        <div class="col-md-10">
+          <app-input (keyup)="keyupCode()" [placeholder]="t('menuManager.enterMenuCode')" [formControlNameInput]="'code'" [formGroupInput]="formGroup" [validateForm]="validation_messages.code" [validateFormServer]="validationMessagesServer?.code" [disabled]="checkUpdate"></app-input>
+        </div>
+      </div>
+      <div class="col-md-12 row mb-6">
+        <div class="col-md-2 lb-form fs-13 fw-700">{{ t('menuManager.permissionCode') }} <span
+            class="text-danger">*</span></div>
+        <div class="col-md-10">
+          <app-input [placeholder]="t('menuManager.enterPermissionCode')" [formControlNameInput]="'permissionCode'" [formGroupInput]="formGroup" [validateForm]="validation_messages.permissionCode" [validateFormServer]="validationMessagesServer?.permissionCode"></app-input>
+        </div>
+      </div>
+      <div class="col-md-12 row mb-6">
+        <div class="col-md-2 lb-form fs-13 fw-700">{{ t('menuManager.link') }} <span class="text-danger" *ngIf="formGroup.get('menuType').value != true">*</span></div>
+        <div class="col-md-10">
+          <app-input [placeholder]="t('menuManager.enterMenuLink')" [formControlNameInput]="'url'" [formGroupInput]="formGroup" [validateForm]="validation_messages.url" [validateFormServer]="validationMessagesServer?.url"></app-input>
+        </div>
+      </div>
+      <div class="col-md-12 row mb-6">
+        <div class="col-md-2 lb-form fs-13 fw-700">{{ t('menuManager.icon') }} <span class="text-danger">*</span></div>
+        <div class="col-md-10">
+          <span (click)="clickChooseIcon()" nz-button nz-popover nzPopoverTrigger="click"
+            [nzPopoverVisible]="checkShowChooseIcon" [nzPopoverContent]="contentTemplateChooseIcon"
+            nzPopoverPlacement="bottomRight" class="form-control so-form-control icon py-4"
+            [class.is-invalid]="formGroup.get('icon').invalid && (formGroup.get('icon').dirty || formGroup.get('icon').touched)"
+            [class.is-invalid-server]="validationMessagesServer?.icon.hasOwnProperty('message') && formGroup.get('icon').invalid"><img
+              class="icon-menu-item" src="{{srcImage}}" alt=""></span>
+          <div class="text-danger mt-2" *ngFor="let err of validation_messages.icon">
+            <app-field-error-display
+              [displayError]="formGroup.get('icon').hasError(err.type) && (formGroup.get('icon').dirty || formGroup.get('icon').touched)"
+              errorMsg="{{ t(err.message) }}">
+            </app-field-error-display>
+          </div>
+          <div class="text-danger mt-2" *ngIf="validationMessagesServer?.icon">
+            <app-field-error-display [errorServer]="validationMessagesServer?.icon"
+              [displayErrorServer]="!(formGroup.get('icon').dirty || formGroup.get('icon').touched)">
+            </app-field-error-display>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 row">
+        <div class="col-md-2 lb-form fs-13 fw-700">{{ t('status') }}</div>
+        <div class="col-md-10 row">
+          <label class="text-color-black fw-600 col-md-3" nz-checkbox formControlName="menuStatus">{{ t('activated')
+            }}</label>
+          <label class="text-color-black fw-600 col-md-3" nz-checkbox formControlName="menuType"
+            (nzCheckedChange)="checkChangeMenuType($event)">{{ t('menuManager.category') }}</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-70px'" [text]="t(dataModal?.btnCancel)" [otherClass]="'so-btn so-btn-cancel'" (onClick)="closeModal()" [color]="'#495057'" [backgroundColor]="'#F4F5F9'" [fontWeight]="'500'"></app-button>
+    <app-button [width]="'w-70px'" [text]="t(dataModal?.btnAccept)" (onClick)="submitForm()"></app-button>	
+  </div>
+</ng-container>
+
+<ng-template #contentTemplateChooseIcon>
+  <app-choose-icon style="z-index: 1060 !important;" [srcImage]="srcImage" (checkChooseIcon)="checkChooseIcon($event)">
+  </app-choose-icon>
+</ng-template>

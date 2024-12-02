@@ -1,0 +1,58 @@
+<ng-container *transloco="let t;">
+  <!-- CHAT -->
+  <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+    <!-- begin::Menu wrapper -->
+    <div class="btn btn-icon btn-active-light-primary position-relative" [ngClass]="toolbarButtonHeightClass"
+         id="kt_drawer_chat_toggle">
+    <span class="svg-icon"
+          [ngClass]="toolbarButtonIconSizeClass"><img src="{{iconSvg.messenger1_icon}}" alt="" class="svg-icon filter-color-azure"></span>
+
+    </div>
+    <!-- end::Menu wrapper -->
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+    <!-- begin::Menu wrapper -->
+    <div class="btn btn-icon btn-active-light-primary position-relative" [ngClass]="toolbarButtonHeightClass"
+         id="kt_drawer_chat_toggle">
+    <span class="svg-icon"
+          [ngClass]="toolbarButtonIconSizeClass"><img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure"></span>
+
+    </div>
+    <!-- end::Menu wrapper -->
+  </div>
+
+  <!-- LANGUAGE -->
+  <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+    <img src="assets/images/png/flag-vi.png" alt="" class="w-25px h-19px border-radius-4px">
+  </div>
+
+  <!-- Hello User -->
+  <div class="d-flex align-items-center me-2" [ngClass]="toolbarButtonMarginClass">
+    <span class="fw-600 text-color-black fs-14 me-2">{{t('sayHi')}}! </span>
+    <span class="fw-700 text-color-black fs-14">{{user?.fullName}}</span>
+  </div>
+
+
+  <!-- begin::User -->
+  <div class="d-flex align-items-center" id="kt_header_user_menu_toggle">
+    <app-user-inner></app-user-inner>
+  </div>
+  <!-- end::User -->
+
+  <ng-container *ngIf="headerLeft === 'menu'">
+    <div class="d-flex align-items-center d-lg-none ms-2 me-n3" title="Show header menu">
+      <div class="
+        btn btn-icon btn-active-light-primary
+        w-30px
+        h-30px
+        w-md-40px
+        h-md-40px
+      " id="kt_header_menu_mobile_toggle">
+        <span class="svg-icon svg-icon-1"><img src="assets/media/icons/duotune/text/txt001.svg" alt=""></span>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>

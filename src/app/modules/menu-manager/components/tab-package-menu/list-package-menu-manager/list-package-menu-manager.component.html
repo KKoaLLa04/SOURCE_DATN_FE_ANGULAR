@@ -1,0 +1,74 @@
+<div class="card card-flush shadow-none p-0 h-full mt-4" *transloco="let t; scope: 'menu-manager'">
+  <ng-container *ngIf="!checkAddMenuPackage && !checkUpdateMenuPackage && !checkDetailMenuPackage">
+    <div class="card-header p-0">
+      <h3 class="card-title fs-18 fw-700"></h3>
+      <div class="card-toolbar">
+        <div class="filter d-flex flex-wrap align-items-center">
+          <div class="me-3 mb-3">
+              <app-input-search [width]="'w-250px'" [placeholder]="t('menuManager.enterNameCodeMenuPackage')" (valueChange)="getDataMenuPackage($event)"></app-input-search>
+          </div>
+          <ng-template ngxPermissionsOnly="{{ permission.omt_manager }}">
+            <app-button [otherClass]="'so-btn so-btn-primary so-btn-primary--small mb-3'" (onClick)="openModalAddMenu()" [startIconName]="'assets/images/svg/add.svg'" [text]="t('btnAction.add')"></app-button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="card-body py-5 p-0 pt-0">
+      <div class="table-responsive">
+        <table class="table table-row-bordered table-row-gray-300">
+          <caption></caption>
+          <thead>
+            <tr class="fs-14 fw-700 text-color-black">
+              <th class="fs-14 fw-700 color-thhead {{ item.className }}" *ngFor="let item of columns">{{ item.name }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="dataMenuPackage && dataMenuPackage.length > 0">
+              <tr *ngFor="let item of dataMenuPackage;let i = index;" class="fs-13 fw-600 text-color-black">
+                <td class="text-center">{{ i+1 }}</td>
+                <td class="w-20"><span class="custom-name-package-menu fs-11 fw-700"
+                    (click)="viewDetailMenuPackageManager(item)">{{ item.name }}</span></td>
+                <td class="w-20" style="width: 20%;">{{ item.code }}</td>
+                <td class="w-40 text-color-azure" style="width: 45%;">{{
+                  getLayoutAppply(item.layouts) }}</td>
+                <td class="text-center w-15">
+                  <div class="d-flex justify-content-center">
+                    <app-button [color]="'text-color-black'" [backgroundColor]="'bg-color-white'" [text]="t('btnAction.update')" [startIconName]="'assets/images/svg/write.svg'" (onClick)="updateMenuPackage(item)"></app-button>
+                    <app-button class="ms-3" [backgroundColor]="'bg-color-white'" [color]="'text-color-black'" [text]="t('btnAction.delete')" [startIconName]="'assets/images/svg/icon-delete.svg'" (onClick)="deleteMenuPackage(item)"></app-button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <tr *ngIf="dataMenuPackage?.length == 0 || !dataMenuPackage">
+              <td class="text-no-data" colspan="5">{{t('noData')}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="checkAddMenuPackage">
+    <div class="card-body py-5 p-0">
+      <app-cerate-package-menu-manager class="h-100" (checkCreatedMenuPackage)="checkCreatedMenuPackage($event)">
+      </app-cerate-package-menu-manager>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="checkUpdateMenuPackage">
+    <div class="card-body py-5 p-0">
+      <app-update-package-menu-manager class="h-100" (checkEditMenuPackage)="checkEditMenuPackage($event)"
+        [menuPackageIdUpdate]="menuPackageIdUpdate">
+      </app-update-package-menu-manager>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="checkDetailMenuPackage">
+    <div class="card-body py-5 p-0">
+      <app-detail-menu-package-manager class="h-100" (checkCloseDetailMenuPackage)="checkCloseDetailMenuPackage($event)"
+        [menuPackageManagerId]="menuPackageManagerId">
+      </app-detail-menu-package-manager>
+    </div>
+  </ng-container>
+</div>
+<ng-template #contentTemplateSubRoute>
+  <app-show-detail-sub-route [dataSubRoute]="dataSubRoute"></app-show-detail-sub-route>
+</ng-template>

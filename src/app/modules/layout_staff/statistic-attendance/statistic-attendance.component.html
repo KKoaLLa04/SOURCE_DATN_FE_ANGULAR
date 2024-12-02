@@ -1,0 +1,45 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Thống kê điểm danh</h3>
+
+  <div class="d-flex justify-content-between">
+    <p>Số lượng: 23 lớp</p>
+    <div class="d-flex">
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-input-search [width]="'w-250px'"></app-input-search>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Thông tin lớp học</th>
+          <th>Trạng thái</th>
+          <th>Giáo viên chủ nhiệm</th>
+          <th>Khối</th>
+          <th>Học sinh</th>
+          <th class="w-10 text-center">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList, let i = index">
+          <td>{{i+1}}</td>
+          <td>{{item.class_name}}</td>
+          <td>{{item.status_class}}</td>
+          <td>{{item.teacher_name}}</td>
+          <td>{{item.grade_name}}</td>
+          <td>{{item.total_students}}</td>
+          <td>
+            <app-button
+            [text]="'Xem thống kê'"
+            [backgroundColor]="'bg-color-violet'"
+            [color]="'text-color-white'"
+            ></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

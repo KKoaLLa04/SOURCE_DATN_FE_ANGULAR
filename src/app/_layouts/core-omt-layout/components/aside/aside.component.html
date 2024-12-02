@@ -1,0 +1,163 @@
+<!--&lt;!&ndash; begin::Brand &ndash;&gt;-->
+<!--<div class="aside-logo flex-column-auto" id="kt_aside_logo">-->
+<!--  &lt;!&ndash; begin::Logo &ndash;&gt;-->
+<!--  <ng-container *ngIf="asideTheme === 'dark'">-->
+<!--    <a routerLink="/">-->
+<!--      <img-->
+<!--        alt="Logo"-->
+<!--        class="h-38px logo"-->
+<!--        src="./assets/media/logos/omt.png"-->
+<!--      />-->
+<!--    </a>-->
+<!--  </ng-container>-->
+
+<!--  <ng-container *ngIf="asideTheme === 'light'">-->
+<!--    <a routerLink="/">-->
+<!--      <img-->
+<!--        alt="Logo"-->
+<!--        class="h-38px logo"-->
+<!--        src="./assets/media/logos/omt.png"-->
+<!--      />-->
+<!--    </a>-->
+<!--  </ng-container>-->
+
+<!--  &lt;!&ndash; end::Logo &ndash;&gt;-->
+
+<!--  &lt;!&ndash; begin::Aside toggle &ndash;&gt;-->
+<!--  <ng-container *ngIf="asideMinimize">-->
+<!--    <div-->
+<!--      id="kt_aside_toggle"-->
+<!--      class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"-->
+<!--      data-kt-toggle="true"-->
+<!--      data-kt-toggle-state="active"-->
+<!--      data-kt-toggle-target="body"-->
+<!--      data-kt-toggle-name="aside-minimize"-->
+<!--    >-->
+<!--      <span class="svg-icon svg-icon-1 rotate-180"-->
+<!--      ><img class="icon-svg-color" src="assets/media/icons/duotune/arrows/arr079.svg" alt=""></span>-->
+<!--    </div>-->
+<!--  </ng-container>-->
+<!--  &lt;!&ndash; end::Aside toggler &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; end::Brand  &ndash;&gt;-->
+
+<!--&lt;!&ndash; begin::Aside menu &ndash;&gt;-->
+<!--<div class="aside-menu flex-column-fluid">-->
+<!--  <div-->
+<!--    #ktAsideScroll-->
+<!--    id="kt_aside_menu_wrapper"-->
+<!--    class="hover-scroll-overlay-y"-->
+<!--    data-kt-scroll="true"-->
+<!--    data-kt-scroll-activate="{default: false, lg: true}"-->
+<!--    data-kt-scroll-height="auto"-->
+<!--    data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer"-->
+<!--    data-kt-scroll-wrappers="#kt_aside_menu"-->
+<!--    data-kt-scroll-offset="0"-->
+<!--  >-->
+<!--    <div-->
+<!--      id="#kt_aside_menu"-->
+<!--      data-kt-menu="true"-->
+<!--      class="-->
+<!--        menu-->
+<!--        menu-column-->
+<!--        menu-title-gray-800-->
+<!--        menu-state-title-primary-->
+<!--        menu-state-icon-primary-->
+<!--        menu-state-bullet-primary-->
+<!--        menu-arrow-gray-500-->
+<!--      "-->
+<!--    >-->
+<!--      <app-aside-menu id="asideMenu"></app-aside-menu>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end::Aside menu &ndash;&gt;-->
+
+<!--&lt;!&ndash; begin::Footer &ndash;&gt;-->
+
+<!--&lt;!&ndash; end::Footer &ndash;&gt;-->
+
+
+
+
+
+
+
+
+<!-- begin::Brand -->
+<div class="aside-logo flex-column-auto" id="kt_aside_logo">
+  <!-- begin::Logo -->
+  <ng-container *ngIf="asideTheme === 'dark'">
+    <a class="image-logo-link" routerLink="/">
+      <img
+        alt="Logo"
+        class="h-38px logo"
+        src="/assets/images/png/auth/KO.png"
+      />
+    </a>
+  </ng-container>
+
+  <ng-container *ngIf="asideTheme === 'light'">
+    <a class="image-logo-link" routerLink="/">
+      <img
+        alt="Logo"
+        class="h-38px logo"
+        src="/assets/images/png/auth/KO.png"
+      />
+    </a>
+  </ng-container>
+
+  <!-- end::Logo -->
+
+  <!-- begin::Aside toggle -->
+  <ng-container *ngIf="asideMinimize">
+    <div
+      id="kt_aside_toggle"
+      class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle staff-aside-toggle bg-color-azure"
+      data-kt-toggle="true"
+      data-kt-toggle-state="active"
+      data-kt-toggle-target="body"
+      data-kt-toggle-name="aside-minimize"
+    >
+      <span class="svg-icon svg-icon-1 svg-staff-icon rotate-180"
+      ><img class="icon-svg-color " src="assets/media/icons/duotune/arrows/arr079.svg" alt=""></span>
+    </div>
+  </ng-container>
+  <!-- end::Aside toggler -->
+</div>
+<!-- end::Brand  -->
+
+<!-- begin::Aside menu -->
+<div class="aside-menu flex-column-fluid">
+  <div
+    #ktAsideScroll
+    id="kt_aside_menu_wrapper"
+    class="hover-scroll-overlay-y"
+    data-kt-scroll="true"
+    data-kt-scroll-activate="{default: false, lg: true}"
+    data-kt-scroll-height="auto"
+    data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer"
+    data-kt-scroll-wrappers="#kt_aside_menu"
+    data-kt-scroll-offset="0"
+  >
+    <div
+      id="#kt_aside_menu"
+      data-kt-menu="true"
+      class="
+        menu
+        menu-column
+        menu-title-gray-800
+        menu-state-icon-primary
+        menu-state-bullet-primary
+        menu-arrow-gray-500
+      "
+    >
+      <app-aside-menu id="asideMenu"></app-aside-menu>
+    </div>
+  </div>
+</div>
+<!-- end::Aside menu -->
+
+<!-- begin::Footer -->
+
+<!-- end::Footer -->

@@ -1,0 +1,90 @@
+{
+  "title": {
+    "moetManagement": "Quản lý CSDL",
+    "addDepartment": "Thêm mới sở GD&ĐT",
+    "editDepartment": "Chỉnh sửa sở GD&ĐT",
+    "addDivision": "Thêm mới phòng GD&ĐT",
+    "editDivision": "Chỉnh sửa phòng GD&ĐT",
+    "addAccount": "Thêm mới tài khoản quản lý",
+    "editAccount": "Chỉnh sửa tài khoản quản lý",
+    "addSchool": "Thêm mới trường học",
+    "editSchool": "Chỉnh sửa trường học"
+  },
+  "unit": "Đơn vị",
+  "managementAccount": "Tài khoản quản lý",
+  "code": "Mã Moet",
+  "departmentName": "Tên CSDL",
+  "division": "Phòng",
+  "division1": "Phòng GD&ĐT",
+  "school": "Trường",
+  "school1": "Trường học",
+  "divisionName": "Tên phòng",
+  "thpt": "THPT",
+  "thcs": "THCS",
+  "th": "TH",
+  "listDivision": "Danh sách phòng GD&ĐT",
+  "listSchool1": "Danh sách trường thuộc sở GD&ĐT",
+  "listSchool2": "Danh sách trường thuộc phòng GD&ĐT",
+  "fullname": "Họ và tên",
+  "account": "Tài khoản",
+  "email": "Email",
+  "phone": "SĐT",
+  "educationalInstitution": "CSGD",
+  "address": "Địa chỉ",
+  "level": "Cấp học",
+
+  "form": {
+    "name": "Tên",
+    "code": "Mã",
+    "indexOrder": "Thứ tự",
+    "active": "Kích hoạt",
+    "avatar": "Ảnh đại diện",
+    "password": "Mật khẩu",
+    "th": "Tiểu học",
+    "thcs": "Trung học cơ sở",
+    "thpt": "Trung học phổ thông"
+  },
+
+
+  "message": {
+    "name": {
+      "required": "Tên không được để trống",
+      "pattern": "Tên không đúng định dạng"
+    },
+    "code": {
+      "required": "Mã khách hàng không được để trống",
+      "pattern": "Mã khách hàng không đúng định dạng"
+    },
+    "indexOrder": {
+      "required": "Thứ tự không được để trống",
+      "pattern": "Thứ tự phải là số nguyên dương"
+    },
+    "phone": {
+      "required": "Số điện thoại không được để trống",
+      "pattern": "Số điện thoại không đúng định dạng"
+    },
+    "email": {
+      "required": "Email không được để trống",
+      "pattern": "Email không đúng định dạng"
+    },
+    "address": {
+      "required": "Địa chỉ không được để trống"
+    },
+    "fullname": {
+      "required": "Họ và tên không được để trống",
+      "pattern": "Họ và tên không đúng định dạng"
+    },
+    "account": {
+      "required": "Tài khoản không được để trống",
+      "pattern": "Tài khoản không đúng định dạng"
+    },
+    "password": {
+      "required": "Mật khẩu không được để trống",
+      "pattern": "Mật khẩu không đúng định dạng"
+    }
+  },
+  "notFoundContent": "Không có dữ liệu",
+  "so": "Sở",
+  "phong": "Phòng",
+  "mamNon": "Mầm non"
+}

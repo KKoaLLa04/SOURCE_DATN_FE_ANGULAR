@@ -1,0 +1,81 @@
+{
+    "omtUser":"OMT user",
+    "userList":"User list",
+    "customer":"Customer",
+    "school":"School",
+    "placeholderSearch":"Enter account, email, phone",
+    "order":"Order",
+    "fullName":"Fullname",
+    "userCode":"User code",
+    "gender":"Gender",
+    "role":"Role",
+    "username":"Username",
+    "assignPermissionsToUsers":"Assign role to users",
+    "userLock":"User Lock",
+    "locked":"Locked",
+    "userUnlock":"User Unlock",
+    "roleHasBeenAssigned":"Role has been assigned",
+    "addUser":"Add user",
+    "updateUser":"Update user",
+    "activated":"Activated",
+    "enterNameCodeRole":"Enter name, role code",
+    "newPassword":"New password",
+    "confirmPassword":"Confirm password",
+    "lock":"Lock",
+    "unlock":"Unlock",
+    "validators":{
+        "fullName":{
+            "required":"fullName is required",
+            "maxLength":"fullName must not exceed 100 characters"
+        },
+        "code":{
+            "required":"code is required",
+            "pattern":"code code with up to 50 characters and no spaces"
+        },
+        "username":{
+            "required":"username is required",
+            "pattern":"username code with up to 50 characters and no spaces"
+        },
+        "password":{
+            "required":"password is required",
+            "pattern":"Password must be between 6 and 50 characters and contain no spaces"
+        },
+        "rePassword":{
+            "required":"Repassword is required"
+        },
+        "email":{
+            "required":"email is required",
+            "pattern":"email invalid"
+        },
+        "phone":{
+            "required":"phone is required",
+            "pattern":"phone invalid"
+        }
+    },
+    "placeholder":{
+        "enterPassword":"Enter password",
+        "enterRepassword":"Enter repassword"
+    },
+    "form":{
+        "avatar":"Avatar",
+        "chooseRole":"Choose role",
+        "and":"and",
+        "otherRole":"other role",
+        "name":"Fullname",
+        "enterFullname":"Enter fullname",
+        "code":"Code",
+        "enterCode":"Enter code",
+        "username":"Username",
+        "enterUsername":"Enter username",
+        "password":"Password",
+        "enterPassword":"Enter password",
+        "phone":"Phone",
+        "enterPhone":"Enter phone",
+        "email":"Email",
+        "enterEmail":"Enter email",
+        "gender":"Gender",
+        "selectGender":"Select gender",
+        "status":"Status"
+    },
+    "checkRepassword":"Password incorrect, please try again"
+}

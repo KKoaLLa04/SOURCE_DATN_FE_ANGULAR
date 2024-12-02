@@ -1,0 +1,37 @@
+<div class="card so-tab-horizontal shadow-sm h-100" *transloco="let t; scope: 'menu-manager'">
+  <div class="card-header card-header-stretch">
+    <h3 class="card-title fs-18 fw-700">{{ t('menuManager.managerCustomerMenu') }}</h3>
+    <div class="card-toolbar">
+      <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
+        <li class="nav-item">
+          <a class="nav-link fs-14 fw-600 {{ tabActive == 'tab1' ? 'active' : '' }}" data-bs-toggle="tab"
+            (click)="changeTab('tab1')">
+            <img class="me-4" src="assets/images/svg/list_menu_manager.svg" alt=""> {{
+            t('menuManager.menuList') }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-14 fw-600 {{ tabActive == 'tab2' ? 'active' : '' }}" data-bs-toggle="tab"
+            (click)="changeTab('tab2')">
+            <img class="me-4" src="assets/images/svg/package_menu.svg" alt=""> {{ t('menuManager.menuPackage')
+            }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body pt-0 pb-5">
+    <div class="tab-content h-100" id="myTabContent">
+      <ng-container *ngIf="tabActive == 'tab1'">
+        <div class="h-100 tab-pane fade {{ tabActive == 'tab1' ? 'show active' : '' }}" role="tabpanel">
+          <app-list-menu-manager></app-list-menu-manager>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="tabActive == 'tab2'">
+        <div class="h-100 tab-pane fade {{ tabActive == 'tab2' ? 'show active' : '' }}" role="tabpanel">
+          <app-list-package-menu-manager></app-list-package-menu-manager>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

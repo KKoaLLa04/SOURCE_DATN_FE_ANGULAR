@@ -1,0 +1,90 @@
+{
+  "title": {
+    "moetManagement": "Moet management",
+    "addDepartment": "Add new Department of Education and Training",
+    "editDepartment": "Edit Department of Education and Training",
+    "addDivision": "Add new Division of Education and Training",
+    "editDivision": "Edit Division of Education and Training",
+    "addAccount": "Add new account management",
+    "editAccount": "Edit account management",
+    "addSchool": "Add new school",
+    "editSchool": "Edit school"
+
+  },
+  "unit": "unit",
+  "managementAccount": "Management account",
+  "code": "Moet code",
+  "departmentName": "Moet name",
+  "division": "Division",
+  "division1": "Division",
+  "school": "School",
+  "school1": "School",
+  "divisionName": "Division name",
+  "thpt": "High school",
+  "thcs": "Secondary school",
+  "th": "Primary school",
+  "listDivision": "List Division of Education and Training",
+  "listSchool1": "List School under the Department of Education and Training",
+  "listSchool2": "List School under the Division of Education and Training",
+  "fullname": "Fullname",
+  "account": "Account",
+  "email": "Email",
+  "phone": "Phone",
+  "educationalInstitution": "Educational institution",
+  "address": "Address",
+  "level": "School level",
+
+  "form": {
+    "name": "Name",
+    "code": "Code",
+    "indexOrder": "Index order",
+    "active": "Active",
+    "avatar": "Avatar",
+    "password": "Password",
+    "th": "Primary school",
+    "thcs": "Secondary school",
+    "thpt": "High school"
+  },
+
+  "message": {
+    "name": {
+      "required": "Name required",
+      "pattern": "Name is not format"
+    },
+    "code": {
+      "required": "Code required",
+      "pattern": "Code is not format"
+    },
+    "indexOrder": {
+      "required": "Index order required",
+      "pattern": "Index order must be a positive integer"
+    },
+    "phone": {
+      "required": "Phone required",
+      "pattern": "Phone is not format"
+    },
+    "email": {
+      "required": "Email required",
+      "pattern": "Email is not format"
+    },
+    "address": {
+      "required": "Address required"
+    },
+    "fullname": {
+      "required": "Fullname required",
+      "pattern": "Fullname is not format"
+    },
+    "account": {
+      "required": "Account required",
+      "pattern": "Account is not format"
+    },
+    "password": {
+      "required": "Password required",
+      "pattern": "Password is not format"
+    }
+  },
+  "notFoundContent": "No data",
+  "so": "Department",
+  "phong": "Division",
+  "mamNon": "Preschool"
+}

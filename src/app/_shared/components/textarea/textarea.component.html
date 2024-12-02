@@ -1,0 +1,20 @@
+<ng-container *ngIf="formControlNameInput">
+  <div *ngIf="formGroupInput" [formGroup]="formGroupInput">
+    <textarea [formControlName]="formControlNameInput" class="form-control so-textarea {{fontSize}} {{ minHeight }} {{ showBorder ? '' : 'border-0' }}" [ngStyle]="{'background-color':bgColor,'color':color,'font-weight':fontWeight}"
+      [readOnly]="disabled" (change)="onChange($event)" [placeholder]="placeholder"
+      [class.is-invalid]="formGroupInput.get(formControlNameInput).invalid && (formGroupInput.get(formControlNameInput).dirty || formGroupInput.get(formControlNameInput).touched)">{{ value }}</textarea>
+    <ng-container *ngFor="let validate of validateForm">
+      <app-field-error-display
+        [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+        [errorMsg]="validate.message">
+      </app-field-error-display>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!formControlNameInput">
+  <textarea [maxLength]="maxLength" class="form-control so-textarea {{fontSize}} {{ minHeight }} {{ showBorder ? '' : 'border-0' }}" [ngStyle]="{'background-color':bgColor,'color':color,'font-weight':fontWeight}" (keyup)="onChange($event)" [readOnly]="disabled"
+    [placeholder]="placeholder" [value]="value"></textarea>
+</ng-container>
+
+

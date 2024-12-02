@@ -1,0 +1,32 @@
+<ng-container *transloco="let t;">
+  <div class="modal-header bg-color-white">
+    <h5 class="title-modal-global">{{t(dataModal?.titleModal)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)" name="icon-close"
+    [hidden]="dataModal?.isHiddenBtnClose">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-color-white">
+    <div class="d-flex align-items-center">
+      <div class="content-left">
+        <img src="assets/images/png/bg-confirm-delete.png" alt="">
+      </div>
+      <div class="content-right d-flex flex-column h-100 justify-content-between">
+        <div>
+          <p class="content-header">{{t('warmingConfirm1')}}</p>
+          <p class="content-desc fw-600">{{t('warmingConfirm2')}}</p>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mt-5 pt-4">
+          <button type="button" class="so-btn so-btn-cancel me-5 bg-color-white-smoke" data-dismiss="modal" name="btn-accept" (click)="closeModal(false)">{{t(dataModal?.btnCancel)}}</button>
+          <button type="button" class="so-btn so-btn-danger" name="btn-cancel" (click)="submit()">{{t(dataModal?.btnAccept)}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div class="spinner" *ngIf="isLoading">
+  <app-loading></app-loading>
+</div>
+
+

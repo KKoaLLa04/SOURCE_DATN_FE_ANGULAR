@@ -1,0 +1,18 @@
+{
+  "managerGrade": "Quản lý khối",
+  "nameGrade": "Tên khối",
+  "codeGrade": "Mã khối",
+  "levelApply": "Cấp học áp dụng",
+  "search": "Tìm kiếm",
+  "titleDialogAddGrade": "Thêm khối",
+  "titleDialogUpdateGrade": "Cập nhật khối",
+  "enterNameGrade": "Nhập tên khối",
+  "requiredName": "Tên khối không được bỏ trống",
+  "maxLengthName": "Tên khối tối đa 255 kí tự",
+  "requiredCode": "Mã khối không được bỏ trống",
+  "maxLengthCode": "Mã khối tối đa 50 kí tự",
+  "applyFor": "Áp dụng cho",
+  "titleDialogDeleteGrade": "Xóa khối",
+  "lock":"Chưa kích hoạt",
+  "patternGradeName": "Tên khối không được có ký tự đặc biệt"
+}

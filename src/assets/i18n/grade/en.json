@@ -1,0 +1,18 @@
+{
+  "managerGrade": "Manager grades",
+  "nameGrade": "Name grade",
+  "codeGrade": "Code grade",
+  "levelApply": "Applicable training level",
+  "search": "Search",
+  "titleDialogAddGrade": "Add grade",
+  "titleDialogUpdateGrade": "Update grade",
+  "enterNameGrade": "Enter name grade",
+  "requiredName": "Name grade cannot be left blank",
+  "maxLengthName": "Name grade up to 255 characters",
+  "requiredCode": "Code grade cannot be left blank",
+  "maxLengthCode": "Code grade up to 50 characters",
+  "applyFor": "Apply for",
+  "titleDialogDeleteGrade": "Delete grade",
+  "lock":"Lock",
+  "patternGradeName": "Grade's name cannot contain special characters"
+}

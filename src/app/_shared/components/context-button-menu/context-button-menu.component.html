@@ -1,0 +1,25 @@
+<button class="btn btn-sm btn-flex btn-center {{sizeButton}} {{fontWeight}} {{width}} {{height}} {{ showBorder ? 'border rounded border-color-cadet-grey' : 'border-0' }}" [matMenuTriggerFor]="menu" [ngStyle]="{'font-size':sizeText,'background-color':backgroundColor,'color':color}">
+  <ng-container *ngIf="startIconName">
+    <img [src]="startIconName" [ngClass]="'me-3'" alt="" [ngStyle]="{'filter':filterIcon}">
+  </ng-container>
+  {{ text }}
+  <ng-container *ngIf="endIconName">
+    <img [src]="endIconName" [ngClass]="'ms-3'" alt="" [ngStyle]="{'filter':filterIcon}">
+  </ng-container>
+</button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let item of option">
+    <ng-template ngxPermissionsOnly="{{item.permission}}">
+      <div class="menu-item px-3" (click)="handleClickOption($event, item)" mat-menu-item *ngIf="!item.hide">
+        <a href="javascript:;" class="menu-link px-3 {{ item?.borderTop == '1' ? 'border-top' : '' }}">
+          <ng-container *ngIf="item.svgIcon">
+            <span class="context-menu-box-icon me-3">
+              <img class="ml-1px {{ item?.danger == '1' ? 'icon-danger' : '' }}" [src]="item.svgIcon" alt="">
+            </span>
+          </ng-container>
+          <span class="fs-13 fw-600 context-menu-content" [innerHTML]="item.label"></span>
+        </a>
+      </div>
+    </ng-template>
+  </ng-container>
+</mat-menu>

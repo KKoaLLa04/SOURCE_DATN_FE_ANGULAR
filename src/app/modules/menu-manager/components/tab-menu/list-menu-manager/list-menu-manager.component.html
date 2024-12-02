@@ -1,0 +1,58 @@
+<div class="card card-flush shadow-none p-0 h-full mt-4" *transloco="let t; scope: 'menu-manager'">
+  <div class="card-header p-0">
+    <h3 class="card-title fs-18 fw-700"></h3>
+    <div class="card-toolbar">
+      <div class="filter d-flex flex-wrap align-items-center">
+        <app-select class="me-3 mb-3" [options]="selectTypeArr" (changeSelect)="filterTypeMenu($event)"></app-select>
+        <app-select class="me-3 mb-3" [options]="selectStatusArr" (changeSelect)="filterStatusMenu($event)"></app-select>
+        <div class="me-3 mb-3">
+          <app-input-search [width]="'w-250px'" [placeholder]="t('menuManager.enterNameCodeMenu')" (valueChange)="searchFilter($event)"></app-input-search>
+        </div>
+        <ng-template ngxPermissionsOnly="{{ permission.menu_manager }}">
+          <app-button [otherClass]="'so-btn so-btn-primary so-btn-primary--small mb-3'" (onClick)="openModalAddMenu()" [startIconName]="'assets/images/svg/add.svg'" [text]="t('menuManager.addMenu')"></app-button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="card-body py-5 p-0 pt-0">
+    <div class="table-responsive">
+      <table class="table table-row-bordered table-row-gray-300">
+        <caption></caption>
+        <thead>
+          <tr class="fs-14 fw-700 text-color-black">
+            <th class="fs-14 fw-700 {{ item.className }}" *ngFor="let item of columns">{{ item.name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="dataSourceMenuItem && dataSourceMenuItem.length > 0">
+            <tr *ngFor="let item of dataSourceMenuItem;let i = index" class="fs-13 fw-600 text-color-black">
+              <td class="w-4 text-center">{{(pageIndex-1)*pageSize + i + 1}}</td>
+              <td class="text-center w-4">
+                <img class="custom-icon-menu mb-2" src="{{ item.icon }}" alt="">
+              </td>
+              <td class="fs-13 fw-700 text-color-azure w-17 ps-10">{{ item.name }}</td>
+              <td class="w-15 fw-600">{{ item.code }}</td>
+              <td class="fs-13 w-15"><span class="type-menu-{{item.menuType}}">{{ getTypeMenu(item.menuType) }}</span></td>
+              <td class="fs-13 text-color-azure w-15">{{ item.url }}</td>
+              <td class="fs-13 text-center w-10">
+                <span class="badge so-badge {{ item.status == 1 ? 'so-badge--success badge-success' : 'so-badge--danger badge-danger' }}">{{ getStatusMenu(item.status) }}</span>
+              </td>
+              <td class="text-center w-15">
+                <div class="d-flex justify-content-center">
+                  <app-button [color]="'text-color-black'" [backgroundColor]="'bg-color-white'" [text]="t('btnAction.update')" [startIconName]="'assets/images/svg/write.svg'" (onClick)="openModalUpdateMenu(item)"></app-button>
+                  <app-button *ngIf="item.isDelete == 1" class="ms-3" [backgroundColor]="'bg-color-white'" [color]="'text-color-black'" [text]="t('btnAction.delete')" [startIconName]="'assets/images/svg/icon-delete.svg'" (onClick)="delete(item.id)"></app-button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="dataSourceMenuItem?.length == 0 || !dataSourceMenuItem">
+            <td class="text-no-data" colspan="8">{{t('noData')}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-pagination *ngIf="collectionSize > sizeOption[0]" [pageSize]="pageSize" [pageIndex]="pageIndex"
+      [collectionSize]="collectionSize" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
+  </div>
+</div>

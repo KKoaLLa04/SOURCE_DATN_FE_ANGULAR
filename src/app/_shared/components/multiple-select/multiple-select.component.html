@@ -1,0 +1,34 @@
+<div class="multiple-select-2" *transloco="let t;">
+  <ng-container *ngIf="formControlNameInput">
+    <div *ngIf="formGroupInput" [formGroup]="formGroupInput"
+      [class.is-invalid-select-2]="formGroupInput.get(formControlNameInput).invalid && (formGroupInput.get(formControlNameInput).dirty || formGroupInput.get(formControlNameInput).touched)">
+      <nz-select [formControlName]="formControlNameInput" class="w-100 so-form-control so-select" [nzMaxTagCount]="maxTagCount" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple"
+        nzPlaceHolder="{{ t(placeholder) }}" [(ngModel)]="listOfSelectedValue" (ngModelChange)="changeMultipleSelect($event)">
+        <nz-option *ngFor="let item of options , let i = index" [nzLabel]="item.label"
+          [nzValue]="item.value"></nz-option>
+      </nz-select>
+      <ng-template #tagPlaceHolder let-selectedList>{{ t('and') }} {{ selectedList.length }} {{ t('moreSelected') }}</ng-template>
+      <ng-container *ngFor="let validate of validateForm">
+        <app-field-error-display
+          [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+          [errorMsg]="validate.message">
+        </app-field-error-display>
+      </ng-container>
+      <ng-container *ngIf="validateFormServer">
+        <app-field-error-display [errorServer]="validateFormServer"
+                                 [displayErrorServer]="(formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)">
+        </app-field-error-display>
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!formControlNameInput">
+    <div [class.is-invalid-select-2]="isShowError" class="position-relative">
+      <nz-select class="w-100 so-form-control so-select" [nzMaxTagCount]="maxTagCount" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple"
+        nzPlaceHolder="{{ t(placeholder) }}" [(ngModel)]="listOfSelectedValue" (ngModelChange)="changeMultipleSelect($event)">
+        <nz-option *ngFor="let item of options , let i = index" [nzLabel]="item.label"
+          [nzValue]="item.value"></nz-option>
+      </nz-select>
+      <ng-template #tagPlaceHolder let-selectedList>{{ t('and') }} {{ selectedList.length }} {{ t('moreSelected') }}</ng-template>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,29 @@
+<ng-container *ngIf="formControlNameInput">
+  <div *ngIf="formGroupInput" [formGroup]="formGroupInput">
+    <input [formControlName]="formControlNameInput" [type]="type"
+      class="form-control so-form-control fs-13 h-37px {{padding}} {{ width }} {{ showBorder ? '' : 'border-0' }} {{ bgColor }} {{ color }} {{ fontWeight }}"
+      [placeholder]="placeholder" [value]="value" (keyup)="onInputChange($event)" [readOnly]="disabled"
+      [class.is-invalid]="formGroupInput.get(formControlNameInput)?.invalid && (formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)"
+      [class.is-invalid-server]="validateFormServer?.hasOwnProperty('message')" />
+    <ng-container *ngFor="let validate of validateForm">
+      <ng-container
+        *ngIf="formGroupInput.get(formControlNameInput)?.hasError(validate.type) && (formGroupInput.get(formControlNameInput)?.touched || formGroupInput.get(formControlNameInput)?.dirty)">
+        <app-field-error-display
+          [displayError]="formGroupInput.get(formControlNameInput)?.hasError(validate.type) && (formGroupInput.get(formControlNameInput)?.touched || formGroupInput.get(formControlNameInput)?.dirty)"
+          [errorMsg]="validate.message | translate">
+        </app-field-error-display>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="validateFormServer">
+      <app-field-error-display [errorServer]="validateFormServer"
+        [displayErrorServer]="(formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)">
+      </app-field-error-display>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!formControlNameInput">
+  <input [type]="type" #ipTextInput [class.is-invalid]="isShowError"
+    class="form-control fs-13 h-37px {{ width }} {{padding}} {{ showBorder ? '' : 'border-0' }} {{ bgColor }} {{ color }} {{ fontWeight }}"
+    [placeholder]="placeholder" [value]="value" [readOnly]="disabled" (keyup)="onInputChange($event)" />
+</ng-container>

@@ -1,0 +1,10 @@
+<a href="javascript:;" class="so-btn {{sizeButton}} {{fontWeight}} {{width}} {{borderClass}} {{height}} {{sizeText}} {{backgroundColor}} {{color}} {{otherClass}}
+  d-flex justify-content-center align-items-center" (click)="changeClick()">
+  <ng-container *ngIf="startIconName">
+    <img [src]="startIconName" [ngClass]=" text !== '' ? 'me-2' : ''" alt="" class="{{filterIcon}}">
+  </ng-container>
+  {{ text }}
+  <ng-container *ngIf="endIconName">
+    <img [src]="endIconName" [ngClass]="'ms-2'" alt="" class="{{filterIcon}}">
+  </ng-container>
+</a>

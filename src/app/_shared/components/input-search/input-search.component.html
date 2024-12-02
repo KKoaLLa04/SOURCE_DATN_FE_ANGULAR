@@ -1,0 +1,21 @@
+<div class="position-relative">
+    <input [type]="type"
+           class="form-control so-form-control h-37px fs-13 {{ width }} {{ showBorder ? '' : 'border-0' }}
+        pe-15  {{ bgColor }} {{ color }} {{ fontWeight }} {{ showBorderBottom ? 'border-bottom-D3D7DB' : '' }}"
+           [placeholder]="placeholder | translate" [value]="value"
+           [readOnly]="disabled" (keyup)="onInputChange($event)"
+           [ngClass]="{
+        'pe-15': iconPosition === 'right',
+        'ps-15': iconPosition === 'left',
+      }"
+    />
+  <img
+    [src]="'assets/images/svg/search.svg'"
+    (click)="clickSearch()"
+    [ngClass]="{
+      'icon-search-left': iconPosition === 'left',
+      'icon-search-right': iconPosition === 'right'
+    }"
+    class="cursor-pointer filter-color-azure" alt="Icon"
+  >
+</div>

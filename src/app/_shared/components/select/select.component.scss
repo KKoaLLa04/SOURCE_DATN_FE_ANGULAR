@@ -1,0 +1,12 @@
+@mixin border-style-form-select() {
+  border-color: var(--bs-cadet-grey) !important;
+}
+
+.form-select {
+  &:focus {
+    @include border-style-form-select();
+  }
+  &:active {
+    @include border-style-form-select();
+  }
+}

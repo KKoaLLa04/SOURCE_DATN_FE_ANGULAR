@@ -1,0 +1,25 @@
+<ng-container *transloco="let t;">
+  <ng-container *ngIf="formControlNameInput">
+    <div *ngIf="formGroupInput" [formGroup]="formGroupInput">
+      <div class="d-flex align-items-center">
+        <nz-switch [formControlName]="formControlNameInput">
+        </nz-switch>
+        <span class="fs-13 ms-3">{{ t(option.label) }}</span>
+      </div>
+      <ng-container *ngFor="let validate of validateForm">
+        <app-field-error-display
+          [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+          [errorMsg]="validate.message">
+        </app-field-error-display>
+      </ng-container>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="!formControlNameInput">
+    <div class="d-flex align-items-center">
+      <nz-switch (ngModelChange)="onChange($event)" [(ngModel)]="option.checked" [nzDisabled]="disabled"></nz-switch>
+      <span class="fs-13 ms-3">{{ t(option.label) }}</span>
+    </div>
+  </ng-container>
+</ng-container>
+

@@ -1,0 +1,19 @@
+<ng-container *transloco="let t;">
+  <ng-container *ngIf="formControlNameInput">
+    <div *ngIf="formGroupInput" [formGroup]="formGroupInput" class="{{ isVertical ? 'd-flex flex-column' : 'd-flex flex-wrap' }} h-37px">
+      <label nz-radio [formControlName]="formControlNameInput" (ngModelChange)="onChange($event)" [nzValue]="option.value" [nzDisabled]="disabled">{{ t(option.label) }}</label>
+    </div>
+    <ng-container *ngFor="let validate of validateForm">
+      <app-field-error-display
+        [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+        [errorMsg]="validate.message">
+      </app-field-error-display>
+    </ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="!formControlNameInput">
+    <div class="{{ isVertical ? 'd-flex flex-column' : 'd-flex flex-wrap' }}">
+      <label nz-radio [nzValue]="option.value" [nzDisabled]="disabled">{{ t(option.label) }}</label>
+    </div>
+  </ng-container>
+</ng-container>

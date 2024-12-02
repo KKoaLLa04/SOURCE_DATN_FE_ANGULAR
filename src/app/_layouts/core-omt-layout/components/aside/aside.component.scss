@@ -1,0 +1,38 @@
+//#kt_aside_logo {
+//  padding: 0 15px !important;
+//}
+//
+//.icon-svg-color {
+//  filter: brightness(0) saturate(100%) invert(45%) sepia(88%) saturate(4163%) hue-rotate(219deg) brightness(98%) contrast(83%);
+//}
+
+
+#kt_aside_logo {
+  padding: 0 15px !important;
+}
+
+.icon-svg-color {
+  filter: invert(97%) sepia(35%) saturate(783%) hue-rotate(194deg) brightness(126%) contrast(100%);
+}
+
+.image-logo-link{
+  width: 100%;
+  text-align: center;
+}
+
+div#kt_aside_toggle {
+  position: absolute;
+  right: 0px;
+  z-index: 99999;
+}
+
+.svg-icon.svg-icon-1.svg-staff-icon{
+  width: 33.5px;
+}
+
+#kt_aside_toggle.aside-toggle.staff-aside-toggle{
+  background-color: #99daff;
+  border: 1px solid #99daff;
+  border-radius: 15%;
+  margin: 5px;
+}

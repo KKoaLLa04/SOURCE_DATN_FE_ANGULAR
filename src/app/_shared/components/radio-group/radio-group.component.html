@@ -1,0 +1,46 @@
+<ng-container *transloco="let t;">
+  <ng-container *ngIf="formControlNameInput">
+    <div *ngIf="formGroupInput" [formGroup]="formGroupInput" class="{{ isVertical ? 'd-flex flex-column' : 'd-flex flex-wrap' }} h-37px">
+      <!-- <ng-container *ngFor="let item of options">
+        <div class="form-check form-check-custom form-check-solid me-10 {{sizeRadio}} mb-2">
+          <input [formControlName]="formControlNameInput" class="form-check-input custom-size {{bgColor}} {{ showBorder ? 'border border-color-cadet-grey' : '' }}" [name]="item.name"
+            type="radio" [readOnly]="disabled" [value]="item.value" [id]="generalIdRadio(item.value)"
+            (change)="onChange($event)" />
+          <label class="form-check-label text-color-river-bed fs-13 fw-500" [for]="generalIdRadio(item.value)">
+            {{ t(item.label) }}
+          </label>
+        </div>
+      </ng-container> -->
+      <nz-radio-group [formControlName]="formControlNameInput" (ngModelChange)="onChange($event)">
+        <ng-container *ngFor="let item of options">
+          <label nz-radio [nzValue]="item.value" [nzDisabled]="disabled">{{ t(item.label) }}</label>
+        </ng-container>
+      </nz-radio-group>
+    </div>
+    <ng-container *ngFor="let validate of validateForm">
+      <app-field-error-display
+        [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+        [errorMsg]="validate.message">
+      </app-field-error-display>
+    </ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="!formControlNameInput">
+    <div class="{{ isVertical ? 'd-flex flex-column' : 'd-flex flex-wrap' }}">
+      <!-- <ng-container *ngFor="let item of options">
+        <div class="form-check form-check-custom form-check-solid me-10 {{sizeRadio}} mb-2">
+          <input class="form-check-input custom-size {{bgColor}} {{ showBorder ? 'border border-color-cadet-grey' : '' }}" [name]="item.name" type="radio" [checked]="item.checked"
+            [value]="item.value" [readOnly]="disabled" [id]="generalIdRadio(item.value)" (change)="onChange($event)" />
+          <label class="form-check-label text-color-river-bed fs-13 fw-500" [for]="generalIdRadio(item.value)">
+            {{ t(item.label) }}
+          </label>
+        </div>
+      </ng-container> -->
+      <nz-radio-group (ngModelChange)="onChange($event)">
+        <ng-container *ngFor="let item of options">
+          <label nz-radio [nzValue]="item.value" [nzDisabled]="disabled">{{ t(item.label) }}</label>
+        </ng-container>
+      </nz-radio-group>
+    </div>
+  </ng-container>
+</ng-container>

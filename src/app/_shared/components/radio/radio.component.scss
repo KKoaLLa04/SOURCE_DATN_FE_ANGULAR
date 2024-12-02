@@ -1,0 +1,21 @@
+.form-check-label {
+  color: var(--bs-gray-500);
+  font-size: 14px;
+}
+
+.custom-size {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.form-check.form-check-solid .form-check-input.whilte:not(:checked){
+  background-color: var(--bs-white);
+}
+
+.form-check.form-check-solid .form-check-input.white-smoke:not(:checked){
+  background-color: var(--bs-white-smoke);
+}
+
+.form-check-input:checked[type=radio]{
+  border: 0 !important;
+}

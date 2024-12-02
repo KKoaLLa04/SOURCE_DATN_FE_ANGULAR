@@ -1,0 +1,47 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Thống kê điểm danh</h3>
+
+  <div class="d-flex justify-content-between">
+    <p>Số lượng: 23 lớp</p>
+    <div class="d-flex">
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-input-search [width]="'w-250px'"></app-input-search>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="table table-responsive center-block fix-width scroll-inner">
+      <div class="table table-striped">
+      <table class="table table-full-bordered">
+        <thead>
+          <tr>
+            <th rowspan="2" class="w-3">STT</th>
+            <th rowspan="2">Mã học sinh</th>
+            <th rowspan="2">Họ và tên</th>
+            <th colspan="3" class="w-10">Tổng số ngày nghỉ</th>
+            <ng-container *ngFor="let item of dataMonth">
+              <th rowspan="2">{{item}}</th>
+            </ng-container>
+          </tr>
+          <tr>
+            <th>P</th>
+            <th>V</th>
+            <th>M</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataList, let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.student_code}}</td>
+            <td>{{item.student_name}}</td>
+            <td>{{item.total_absent}}</td>
+            <td>{{item.total_late}}</td>
+            <td>{{item.total_present}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>

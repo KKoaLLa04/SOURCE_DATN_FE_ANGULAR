@@ -1,0 +1,34 @@
+<div class="custom-single-date-picker" >
+  <input  type="text" autocomplete="off" readonly ngxDaterangepickerMd [autoApply]="options.autoApply"
+    [linkedCalendars]="options.linkedCalendars" [singleDatePicker]="options.singleDatePicker" applyLabel="Xong"
+    [showDropdowns]="true" [locale]="options.locale"  [showWeekNumbers]="options.showWeekNumbers"
+    [showCancel]="options.showCancel" [showClearButton]="options.showClearButton"
+    [showISOWeekNumbers]="options.showISOWeekNumbers" [customRangeDirection]="options.customRangeDirection"
+    [lockStartDate]="options.lockStartDate" [disabled]="disabled ? disabled : false" [timePicker]="options.timePicker"
+    [closeOnAutoApply]="options.closeOnAutoApply" firstMonthDayClass="first-day" lastMonthDayClass="last-day"
+    emptyWeekRowClass="empty-week" lastDayOfPrevi ousMonthClass="last-previous-day"
+    firstDayOfNextMonthClass="first-next-day" name="start_date" class="form-control fs-14"
+      [maxDate]="maxDateValue" [minDate]="minDateValue"
+    placeholder="DD/MM/YYYY"
+          [(ngModel)]="selected"
+         [class.is-invalid]="formGroupInput.get(formControlNameInput)?.invalid && (formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)"
+         [class.is-invalid-server]="validateFormServer?.hasOwnProperty('message')"
+         (ngModelChange)="setValueForm($event)"
+  >
+  <img *ngIf="!selected || !selected?.startDate" class="icon-date-picker ngx-daterangepicker-action" src="assets/images/svg/calendar.svg" alt="" (click)="open()">
+  <img *ngIf="selected && selected?.startDate" class="icon-date-picker ngx-daterangepicker-action filter-color-bittersweet" src="assets/images/svg/close.svg" alt="" (click)="clearDate()">
+</div>
+<ng-container *ngFor="let validate of validateForm">
+  <ng-container
+    *ngIf="formGroupInput.get(formControlNameInput)?.hasError(validate.type) && (formGroupInput.get(formControlNameInput)?.touched || formGroupInput.get(formControlNameInput)?.dirty)">
+    <app-field-error-display
+      [displayError]="formGroupInput.get(formControlNameInput)?.hasError(validate.type) && (formGroupInput.get(formControlNameInput)?.touched || formGroupInput.get(formControlNameInput)?.dirty)"
+      [errorMsg]="validate.message ">
+    </app-field-error-display>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="validateFormServer">
+  <app-field-error-display [errorServer]="validateFormServer"
+                           [displayErrorServer]="(formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)">
+  </app-field-error-display>
+</ng-container>

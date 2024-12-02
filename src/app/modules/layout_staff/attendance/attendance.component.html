@@ -1,0 +1,63 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Điểm danh</h3>
+
+  <div class="d-flex justify-content-between">
+    <p>
+      <span>Số lớp đã điểm danh: 08 lớp</span>
+      <span>Số lớp chưa điểm danh: 08 lớp</span>
+    </p>
+    <div class="d-flex">
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-input-search [width]="'w-250px'"></app-input-search>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Thông tin lớp</th>
+          <th>Ngày điểm danh</th>
+          <th>Giáo viên chủ nhiệm</th>
+          <th>Trạng thái</th>
+          <th>Có mặt</th>
+          <th class="w-10 text-center">Tình trạng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList, let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            <span>Tên lớp: {{item.className}}</span> <br/>
+            <span>{{item.grade}}</span> <br/>
+            <span>Số lượng hs: {{item.totalStudent}}</span> <br/>
+          </td>
+          <td>
+            {{item.dateAttendanced}}
+          </td>
+          <td>
+            <span>{{item.fullname}}</span> <br/>
+            <span>({{item.email}})</span>
+          </td>
+          <td>
+            <span>{{item.status}}</span> <br/>
+            Bởi: <span>({{item.attendanceBy}})</span> <br/>
+            Lúc: <span>({{item.attendanceAt}})</span>
+          </td>
+          <td>
+            {{item.studentAttendanced}} / {{item.totalStudent}}
+          </td>
+          <td>
+            <app-button
+            [text]="'Điểm danh'"
+            [backgroundColor]="'bg-color-greenish-teal'"
+            [color]="'text-color-white'"
+            ></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+{
+    "moduleManager": "Module manager",
+    "order": "Order",
+    "moduleName": "Module name",
+    "moduleCode": "Module code",
+    "permissions": "Permission",
+    "customerApply": "Customers apply",
+    "lockModule": "Lock Module",
+    "unlockModule": "Unlock module",
+    "addModule": "Add module",
+    "listPermissions": "List Permissions",
+    "permissionName": "Permission name",
+    "permissionCode": "Permission code",
+    "description": "Description",
+    "updateModule": "Update module",
+    "addPermission": "Add permission",
+    "updatePermission": "Update permission",
+    "deletePermission": "Delete permission",
+    "customer": "Customer",
+    "customerCode": "Code",
+    "moetCode": "Moet code",
+    "address": "Address",
+    "addCustomer": "Add Customer",
+    "isActive": "Is active",
+    "Locked": "Locked",
+    "nodata": "No data",
+    "deleteModule": "Delete module",
+    "deleteCustomer": "Delete customer",
+    "enterName": "Enter name",
+    "enterCode": "Enter code",
+    "enterDescription": "Enter description",
+    "selected": "Selected",
+    "select": "Select",
+    "customerName": "Customer name",
+    "validateCustomer": "Please choose customer",
+    "infoModule": "Module info",
+    "validators": {
+        "name": {
+            "required": "name is required",
+            "maxlength": "name can't have more than 255 characters",
+            "pattern": " name invalid"
+        },
+        "code": {
+            "required": "code is required",
+            "maxlength": "code can't have more than 50 characters",
+            "pattern": " code invalid"
+        },
+        "permissionName": {
+            "required": "Permission name is required",
+            "minlength": "Permission name must be at least 6 characters",
+            "maxlength": "Permission name can't have more than 50 characters",
+            "pattern": " Permission name invalid"
+        },
+        "permissionCode": {
+            "required": "Permission code is required",
+            "minlength": "Permission code must be at least 6 characters",
+            "maxlength": "Permission code can't have more than 50 characters",
+            "pattern": " Permission code invalid"
+        }
+    },
+    "changeStatus": "Change status",
+    "moduleCategory": "Module category",
+    "generalInformation": "General information",
+    "studyInformation": "Study information",
+    "moduleService": "Module service"
+}

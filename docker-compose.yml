@@ -1,0 +1,14 @@
+version: "2.3"
+
+services:
+  workspace:
+    image: omtvn/ko-manage-core-omt
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: ko-manage-core-omt
+    working_dir: /usr/share/nginx/html
+    ports:
+      - "7400:80"
+    volumes:
+      - .:/var/www/html

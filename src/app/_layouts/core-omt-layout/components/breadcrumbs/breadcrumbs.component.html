@@ -1,0 +1,19 @@
+<div class="container-fluid py-3">
+  <div class="kt-subheader  kt-grid__item mx-5 my-2">
+    <div class="kt-subheader__main">
+      <div class="kt-subheader__breadcrumbs d-flex align-items-center">
+        <a routerLink="dashboard" class="mr-5">
+          <!-- <img class="kt-header__topbar-item mb-3" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Mầm non Song ngữ KidsOnline" alt="Logo" src="./assets/images/png/auth/KO.png" style="height: 30px;border-radius: 5px"> -->
+        </a>
+
+        <div *ngFor="let breadcrumb of showBreadcrumbs; let last = last; let first = first" class="d-flex align-items-center me-2 ms-2">
+          <span *ngIf="!first" class="kt-subheader__breadcrumbs-separator mr-1 me-3"></span>
+          <a [ngClass]="{'so-cursor-initial': !last, 'text-color-picton-blue': last}" class="kt-subheader__breadcrumbs-link mr-5">
+            <i *ngIf="breadcrumb?.icon" [class]="breadcrumb?.icon" [ngStyle]="{'color': breadcrumb?.color }"></i>
+            {{breadcrumb?.title }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

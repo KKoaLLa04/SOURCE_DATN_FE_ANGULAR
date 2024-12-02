@@ -1,0 +1,31 @@
+::ng-deep.custom-form-add-menu{
+    .lb-form{
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-top: 4px;
+        color: #495057;
+    }
+    .icon{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        .icon-menu-item{
+            filter: brightness(0) saturate(100%) invert(39%) sepia(44%) saturate(1474%) hue-rotate(202deg) brightness(99%) contrast(87%);
+            width: 18px;
+            height: 16px;
+        }
+    }
+}
+
+::ng-deep .modal-backdrop.fade.show{
+    z-index: 990 !important;
+}
+
+::ng-deep .modal{
+    z-index: 999 !important;
+}
+
+::ng-deep .cdk-overlay-pane{
+    max-width: 500px !important;
+}

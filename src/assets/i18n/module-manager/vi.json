@@ -1,0 +1,66 @@
+{
+    "moduleManager": "Quản lý module",
+    "order": "STT",
+    "moduleName": "Tên Module",
+    "moduleCode": "Mã Module",
+    "permissions": "Quyền thao tác",
+    "customerApply": "Khách hàng áp dụng",
+    "lockModule": "Khóa module",
+    "unlockModule": "Mở khóa module",
+    "addModule": "Thêm mới module",
+    "listPermissions": "Danh sách quyền thao tác",
+    "permissionName": "Tên quyền thao tác",
+    "permissionCode": "Mã Permission",
+    "description": "Mô tả",
+    "updateModule": "Chỉnh sửa Module",
+    "addPermission": "Thêm mới quyền thao tác",
+    "updatePermission": "Cập nhật quyền thao tác",
+    "deletePermission": "Xóa quyền thao tác",
+    "customer": "Khách hàng",
+    "customerCode": "Mã",
+    "moetCode": "Mã Moet",
+    "address": "Địa chỉ",
+    "addCustomer": "Thêm khách hàng",
+    "isActive": "Đang hoạt động",
+    "Locked": "Đã khóa",
+    "nodata": "Không có dữ liệu",
+    "deleteModule": "Xóa module",
+    "deleteCustomer": "Xóa khách hàng",
+    "enterName": "Nhập tên",
+    "enterCode": "Nhập mã",
+    "enterDescription": "Nhập Mô tả",
+    "selected": "Đã chọn",
+    "select": "Chọn",
+    "customerName": "Tên khách hàng",
+    "validateCustomer": "Vui lòng chọn khách hàng",
+    "infoModule": "Thông tin module",
+    "validators": {
+        "name": {
+            "required": "Bạn chưa nhập tên module",
+            "maxlength": "Tên module không được có nhiều hơn 255 kí tự",
+            "pattern": "Tên module không hợp lệ"
+        },
+        "code": {
+            "required": "Bạn chưa nhập mã module",
+            "maxlength": "Mã module không được có nhiều hơn 50 kí tự",
+            "pattern": "Mã module không hợp lệ"
+        },
+        "permissionName": {
+            "required": "Tên quyền thao tác không được bỏ trống",
+            "minlength": "Tên quyền thao tác tối thiểu 6 kí tự",
+            "maxlength": "Tên quyền thao tác tối đa 50 kí tự",
+            "pattern": " Tên quyền thao tác không hợp lệ"
+        },
+        "permissionCode": {
+            "required": "Mã quyền thao tác không được bỏ trống",
+            "minlength": "Mã quyền thao tác tối thiểu 6 kí tự",
+            "maxlength": "Mã quyền thao tác tối đa 50 kí tự",
+            "pattern": " Mã quyền thao tác không hợp lệ"
+        }
+    },
+    "changeStatus": "Thay đổi trạng thái",
+    "moduleCategory": "Danh mục module",
+    "generalInformation": "Thông tin chung",
+    "studyInformation": "Thông tin học tập",
+    "moduleService": "Dịch vụ"
+}

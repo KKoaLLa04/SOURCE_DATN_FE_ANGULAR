@@ -1,0 +1,8 @@
+<div class="show-detail-wub-route">
+  <h4 class="menu-name fs-15 fw-700">{{ dataSubRoute.name }}</h4>
+  <div class="list-sub-route">
+    <ng-container *ngFor="let item of dataSubRoute.data">
+      <span class="item-sub-route fs-14 fw-600">{{item.url}} - {{item.name}}</span>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<ng-container *ngIf="formControlNameInput">
+  <div *ngIf="formGroupInput" [formGroup]="formGroupInput">
+    <label nz-checkbox class="so-checkbox fs-13" id="flexCheckDefault-{{idNumberRandom}}" ngDefaultControl
+      [formControlName]="formControlNameInput">
+      <span class="{{fontWeight}} {{fontSize}} {{color}}" [innerHTML]="text"></span>
+    </label>
+    <ng-container *ngFor="let validate of validateForm">
+      <app-field-error-display
+        [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+        [errorMsg]="validate.message">
+      </app-field-error-display>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!formControlNameInput">
+  <label nz-checkbox class="so-checkbox fs-13" [ngModelOptions]="{standalone: true}" [ngModel]="checked" (ngModelChange)="onInputChange($event)">
+    <span class="{{fontWeight}} {{fontSize}} {{color}}" [innerHTML]="text"></span>
+  </label>
+</ng-container>

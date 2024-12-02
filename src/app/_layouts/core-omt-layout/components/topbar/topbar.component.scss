@@ -1,0 +1,34 @@
+
+.symbol {
+  background: #556EE6;
+  border-radius: 27%;
+  width: 30px;
+  height: 30px;
+}
+
+.search {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  min-width: 26rem;
+  margin-right: 6rem;
+  img {
+    width: 16px;
+    transition: all 0.2s ease-in;
+  }
+  input {
+    width: 100%;
+    border: none;
+    background: none;
+    padding-left: 1rem;
+    outline: none;
+    color: #A1A5B7;
+    font-weight: 600;
+  }
+}
+
+
+.menu-sub-dropdown.menu.show, .menu-sub-dropdown.show {
+  display: flex;
+  animation: menu-sub-dropdown-animation-fade-in 0.3s ease 1, menu-sub-dropdown-animation-move-up 0.3s ease 1;
+}

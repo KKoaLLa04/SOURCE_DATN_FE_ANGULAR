@@ -1,0 +1,40 @@
+<ng-container *transloco="let t;">
+  <div class="select {{ width }}" *ngIf="options">
+    <ng-container *ngIf="formControlNameInput">
+      <div *ngIf="formGroupInput" [formGroup]="formGroupInput">
+        <select
+          class="form-control so-form-control fs-13 h-37px {{ showBorder ? 'border border-color-silver' : 'border-0' }} {{ width }} {{ bgColor }} {{ color }} {{ fontWeight }} {{ borderColor }}"
+          [formControlName]="formControlNameInput"
+          [class.is-invalid]="formGroupInput.get(formControlNameInput).invalid && (formGroupInput.get(formControlNameInput).dirty || formGroupInput.get(formControlNameInput).touched)">
+          <ng-container *ngFor="let option of options">
+            <option [disabled]="disabled" [value]="option.value">{{ isTranslate ? t(option.label) : option.label }}</option>
+          </ng-container>
+        </select>
+        <ng-container *ngFor="let validate of validateForm">
+          <app-field-error-display
+            [displayError]="formGroupInput.get(formControlNameInput).hasError(validate.type) && (formGroupInput.get(formControlNameInput).touched || formGroupInput.get(formControlNameInput).dirty)"
+            [errorMsg]="validate.message">
+          </app-field-error-display>
+        </ng-container>
+        <ng-container *ngIf="validateFormServer">
+          <app-field-error-display [errorServer]="validateFormServer"
+                                   [displayErrorServer]="(formGroupInput.get(formControlNameInput)?.dirty || formGroupInput.get(formControlNameInput)?.touched)">
+          </app-field-error-display>
+        </ng-container>
+      </div>
+    </ng-container>
+  
+    <ng-container *ngIf="!formControlNameInput">
+      <select
+        class="form-control so-form-control fs-13 h-37px {{ showBorder ? 'border border-color-silver' : 'border-0' }} {{ width }} {{ bgColor }} {{ color }} {{ fontWeight }} {{ borderColor }}"
+        (change)="changeSelectValue($event)">
+        <ng-container *ngFor="let option of options">
+          <option [disabled]="disabled" [value]="option.value" [selected]="value !== null ? value === option.value : option.selected">
+            {{ isTranslate ? t(option.label) : option.label }}
+          </option>
+        </ng-container>
+      </select>
+    </ng-container>
+  </div>
+</ng-container>
+
