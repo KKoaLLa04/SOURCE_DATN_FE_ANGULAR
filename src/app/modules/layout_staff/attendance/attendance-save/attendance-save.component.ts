@@ -28,7 +28,7 @@ export class AttendanceSaveComponent implements OnInit {
       value: ""
     },
     {
-      label: "Test",
+      label: "Test2",
       value: ""
     }
   ]
