@@ -29,19 +29,6 @@ export class GeneralService {
     }
 
     // lấy danh sách tỉnh/thành phố
-    getListCity() {
-        return this.http.get(`${environment.apiUrl2}/moet/get-dm-tinh`);
-    }
-
-    // lấy danh sách huyện
-    getListDistrict(parent_id:string) {
-        return this.http.get(`${environment.apiUrl2}/moet/get-dm-huyen/${parent_id}`);
-    }
-
-    // lấy danh sách xã
-    getListWard(parent_id:string) {
-        return this.http.get(`${environment.apiUrl2}/moet/get-dm-xa/${parent_id}`);
-    }
 
     /* show toast message 400 */
     showToastMessageError400(error: any): void {

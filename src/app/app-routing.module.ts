@@ -11,8 +11,8 @@ export const routes: Routes = [
   {
     path: '',
     component: CoreOmtLayoutComponent,
-    // canActivate: [AuthGuard],
-    // canActivateChild: [AuthGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'home',

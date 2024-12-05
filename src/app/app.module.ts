@@ -15,7 +15,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { environment } from "../environments/environment.firebase";
 // end import firebase
 // transloco
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from "@ngneat/transloco";
@@ -49,7 +48,6 @@ registerLocaleData(en);
         AppRoutingModule,
         NgxPermissionsModule.forRoot(),
         NgbModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireAuthModule,
         AngularFirestoreModule,
         AngularFireStorageModule,

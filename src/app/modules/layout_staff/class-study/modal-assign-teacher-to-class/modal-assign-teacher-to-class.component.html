@@ -1,0 +1,58 @@
+<form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <div class="table-responsive">
+      <table class="table table-row-bordered table-row-gray-300">
+        <caption></caption>
+        <thead>
+          <tr class="fs-14 fw-700 text-color-black">
+            <th>#</th>
+            <th>STT</th>
+            <th>Họ tên giáo viên</th>
+            <th>Email</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>SĐT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="radio"/></td>
+            <td>1</td>
+            <td>
+              <span>Nguyễn Duy Kiên</span> <br/>
+              <span>Mã: 123456</span>
+            </td>
+            <td>kienndgmail.com</td>
+            <td>nam</td>
+            <td>1/1/2004</td>
+            <td>0123456789</td>
+          </tr>
+          <tr>
+            <td><input type="radio"/></td>
+            <td>2</td>
+            <td>
+              <span>Nguyễn Duy Kiên</span> <br/>
+              <span>Mã: 123456</span>
+            </td>
+            <td>kienndmail.com</td>
+            <td>nam</td>
+            <td>1/1/2004</td>
+            <td>0123456789</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnAccept)" [backgroundColor]="'bg-color-azure'" (click)="closeModal(true)"></app-button>
+  </div>
+</form>
+

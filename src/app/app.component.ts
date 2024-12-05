@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './modules/auth';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { GlobalStore } from './_store/global.store';
 import { NgIf, CommonModule } from '@angular/common';
 import { LoadingComponent } from './_shared/components/loading/loading.component';
@@ -25,11 +25,16 @@ export class AppComponent implements OnInit {
   constructor(
     private permissionsService: NgxPermissionsService,
     private authService: AuthService,
-    private globalStore: GlobalStore
+    private globalStore: GlobalStore,
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem("Token");
+    if(!token){
+      this.router.navigateByUrl('/auth/login');
+    }
     const currentUserElement  = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentPermissions')));
     this.authService.currentPermissions = currentUserElement.asObservable();
     this.authService.currentPermissions.subscribe(x => {

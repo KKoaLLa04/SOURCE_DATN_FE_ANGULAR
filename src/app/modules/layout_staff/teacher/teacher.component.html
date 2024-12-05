@@ -1,0 +1,87 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Danh sách môn học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>Số lượng công nhân viên chức: 10 </p>
+    <div class="d-flex">
+      <app-input-search [width]="'w-250px'"></app-input-search>
+      <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button>
+      <app-button [text]="'Thêm mới'"
+      (onClick)="create()"
+      class="ms-4"
+      [startIconName]="iconSvg.plus"
+      [backgroundColor]="'bg-color-greenish-teal'"
+      ></app-button>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th class=w-5>STT</th>
+          <th>Thông tin giáo viên</th>
+          <th>Liên hệ</th>
+          <th>Lớp chủ nhiệm</th>
+          <th>Chức vụ</th>
+          <th>Trạng thái</th>
+          <th>Ngày sinh</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList, let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            <span>{{item.userName}}</span> <br/>
+            <span>{{item.userCode}}</span>
+          </td>
+          <td>
+            <span>{{item.userEmail}}</span> <br/>
+            <span>{{item.userPhone}}</span>
+          </td>
+          <td class="text-center">
+            {{item.userMainClassName}}
+          </td>
+          <td class="text-center">
+            {{item.userAccessType}}
+          </td>
+          <td class="text-center">
+            {{item.userStatus}}
+          </td>
+          <td class="text-center">
+            {{item.userDob}}
+          </td>
+          <td class="text-center">
+            <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
+              {
+                svgIcon: iconSvg.eye_show,
+                label: 'Xem chi tiết',
+                type: '1',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+              {
+                svgIcon: iconSvg.edit,
+                label: 'Sửa thông tin',
+                type: '2',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+              {
+                svgIcon: iconSvg.lock,
+                label: 'Đổi mật khẩu',
+                type: '3',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+            ]" (action)="handleAction($event)"></app-context-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

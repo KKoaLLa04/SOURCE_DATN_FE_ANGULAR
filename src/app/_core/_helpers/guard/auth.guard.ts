@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const currentUser = localStorage.getItem('User');
+    const currentUser = localStorage.getItem('Token');
     if (currentUser) {
       // logged in so return true
       return true;
@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | UrlTree {
-    const currentUser = localStorage.getItem('User');
+    const currentUser = localStorage.getItem('Token');
     if (!currentUser) {
       console.log('You are not allowed to view this page');
       return false;

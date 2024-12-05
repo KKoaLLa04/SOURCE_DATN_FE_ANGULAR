@@ -63,13 +63,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const token = localStorage.getItem("Token");
+    if(token){
+      this.router.navigateByUrl('/home');
+    }
     this.siteKey = GOOGLE_CAPTCHA_SITE_KEY;
     this.initForm();
     const end = window.location.href.indexOf('.vn') + 3;
     const start = window.location.href.indexOf('//') + 2;
     this.domain = window.location.href.substring(start, end);
-    // this.domain = 'kov6-core-omt.ko.edu.vn';
-    // https://kov6-core-omt.ko.edu.vn
     if (this.siteKey != null && this.siteKey != undefined && this.siteKey != "") {
       this.recaptcha3.init(this.siteKey);
     }
@@ -105,7 +107,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   getDataRequest(username: string, password: string, domain: string) {
-    return this.dataRequest = { username, password, domain };
+    return this.dataRequest = { username, password };
   }
 
   submit() {
@@ -129,15 +131,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(this.dataRequest, this.rememberPassword, requestOptions).pipe(first())
         .subscribe(el => {
           this.dataResponse = el;
-          if (this.dataResponse?.status === 0) {
-            this.hasError = false;
-            this.isLoading = false;
-          }
-          if (this.dataResponse?.status === 2)// đăng nhập sai quá 5 lần(BE check), hiển thị model
-          {
-            this.isLoading = false;
-            this.openModalLockLogin();
-          }
+          // if (this.dataResponse?.status === 0) {
+          //   this.hasError = false;
+          //   this.isLoading = false;
+          // }
+          // if (this.dataResponse?.status === 2)// đăng nhập sai quá 5 lần(BE check), hiển thị model
+          // {
+          //   this.isLoading = false;
+          //   this.openModalLockLogin();
+          // }
+          this.router.navigateByUrl('/home');
           this.isLoading = false;
         });
       },

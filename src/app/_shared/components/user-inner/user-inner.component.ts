@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth';
 import { GeneralService } from 'src/app/_services/general.service';
 import { AVATAR_DEFAULT } from 'src/app/_shared/utils/constant';
-import { ModalChangePasswordComponent } from '../../modals/modal-change-password/modal-change-password.component';
 import { NgIf } from '@angular/common';
 
 @Component({
