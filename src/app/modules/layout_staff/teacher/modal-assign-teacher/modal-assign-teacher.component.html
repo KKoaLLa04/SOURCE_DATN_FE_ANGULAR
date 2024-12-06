@@ -23,7 +23,12 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Email<span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'email'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+          <app-input 
+          [placeholder]="t('enterCode')" 
+          [formGroupInput]="formGroup" 
+          [formControlNameInput]="'email'" 
+          [validateForm]="validationMessages.code" 
+          ></app-input>
         </div>
       </div>
     </div>
