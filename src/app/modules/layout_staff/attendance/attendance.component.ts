@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
@@ -9,6 +9,8 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { AttendanceService } from '../services/attendance.service';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
+import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 
 @Component({
   selector: 'app-attendance',
@@ -20,11 +22,18 @@ import { AttendanceService } from '../services/attendance.service';
     InputSearchComponent,
     NgFor,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    NoDataComponent,
+    NgIf
   ]
 })
 export class AttendanceComponent implements OnInit {
   dataList: any = [];
+  pageIndex = PAGE_INDEX_DEFAULT;
+  pageSize = PAGE_SIZE_DEFAULT;
+  keyWord: string = ''
+  date: number = 1;
+  classIds: Array<number> = []
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -42,14 +51,21 @@ export class AttendanceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListStatisticData();
+    this.getListAttendance();
   }
 
-  getListStatisticData(): void{
+  getListAttendance(): void{
     this.globalStore.isLoading = true;
 
-    this.attendanceSerivce.getListAttendance().subscribe((res: any) => {
-      this.dataList = res;
+    let dataRequest = {
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+      keyWord: this.keyWord,
+      date: this.date,
+      classIds: this.classIds
+    }
+    this.attendanceSerivce.getListAttendance(dataRequest).subscribe((res: any) => {
+      this.dataList = res.data;
       console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{

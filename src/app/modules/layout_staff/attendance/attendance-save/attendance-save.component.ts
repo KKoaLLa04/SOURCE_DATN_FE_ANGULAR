@@ -7,6 +7,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { AttendanceService } from '../../services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
 
 @Component({
   selector: 'app-attendance-save',
@@ -22,6 +23,11 @@ import { InputComponent } from 'src/app/_shared/components/input/input.component
 })
 export class AttendanceSaveComponent implements OnInit {
   dataList: any = [];
+  pageIndex = PAGE_INDEX_DEFAULT;
+  pageSize = PAGE_SIZE_DEFAULT;
+  keyWord: string = ''
+  date: number = 1;
+  classIds: Array<number> = []
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -45,7 +51,15 @@ export class AttendanceSaveComponent implements OnInit {
   getListStatisticData(): void{
     this.globalStore.isLoading = true;
 
-    this.attendanceSerivce.getListAttendance().subscribe((res: any) => {
+    let dataRequest = {
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+      keyWord: this.keyWord,
+      date: this.date,
+      classIds: this.classIds
+    }
+
+    this.attendanceSerivce.getListAttendance(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res)
       this.globalStore.isLoading = false;

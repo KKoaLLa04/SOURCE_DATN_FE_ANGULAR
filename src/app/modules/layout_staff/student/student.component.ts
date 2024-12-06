@@ -14,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAssignTeacherComponent } from '../teacher/modal-assign-teacher/modal-assign-teacher.component';
 import { ModalChangePasswordTeacherComponent } from '../teacher/modal-change-password-teacher/modal-change-password-teacher.component';
 import { IProperty } from 'src/app/_models/context-menu.interface';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
 
 @Component({
   selector: 'app-student',
@@ -30,6 +31,9 @@ import { IProperty } from 'src/app/_models/context-menu.interface';
 })
 export class StudentComponent implements OnInit {
   dataList: any = [];
+  keyWord: string = '';
+  pageIndex = PAGE_INDEX_DEFAULT;
+  pageSize = PAGE_SIZE_DEFAULT;
   iconSvg = iconSVG
   dataOptionsStatus: Select2[] = [
     {
@@ -172,7 +176,13 @@ export class StudentComponent implements OnInit {
   private getListStatisticData(): void{
     this.globalStore.isLoading = true;
 
-    this.teacherService.getListTeacher().subscribe((res: any) => {
+    let dataRequest = {
+      keyword: this.keyWord,
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+    }
+
+    this.teacherService.getListTeacher(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res)
       this.globalStore.isLoading = false;

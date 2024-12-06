@@ -1,43 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
-  getListAttendance(){
-    return of(
-      [
-        {
-          classId: 1,
-          className: "Lop 6",
-          grade: "Khoi 6",
-          totalStudent: 2,
-          dateAttendanced: "2024-10-23",
-          attendanceAt: 1729871401,
-          fullname: "duy kien",
-          email: "email@gmail.com",
-          status: 0,
-          studentAttendanced: 12,
-          attendanceBy: 3
-       },
-       {
-        classId: 1,
-        className: "Lop 6",
-        grade: "Khoi 6",
-        totalStudent: 2,
-        dateAttendanced: "2024-10-23",
-        attendanceAt: 1729871401,
-        fullname: "duy kien",
-        email: "email@gmail.com",
-        status: 0,
-        studentAttendanced: 12,
-        attendanceBy: 3
-        }
-      ]
-    )
+  getListAttendance(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/rollcall`, {params: {...data}});
   }
 }

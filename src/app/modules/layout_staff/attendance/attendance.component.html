@@ -1,10 +1,10 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <h3>Điểm danh</h3>
 
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between align-items-center mb-5">
     <p>
-      <span>Số lớp đã điểm danh: 08 lớp</span>
-      <span>Số lớp chưa điểm danh: 08 lớp</span>
+      <span class="fw-600 me-4">Số lớp đã điểm danh: <span class="fw-700 text-color-green">{{dataList?.totalClassAttendanced}} lớp</span></span>
+      <span class="fw-600">Số lớp chưa điểm danh: <span class="fw-700 text-color-red">{{dataList?.totalClassNoAttendance}} lớp</span></span>
     </p>
     <div class="d-flex">
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList, let i = index">
+        <tr *ngFor="let item of dataList.data, let i = index">
           <td>{{i+1}}</td>
           <td>
             <span>Tên lớp: {{item.className}}</span> <br/>
@@ -59,5 +59,8 @@
         </tr>
       </tbody>
     </table>
+    <div *ngIf="!dataList?.data?.length">
+      <app-no-data></app-no-data>
+    </div>
   </div>
 </div>

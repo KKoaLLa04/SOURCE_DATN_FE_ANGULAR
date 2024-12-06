@@ -8,7 +8,8 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 import { CheckboxComponent } from 'src/app/_shared/components/checkbox/checkbox.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
-import { REGEX_CODE } from 'src/app/_shared/utils/constant';
+import { SingleFormDatePickerComponent } from 'src/app/_shared/components/single-form-date-picker/single-form-date-picker.component';
+import { REGEX_CODE, REGEX_PHONE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 
 @Component({
@@ -23,7 +24,8 @@ import { GlobalStore } from 'src/app/_store/global.store';
     InputComponent,
     ButtonComponent,
     CheckboxComponent,
-    SingleDatePickerComponent
+    SingleDatePickerComponent,
+    SingleFormDatePickerComponent
   ]
 })
 export class ModalAssignTeacherComponent implements OnInit {
@@ -53,28 +55,73 @@ export class ModalAssignTeacherComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.name
+          ? this.dataFromParent?.data?.name
           : '',
         [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
       ],
-      code: [
+      email: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.code
+          ? this.dataFromParent?.data?.code
           : '',
-        [Validators.required, Validators.maxLength(50), Validators.pattern(REGEX_CODE)],
+        [Validators.required, Validators.maxLength(50), Validators.email],
       ],
-      requestLayout: [
+      phone: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.layout
-          : null,
-        [Validators.required, ValidatorNotNull],
+          ? this.dataFromParent?.data?.phone
+          : '',
+        [Validators.required, Validators.pattern(REGEX_PHONE)],
       ],
-      desc: [
+      role: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.description
+          ? this.dataFromParent?.data?.phone
+          : '',
+        [Validators.required],
+      ],
+      password: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.phone
+          : '',
+        [Validators.required, Validators.maxLength(50)],
+      ],
+      confirm_password: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.phone
+          : '',
+        [Validators.required, Validators.maxLength(50)],
+      ],
+      mainTeacher: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.phone
           : '',
       ],
-    });
+      address: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.phone
+          : '',
+      ],
+      dob: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.phone
+          : '',
+      ],
+      active: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.phone
+          : 1,
+      ],
+    },
+    {Validators: this.passwordMatchValidator}
+  );
+  }
+
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirm_password = form.get('confirm_password')?.value;
+
+    if (confirm_password && password && confirm_password === password) {
+      return { passwordMatchValidator: true };
+    }
+    return null;
   }
 
   submit(valueForm: any) {
@@ -170,26 +217,21 @@ export class ModalAssignTeacherComponent implements OnInit {
         message: 'requiredName'
       }
     ],
-    code: [
+    email: [
       {
         type: "required",
-        message: 'requiredCode'
+        message: 'requiredEmail'
       },
       {
         type: "maxlength",
-        message: 'maxLengthCode'
+        message:'maxLengthEmail'
       },
       {
-        type: "pattern",
-        message: 'patternCode'
+        type: "email",
+        message: 'invalidEmail'
       }
-    ],
-    requestLayout: [
-      {
-        type: "notNull",
-        message: 'role.requiredLayout'
-      },
     ]
+
   };
 
 }

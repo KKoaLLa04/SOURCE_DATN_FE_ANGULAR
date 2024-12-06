@@ -1,30 +1,30 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Danh sách môn học</h3>
+  <h3 class="title-custom fs-20 fw-700">Môn học</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số lượng môn học: 10 môn học</p>
+    <p>Số môn học theo bộ giáo dục & đào tạo: <span class="fw-700 text-color-blue-light">{{dataList?.total}} môn học</span></p>
     <div class="d-flex">
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-input-search [width]="'w-250px'"></app-input-search>
       <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button>
     </div>
   </div>
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead>
+      <thead class="header-color">
         <tr>
           <th class=w-5>STT</th>
-          <th>Thông tin lớp học</th>
+          <th>Tên môn học</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList, let i = index">
+        <tr *ngFor="let item of dataList?.data, let i = index">
           <td>{{i+1}}</td>
-          <td>{{item}}</td>
+          <td>{{item.subjectName}}</td>
         </tr>
       </tbody>
     </table>
+    <ng-container *ngIf="!dataList?.data?.length">
+      <app-no-data></app-no-data>
+    </ng-container>
   </div>
 </div>
