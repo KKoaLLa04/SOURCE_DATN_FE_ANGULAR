@@ -1,0 +1,95 @@
+<form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Họ và tên <span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Email<span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Số điện thoại <span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Chức vụ<span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Mạt khẩu <span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Xác nhận mật khẩu<span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Chủ nhiệm</label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Địa chỉ</label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label class="fw-600">Ngày sinh</label>
+          <!-- <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input> -->
+          <!-- <app-single-form-date-picker></app-single-form-date-picker> -->
+           <app-single-date-picker></app-single-date-picker>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Hoạt động</label>
+          <br/>
+          <!-- <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input> -->
+          <app-checkbox></app-checkbox>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnAccept)" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
+  </div>
+</form>
+

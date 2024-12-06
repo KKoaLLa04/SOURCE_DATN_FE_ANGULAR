@@ -1,0 +1,111 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Danh sách môn học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <app-button-back></app-button-back>
+  </div>
+
+  <div class="row">
+    <div class="col-5 col-lg-5 col-md-12 bg-color-black-light py-8">
+      <h3 clas="fs-20">Học sinh chưa gán vào lớp</h3>
+      <div class="d-flex align-items-center border-bottom-custom">
+        <span>Khối</span>
+        <app-select [bgColor]="'bg-color-white'" [width]="'w-200px'" class="ms-4"></app-select>
+      </div>
+      <p class="d-flex justify-content-between align-items-center mt-5">
+        <span>Đã chọn: 03 học sinh</span>
+        <app-input-search [bgColor]="'bg-color-white'"></app-input-search>
+      </p>
+
+      <div class="table-responsive">
+        <table class="table table-row-bordered table-row-gray-300">
+          <caption></caption>
+          <thead>
+            <tr class="fs-14 fw-700 text-color-black">
+              <th><app-checkbox></app-checkbox></th>
+              <th>Họ và tên</th>
+              <th>Ngày sinh</th>
+              <th>Lớp</th>
+              <th>Khối</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><app-checkbox></app-checkbox></td>
+              <td>
+                <span>Nguyễn Duy Kiên</span> <br/>
+                <span>Mã: 123456</span>
+              </td>
+              <td>01/01/2024</td>
+              <td>Chưa có</td>
+              <td>Khối 6</td>
+            </tr>
+            <tr>
+              <td><app-checkbox></app-checkbox></td>
+              <td>
+                <span>Nguyễn Duy Kiên</span> <br/>
+                <span>Mã: 123456</span>
+              </td>
+              <td>01/01/2024</td>
+              <td>Chưa có</td>
+              <td>Khối 6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-2 col-lg-2 col-md-12 py-8 d-flex justify-content-center align-items-center">
+      ====>
+    </div>
+
+    <div class="col-5 col-lg-5 col-md-12 bg-color-black-light py-8">
+      <h3 clas="fs-20">Học sinh lớp 6a1</h3>
+      <div class="d-flex align-items-center border-bottom-custom">
+        <span>Khối</span>
+        <app-select [bgColor]="'bg-color-white'" [width]="'w-200px'" class="ms-4"></app-select>
+      </div>
+      <p class="d-flex justify-content-between align-items-center mt-5">
+        <span>Đã chọn: 03 học sinh</span>
+        <app-input-search [bgColor]="'bg-color-white'"></app-input-search>
+      </p>
+
+      <div class="table-responsive">
+        <table class="table table-row-bordered table-row-gray-300">
+          <caption></caption>
+          <thead>
+            <tr class="fs-14 fw-700 text-color-black">
+              <th><app-checkbox></app-checkbox></th>
+              <th>Họ và tên</th>
+              <th>Ngày sinh</th>
+              <th>Lớp</th>
+              <th>Khối</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><app-checkbox></app-checkbox></td>
+              <td>
+                <span>Nguyễn Duy Kiên</span> <br/>
+                <span>Mã: 123456</span>
+              </td>
+              <td>01/01/2024</td>
+              <td>Chưa có</td>
+              <td>Khối 6</td>
+            </tr>
+            <tr>
+              <td><app-checkbox></app-checkbox></td>
+              <td>
+                <span>Nguyễn Duy Kiên</span> <br/>
+                <span>Mã: 123456</span>
+              </td>
+              <td>01/01/2024</td>
+              <td>Chưa có</td>
+              <td>Khối 6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

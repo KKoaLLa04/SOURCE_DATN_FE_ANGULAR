@@ -5,7 +5,7 @@
     bgi-position-y-bottom
     position-x-center
     bgi-no-repeat bgi-size-cover bgi-attachment-fixed h-full
-  " style="background-image: url('./assets/images/png/auth/bg-login-SO.png')"
+  " style="background-image: url('./assets/images/png/bus.png')"
     *transloco="let t; scope: 'auth'">
   <!--begin::Content-->
   <div class="d-flex flex-center flex-column flex-column-fluid pb-lg-20 position-relative">
@@ -34,10 +34,10 @@
         <!--begin::Heading-->
         <div class="text-center mb-10 d-flex algin-items-center mb-3 so-form-heading">
           <div class="logo">
-            <img src="assets/images/png/auth/KO.png" alt="">
+            <!-- <img src="assets/images/png/auth/KO.png" alt=""> -->
           </div>
-          <h1 class="form-title d-flex align-items-center flex-grow-1 mb-0 mx-3">{{t('auth.system')}} &nbsp;<a
-              routerLink="/auth/login" class="link-primary fw-bolder">KidsOnline</a></h1>
+          <!-- <h1 class="form-title d-flex align-items-center flex-grow-1 mb-0 mx-3">{{t('auth.system')}} &nbsp;<a
+              routerLink="/auth/login" class="link-primary fw-bolder">KidsOnline</a></h1> -->
         </div>
         <!--end::Heading-->
 
@@ -154,33 +154,7 @@
       </ng-template>
 
       <!-- begin:: download app -->
-      <div class="download fv-row mb-15 d-none">
-        <span class="fs-13 fw-bolder text-dark">{{t('auth.downloadAppOn')}} </span>
-        <div class="d-flex align-items-center mt-8 download-main">
-          <div class="box d-flex align-items-center mx-4 mb-3">
-            <img src="assets/images/png/auth/Google-Play-logo.png" alt="">
-            <div>
-              <span>{{t('auth.downloadAppForAndroid')}}</span>
-              <strong>Google Play</strong>
-            </div>
-          </div>
-          <div class="box d-flex align-items-center mx-4">
-            <img src="assets/images/png/auth/Apple-logo.png" alt="">
-            <div>
-              <span>{{t('auth.downloadAppForIphone')}}</span>
-              <strong>App Store</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end:: download app -->
-      <!-- begin:: copyright -->
-      <div class="fv-row mb-10 text-center text-black">
-        {{t('auth.copyright')}}
-      </div>
-      <!-- end:: copyright -->
+
     </div>
-    <!--end::Content body-->
   </div>
-  <!--end::Content-->
 </div>

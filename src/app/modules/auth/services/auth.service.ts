@@ -34,16 +34,17 @@ export class AuthService implements OnDestroy {
 
   login(dataLogin, isRememberPassword: boolean, requestOptions) {
     return this.authHttpService.login(dataLogin, requestOptions).pipe(map((res: any)=> {
-      if (res.status === 1) {
-        this.authHttpService.getMyInformation(res.data.token).subscribe({
-          next: (response:any) => {
-            this.setDataLogin(res.data,response,isRememberPassword,dataLogin);
-          },
-          error: (error) => {
+      // if (res.status === 1) {
+      //   this.authHttpService.getMyInformation(res.data.token).subscribe({
+      //     next: (response:any) => {
+      //       this.setDataLogin(res.data,response,isRememberPassword,dataLogin);
+      //     },
+      //     error: (error) => {
 
-          }
-        })
-      }
+      //     }
+      //   })
+      // }
+      localStorage.setItem('Token', res.data.token);
       return res;
     }));
   }

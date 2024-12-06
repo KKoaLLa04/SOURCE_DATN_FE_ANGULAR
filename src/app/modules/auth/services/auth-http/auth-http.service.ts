@@ -36,7 +36,7 @@ export class AuthHTTPService {
 
   //service login
   login(data, requestOptions) {
-    return this.http.post(`${environment.apiUrl}/authentication/login`, data, requestOptions);
+    return this.http.post(`${environment.apiUrl}/auth/login`, data, requestOptions);
   }
 
   // service send email/phone number to verify account

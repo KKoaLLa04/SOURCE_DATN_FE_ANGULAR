@@ -9,7 +9,6 @@ import { ErrorInterceptor } from './_core/_helpers/error.interceptor';
 import { AuthGuard } from './_core/_helpers/guard/auth.guard';
 import { TokenInterceptor } from './_core/_helpers/token.interceptor';
 import { httpLoader } from './http-loader';
-import { environment } from "../environments/environment.firebase";
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +40,6 @@ export const appConfig: ApplicationConfig = {
       TranslateModule.forRoot(),
       NgxPermissionsModule.forRoot(),
       NgxDaterangepickerMd.forRoot(),
-      AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFireAuthModule,
       AngularFirestoreModule,
       AngularFireStorageModule,

@@ -1,0 +1,61 @@
+<form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Tên lớp học <span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Niên khóa<span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Chủ nhiệm <span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Khối học<span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Năm học <span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Trạng thái<span class="text-danger">*</span></label>
+          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnAccept)" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
+  </div>
+</form>
+
