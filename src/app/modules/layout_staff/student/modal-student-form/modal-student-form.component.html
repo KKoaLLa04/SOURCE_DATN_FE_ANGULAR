@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Tên lớp học <span class="text-danger">*</span></label>
+          <label  class="fw-600">Tên học sinh <span class="text-danger">*</span></label>
           <app-input
           [placeholder]="'Tên lớp học'"
           [formGroupInput]="formGroup"
@@ -21,13 +21,12 @@
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Niên khóa<span class="text-danger">*</span></label>
+          <label  class="fw-600">Giới tính<span class="text-danger">*</span></label>
           <app-select
-          [options]="optionAcacdemic"
+          [options]="optionsGender"
           [formGroupInput]="formGroup"
-          [formControlNameInput]="'academic'"
-          [validateForm]="validationMessages.academic"
-          [disabled]="dataFromParent.nameForm == 'update'"
+          [formControlNameInput]="'gender'"
+          [validateForm]="validationMessages.name"
           ></app-select>
         </div>
       </div>
@@ -36,19 +35,19 @@
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Chủ nhiệm <span class="text-danger">*</span></label>
+          <label  class="fw-600">Trạng thái <span class="text-danger">*</span></label>
           <app-select
-          [options]="optionMainTeacher"
+          [options]="optionStatus"
           [formGroupInput]="formGroup"
-          [formControlNameInput]="'mainTeacher'"
+          [formControlNameInput]="'status'"
+          [validateForm]="validationMessages.status"
           ></app-select>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Khối học<span class="text-danger">*</span></label>
+          <label  class="fw-600">Lớp học</label>
           <app-select
-          [options]="optionGrades"
           [formGroupInput]="formGroup"
           [formControlNameInput]="'grade'"
           [validateForm]="validationMessages.grade"
@@ -60,9 +59,8 @@
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Năm học <span class="text-danger">*</span></label>
+          <label  class="fw-600">Ngày sinh <span class="text-danger">*</span></label>
           <app-select
-          [options]="optionSchoolYear"
           [formGroupInput]="formGroup"
           [formControlNameInput]="'schoolYear'"
           [validateForm]="validationMessages.schoolYear"
@@ -72,7 +70,7 @@
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Trạng thái<span class="text-danger">*</span></label>
+          <label  class="fw-600">Địa chỉ<span class="text-danger">*</span></label>
             <app-select
             [options]="optionStatus"
             [formGroupInput]="formGroup"

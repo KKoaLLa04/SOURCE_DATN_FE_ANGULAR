@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
@@ -16,6 +16,9 @@ import { ClassStudyService } from '../services/class-study.service';
 import { ModalFormClassStudyComponent } from './modal-form-class-study/modal-form-class-study.component';
 import { ModalDeleteClassStudyComponent } from './modal-delete-class-study/modal-delete-class-study.component';
 import { ModalAssignTeacherToClassComponent } from './modal-assign-teacher-to-class/modal-assign-teacher-to-class.component';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
+import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 
 @Component({
   selector: 'app-class-study',
@@ -27,12 +30,20 @@ import { ModalAssignTeacherToClassComponent } from './modal-assign-teacher-to-cl
     InputSearchComponent,
     ButtonComponent,
     NgFor,
-    ContextMenuComponent
+    ContextMenuComponent,
+    PaginationComponent,
+    NoDataComponent,
+    NgIf
   ]
 })
 export class ClassStudyComponent implements OnInit {
   dataList: any = [];
-  iconSvg = iconSVG
+  iconSvg = iconSVG;
+  keyWord: string = '';
+  pageIndex = PAGE_INDEX_DEFAULT;
+  pageSize = PAGE_SIZE_DEFAULT;
+  collectionSize: number = 0;
+  sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -52,16 +63,22 @@ export class ClassStudyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListStatisticData();
+    this.getListDataClasses();
+  }
+
+  paginationChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getListDataClasses();
   }
 
   handleAction(event: IProperty): void{
     const actionHandlers = {
       '1': () => {},
-      '2': () => this.update(),
-      '3': () => this.assignTeacher(),
+      '2': () => this.update(event.data),
+      '3': () => this.assignTeacher(event.value),
       '4': () => this.onChangeAssignStudentPage(),
-      '5': () => this.deleteAcademic()
+      '5': () => this.deleteAcademic(event.value)
     };
 
     const handler = actionHandlers[event.type];
@@ -74,7 +91,7 @@ export class ClassStudyComponent implements OnInit {
     this.router.navigateByUrl('staff/class-study/assign-student')
   }
 
-  update(): void{
+  update(item: any): void{
     const modalRef = this.modalService.open(ModalFormClassStudyComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -90,6 +107,7 @@ export class ClassStudyComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
+        data: item,
         service: this.classStudyService,
         apiSubmit: (dataInput: any) => this.classStudyService.updateClassInformation(dataInput),
         nameForm: 'update',
@@ -100,7 +118,7 @@ export class ClassStudyComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListDataClasses();
         }
       },
       (reason) => { }
@@ -133,14 +151,14 @@ export class ClassStudyComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListDataClasses()
         }
       },
       (reason) => { }
     );
   }
 
-  deleteAcademic(){
+  deleteAcademic(id: any){
     const modalRef = this.modalService.open(ModalDeleteClassStudyComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -156,8 +174,6 @@ export class ClassStudyComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
-        service: this.classStudyService,
-        apiSubmit: (dataInput: any) => this.classStudyService.deleteClassStudy(dataInput),
         nameForm: 'create',
       },
     };
@@ -166,14 +182,24 @@ export class ClassStudyComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.globalStore.isLoading = true;
+          let dataRequest = {
+            class_id: id
+          }
+          this.classStudyService.deleteClassStudy(dataRequest).subscribe((res) => {
+            this.showMessageSerivce.success("Xóa lớp học thành công");
+            this.getListDataClasses();
+          }, (err) => {
+            this.globalStore.isLoading = false
+            this.showMessageSerivce.error(err)
+          })
         }
       },
       (reason) => { }
     );
   }
 
-  assignTeacher(): void{
+  assignTeacher(id: any): void{
     const modalRef = this.modalService.open(ModalAssignTeacherToClassComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -189,6 +215,7 @@ export class ClassStudyComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
+        data: id,
         service: this.classStudyService,
         apiSubmit: (dataInput: any) => this.classStudyService.assignTeacher(dataInput),
         nameForm: 'update',
@@ -199,19 +226,31 @@ export class ClassStudyComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListDataClasses();
         }
       },
       (reason) => { }
     );
   }
 
-  private getListStatisticData(): void{
-    this.globalStore.isLoading = true;
+  onSearch(value: string): void{
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.pageSize = PAGE_SIZE_DEFAULT
+    this.keyWord = value;
+    this.getListDataClasses()
+  }
 
-    this.classStudyService.getListClass().subscribe((res: any) => {
+  private getListDataClasses(): void{
+    this.globalStore.isLoading = true;
+    let dataRequest = {
+      school_year_id: localStorage.getItem('SchoolYearFirst'),
+      size: this.pageSize,
+      page: this.pageIndex,
+      search: this.keyWord
+    }
+    this.classStudyService.getListClass(dataRequest).subscribe((res: any) => {
       this.dataList = res;
-      console.log(res)
+      this.collectionSize = res?.data.totalItems;
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);

@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
@@ -14,7 +14,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAssignTeacherComponent } from '../teacher/modal-assign-teacher/modal-assign-teacher.component';
 import { ModalChangePasswordTeacherComponent } from '../teacher/modal-change-password-teacher/modal-change-password-teacher.component';
 import { IProperty } from 'src/app/_models/context-menu.interface';
-import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
+import { StudentService } from '../services/student.service';
+import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
+import { ModalStudentFormComponent } from './modal-student-form/modal-student-form.component';
 
 @Component({
   selector: 'app-student',
@@ -22,11 +26,13 @@ import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/con
   styleUrls: ['./student.component.scss'],
   standalone: true,
   imports: [
-    SelectComponent,
     InputSearchComponent,
     ButtonComponent,
     NgFor,
-    ContextMenuComponent
+    ContextMenuComponent,
+    PaginationComponent,
+    NoDataComponent,
+    NgIf
   ]
 })
 export class StudentComponent implements OnInit {
@@ -34,7 +40,9 @@ export class StudentComponent implements OnInit {
   keyWord: string = '';
   pageIndex = PAGE_INDEX_DEFAULT;
   pageSize = PAGE_SIZE_DEFAULT;
-  iconSvg = iconSVG
+  iconSvg = iconSVG;
+  collectionSize: number = 0;
+  sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -48,13 +56,19 @@ export class StudentComponent implements OnInit {
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
-    private teacherService: TeacherService,
+    private studentService: StudentService,
     private router: Router,
     private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
-    this.getListStatisticData();
+    this.getListStudent();
+  }
+
+  paginationChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getListStudent();
   }
 
   onChangeAssignPage(): void{
@@ -90,8 +104,8 @@ export class StudentComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
-        service: this.teacherService,
-        apiSubmit: (dataInput: any) => this.teacherService.updateTeacherInformation(dataInput),
+        service: this.studentService,
+        apiSubmit: (dataInput: any) => this.studentService.updateStudentInformation(dataInput),
         nameForm: 'update',
       },
     };
@@ -108,7 +122,7 @@ export class StudentComponent implements OnInit {
   }
 
   create() {
-    const modalRef = this.modalService.open(ModalAssignTeacherComponent, {
+    const modalRef = this.modalService.open(ModalStudentFormComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
       keyboard: false,
@@ -123,8 +137,8 @@ export class StudentComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
-        service: this.teacherService,
-        apiSubmit: (dataInput: any) => this.teacherService.createNewTeacher(dataInput),
+        service: this.studentService,
+        apiSubmit: (dataInput: any) => this.studentService.createNewStudent(dataInput),
         nameForm: 'create',
       },
     };
@@ -156,8 +170,8 @@ export class StudentComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
-        service: this.teacherService,
-        apiSubmit: (dataInput: any) => this.teacherService.createNewTeacher(dataInput),
+        service: this.studentService,
+        apiSubmit: (dataInput: any) => this.studentService.createNewStudent(dataInput),
         nameForm: 'create',
       },
     };
@@ -173,7 +187,14 @@ export class StudentComponent implements OnInit {
     );
   }
 
-  private getListStatisticData(): void{
+  onSearch(value: string): void{
+    this.keyWord = value;
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.pageSize = PAGE_SIZE_DEFAULT;
+    this.getListStudent();
+  }
+
+  private getListStudent(): void{
     this.globalStore.isLoading = true;
 
     let dataRequest = {
@@ -182,8 +203,9 @@ export class StudentComponent implements OnInit {
       pageSize: this.pageSize,
     }
 
-    this.teacherService.getListTeacher(dataRequest).subscribe((res: any) => {
+    this.studentService.getListStudent(dataRequest).subscribe((res: any) => {
       this.dataList = res;
+      this.collectionSize = res?.total
       console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{

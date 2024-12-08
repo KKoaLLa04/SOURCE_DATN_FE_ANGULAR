@@ -11,6 +11,9 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { AttendanceService } from '../services/attendance.service';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
+import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-attendance',
@@ -24,15 +27,19 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
     ButtonComponent,
     SelectComponent,
     NoDataComponent,
-    NgIf
-  ]
+    NgIf,
+    FormatTimePipe,
+    SingleDatePickerComponent
+  ],
+  providers: [FormatTimePipe]
 })
 export class AttendanceComponent implements OnInit {
   dataList: any = [];
   pageIndex = PAGE_INDEX_DEFAULT;
   pageSize = PAGE_SIZE_DEFAULT;
   keyWord: string = ''
-  date: number = 1;
+  date: number = new Date().getTime() / 1000;
+  nowTimestamp: number = new Date().getTime() / 1000;
   classIds: Array<number> = []
   dataOptionsStatus: Select2[] = [
     {
@@ -47,10 +54,26 @@ export class AttendanceComponent implements OnInit {
   constructor(
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
-    private showMessageSerivce: ShowMessageService
+    private showMessageSerivce: ShowMessageService,
+    private formatTimePipe: FormatTimePipe,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.getListAttendance();
+  }
+
+  onSearchDate(event: any){
+    this.pageSize = PAGE_SIZE_DEFAULT;
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.date = event;
+    this.getListAttendance();
+  }
+
+  onSearch(event: string): void{
+    this.pageSize = PAGE_SIZE_DEFAULT;
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.keyWord = event;
     this.getListAttendance();
   }
 
@@ -61,7 +84,7 @@ export class AttendanceComponent implements OnInit {
       pageIndex: this.pageIndex,
       pageSize: this.pageSize,
       keyWord: this.keyWord,
-      date: this.date,
+      date: this.formatTimePipe.transform(this.date, 'yyy-MM-dd'),
       classIds: this.classIds
     }
     this.attendanceSerivce.getListAttendance(dataRequest).subscribe((res: any) => {
@@ -73,4 +96,7 @@ export class AttendanceComponent implements OnInit {
     })
   }
 
+  onChangeSaveAttendancePage(id: number): void{
+    this.router.navigateByUrl(`staff/list_attendance/save/${id}`)
+  }
 }

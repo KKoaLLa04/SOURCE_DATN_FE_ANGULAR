@@ -1,7 +1,6 @@
 import { GeneralService } from 'src/app/_services/general.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { REGEX_PASSWORD, TIME_OUT_LISTEN_FIREBASE } from './../../../../_shared/utils/constant';
-import { ListenFirebaseService } from './../../../../_services/listen-firebase.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormGroup, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +40,6 @@ export class ResetPasswordComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private listenFirebaseService: ListenFirebaseService,
     private showMessage: ShowMessageService,
     private generalService: GeneralService,
     ) {}
@@ -106,7 +104,6 @@ export class ResetPasswordComponent implements OnInit {
       this.isLoading = false;
     }, TIME_OUT_LISTEN_FIREBASE);
     const listenFb = new Observable((subscriber: Subscriber<any>) => {
-      this.listenFirebaseService.checkFireBaseAuth(action, module, subscriber);
     });
     listenFb.subscribe((ref) => {
       if (ref.status === true) {

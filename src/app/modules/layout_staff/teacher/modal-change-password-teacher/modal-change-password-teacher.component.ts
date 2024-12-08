@@ -77,6 +77,7 @@ export class ModalChangePasswordTeacherComponent implements OnInit {
   }
 
   submit(valueForm: any) {
+
     if (this.formGroup.valid) {
       let dataInput = {
         name: valueForm.name.trim(),

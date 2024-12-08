@@ -1,4 +1,3 @@
-import { UserManagerService } from 'src/app/_services/user-manager.service';
 import { Router } from '@angular/router';
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { TranslocoService, TranslocoModule } from '@ngneat/transloco';

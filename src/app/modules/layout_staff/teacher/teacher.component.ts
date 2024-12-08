@@ -75,7 +75,7 @@ export class TeacherComponent implements OnInit {
   handleAction(event: IProperty): void{
     const actionHandlers = {
       '1': () => {},
-      '2': () => this.update(),
+      '2': () => this.update(event.data),
       '3': () => this.changePassWordTeacher()
     };
 
@@ -85,7 +85,7 @@ export class TeacherComponent implements OnInit {
     }
   }
 
-  update(): void{
+  update(item: any): void{
     const modalRef = this.modalService.open(ModalAssignTeacherComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -101,6 +101,7 @@ export class TeacherComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
+        data: item,
         service: this.teacherService,
         apiSubmit: (dataInput: any) => this.teacherService.updateTeacherInformation(dataInput),
         nameForm: 'update',
@@ -111,7 +112,7 @@ export class TeacherComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListTeacher()
         }
       },
       (reason) => { }
@@ -144,7 +145,7 @@ export class TeacherComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListTeacher()
         }
       },
       (reason) => { }

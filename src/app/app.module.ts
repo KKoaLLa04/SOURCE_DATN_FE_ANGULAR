@@ -27,13 +27,13 @@ import { NgChartsModule } from 'ng2-charts';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { CoreModule } from './_core/core.module';
 import { TokenInterceptor } from './_core/_helpers/token.interceptor';
-import { CoreOmtLayoutModule } from './_layouts/core-omt-layout/core-omt-layout.module';
 import { ModalDeleteComponent } from './_shared/modals/modal-delete/modal-delete.component';
 import { ErrorInterceptor } from './_core/_helpers/error.interceptor';
 import { NgxPermissionsModule } from "ngx-permissions";
 import { PageNotFoundComponent } from './_shared/components/page-not-found/page-not-found.component';
 import { AuthGuard } from './_core/_helpers/guard/auth.guard';
 import { ServerErrorComponent } from './_shared/components/server-error/server-error.component';
+import { CoreLayoutModule } from './_layouts/core-omt-layout/core-layout.module';
 
 registerLocaleData(en);
 // #fake-end#
@@ -54,7 +54,7 @@ registerLocaleData(en);
         AngularFireDatabaseModule,
         DefaultLayoutModule,
         NgxDaterangepickerMd.forRoot(),
-        CoreOmtLayoutModule,
+        CoreLayoutModule,
         NgChartsModule,
         CKEditorModule,
         CoreModule,

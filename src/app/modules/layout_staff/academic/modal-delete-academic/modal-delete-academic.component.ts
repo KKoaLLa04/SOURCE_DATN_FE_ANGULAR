@@ -18,7 +18,6 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 })
 export class ModalDeleteAcademicComponent implements OnInit {
   @Input() dataModal: any;
-  formGroup: FormGroup;
   dataFromParent: any;
   validationMessagesServer = {
     name: {},

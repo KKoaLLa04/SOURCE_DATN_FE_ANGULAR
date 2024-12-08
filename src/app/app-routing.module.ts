@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CoreOmtLayoutComponent } from './_layouts/core-omt-layout/core-omt-layout.component';
+import { CoreOmtLayoutComponent } from './_layouts/core-omt-layout/core-layout.component';
 import { AuthGuard } from './_core/_helpers/guard/auth.guard';
 import { PageNotFoundComponent } from './_shared/components/page-not-found/page-not-found.component';
 import { ServerErrorComponent } from './_shared/components/server-error/server-error.component';

@@ -32,10 +32,10 @@ export class TeacherService {
   }
 
   createNewTeacher(data: any){
-    console.log(data);
+    return this.http.post(`${environment.apiUrl}/manager/user/add`, data);
   }
 
   updateTeacherInformation(data: any){
-    console.log(data)
+    return this.http.post(`${environment.apiUrl}/manager/user/edit/${data.userId}`, data);
   }
 }

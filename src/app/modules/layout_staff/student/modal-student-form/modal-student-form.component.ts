@@ -3,21 +3,21 @@ import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFo
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
-import { ValidatorNotEmptyString, ValidatorNotNull } from 'src/app/_services/validator-custom.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { StatusClassEnum } from 'src/app/_shared/enums/status-class.enum';
-import { REGEX_CODE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../../services/class-study.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { resolveSoa } from 'dns';
+import { ValidatorNotEmptyString } from 'src/app/_services/validator-custom.service';
+import { genderEnum } from 'src/app/_shared/enums/gender.enum';
+import { statusClassStudentEnum } from 'src/app/_shared/enums/status-class-student.enum';
 
 @Component({
-  selector: 'app-modal-form-class-study',
-  templateUrl: './modal-form-class-study.component.html',
-  styleUrls: ['./modal-form-class-study.component.scss'],
+  selector: 'app-modal-student-form',
+  templateUrl: './modal-student-form.component.html',
+  styleUrls: ['./modal-student-form.component.scss'],
   standalone: true,
   imports: [
     TranslocoModule,
@@ -28,7 +28,7 @@ import { resolveSoa } from 'dns';
     SelectComponent
   ]
 })
-export class ModalFormClassStudyComponent implements OnInit {
+export class ModalStudentFormComponent implements OnInit {
   @Input() dataModal: any;
   formGroup: FormGroup;
   dataForm: any
@@ -47,23 +47,31 @@ export class ModalFormClassStudyComponent implements OnInit {
       selected: true
     },
     {
-      label: "Chưa diễn ra",
-      value: StatusClassEnum.HAS_NOT_HAPPENDED
+      label: "Nghỉ học",
+      value: statusClassStudentEnum.LEAVE
     },
     {
-      label: "Đang diễn ra",
-      value: StatusClassEnum.HAS_APPROVED
+      label: "Đang học",
+      value: statusClassStudentEnum.STUDYING
     },
     {
-      label: "Đã kết thúc",
-      value: StatusClassEnum.HAS_NOT_HAPPENDED
+      label: "Chưa vào lớp",
+      value: statusClassStudentEnum.NOT_YET_CLASS
     }
   ]
 
-  optionGrades: Select2[] = [
+  optionsGender: Select2[] = [
     {
-      label: "Chọn khối",
+      label: "Chọn giới tính",
       value: ""
+    },
+    {
+      label: "Nam",
+      value: genderEnum.NAM
+    },
+    {
+      label: "Nữ",
+      value: genderEnum.WOMAN
     }
   ]
 
@@ -74,21 +82,12 @@ export class ModalFormClassStudyComponent implements OnInit {
     }
   ]
 
-  optionAcacdemic: Select2[] = [
+  optionClasses: Select2[] = [
     {
-      label: "Niên khóa",
+      label: "Chọn lớp học",
       value: ''
     }
   ]
-
-  optionSchoolYear: Select2[] = [
-    {
-      label: "Năm học",
-      value: ''
-    }
-  ]
-
-
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -99,49 +98,23 @@ export class ModalFormClassStudyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDataForm();
+    this.getListClass();
     this.dataFromParent = this.dataModal.dataFromParent;
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
   }
 
-
-  getDataForm(): void{
+  getListClass(){
     this.globalStore.isLoading = true;
-    this.classStudyService.getDataForm().subscribe((res: any) => {
-      this.dataForm = res;
+    let dataRequest = {
+      schoolYearId: localStorage.getItem("SchoolYearFirst"),
+      page: 1,
+      size: 999,
+      search: ''
+    }
+    this.classStudyService.getListClass(dataRequest).subscribe((res: any) => {
       console.log(res);
-      res.data.academics.map((item) => {
-        this.optionAcacdemic.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      res.data.grades.map((item) => {
-        this.optionGrades.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      res.data.teachers.map((item) => {
-        this.optionMainTeacher.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      res.data.schoolYears.map((item) => {
-        this.optionSchoolYear.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      this.globalStore.isLoading = false;
-    }, (err) =>{
-      this.showMessageService.error(err);
+      // optionClasses
     })
   }
 

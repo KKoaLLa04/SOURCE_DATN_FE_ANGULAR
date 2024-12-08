@@ -1,6 +1,4 @@
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
-import { SendCodeComponent } from './components/send-code/send-code.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
@@ -32,14 +30,6 @@ const routes: Routes = [
         path: 'forgot-password',
         component: ForgotPasswordComponent,
         children: [
-          {
-            path: '',
-            component: VerifyAccountComponent
-          },
-          {
-            path: 'send-code',
-            component: SendCodeComponent
-          },
           {
             path: 'reset-password',
             component: ResetPasswordComponent

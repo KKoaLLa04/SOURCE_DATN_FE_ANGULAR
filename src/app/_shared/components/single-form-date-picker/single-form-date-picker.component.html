@@ -16,7 +16,7 @@
          (ngModelChange)="setValueForm($event)"
   >
   <img *ngIf="!selected || !selected?.startDate" class="icon-date-picker ngx-daterangepicker-action" src="assets/images/svg/calendar.svg" alt="" (click)="open()">
-  <img *ngIf="selected && selected?.startDate" class="icon-date-picker ngx-daterangepicker-action filter-color-bittersweet" src="assets/images/svg/close.svg" alt="" (click)="clearDate()">
+  <img *ngIf="selected && selected?.startDate && isShowImageClose" class="icon-date-picker ngx-daterangepicker-action filter-color-bittersweet" src="assets/images/svg/close.svg" alt="" (click)="clearDate()">
 </div>
 <ng-container *ngFor="let validate of validateForm">
   <ng-container

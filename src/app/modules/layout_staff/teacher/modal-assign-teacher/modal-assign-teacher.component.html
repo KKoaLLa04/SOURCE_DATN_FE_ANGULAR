@@ -11,23 +11,24 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Họ và tên <span class="text-danger">*</span></label>
-          <app-input 
-            [placeholder]="t('role.enterNameRole')" 
-            [formGroupInput]="formGroup" 
-            [formControlNameInput]="'name'" 
-            [validateForm]="validationMessages.name" 
+          <app-input
+            [placeholder]="t('enterName')"
+            [formGroupInput]="formGroup"
+            [formControlNameInput]="'name'"
+            [validateForm]="validationMessages.name"
             [validateFormServer]="validationMessagesServer.name"
           ></app-input>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Email<span class="text-danger">*</span></label>
-          <app-input 
-          [placeholder]="t('enterCode')" 
-          [formGroupInput]="formGroup" 
-          [formControlNameInput]="'email'" 
-          [validateForm]="validationMessages.code" 
+          <label  class="fw-600">Tên đăng nhập<span class="text-danger">*</span></label>
+          <app-input
+          [placeholder]="t('enterUsername')"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'username'"
+          [validateForm]="validationMessages.username"
+          [disabled]="dataFromParent.nameForm == 'update'"
           ></app-input>
         </div>
       </div>
@@ -37,13 +38,50 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Số điện thoại <span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'phone'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+          <app-input
+            [placeholder]="t('enterPhone')"
+            [formGroupInput]="formGroup"
+            [formControlNameInput]="'phone'"
+            [validateForm]="validationMessages.phone"
+          ></app-input>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Chức vụ<span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'role'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+          <label  class="fw-600">Email<span class="text-danger">*</span></label>
+          <app-input
+          [placeholder]="t('enterEmail')"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'email'"
+          [validateForm]="validationMessages.email"
+          ></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="dataFromParent.nameForm != 'update'">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Mạt khẩu <span class="text-danger">*</span></label>
+          <app-input
+          [type]="'password'"
+          [placeholder]="t('enterPassword')"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'password'"
+          [validateForm]="validationMessages.password"
+          ></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Xác nhận mật khẩu<span class="text-danger">*</span></label>
+          <app-input
+          [type]="'password'"
+          [placeholder]="t('enterConfirmPassword')"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'confirm_password'"
+          [validateForm]="validationMessages.confirm_password"
+          ></app-input>
         </div>
       </div>
     </div>
@@ -51,14 +89,24 @@
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Mạt khẩu <span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'password'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+          <label  class="fw-600">Chức vụ<span class="text-danger">*</span></label>
+          <app-select
+          [options]="optionRoles"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'role'"
+          [validateForm]="validationMessages.role"
+          ></app-select>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Xác nhận mật khẩu<span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'confirm_password'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+          <label  class="fw-600">Giới tính<span class="text-danger">*</span></label>
+          <app-select
+          [options]="optionGender"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'gender'"
+          [validateForm]="validationMessages.gender"
+          ></app-select>
         </div>
       </div>
     </div>
@@ -67,31 +115,38 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Chủ nhiệm</label>
-          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'mainTeacher'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+          <app-select
+          [options]="optionTeachers"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'mainTeacher'"
+          [validateForm]="validationMessages.name"
+          ></app-select>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
-        <div class="form-group so-form-group">
-          <label  class="fw-600">Địa chỉ</label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'address'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label class="fw-600">Ngày sinh</label>
-          <!-- <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input> -->
-          <app-single-form-date-picker [formControlNameInput]="'dob'" [formGroupInput]="formGroup"></app-single-form-date-picker>
-           <!-- <app-single-date-picker formControlName></app-single-date-picker> -->
+          <app-single-form-date-picker
+          [formControlNameInput]="'dob'"
+          [formGroupInput]="formGroup"
+          [maxDate]="timestampNow"
+          ></app-single-form-date-picker>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label class="fw-600">Địa chỉ</label>
+          <app-input
+          [placeholder]="t('enterAddress')"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'address'"
+          ></app-input>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Hoạt động</label>
           <br/>
-          <!-- <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input> -->
           <app-checkbox [formControlNameInput]="'active'" [formGroupInput]="formGroup"></app-checkbox>
         </div>
       </div>

@@ -12,8 +12,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { ModalLockLoginComponent } from './components/modal-lock-login/modal-lock-login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { SendCodeComponent } from './components/send-code/send-code.component';
-import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 import { CoreModule } from 'src/app/_core/core.module';
 import { NumberDirective } from 'src/app/_shared/directive/only-number.directive';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
@@ -36,8 +34,6 @@ import { FormatTimeToMinutePipe } from 'src/app/_shared/pipe/format-time-to-minu
         LogoutComponent,
         AuthComponent,
         ModalLockLoginComponent,
-        VerifyAccountComponent,
-        SendCodeComponent,
         ResetPasswordComponent,
         NumberDirective,
         FormatTimeToMinutePipe

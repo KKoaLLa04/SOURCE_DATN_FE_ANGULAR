@@ -27,6 +27,7 @@ export class SingleFormDatePickerComponent implements OnChanges {
   @Input() validateFormServer: any = {};
   @Input() formatInput: string = "DD/MM/YYYY";
   @Input() currentDate: string;
+  @Input() isShowImageClose: boolean = true;
   selected: any = { startDate: null, endDate: null };
   options: any = {
     autoApply: true,

@@ -9,33 +9,33 @@ export class StatisticAttendanceService {
 
   constructor(private http: HttpClient) { }
 
-  getListStatisticAttendance(){
-    return of(
-      [
-        {
-          class_name: "6a1",
-          grade_name: "Khối 6",
-          status_class: 2,
-          teacher_name: "Chưa có giáo viên chủ nhiệm",
-          total_students: 0
-        },
-        {
-          class_name: "6a1",
-          grade_name: "Khối 6",
-          status_class: 2,
-          teacher_name: "Chưa có giáo viên chủ nhiệm",
-          total_students: 0
-        },
-        {
-          class_name: "6a1",
-          grade_name: "Khối 6",
-          status_class: 2,
-          teacher_name: "Chưa có giáo viên chủ nhiệm",
-          total_students: 0
-        }
-      ]
-    )
-    // return this.http.get(`http://127.0.0.1:8000/api/manager/rollcall/statistics`)
+  getListStatisticAttendance(data: any){
+    // return of(
+    //   [
+    //     {
+    //       class_name: "6a1",
+    //       grade_name: "Khối 6",
+    //       status_class: 2,
+    //       teacher_name: "Chưa có giáo viên chủ nhiệm",
+    //       total_students: 0
+    //     },
+    //     {
+    //       class_name: "6a1",
+    //       grade_name: "Khối 6",
+    //       status_class: 2,
+    //       teacher_name: "Chưa có giáo viên chủ nhiệm",
+    //       total_students: 0
+    //     },
+    //     {
+    //       class_name: "6a1",
+    //       grade_name: "Khối 6",
+    //       status_class: 2,
+    //       teacher_name: "Chưa có giáo viên chủ nhiệm",
+    //       total_students: 0
+    //     }
+    //   ]
+    // )
+    return this.http.get(`http://127.0.0.1:8000/api/manager/rollcallStatistics`, {params: {...data}})
   }
 
   getListStatistic(){
