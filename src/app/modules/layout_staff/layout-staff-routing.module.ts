@@ -11,6 +11,7 @@ import { AcademicComponent } from "./academic/academic.component";
 import { ClassStudyComponent } from "./class-study/class-study.component";
 import { ClassStudyAssignStudentComponent } from "./class-study/class-study-assign-student/class-study-assign-student.component";
 import { StudentComponent } from "./student/student.component";
+import { StudentDetailComponent } from "./student/student-detail/student-detail.component";
 
 const routes: Routes = [
   {
@@ -93,6 +94,10 @@ const routes: Routes = [
       {
         path: 'assign-student',
         component: ClassStudyAssignStudentComponent
+      },
+      {
+        path: "detail/:id",
+        component: StudentDetailComponent
       }
     ]
   },

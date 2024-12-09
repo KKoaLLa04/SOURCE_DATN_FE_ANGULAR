@@ -8,6 +8,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistic-attendance',
@@ -37,7 +38,8 @@ export class StatisticAttendanceComponent implements OnInit {
   constructor(
     private globalStore: GlobalStore,
     private statisticAttendanceSerivce: StatisticAttendanceService,
-    private showMessageSerivce: ShowMessageService
+    private showMessageSerivce: ShowMessageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -59,4 +61,7 @@ export class StatisticAttendanceComponent implements OnInit {
     })
   }
 
+  onChangeStudentDetailPage(id: any){
+    this.router.navigateByUrl('staff/list_attendance_statistic/detail/'+id);
+  }
 }

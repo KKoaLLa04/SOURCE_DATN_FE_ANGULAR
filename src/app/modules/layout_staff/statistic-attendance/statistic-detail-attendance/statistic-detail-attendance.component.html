@@ -20,14 +20,14 @@
             <th rowspan="2">Mã học sinh</th>
             <th rowspan="2">Họ và tên</th>
             <th colspan="3" class="w-10">Tổng số ngày nghỉ</th>
-            <ng-container *ngFor="let item of dataMonth">
-              <th rowspan="2">{{item}}</th>
+            <ng-container *ngFor="let item of dataDateMonth">
+              <th rowspan="2">{{item.date}}</th>
             </ng-container>
           </tr>
           <tr>
-            <th>P</th>
-            <th>V</th>
-            <th>M</th>
+            <th class="text-center">P</th>
+            <th class="text-center">V</th>
+            <th class="text-center">M</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +38,7 @@
             <td>{{item.total_absent}}</td>
             <td>{{item.total_late}}</td>
             <td>{{item.total_present}}</td>
+            <td *ngFor="let date of item.date">{{date.status}}</td>
           </tr>
         </tbody>
       </table>

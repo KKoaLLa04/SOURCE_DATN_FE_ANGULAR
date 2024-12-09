@@ -16,10 +16,18 @@ export class StudentService {
   }
 
   updateStudentInformation(data: any){
-    console.log(data)
+    return this.http.post(`${environment.apiUrl}/manager/student/update/${data.id}`, data)
   }
 
   createNewStudent(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/student/store`, data)
+  }
+
+  getStudentDetail(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/student/show/${data.id}`)
+  }
+
+  assignParent(data: any){
     console.log(data)
   }
 }

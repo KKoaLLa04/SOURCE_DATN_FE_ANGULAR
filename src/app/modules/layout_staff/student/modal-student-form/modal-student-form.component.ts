@@ -13,6 +13,8 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ValidatorNotEmptyString } from 'src/app/_services/validator-custom.service';
 import { genderEnum } from 'src/app/_shared/enums/gender.enum';
 import { statusClassStudentEnum } from 'src/app/_shared/enums/status-class-student.enum';
+import { SingleFormDatePickerComponent } from 'src/app/_shared/components/single-form-date-picker/single-form-date-picker.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 
 @Component({
   selector: 'app-modal-student-form',
@@ -25,8 +27,10 @@ import { statusClassStudentEnum } from 'src/app/_shared/enums/status-class-stude
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,
-    SelectComponent
-  ]
+    SelectComponent,
+    SingleFormDatePickerComponent
+  ],
+  providers: [FormatTimePipe]
 })
 export class ModalStudentFormComponent implements OnInit {
   @Input() dataModal: any;
@@ -39,7 +43,7 @@ export class ModalStudentFormComponent implements OnInit {
     requestLayout: {}
   };
   isUpdate: boolean = false;
-
+  nowTimestamp: number = new Date().getTime()/1000 - 86400;
   optionStatus: Select2[] = [
     {
       label: "Chọn trạng thái lớp học",
@@ -75,13 +79,6 @@ export class ModalStudentFormComponent implements OnInit {
     }
   ]
 
-  optionMainTeacher: Select2[] = [
-    {
-      label: "Giáo viên chủ nhiệm",
-      value: ''
-    }
-  ]
-
   optionClasses: Select2[] = [
     {
       label: "Chọn lớp học",
@@ -94,12 +91,15 @@ export class ModalStudentFormComponent implements OnInit {
     private fb: FormBuilder,
     private globalStore: GlobalStore,
     private classStudyService: ClassStudyService,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit(): void {
     this.getListClass();
     this.dataFromParent = this.dataModal.dataFromParent;
+
+    console.log(this.dataFromParent)
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
   }
@@ -107,14 +107,19 @@ export class ModalStudentFormComponent implements OnInit {
   getListClass(){
     this.globalStore.isLoading = true;
     let dataRequest = {
-      schoolYearId: localStorage.getItem("SchoolYearFirst"),
+      school_year_id: localStorage.getItem("SchoolYearFirst"),
       page: 1,
       size: 999,
       search: ''
     }
     this.classStudyService.getListClass(dataRequest).subscribe((res: any) => {
-      console.log(res);
-      // optionClasses
+      res?.data?.classes.map((item) => {
+        this.optionClasses.push({
+          label: item.name,
+          value: item.id
+        })
+      })
+      this.globalStore.isLoading = false;
     })
   }
 
@@ -122,32 +127,9 @@ export class ModalStudentFormComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.name
+          ? this.dataFromParent?.data?.fullname
           : '',
         [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
-      ],
-      academic: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.academic_id
-          : '',
-        [Validators.required],
-      ],
-      mainTeacher: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.teacher_id
-          : '',
-      ],
-      grade: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.grade_id
-          : '',
-        [Validators.required],
-      ],
-      schoolYear: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.school_year_id
-          : '',
-        [Validators.required],
       ],
       status: [
         this.dataFromParent.nameForm == 'update'
@@ -155,42 +137,55 @@ export class ModalStudentFormComponent implements OnInit {
           : '',
         [Validators.required],
       ],
+      gender: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.gender
+          : '',
+        [Validators.required],
+      ],
+      class: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.class_id
+          : '',
+      ],
+      dob: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.dob
+          : this.nowTimestamp,
+        [Validators.required],
+      ],
+      address: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.address
+          : '',
+      ],
     });
 
-    if(this.dataFromParent.nameForm == 'update'){
-      this.formGroup.get('academic').clearValidators();
-      this.formGroup.get('academic').updateValueAndValidity();
-      this.formGroup.get('schoolYear').clearValidators();
-      this.formGroup.get('schoolYear').updateValueAndValidity();
-    }
   }
 
   submit(valueForm: any) {
-    if(this.dataFromParent.nameForm == 'update'){
-      this.formGroup.get('academic').clearValidators();
-      this.formGroup.get('academic').updateValueAndValidity();
-      this.formGroup.get('schoolYear').clearValidators();
-      this.formGroup.get('schoolYear').updateValueAndValidity();
-    }
     if (this.formGroup.valid) {
       let dataInput;
+      console.log(valueForm.dob);
       if (this.dataFromParent.nameForm == 'update') {
         // form update
         dataInput = {
-          class_id: this.dataFromParent.data.id,
-          name: valueForm.name.trim(),
-          teacher_id: valueForm.mainTeacher,
+          id: this.dataFromParent.data.id,
+          fullname: valueForm.name.trim(),
+          address: valueForm.address.trim(),
+          dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),
+          gender: valueForm.gender,
           status: valueForm.status,
-          grade_id: valueForm.grade,
+          class_id: valueForm.class,
         };
       }else{
         dataInput = {
-          name: valueForm.name.trim(),
-          academic_id: valueForm.academic,
-          teacher_id: valueForm.mainTeacher,
+          fullname: valueForm.name.trim(),
+          address: valueForm.address.trim(),
+          dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),
+          gender: valueForm.gender,
           status: valueForm.status,
-          grade_id: valueForm.grade,
-          school_year_id: valueForm.schoolYear,
+          class_id: valueForm.class,
         };
       }
       this.globalStore.isLoading = true;
@@ -198,9 +193,9 @@ export class ModalStudentFormComponent implements OnInit {
       this.dataFromParent.apiSubmit(dataInput).subscribe(
         (res: any) => {
           if (this.dataFromParent.nameForm == 'update') {
-            this.showMessageService.success("Cập nhật lớp học thành công")
+            this.showMessageService.success("Cập nhật học sinh thành công")
           }else{
-            this.showMessageService.success("Thêm lớp học mới thành công")
+            this.showMessageService.success("Thêm học sinh mới thành công")
           }
           this.globalStore.isLoading = false;
           this.closeModal(true)
@@ -274,29 +269,23 @@ export class ModalStudentFormComponent implements OnInit {
         message: 'requiredName'
       },
     ],
-    academic: [
+    gender: [
       {
         type: "required",
-        message: 'Niên khóa bắt buộc chọn'
-      },
-    ],
-    grade: [
-      {
-        type: "required",
-        message: 'Khối học bắt buộc chọn'
-      },
-    ],
-    schoolYear: [
-      {
-        type: "required",
-        message: 'Năm học bắt buộc chọn'
+        message: 'Giới tính bắt buộc chọn'
       },
     ],
     status: [
       {
         type: "required",
-        message: "Trạng thái bắt buộc chọn"
-      }
-    ]
+        message: 'Trạng thái bắt buộc chọn'
+      },
+    ],
+    dob: [
+      {
+        type: "required",
+        message: 'Ngày sinh bắt buộc chọn'
+      },
+    ],
   };
 }

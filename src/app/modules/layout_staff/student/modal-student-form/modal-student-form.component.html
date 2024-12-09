@@ -26,7 +26,7 @@
           [options]="optionsGender"
           [formGroupInput]="formGroup"
           [formControlNameInput]="'gender'"
-          [validateForm]="validationMessages.name"
+          [validateForm]="validationMessages.gender"
           ></app-select>
         </div>
       </div>
@@ -48,9 +48,9 @@
         <div class="form-group so-form-group">
           <label  class="fw-600">Lớp học</label>
           <app-select
+          [options]="optionClasses"
           [formGroupInput]="formGroup"
-          [formControlNameInput]="'grade'"
-          [validateForm]="validationMessages.grade"
+          [formControlNameInput]="'class'"
           ></app-select>
         </div>
       </div>
@@ -60,23 +60,21 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Ngày sinh <span class="text-danger">*</span></label>
-          <app-select
-          [formGroupInput]="formGroup"
-          [formControlNameInput]="'schoolYear'"
-          [validateForm]="validationMessages.schoolYear"
-          [disabled]="dataFromParent.nameForm == 'update'"
-           ></app-select>
+           <app-single-form-date-picker
+             [formGroupInput]="formGroup"
+              [formControlNameInput]="'dob'"
+              [validateForm]="validationMessages.dob"
+              [maxDate]="nowTimestamp"
+           ></app-single-form-date-picker>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Địa chỉ<span class="text-danger">*</span></label>
-            <app-select
-            [options]="optionStatus"
+            <app-input
             [formGroupInput]="formGroup"
-            [formControlNameInput]="'status'"
-            [validateForm]="validationMessages.status"
-            ></app-select>
+            [formControlNameInput]="'address'"
+            ></app-input>
         </div>
       </div>
     </div>

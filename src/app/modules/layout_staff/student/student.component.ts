@@ -71,14 +71,18 @@ export class StudentComponent implements OnInit {
     this.getListStudent();
   }
 
+  onChangeStudentDetailPage(id: any){
+    this.router.navigateByUrl('staff/student/detail/'+id);
+  }
+
   onChangeAssignPage(): void{
     this.router.navigateByUrl('staff/subject/assign');
   }
 
   handleAction(event: IProperty): void{
     const actionHandlers = {
-      '1': () => {},
-      '2': () => this.update(),
+      '1': () => this.onChangeStudentDetailPage(event.value),
+      '2': () => this.update(event.data),
       '3': () => this.changePassWordTeacher()
     };
 
@@ -88,8 +92,8 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  update(): void{
-    const modalRef = this.modalService.open(ModalAssignTeacherComponent, {
+  update(item: any): void{
+    const modalRef = this.modalService.open(ModalStudentFormComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
       keyboard: false,
@@ -99,11 +103,12 @@ export class StudentComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Chỉnh sửa thông tin công nhân viên chức',
+      titleModal: 'Chỉnh sửa thông tin học sinh',
       btnCancel: 'btnAction.cancel',
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
+        data: item,
         service: this.studentService,
         apiSubmit: (dataInput: any) => this.studentService.updateStudentInformation(dataInput),
         nameForm: 'update',
@@ -114,7 +119,7 @@ export class StudentComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListStudent();
         }
       },
       (reason) => { }
@@ -132,7 +137,7 @@ export class StudentComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Thêm mới công nhân viên chức',
+      titleModal: 'Thêm mới học sinh',
       btnCancel: 'btnAction.cancel',
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
@@ -147,7 +152,8 @@ export class StudentComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          // console.log(result)
+          this.getListStudent();
         }
       },
       (reason) => { }
