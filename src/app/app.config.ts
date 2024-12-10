@@ -13,11 +13,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { GlobalStore } from './_store/global.store';
 
@@ -40,10 +35,6 @@ export const appConfig: ApplicationConfig = {
       TranslateModule.forRoot(),
       NgxPermissionsModule.forRoot(),
       NgxDaterangepickerMd.forRoot(),
-      AngularFireAuthModule,
-      AngularFirestoreModule,
-      AngularFireStorageModule,
-      AngularFireDatabaseModule,
       TranslocoModule
     ]),
     AuthGuard,

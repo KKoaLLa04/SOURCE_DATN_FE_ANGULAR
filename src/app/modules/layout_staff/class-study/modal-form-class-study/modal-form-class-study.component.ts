@@ -12,7 +12,6 @@ import { REGEX_CODE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../../services/class-study.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { resolveSoa } from 'dns';
 
 @Component({
   selector: 'app-modal-form-class-study',

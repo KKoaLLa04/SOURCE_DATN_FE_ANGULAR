@@ -34,6 +34,7 @@ import { PageNotFoundComponent } from './_shared/components/page-not-found/page-
 import { AuthGuard } from './_core/_helpers/guard/auth.guard';
 import { ServerErrorComponent } from './_shared/components/server-error/server-error.component';
 import { CoreLayoutModule } from './_layouts/core-omt-layout/core-layout.module';
+import { environment } from 'src/environments/environment';
 
 registerLocaleData(en);
 // #fake-end#
@@ -59,10 +60,13 @@ registerLocaleData(en);
         CKEditorModule,
         CoreModule,
         TranslocoModule,
-        ModalDeleteComponent,
+        // ModalDeleteComponent,
         PageNotFoundComponent,
         PageNotFoundComponent,
-        ServerErrorComponent
+        ServerErrorComponent,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        // AngularFireMessagingModule
     ],
     providers: [
         AuthGuard,

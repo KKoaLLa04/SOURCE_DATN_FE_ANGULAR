@@ -24,6 +24,20 @@ export const routes: Routes = [
             (m) => m.LayoutStaffManager
           ),
       },
+      {
+        path: 'parent',
+        loadChildren: () =>
+          import('./modules/layout_parent/layout-parent-manager.module').then(
+            (m) => m.LayoutParentManager
+          ),
+      },
+      {
+        path: 'teacher',
+        loadChildren: () =>
+          import('./modules/layout_teacher/layout-teacher-manager.module').then(
+            (m) => m.LayoutTeacherManager
+          ),
+      }
     ],
   },
 

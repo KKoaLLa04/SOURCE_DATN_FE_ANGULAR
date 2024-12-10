@@ -6,6 +6,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { GlobalStore } from './_store/global.store';
 import { NgIf, CommonModule } from '@angular/common';
 import { LoadingComponent } from './_shared/components/loading/loading.component';
+import { FcmService } from './fcm.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -13,7 +14,7 @@ import { LoadingComponent } from './_shared/components/loading/loading.component
   standalone: true,
   imports: [RouterOutlet,NgIf,LoadingComponent,CommonModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   vm$ = this.globalStore.select((state) => {
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private globalStore: GlobalStore,
     private router: Router,
+    private fcmService: FcmService
   ) {
   }
 
@@ -35,6 +37,9 @@ export class AppComponent implements OnInit {
     if(!token){
       this.router.navigateByUrl('/auth/login');
     }
+
+    this.fcmService.requestPermission();
+
     const currentUserElement  = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentPermissions')));
     this.authService.currentPermissions = currentUserElement.asObservable();
     this.authService.currentPermissions.subscribe(x => {

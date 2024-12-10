@@ -16,10 +16,18 @@
     <!-- begin::Menu wrapper -->
     <div class="btn btn-icon btn-active-light-primary position-relative" [ngClass]="toolbarButtonHeightClass"
          id="kt_drawer_chat_toggle">
-    <span class="svg-icon"
-          [ngClass]="toolbarButtonIconSizeClass"><img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure"></span>
-
-    </div>
+    <!-- <span class="svg-icon"
+          [ngClass]="toolbarButtonIconSizeClass"><img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure"></span> -->
+          <div class="dropdown">
+            <button class="border-custom dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li *ngFor="let item of dataList?.data"><a class="dropdown-item" href="#">{{item?.data?.title}} - {{item?.created_at | formatTime: "hh:mm dd-MM-yyyy"}}</a></li>
+              <li *ngIf="!dataList?.data?.length"><a class="dropdown-item" href="#">Bạn không có thông báo mới!</a></li>
+            </ul>
+            </div>
+          </div>
     <!-- end::Menu wrapper -->
   </div>
 
