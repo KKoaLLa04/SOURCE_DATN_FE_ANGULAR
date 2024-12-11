@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { GlobalStore } from './_store/global.store';
+import { provideServiceWorker } from '@angular/service-worker';
 
 const customLanguagePack = {
   vi_VN,
@@ -29,28 +30,32 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     importProvidersFrom([
-      BrowserModule,
-      HttpClientModule,
-      BrowserAnimationsModule,
-      TranslateModule.forRoot(),
-      NgxPermissionsModule.forRoot(),
-      NgxDaterangepickerMd.forRoot(),
-      TranslocoModule
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        TranslateModule.forRoot(),
+        NgxPermissionsModule.forRoot(),
+        NgxDaterangepickerMd.forRoot(),
+        TranslocoModule
     ]),
     AuthGuard,
     GlobalStore,
     httpLoader,
     {
-      provide: TRANSLOCO_CONFIG,
-      useValue: {
-        availableLangs: ["en", "vi"],
-        reRenderOnLangChange: true,
-        fallbackLang: "en",
-        defaultLang: localStorage.getItem("language") || "vi",
-      } as TranslocoConfig,
+        provide: TRANSLOCO_CONFIG,
+        useValue: {
+            availableLangs: ["en", "vi"],
+            reRenderOnLangChange: true,
+            fallbackLang: "en",
+            defaultLang: localStorage.getItem("language") || "vi",
+        } as TranslocoConfig,
     },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: NZ_I18N, useValue: localStorage.getItem("language") && localStorage.getItem("language") === 'en' ? en_US : customLanguagePack }
-  ]
+    { provide: NZ_I18N, useValue: localStorage.getItem("language") && localStorage.getItem("language") === 'en' ? en_US : customLanguagePack },
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    })
+]
 };

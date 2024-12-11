@@ -1,0 +1,9 @@
+{
+  "gcm_sender_id":"631701701097",
+  "name": "My App",
+  "short_name": "App",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}

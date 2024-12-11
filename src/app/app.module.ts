@@ -20,7 +20,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from "@ngneat/transloco";
 import { httpLoader } from "./http-loader";
 // #fake-start#
-import { registerLocaleData } from '@angular/common';
+import { AsyncPipe, registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgChartsModule } from 'ng2-charts';
@@ -35,7 +35,9 @@ import { AuthGuard } from './_core/_helpers/guard/auth.guard';
 import { ServerErrorComponent } from './_shared/components/server-error/server-error.component';
 import { CoreLayoutModule } from './_layouts/core-omt-layout/core-layout.module';
 import { environment } from 'src/environments/environment';
-
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { initializeApp } from '@angular/fire/app';
+import { MessagingService } from 'src/firebase/messaging-service';
 registerLocaleData(en);
 // #fake-end#
 
@@ -64,9 +66,11 @@ registerLocaleData(en);
         PageNotFoundComponent,
         PageNotFoundComponent,
         ServerErrorComponent,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFireAuthModule,
-        // AngularFireMessagingModule
+        AngularFireModule.initializeApp(environment.firebaseConfig), // Khởi tạo Firebase với cấu hình
+        AngularFireAuthModule, // Nếu bạn sử dụng Firebase Auth
+        AngularFirestoreModule, // Nếu bạn sử dụng Firestore
+        AngularFireMessagingModule, // Nếu bạn sử dụng Firebase Messaging
+        // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     ],
     providers: [
         AuthGuard,
@@ -82,6 +86,8 @@ registerLocaleData(en);
         },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        MessagingService,
+        AsyncPipe
     ],
     bootstrap: [],
     schemas: [NO_ERRORS_SCHEMA],

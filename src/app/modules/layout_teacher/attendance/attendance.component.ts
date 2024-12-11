@@ -13,6 +13,9 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { Router } from '@angular/router';
 import { AttendanceService } from '../services/attendance.service';
+import { FcmService } from 'src/app/fcm.service';
+import { generateToken, messaging } from 'src/firebase/firebase';
+import { onMessage } from '@angular/fire/messaging';
 
 @Component({
   selector: 'app-attendance',
@@ -55,10 +58,12 @@ export class AttendanceComponent implements OnInit {
     private attendanceSerivce: AttendanceService,
     private showMessageSerivce: ShowMessageService,
     private formatTimePipe: FormatTimePipe,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
+    generateToken();
+    // onMessage(messaging)
     this.getListAttendance();
   }
 
