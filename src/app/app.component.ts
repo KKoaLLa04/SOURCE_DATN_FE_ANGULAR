@@ -31,22 +31,22 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private globalStore: GlobalStore,
     private router: Router,
-    private messagingSerivce: MessagingService
+    // private messagingSerivce: MessagingService
     // private msg: MessagingNewService
   ) {
   }
 
   ngOnInit() {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('/firebase-messaging-sw.js')
-        .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch((err) => {
-          console.log('Service Worker registration failed:', err);
-        });
-    }
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker
+    //     .register('/firebase-messaging-sw.js')
+    //     .then((registration) => {
+    //       console.log('Service Worker registered with scope:', registration.scope);
+    //     })
+    //     .catch((err) => {
+    //       console.log('Service Worker registration failed:', err);
+    //     });
+    // }
 
     const token = localStorage.getItem("Token");
     if(!token){
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     }
 
     // this.msg.requestPerm("anbu");
-    this.messagingSerivce.requestPermission();
+    // this.messagingSerivce.requestPermission();
     // this.messagingSerivce.receiveMessaging();
     // this.message = this.messagingSerivce.currentMessage
     // console.log(this.message);

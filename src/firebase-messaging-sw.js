@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
     apiKey: "AIzaSyA0f72LUkQv653RDF1cvggtvp8YspZqGrM",
@@ -14,6 +14,7 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
+  console.log(payload);
     const notificationData = JSON.parse(payload?.data?.body);
     const additionalData = JSON.parse(notificationData?.additionalData);
 

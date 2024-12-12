@@ -28,6 +28,10 @@ export class StudentService {
   }
 
   assignParent(data: any){
-    console.log(data)
+    return this.http.post(`${environment.apiUrl}/manager/student/assign-parent/${data.student_id}`, data)
+  }
+
+  getListParents(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/student/parents`, {params: {...data}})
   }
 }

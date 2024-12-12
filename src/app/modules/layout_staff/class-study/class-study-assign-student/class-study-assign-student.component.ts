@@ -10,6 +10,8 @@ import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { NgFor, NgIf } from '@angular/common';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
+import { ActivatedRoute } from '@angular/router';
+import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
 
 @Component({
   selector: 'app-class-study-assign-student',
@@ -31,21 +33,30 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 export class ClassStudyAssignStudentComponent implements OnInit {
   dataListStudentDetail: any = []
   dataListStudentByClass: any = []
+  objectIds: Set<string> = new Set();
+  dataObjects: Array<string> = [];
+  checkAllObject: boolean = false;
+  classId: any;
+  iconSvg = iconSVG
   constructor(
     private classStudyService: ClassStudyService,
     private globalStore: GlobalStore,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getListDetailStudentClass();
-    this.getListStudentByClass();
+    this.route.paramMap.subscribe((params) => {
+      this.classId = params.get('classId');
+      this.getListDetailStudentClass();
+      this.getListStudentByClass();
+    });
   }
 
   getListStudentByClass() {
     this.globalStore.isLoading = true;
     let dataRequest = {
-      classId: 2,
+      classId: this.classId,
       keyword: '',
     }
     this.classStudyService.getListStudentByClass(dataRequest).subscribe((res: any) => {
@@ -61,7 +72,7 @@ export class ClassStudyAssignStudentComponent implements OnInit {
   getListDetailStudentClass(){
     this.globalStore.isLoading = true;
     let dataRequest = {
-      classId: 1,
+      classId: this.classId,
       keyword: '',
     }
     this.classStudyService.getListStudentDetailClass(dataRequest).subscribe((res: any) => {
@@ -77,9 +88,9 @@ export class ClassStudyAssignStudentComponent implements OnInit {
   onSubmit(){
     this.globalStore.isLoading = true;
     let dataRequest = {
-      classId: 2,
+      classId: this.classId,
       studentsOut: [],
-      studentsIn: []
+      studentsIn: Array.from(this.objectIds)
     }
     this.classStudyService.addNewStudent(dataRequest).subscribe((res: any) => {
       this.showMessageService.success("Gán học sinh vào lớp học thành công");
@@ -88,5 +99,36 @@ export class ClassStudyAssignStudentComponent implements OnInit {
       this.globalStore.isLoading = false;
       this.showMessageService.error(err);
     })
+  }
+
+  changCheckedObject(objectId: string): void{
+    if(this.objectIds.has(objectId)){
+      this.objectIds.delete(objectId)
+    }
+    else{
+      this.objectIds.add(objectId)
+    }
+
+    const dataChecked = this.dataListStudentByClass.data.filter((item: any) => {return this.objectIds.has(item.id)})
+    this.checkAllObject = (this.dataListStudentByClass?.data?.length !== 0 && this.objectIds.size !== 0 && dataChecked.length === this.dataListStudentByClass?.data?.length);
+  }
+
+  changeCheckAllObject(): void{
+    this.checkAllObject = !this.checkAllObject
+    this.dataListStudentByClass.data.forEach((item: any) => {
+      if (this.checkAllObject){
+          if (!this.objectIds.has(item.id)){
+            this.objectIds.add(item.id);
+        }else{
+          if (!this.objectIds.has(item.id)){
+            this.objectIds.add(item.id);
+          }
+        }
+      }
+      else{
+        this.objectIds.delete(item.id)
+      }
+    })
+    console.log(this.objectIds);
   }
 }

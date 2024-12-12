@@ -74,10 +74,10 @@ export class ClassStudyComponent implements OnInit {
 
   handleAction(event: IProperty): void{
     const actionHandlers = {
-      '1': () => {},
+      '1': () => this.onChangeDetailPage(event.value),
       '2': () => this.update(event.data),
       '3': () => this.assignTeacher(event.value),
-      '4': () => this.onChangeAssignStudentPage(),
+      '4': () => this.onChangeAssignStudentPage(event.value),
       '5': () => this.deleteAcademic(event.value)
     };
 
@@ -87,8 +87,12 @@ export class ClassStudyComponent implements OnInit {
     }
   }
 
-  onChangeAssignStudentPage(): void{
-    this.router.navigateByUrl('staff/class-study/assign-student')
+  onChangeDetailPage(classId: any): void{
+    this.router.navigateByUrl(`staff/class-study/detail/${classId}`)
+  }
+
+  onChangeAssignStudentPage(classId: any): void{
+    this.router.navigateByUrl(`staff/class-study/assign-student/${classId}`)
   }
 
   update(item: any): void{

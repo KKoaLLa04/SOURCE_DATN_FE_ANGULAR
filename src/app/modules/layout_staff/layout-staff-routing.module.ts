@@ -12,6 +12,9 @@ import { ClassStudyComponent } from "./class-study/class-study.component";
 import { ClassStudyAssignStudentComponent } from "./class-study/class-study-assign-student/class-study-assign-student.component";
 import { StudentComponent } from "./student/student.component";
 import { StudentDetailComponent } from "./student/student-detail/student-detail.component";
+import { ClassStudyDetailComponent } from "./class-study/class-study-detail/class-study-detail.component";
+import { NoteMarkComponent } from "./note-mark/note-mark.component";
+import { NoteMarkDetailComponent } from "./note-mark/note-mark-detail/note-mark-detail.component";
 
 const routes: Routes = [
   {
@@ -79,8 +82,12 @@ const routes: Routes = [
         component: ClassStudyComponent
       },
       {
-        path: 'assign-student',
+        path: 'assign-student/:classId',
         component: ClassStudyAssignStudentComponent
+      },
+      {
+        path: 'detail/:classId',
+        component: ClassStudyDetailComponent
       }
     ]
   },
@@ -124,6 +131,19 @@ const routes: Routes = [
       {
         path: 'assign-student',
         component: ClassStudyAssignStudentComponent
+      }
+    ]
+  },
+  {
+    path: 'note-mark',
+    children: [
+      {
+        path: '',
+        component: NoteMarkComponent
+      },
+      {
+        path: 'detail/:id',
+        component: NoteMarkDetailComponent
       }
     ]
   }

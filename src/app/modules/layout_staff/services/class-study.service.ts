@@ -71,4 +71,20 @@ constructor(
   getListClassToSchool(data: any){
     return this.http.get(`${environment.apiUrl}/manager/student/class_by_year`, {params: {...data}})
   }
+
+  getListDetailAClass(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/class/detail`, {params: {...data}})
+  }
+
+  getListTeacherForSubject(){
+    return this.http.get(`${environment.apiUrl}/manager/class/formUpdateTeacherForSubject`)
+  }
+
+  addNewSubject(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/class/updateTeacherForSubject`, data)
+  }
+
+  updateSubject(data: any){
+    console.log(data)
+  }
 }

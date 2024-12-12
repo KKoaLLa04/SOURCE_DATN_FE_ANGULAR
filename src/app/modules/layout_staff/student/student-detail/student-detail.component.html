@@ -71,24 +71,6 @@
           </div>
         </div>
 
-        <!-- <div class="col-6">
-          <div class="row">
-            <div class="col-3">Email</div>
-            <div class="col-9">
-              <app-input [value]="'Nguyen duy kien'" [disabled]="true"></app-input>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="col-6">
-          <div class="row">
-            <div class="col-3">SĐT</div>
-            <div class="col-9">
-              <app-input [value]="'Nguyen duy kien'" [disabled]="true"></app-input>
-            </div>
-          </div>
-        </div> -->
-
         <div class="col-6">
           <div class="row">
             <div class="col-3">Trạng thái</div>
@@ -113,8 +95,63 @@
     <hr/>
     <div class="d-flex justify-content-between">
       <h3>Thông tin gia đình học sinh</h3>
-      <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignTeacher(dataDetail?.id)"></app-button>
+      <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignParent(dataDetail?.id)"></app-button>
     </div>
 
+    <div class="row m-0 p-0">
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Tên phụ huynh</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents[0]?.fullname" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Ngày sinh</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents[0]?.dob | formatTime" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Số điện thoại</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents[0]?.phone" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Email</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents[0]?.email" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Mã phụ huynh</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents[0]?.code" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Giới tính</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents[0]?.gender" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

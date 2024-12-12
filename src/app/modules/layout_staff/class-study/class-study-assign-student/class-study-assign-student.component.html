@@ -5,8 +5,8 @@
     <app-button-back></app-button-back>
   </div>
   <div>
-    <p>Bạn đã chọn <span>03 học sinh</span>. Bạn vui lòng click vào nút sau để tiến hành chuyển lớp học sinh:
-       <app-button (onClick)="onSubmit()"></app-button>
+    <p class="d-flex align-items-center" *ngIf="objectIds?.size">Bạn đã chọn <span> {{objectIds?.size}} học sinh </span>. Bạn vui lòng click vào nút sau để tiến hành chuyển lớp học sinh:
+       <app-button (onClick)="onSubmit()" [text]="'Gán học sinh vào lớp'" class=" ms-3"></app-button>
       </p>
   </div>
 
@@ -18,7 +18,7 @@
         <app-select [bgColor]="'bg-color-white'" [width]="'w-200px'" class="ms-4"></app-select>
       </div>
       <p class="d-flex justify-content-between align-items-center mt-5">
-        <span>Đã chọn: 03 học sinh</span>
+        <span>Đã chọn: {{objectIds?.size}} học sinh</span>
         <app-input-search [bgColor]="'bg-color-white'"></app-input-search>
       </p>
 
@@ -27,7 +27,7 @@
           <caption></caption>
           <thead class="bg-color-blue-dark text-color-white">
             <tr class="fs-14 fw-700 text-color-white">
-              <th class="ps-4"><app-checkbox></app-checkbox></th>
+              <th class="ps-4"><app-checkbox (valueChange)="changeCheckAllObject()"></app-checkbox></th>
               <th>Họ và tên</th>
               <th>Ngày sinh</th>
               <th>Lớp</th>
@@ -36,7 +36,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of dataListStudentByClass?.data">
-              <td class="ps-4"><app-checkbox></app-checkbox></td>
+              <td class="ps-4"><app-checkbox (valueChange)="changCheckedObject(item.studentId)"></app-checkbox></td>
               <td>
                 <span>{{item.studentName}}</span> <br/>
                 <span>Mã: {{item.studentId}}</span>
@@ -51,17 +51,17 @@
     </div>
 
     <div class="col-2 col-lg-2 col-md-12 py-8 d-flex justify-content-center align-items-center">
-      ====>
+      <img [src]="iconSvg.change_student"  alt=""/>
     </div>
 
     <div class="col-5 col-lg-5 col-md-12 bg-color-black-light py-8">
-      <h3 clas="fs-20">Học sinh lớp 6a1</h3>
+      <h3 clas="fs-20">{{dataListStudentDetail?.data?.className}}</h3>
       <div class="d-flex align-items-center border-bottom-custom">
         <span>Khối</span>
         <app-select [bgColor]="'bg-color-white'" [width]="'w-200px'" class="ms-4"></app-select>
       </div>
       <p class="d-flex justify-content-between align-items-center mt-5">
-        <span>Đã chọn: 03 học sinh</span>
+        <span>Học sinh: {{dataListStudentDetail?.data?.classSumStudent}} học sinh</span>
         <app-input-search [bgColor]="'bg-color-white'"></app-input-search>
       </p>
 
@@ -70,22 +70,21 @@
           <caption></caption>
           <thead class="bg-color-blue-dark text-color-white">
             <tr class="fs-14 fw-700 text-color-white">
-              <th class="ps-4"><app-checkbox></app-checkbox></th>
+              <!-- <th class="ps-4"><app-checkbox></app-checkbox></th> -->
+              <th class="ps-4">STT</th>
               <th>Họ và tên</th>
               <th>Ngày sinh</th>
-              <th>Lớp</th>
               <!-- <th>Khối</th> -->
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of dataListStudentDetail?.data?.students">
-              <td class="ps-4"><app-checkbox></app-checkbox></td>
+            <tr *ngFor="let item of dataListStudentDetail?.data?.students, let i = index">
+              <td class="ps-4">{{i+1}}</td>
               <td>
-                <span>{{item?.students?.studentName}}</span> <br/>
-                <span>Mã: {{item?.students?.studentId}}</span>
+                <span>{{item?.studentName}}</span> <br/>
+                <span>Mã: {{item?.studentId}}</span>
               </td>
-              <td>{{item?.students?.studentDob | formatTime}}</td>
-              <td>{{item?.students?.className}}</td>
+              <td>{{item?.studentDob | formatTime}}</td>
               <!-- <td>Khối 6</td> -->
             </tr>
           </tbody>

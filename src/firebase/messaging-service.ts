@@ -29,7 +29,7 @@ export class MessagingService {
   }
 
   requestPermission() {
-    getToken(this.messaging, { vapidKey: 'YOUR_VAPID_KEY' }).then(
+    getToken(this.messaging, { vapidKey: 'BP9UCYeiBdTpKpN_HKL9iH7QQRmdvzE6jG8wn7nXXHqs8KqGFByqjHF3K9ijKi3gFTuYkbLvhUr0d9t-emdOPdI' }).then(
       (token) => {
         console.log('FCM Token:', token);
       },

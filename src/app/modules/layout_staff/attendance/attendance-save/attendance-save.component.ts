@@ -11,6 +11,7 @@ import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/con
 import { ActivatedRoute } from '@angular/router';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
+import { MessagingService } from 'src/firebase/messaging-service';
 
 @Component({
   selector: 'app-attendance-save',
@@ -49,7 +50,8 @@ export class AttendanceSaveComponent implements OnInit {
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
     private showMessageSerivce: ShowMessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messagingSerivce: MessagingService
   ) { }
 
   ngOnInit() {
@@ -103,6 +105,11 @@ export class AttendanceSaveComponent implements OnInit {
     }
     this.attendanceSerivce.attendanced(dataRequest, this.classId).subscribe((res) => {
       this.globalStore.isLoading = false;
+
+      this.messagingSerivce.receiveMessaging();
+      let message = this.messagingSerivce.currentMessage
+      console.log(message);
+
       this.showMessageSerivce.success("Điểm danh thành công!");
     }, (err) => {
       this.globalStore.isLoading = false;

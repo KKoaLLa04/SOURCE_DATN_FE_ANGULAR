@@ -1,0 +1,95 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Sổ điểm của lớp 6a1</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div class="d-flex">
+      <span class="fw-700">SỔ ĐIỂM CHI TIẾT</span>
+      <span class="ms-4">LỚP: <span class="fw-700">9A1</span></span>
+      <span class="ms-4">Môn học: <span class="fw-700">Toán học - Học kỳ 1</span></span>
+      <span class="ms-4">Giáo viên dạy: <span class="fw-700">Nguyễn Tấn Đạt + 0 GV được ủy quyền</span></span>
+      <span class="ms-4">Quyền hạn: <span class="fw-700">Bạn là giáo viên bộ môn</span></span>
+    </div>
+  </div>
+  <p>(Ghi chú: sau khi có điểm thi học kỳ hệ thống mới tính điểm TBHK của môn học. Giáo viên giảng dạy chỉ có thể sửa các con điểm chưa bị khóa)</p>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class="w-5" rowspan="2">STT</th>
+          <th rowspan="2">Mã HS</th>
+          <th rowspan="2">Họ và tên</th>
+          <th rowspan="2">Ngày sinh</th>
+          <th colspan="4" class="text-center">ĐĐGtx</th>
+          <th rowspan="2">ĐĐGgk</th>
+          <th rowspan="2">ĐĐGck</th>
+          <th rowspan="2">ĐTBmhk</th>
+          <th rowspan="2">Nhận xét</th>
+          <th rowspan="2">Liên lạc</th>
+          <th rowspan="2">Action</th>
+        </tr>
+        <tr>
+          <th class="text-center">TX1</th>
+          <th class="text-center">TX2</th>
+          <th class="text-center">TX3</th>
+          <th class="text-center">TX4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList, let i = index">
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
+          <td>
+            <span>{{item.code}}</span> <br/>
+          </td>
+          <td>
+            <span>{{item.name}}</span> <br/>
+          </td>
+          <td class="text-center">
+            <span>{{item.dob | formatTime}}</span>
+          </td>
+          <td class="text-center">
+            <span *ngIf="!item.isEdit">{{item.tx1}}</span>
+            <app-input *ngIf="item.isEdit" [value]="item.tx1" [width]="'w-50px'">{{item.tx1}}</app-input>
+          </td>
+          <td class="text-center">
+            <span *ngIf="!item.isEdit">{{item.tx2}}</span>
+            <app-input *ngIf="item.isEdit" [value]="item.tx2" [width]="'w-50px'">{{item.tx2}}</app-input>
+          </td>
+          <td class="text-center">
+            <span *ngIf="!item.isEdit">{{item.tx3}}</span>
+            <app-input *ngIf="item.isEdit" [value]="item.tx3" [width]="'w-50px'">{{item.tx3}}</app-input>
+          </td>
+          <td class="text-center">
+            <span *ngIf="!item.isEdit">{{item.tx4}}</span>
+            <app-input *ngIf="item.isEdit" [value]="item.tx4" [width]="'w-50px'">{{item.tx4}}</app-input>
+          </td>
+          <td class="text-center">
+            {{item.dgk1}}
+          </td>
+          <td class="text-center">
+            {{item.dgk2}}
+          </td>
+          <td class="text-center">
+            {{item.dtb}}
+          </td>
+          <td class="text-center">
+            <span *ngIf="!item.isEdit">{{item.note}}</span>
+            <app-input *ngIf="item.isEdit" [value]="item.note">{{item.note}}</app-input>
+          </td>
+          <td class="text-center">
+            {{item.contact}}
+          </td>
+          <td class="text-center">
+            <app-button [text]="'Sửa'" (onClick)="onChangeEditType(item)"></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data> -->
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
+  </div>
+</div>

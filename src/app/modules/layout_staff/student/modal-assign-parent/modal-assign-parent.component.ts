@@ -12,6 +12,7 @@ import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../../services/class-study.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-modal-assign-parent',
@@ -47,17 +48,17 @@ export class ModalAssignParentComponent implements OnInit {
   pageSize = PAGE_SIZE_DEFAULT;
   collectionSize: number = 0;
   sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
-  teacherId: number = 0;
+  parentId: number = 0;
   constructor(
     public activeModal: NgbActiveModal,
     private globalStore: GlobalStore,
-    private classStudyService: ClassStudyService,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private studentSerivce: StudentService
   ) { }
 
-  onClickRadio(teacherId: number){
-    this.teacherId = teacherId;
-    console.log(this.teacherId)
+  onClickRadio(parentId: number){
+    this.parentId = parentId;
+    console.log(this.parentId)
   }
 
   ngOnInit(): void {
@@ -76,10 +77,10 @@ export class ModalAssignParentComponent implements OnInit {
   }
 
   onClickSave(){
-    if(this.teacherId){
+    if(this.parentId){
       let dataInput = {
-        class_id: this.dataFromParent.data,
-        teacher_id: this.teacherId
+        student_id: this.dataFromParent.data,
+        parent_id: this.parentId
       };
 
       this.globalStore.isLoading = true;
@@ -87,7 +88,7 @@ export class ModalAssignParentComponent implements OnInit {
       this.dataFromParent.apiSubmit(dataInput).subscribe(
         (res: any) => {
           this.globalStore.isLoading = false;
-          this.showMessageService.success("Gán giáo viên chủ nhiệm cho lớp học thành công")
+          this.showMessageService.success("Gán phụ huynh cho học sinh thành công")
           // this.closeModal(true)
           this.activeModal.close(true);
         },
@@ -110,11 +111,11 @@ export class ModalAssignParentComponent implements OnInit {
   getDataForm(){
     this.globalStore.isLoading = true;
     let dataRequest = {
-      size: this.pageSize,
-      page: this.pageIndex,
-      search: this.keyWord
+      pageSize: this.pageSize,
+      pageIndex: this.pageIndex,
+      keyword: this.keyWord
     }
-    this.classStudyService.getDataFormAssignTeacher(dataRequest).subscribe((res: any) => {
+    this.studentSerivce.getListParents(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res);
       this.collectionSize = res?.data.totalItems;

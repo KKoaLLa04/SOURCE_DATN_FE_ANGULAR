@@ -48,6 +48,7 @@ export class StudentDetailComponent implements OnInit {
 
     this.studentService.getStudentDetail(dataRequest).subscribe((res: any) => {
       this.dataDetail = res?.data
+      console.log(res?.data);
       this.globalStore.isLoading = false;
     },(err) => {
       this.globalStore.isLoading = false;
@@ -55,7 +56,7 @@ export class StudentDetailComponent implements OnInit {
     })
   }
 
-  assignTeacher(id: any): void{
+  assignParent(id: any): void{
     const modalRef = this.modalService.open(ModalAssignParentComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',

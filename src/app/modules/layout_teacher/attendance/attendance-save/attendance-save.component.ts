@@ -10,6 +10,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { AttendanceService } from '../../services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ActivatedRoute } from '@angular/router';
+import { MessagingService } from 'src/firebase/messaging-service';
 
 @Component({
   selector: 'app-attendance-save',
@@ -48,7 +49,8 @@ export class AttendanceSaveComponent implements OnInit {
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
     private showMessageSerivce: ShowMessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messagingSerivce: MessagingService
   ) { }
 
   ngOnInit() {
@@ -104,6 +106,11 @@ export class AttendanceSaveComponent implements OnInit {
     console.log(dataRequest);
     this.attendanceSerivce.attendanced(dataRequest).subscribe((res) => {
       this.globalStore.isLoading = false;
+
+      this.messagingSerivce.receiveMessaging();
+      let message = this.messagingSerivce.currentMessage
+      console.log(message);
+
       this.showMessageSerivce.success("Điểm danh thành công!");
     }, (err) => {
       this.globalStore.isLoading = false;
