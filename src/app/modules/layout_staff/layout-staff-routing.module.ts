@@ -15,6 +15,7 @@ import { StudentDetailComponent } from "./student/student-detail/student-detail.
 import { ClassStudyDetailComponent } from "./class-study/class-study-detail/class-study-detail.component";
 import { NoteMarkComponent } from "./note-mark/note-mark.component";
 import { NoteMarkDetailComponent } from "./note-mark/note-mark-detail/note-mark-detail.component";
+import { TicketComponent } from "./ticket/ticket.component";
 
 const routes: Routes = [
   {
@@ -140,6 +141,19 @@ const routes: Routes = [
       {
         path: '',
         component: NoteMarkComponent
+      },
+      {
+        path: 'detail/:id',
+        component: NoteMarkDetailComponent
+      }
+    ]
+  },
+  {
+    path: 'ticket',
+    children: [
+      {
+        path: '',
+        component: TicketComponent
       },
       {
         path: 'detail/:id',

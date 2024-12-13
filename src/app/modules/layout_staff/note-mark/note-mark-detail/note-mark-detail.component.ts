@@ -9,6 +9,7 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-note-mark-detail',
@@ -32,14 +33,20 @@ export class NoteMarkDetailComponent implements OnInit {
   pageSize = PAGE_SIZE_DEFAULT;
   collectionSize: number = 0;
   sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
+  classId: any;
+  subject_id = 1;
   constructor(
     private globalStore: GlobalStore,
     private noteMarkService: NoteMarkService,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getListNoteMark();
+    this.route.paramMap.subscribe((params) => {
+      this.classId = params.get('id');
+      this.getListNoteMark();
+    });
   }
 
   paginationChange(event: any) {
@@ -53,7 +60,9 @@ export class NoteMarkDetailComponent implements OnInit {
       school_year_id: localStorage.getItem('SchoolYearFirst'),
       size: this.pageSize,
       page: this.pageIndex,
-      search: this.keyWord
+      search: this.keyWord,
+      subject_id: this.subject_id,
+      class_id: this.classId
     }
     this.noteMarkService.getListNoteMarkToSubject(dataRequest).subscribe((res: any) => {
       this.dataList = res;

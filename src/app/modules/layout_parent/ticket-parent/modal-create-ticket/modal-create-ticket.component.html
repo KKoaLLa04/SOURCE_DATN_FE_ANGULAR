@@ -1,0 +1,49 @@
+<form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-6">
+        <p class="fw-700">Kính gửi: Ban giám hiệu nhà trường và thầy,cô giáo chủ nhiệm bộ môn</p>
+        <p>Tên tôi là: <b>{{fullname}}</b></p>
+        <p>Phụ huynh em: <b>{{childName}}</b></p>
+        <p>Lớp: <b>6a1</b></p>
+
+        <p class="mt-10 fw-700">Gia đình xin phép cho con được nghỉ học ngày: </p>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Từ ngày - Ngày đi học trở lại<span class="text-danger">*</span></label>
+           <app-range-date-picker
+           [minDate]="nowTimestamp"
+           [startDate]="nowTimestamp"
+           [endDate]="endDate"
+           (dataTimeOutput)="onChangeDate($event)"
+           ></app-range-date-picker>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Lý do xin nghỉ<span class="text-danger">*</span></label>
+            <app-textarea
+              [formGroupInput]="formGroup"
+              [formControlNameInput]="'reason'"
+              [validateForm]="validationMessages.reason"
+              [placeholder]="'Lý do xin nghỉ'"
+            ></app-textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnAccept)" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
+  </div>
+</form>
+

@@ -42,6 +42,7 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Phụ huynh", url:"/staff/parent", permissionCode : '', code: 'parent', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Năm học", url:"/staff/school-year", permissionCode : '', code: 'school-year', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Sổ điểm", url:"/staff/note-mark", permissionCode : '', code: 'note-mark', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Quản lý đơn", url:"/staff/ticket", permissionCode : '', code: 'ticket', children: []},
       ]
     }else if (Number(layout) == Number(accessTypeEnum.TEACHER)){
       this.menuLayout = [
@@ -54,6 +55,7 @@ export class AsideMenuComponent implements OnInit {
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/parent/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
+        {icon: "assets/images/svg/address.svg", name:"Đơn xin nghỉ", url:"/parent/ticket", permissionCode : '', code: 'ticket', children: []},
       ]
     }
   }
