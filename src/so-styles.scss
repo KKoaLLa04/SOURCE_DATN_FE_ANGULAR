@@ -32,6 +32,10 @@
     --bs-grey: #D3D7DB;
     --bs-blue-light: #0078FF;
     --bs-blue-dark: #4154F1;
+    --bs-aqua: #EBF7F7;
+    --bs-pink-light: #F6EEFD;
+    --bs-orange: #FEF1E8;
+    --bs-pink-text: #B972D5;
 }
 
 $my-map: (
@@ -67,7 +71,11 @@ $my-map: (
     "red",
     "grey",
     "blue-light",
-    "blue-dark"
+    "blue-dark",
+    "aqua",
+    "pink-light",
+    "orange",
+    "pink-text",
 );
 
 
