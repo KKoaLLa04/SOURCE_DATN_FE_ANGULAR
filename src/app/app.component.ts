@@ -6,8 +6,6 @@ import { Router, RouterOutlet } from '@angular/router';
 import { GlobalStore } from './_store/global.store';
 import { NgIf, CommonModule } from '@angular/common';
 import { LoadingComponent } from './_shared/components/loading/loading.component';
-import { MessagingNewService } from 'src/firebase/MessagingService';
-import { MessagingService } from 'src/firebase/messaging-service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,7 +14,6 @@ import { MessagingService } from 'src/firebase/messaging-service';
   imports: [RouterOutlet,NgIf,LoadingComponent,CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [MessagingService]
 })
 export class AppComponent implements OnInit {
   vm$ = this.globalStore.select((state) => {
@@ -31,8 +28,6 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private globalStore: GlobalStore,
     private router: Router,
-    // private messagingSerivce: MessagingService
-    // private msg: MessagingNewService
   ) {
   }
 

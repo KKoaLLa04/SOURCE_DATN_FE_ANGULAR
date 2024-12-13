@@ -56,7 +56,7 @@ export class ClassStudyAssignStudentComponent implements OnInit {
   getListStudentByClass() {
     this.globalStore.isLoading = true;
     let dataRequest = {
-      classId: this.classId,
+      // classId: this.classId,
       keyword: '',
     }
     this.classStudyService.getListStudentByClass(dataRequest).subscribe((res: any) => {

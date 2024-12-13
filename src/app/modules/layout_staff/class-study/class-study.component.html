@@ -57,7 +57,8 @@
                 type: '1',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status == 0
               },
               {
                 svgIcon: iconSvg.edit,
@@ -65,7 +66,8 @@
                 type: '2',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status == 0
               },
               {
                 svgIcon: iconSvg.edit,
@@ -81,7 +83,8 @@
                 type: '4',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status == 0
               },
               {
                 svgIcon: iconSvg.delete_solid,
