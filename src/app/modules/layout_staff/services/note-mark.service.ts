@@ -32,4 +32,8 @@ export class NoteMarkService {
     return this.http.get(`${environment.apiUrl}/point-student`, {params: {...data}})
   }
 
+  updateNoteMark(data: any){
+    return this.http.post(`${environment.apiUrl}/point-student/store-point`, data)
+  }
+
 }
