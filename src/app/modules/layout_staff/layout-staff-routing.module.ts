@@ -17,6 +17,7 @@ import { NoteMarkComponent } from "./note-mark/note-mark.component";
 import { NoteMarkDetailComponent } from "./note-mark/note-mark-detail/note-mark-detail.component";
 import { TicketComponent } from "./ticket/ticket.component";
 import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-table-staff.component";
+import { ExamComponent } from "./exam/exam.component";
 
 const routes: Routes = [
   {
@@ -159,6 +160,19 @@ const routes: Routes = [
       {
         path: '',
         component: TicketComponent
+      },
+      {
+        path: 'detail/:id',
+        component: NoteMarkDetailComponent
+      }
+    ]
+  },
+  {
+    path: 'exam',
+    children: [
+      {
+        path: '',
+        component: ExamComponent
       },
       {
         path: 'detail/:id',

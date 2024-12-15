@@ -47,20 +47,199 @@ export class TimeTableStaffComponent implements OnInit {
   }
 
   onChangeDataSubmit(value: any, calender, date,lesson){
-    console.log(this.dataRequest)
     if(calender == "sang"){
       if(date == "hai"){
-        this.dataRequest.sang[0]
+        if(lesson == 1){
+          this.dataRequest.sang.hai.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.hai.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.hai.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.hai.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.hai.tiet5 = value;
+        }
       }else if(calender == "ba"){
-
+        if(lesson == 1){
+          this.dataRequest.sang.ba.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.ba.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.ba.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.ba.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.ba.tiet5 = value;
+        }
+      }else if(calender == "tu"){
+        if(lesson == 1){
+          this.dataRequest.sang.tu.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.tu.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.tu.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.tu.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.tu.tiet5 = value;
+        }
+      }else if(calender == "nam"){
+        if(lesson == 1){
+          this.dataRequest.sang.nam.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.nam.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.nam.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.nam.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.nam.tiet5 = value;
+        }
+      }else if(calender == "sau"){
+        if(lesson == 1){
+          this.dataRequest.sang.sau.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.sau.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.sau.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.sau.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.sau.tiet5 = value;
+        }
+      }else if(calender == "bay"){
+        if(lesson == 1){
+          this.dataRequest.sang.bay.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.bay.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.bay.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.bay.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.bay.tiet5 = value;
+        }
+      }else if(calender == "chunhat"){
+        if(lesson == 1){
+          this.dataRequest.sang.chunhat.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.sang.chunhat.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.sang.chunhat.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.sang.chunhat.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.sang.chunhat.tiet5 = value;
+        }
       }
     }
 
     if(calender == "chieu"){
-
+      if(date == "hai"){
+        if(lesson == 1){
+          this.dataRequest.chieu.hai.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.hai.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.hai.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.hai.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.hai.tiet5 = value;
+        }
+      }else if(calender == "ba"){
+        if(lesson == 1){
+          this.dataRequest.chieu.ba.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.ba.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.ba.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.ba.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.ba.tiet5 = value;
+        }
+      }else if(calender == "tu"){
+        if(lesson == 1){
+          this.dataRequest.chieu.tu.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.tu.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.tu.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.tu.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.tu.tiet5 = value;
+        }
+      }else if(calender == "nam"){
+        if(lesson == 1){
+          this.dataRequest.chieu.nam.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.nam.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.nam.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.nam.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.nam.tiet5 = value;
+        }
+      }else if(calender == "sau"){
+        if(lesson == 1){
+          this.dataRequest.chieu.sau.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.sau.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.sau.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.sau.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.sau.tiet5 = value;
+        }
+      }else if(calender == "bay"){
+        if(lesson == 1){
+          this.dataRequest.chieu.bay.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.bay.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.bay.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.bay.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.bay.tiet5 = value;
+        }
+      }else if(calender == "chunhat"){
+        if(lesson == 1){
+          this.dataRequest.chieu.chunhat.tiet1 = value;
+        }else if(lesson == 2){
+          this.dataRequest.chieu.chunhat.tiet2 = value;
+        }else if(lesson == 3){
+          this.dataRequest.chieu.chunhat.tiet3 = value;
+        }else if(lesson == 4){
+          this.dataRequest.chieu.chunhat.tiet4 = value;
+        }else if(lesson == 5){
+          this.dataRequest.chieu.chunhat.tiet5 = value;
+        }
+      }
     }
-    console.log(value);
     console.log(this.dataRequest);
+  }
+
+  onClickSubmit(){
+    this.globalStore.isLoading = true;
+    let dataRequest = {
+      classId: this.classId,
+      sang: this.dataRequest.sang,
+      chieu: this.dataRequest.chieu
+    }
+    this.classStudyService.createUpdateTimetable(dataRequest).subscribe((res: any) => {
+      this.dataList = res;
+      console.log(res);
+      this.globalStore.isLoading = false;
+    }, (err) =>{
+      this.globalStore.isLoading = false;
+      // this.showMessageSerivce.error(err);
+    })
   }
 
   private getListSubject(): void{

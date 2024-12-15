@@ -1,0 +1,66 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Danh sách lớp học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>Số lớp học: <span class="text-color-blue-light">{{dataList?.data?.totalItems}}</span></p>
+    <div class="d-flex">
+      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      <!-- <app-button [text]="'Thêm mới'"
+      (onClick)="create()"
+      class="ms-4"
+      [startIconName]="iconSvg.plus"
+      [backgroundColor]="'bg-color-greenish-teal'"
+      ></app-button> -->
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class=w-5>STT</th>
+          <th>Thông tin lớp học</th>
+          <th>Trạng thái</th>
+          <th>Chủ nhiệm</th>
+          <th>Niên khóa</th>
+          <th>Khối học</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data?.classes, let i = index">
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
+          <td>
+            <span>{{item.name}}</span> <br/>
+          </td>
+          <td>
+            <span>{{item.status}}</span> <br/>
+          </td>
+          <td class="text-center">
+            <span>{{item.teacher_name}}</span> <br/>
+            <span>{{item.teacher_email}}</span>
+          </td>
+          <td class="text-center">
+            <span>{{item.academic_name}}</span> <br/>
+            <span>mã: {{item.academic_code}}</span>
+          </td>
+          <td class="text-center">
+            {{item.grade}}
+          </td>
+          <td class="text-center">
+            <app-button
+            [text]="'Xem sổ điểm'"
+            (onClick)="onChangeDetailPage(item.id)"
+            ></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data>
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
+  </div>
+</div>

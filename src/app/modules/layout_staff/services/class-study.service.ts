@@ -91,4 +91,8 @@ constructor(
   getTimetableData(data: any){
     return this.http.get(`${environment.apiUrl}/manager/khoabieu`, {params: {...data}})
   }
+
+  createUpdateTimetable(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/khoabieu/tao-sua-khoa-bieu`, data)
+  }
 }
