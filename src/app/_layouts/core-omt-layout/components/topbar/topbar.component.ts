@@ -11,8 +11,8 @@ import {TranslocoModule} from "@ngneat/transloco";
 import { NotificationService } from 'src/app/_services/notification.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { Dropdown } from 'bootstrap';
-import { accessTypeEnum } from 'src/app/_shared/enums/access-type.enum';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
+import { AccessType } from 'src/app/_shared/enums/access-type.enum';
 
 @Component({
     selector: 'app-topbar',
@@ -48,7 +48,7 @@ export class TopbarComponent implements OnInit {
 
   ngOnInit(): void {
     let layout = localStorage.getItem('access_type');
-    if(Number(layout) == Number(accessTypeEnum.GUARDIAN)){
+    if(Number(layout) == Number(AccessType.GUARDIAN)){
       this.getNotification();
     }
     this.headerLeft = this.layout.getProp('header.left') as string;

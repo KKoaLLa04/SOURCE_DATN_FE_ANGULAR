@@ -16,7 +16,7 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead class="bg-color-blue-dark">
+      <thead class="bg-color-blue-dark text-color-white">
         <tr>
           <th class="w-5 fw-700">STT</th>
           <th class="fw-700">Thông tin giáo viên</th>
@@ -43,13 +43,14 @@
             {{item.userMainClassName}}
           </td>
           <td class="text-center">
-            {{item.userAccessType}}
+            <div appAccessType [statusValue]="item.userAccessType"></div>
+            <!-- {{item.userAccessType}} -->
           </td>
           <td class="text-center">
             {{item.userStatus}}
           </td>
           <td class="text-center">
-            {{item.userDob}}
+            {{item.userDob | formatTime}}
           </td>
           <td class="text-center">
             <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[

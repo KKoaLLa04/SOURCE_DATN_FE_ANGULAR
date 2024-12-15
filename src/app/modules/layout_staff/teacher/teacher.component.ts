@@ -16,6 +16,8 @@ import { ModalChangePasswordTeacherComponent } from './modal-change-password-tea
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
+import { AccessTypeDirective } from 'src/app/_shared/directive/access-type.directive';
 
 @Component({
   selector: 'app-teacher',
@@ -29,7 +31,9 @@ import { PaginationComponent } from 'src/app/_shared/components/pagination/pagin
     ContextMenuComponent,
     NoDataComponent,
     NgIf,
-    PaginationComponent
+    PaginationComponent,
+    FormatTimePipe,
+    AccessTypeDirective
   ]
 })
 export class TeacherComponent implements OnInit {

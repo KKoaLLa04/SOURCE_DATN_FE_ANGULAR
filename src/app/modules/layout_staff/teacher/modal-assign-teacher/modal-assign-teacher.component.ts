@@ -11,7 +11,7 @@ import { CheckboxComponent } from 'src/app/_shared/components/checkbox/checkbox.
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { SingleFormDatePickerComponent } from 'src/app/_shared/components/single-form-date-picker/single-form-date-picker.component';
-import { accessTypeEnum } from 'src/app/_shared/enums/access-type.enum';
+import { AccessType } from 'src/app/_shared/enums/access-type.enum';
 import { genderEnum } from 'src/app/_shared/enums/gender.enum';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { REGEX_PHONE } from 'src/app/_shared/utils/constant';
@@ -53,16 +53,16 @@ export class ModalAssignTeacherComponent implements OnInit {
       selected: true
     },
     {
-      label: String(accessTypeEnum.MANAGER_LABEL),
-      value: accessTypeEnum.MANAGER
+      label: "Quản lý trường",
+      value: AccessType.MANAGER
     },
     {
-      label: String(accessTypeEnum.TEACHER_LABEL),
-      value: accessTypeEnum.TEACHER,
+      label: "Giáo viên",
+      value: AccessType.TEACHER,
     },
     {
-      label: String(accessTypeEnum.GUARDIAN_LABEL),
-      value: accessTypeEnum.GUARDIAN
+      label: "Phụ huynh",
+      value: AccessType.GUARDIAN
     }
   ]
   optionTeachers: Select2[] = [

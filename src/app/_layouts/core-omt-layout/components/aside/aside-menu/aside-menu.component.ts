@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import {InputSearchComponent} from "../../../../../_shared/components/input-search/input-search.component";
 import {NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet} from "@angular/common";
 import {TranslocoModule} from "@ngneat/transloco";
-import { accessTypeEnum } from 'src/app/_shared/enums/access-type.enum';
+import { AccessType } from 'src/app/_shared/enums/access-type.enum';
 export  interface MenuLayoutChildren {
   name: string
   url: string
@@ -29,7 +29,7 @@ export class AsideMenuComponent implements OnInit {
   ngOnInit(): void {
     console.log(localStorage.getItem('access_type'))
     let layout = localStorage.getItem('access_type');
-    if(Number(layout) == Number(accessTypeEnum.MANAGER)){
+    if(Number(layout) == Number(AccessType.MANAGER)){
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Thống kê điểm danh", url:"/staff/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
@@ -45,14 +45,14 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Quản lý đơn", url:"/staff/ticket", permissionCode : '', code: 'ticket', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Kiểm tra", url:"/staff/exam", permissionCode : '', code: 'exam', children: []},
       ]
-    }else if (Number(layout) == Number(accessTypeEnum.TEACHER)){
+    }else if (Number(layout) == Number(AccessType.TEACHER)){
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Điểm danh", url:"/teacher/attendance", permissionCode : '', code: 'attendance', children: []},
         {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
         {icon: "assets/images/svg/address.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
       ]
-    }else if (Number(layout) == Number(accessTypeEnum.GUARDIAN)){
+    }else if (Number(layout) == Number(AccessType.GUARDIAN)){
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/parent/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},

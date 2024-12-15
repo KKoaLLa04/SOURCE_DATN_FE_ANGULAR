@@ -9,6 +9,7 @@ import { StatisticAttendanceService } from '../services/statistic-attendance.ser
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { Router } from '@angular/router';
+import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
 
 @Component({
   selector: 'app-statistic-attendance',
@@ -20,7 +21,8 @@ import { Router } from '@angular/router';
     InputSearchComponent,
     NgFor,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    StatusClassAttendanceDirective
   ]
 })
 export class StatisticAttendanceComponent implements OnInit {

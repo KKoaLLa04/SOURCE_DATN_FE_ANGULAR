@@ -14,6 +14,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../services/class-study.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ExamService } from '../services/exam.service';
 
 @Component({
   selector: 'app-exam',
@@ -32,7 +33,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   ]
 })
 export class ExamComponent implements OnInit {
-dataList: any = [];
+  dataList: any = [];
   iconSvg = iconSVG;
   keyWord: string = '';
   pageIndex = PAGE_INDEX_DEFAULT;
@@ -49,22 +50,31 @@ dataList: any = [];
       value: ""
     }
   ]
+  tabActive: number = 1;
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
-    private classStudyService: ClassStudyService,
+    // private classStudyService: ClassStudyService,
     private router: Router,
     private modalService: NgbModal,
+    private examSerivce: ExamService
   ) { }
 
   ngOnInit() {
     // this.getListDataClasses();
+    this.getListExam()
+    // this.getListExamTimes();
+  }
+
+  onChangePage(value){
+    this.tabActive = value;
   }
 
   paginationChange(event: any) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.getListDataClasses();
+    // this.getListDataClasses();
+    this.getListExam()
   }
 
 
@@ -80,18 +90,22 @@ dataList: any = [];
     this.pageIndex = PAGE_INDEX_DEFAULT;
     this.pageSize = PAGE_SIZE_DEFAULT
     this.keyWord = value;
-    this.getListDataClasses()
+    // this.getListDataClasses()
+    this.getListExam();
   }
 
-  private getListDataClasses(): void{
+  private getListExam(){
     this.globalStore.isLoading = true;
     let dataRequest = {
       school_year_id: localStorage.getItem('SchoolYearFirst'),
       size: this.pageSize,
       page: this.pageIndex,
-      search: this.keyWord
     }
-    this.classStudyService.getListClass(dataRequest).subscribe((res: any) => {
+    this.examSerivce.getListExam(dataRequest).subscribe((res: any) => {
+      console.log(res)
+      // res?.data?.data?.map((item) => {
+      //   this.examSerivce.getListExamTimes(item.id);
+      // })
       this.dataList = res;
       this.collectionSize = res?.data.totalItems;
       this.globalStore.isLoading = false;
@@ -99,4 +113,34 @@ dataList: any = [];
       this.showMessageSerivce.error(err);
     })
   }
+
+  private getListExamTimes(){
+    this.globalStore.isLoading = true;
+    let dataRequest = {
+
+    }
+    this.examSerivce.getListExamTimes(dataRequest).subscribe((res: any) => {
+      console.log(res)
+      this.globalStore.isLoading = false;
+    }, (err) =>{
+      this.showMessageSerivce.error(err);
+    })
+  }
+
+  // private getListDataClasses(): void{
+  //   this.globalStore.isLoading = true;
+  //   let dataRequest = {
+  //     school_year_id: localStorage.getItem('SchoolYearFirst'),
+  //     size: this.pageSize,
+  //     page: this.pageIndex,
+  //     search: this.keyWord
+  //   }
+  //   this.classStudyService.getListClass(dataRequest).subscribe((res: any) => {
+  //     this.dataList = res;
+  //     this.collectionSize = res?.data.totalItems;
+  //     this.globalStore.isLoading = false;
+  //   }, (err) =>{
+  //     this.showMessageSerivce.error(err);
+  //   })
+  // }
 }

@@ -27,7 +27,10 @@
         <tr *ngFor="let item of dataList?.data, let i = index">
           <td>{{i+1}}</td>
           <td>{{item.class_name}}</td>
-          <td>{{item.status_class}}</td>
+          <td>
+            <div appStatusClassAttendance [statusValue]="item.status_class"></div>
+            <!-- {{item.status_class}} -->
+          </td>
           <td>{{item.teacher_name}}</td>
           <td>{{item.grade_name}}</td>
           <td>{{item.total_students}}</td>

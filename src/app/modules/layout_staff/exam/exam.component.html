@@ -1,16 +1,27 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Danh sách lớp học</h3>
+  <!-- <div class="d-flex justify-content-end align-items-center bg-color-white-smoke">
+    <app-button class="me-5" [text]="'Bài thi'" [backgroundColor]="tabActive==1 ? 'bg-color-azure' : 'bg-color-white-smoke'" [color]="tabActive==1 ? 'text-color-white' : 'text-color-black'" [borderClass]="'border'" (onClick)="onChangePage(1)"></app-button>
+    <app-button [text]="'Đợt thi'" [backgroundColor]="tabActive==2 ? 'bg-color-azure' : 'g-color-white-smoke'" [color]="tabActive==2 ? 'text-color-white' : 'text-color-black'" [borderClass]="'border'" (onClick)="onChangePage(2)"></app-button>
+  </div> -->
+
+  <div class="mt-10"></div>
+  <h3 *ngIf="tabActive==1">Danh sách Bài thi</h3>
+  <!-- <h3 *ngIf="tabActive==2">Danh sách Đợt thi</h3> -->
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số lớp học: <span class="text-color-blue-light">{{dataList?.data?.totalItems}}</span></p>
+    <p>Số bài thi đang có: <span class="text-color-blue-light">{{dataList?.data?.total}}</span></p>
     <div class="d-flex">
-      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
-      <!-- <app-button [text]="'Thêm mới'"
-      (onClick)="create()"
+      <!-- <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search> -->
+      <app-button [text]="'Thêm bài thi'"
       class="ms-4"
       [startIconName]="iconSvg.plus"
       [backgroundColor]="'bg-color-greenish-teal'"
-      ></app-button> -->
+      ></app-button>
+      <app-button [text]="'Thêm đợt thi'"
+      class="ms-4"
+      [startIconName]="iconSvg.plus"
+      [backgroundColor]="'bg-color-greenish-teal'"
+      ></app-button>
     </div>
   </div>
 
@@ -19,46 +30,32 @@
       <thead>
         <tr class="text-color-white text-color-blue-dark">
           <th class=w-5>STT</th>
-          <th>Thông tin lớp học</th>
-          <th>Trạng thái</th>
-          <th>Chủ nhiệm</th>
-          <th>Niên khóa</th>
-          <th>Khối học</th>
-          <th>Thao tác</th>
+          <th>Tên bài thi</th>
+          <th>năm học</th>
+          <th>Hệ số điểm</th>
+          <th>Đợt thi</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data?.classes, let i = index">
-          <td>
-            {{(pageIndex-1)*pageSize + i + 1}}
-          </td>
-          <td>
-            <span>{{item.name}}</span> <br/>
-          </td>
-          <td>
-            <span>{{item.status}}</span> <br/>
-          </td>
-          <td class="text-center">
-            <span>{{item.teacher_name}}</span> <br/>
-            <span>{{item.teacher_email}}</span>
-          </td>
-          <td class="text-center">
-            <span>{{item.academic_name}}</span> <br/>
-            <span>mã: {{item.academic_code}}</span>
-          </td>
-          <td class="text-center">
-            {{item.grade}}
-          </td>
-          <td class="text-center">
-            <app-button
-            [text]="'Xem sổ điểm'"
-            (onClick)="onChangeDetailPage(item.id)"
-            ></app-button>
-          </td>
-        </tr>
+        <ng-container *ngFor="let item of dataList?.data?.data, let i = index">
+          <tr>
+            <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{i+1}}</td>
+            <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{item.name}}</td>
+            <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{item.schoolYear}}</td>
+            <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{item.point}}</td>
+            <td [attr.rowSpan]="1">
+              <span *ngIf="item.examPeriod?.length > 0">{{item.examPeriod[0].name}}</span>
+            </td>
+          </tr>
+          <tr *ngFor="let exam of item.examPeriod, let j = index">
+            <td [rowSpan]="1" *ngIf="j > 0">
+              {{exam.name}}
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
-    <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data>
+    <app-no-data *ngIf="!dataList?.data?.data"></app-no-data>
     <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
       *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
     </app-pagination>
