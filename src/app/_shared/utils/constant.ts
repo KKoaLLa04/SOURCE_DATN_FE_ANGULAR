@@ -447,3 +447,10 @@ export const TIME_TABLE_STRUCT = {
       }
   }
 }
+
+export const timeTableOptionSubject = [
+  {
+    label: "chọn môn học",
+    value: ""
+  }
+]

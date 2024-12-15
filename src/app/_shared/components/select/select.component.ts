@@ -14,6 +14,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, FieldErrorDisplayComponent, TranslateModule, TranslocoModule, NzSelectModule]
 })
 export class SelectComponent implements OnInit {
+  @Input() selected_id: any = 0;
   @Input() options: Select2[] = [];
   @Input() formGroupInput?: FormGroup | any;
   @Input() formControlNameInput: string = "";

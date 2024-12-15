@@ -133,15 +133,15 @@ export class ModalAssignSubjectComponent implements OnInit {
       if (this.dataFromParent.nameForm == 'update') {
         // form update
         dataInput = {
-          class_id: this.dataFromParent.classId,
-          class_subject_id: valueForm.subject,
-          teacher_id: valueForm.teacher,
+          class_id: Number(this.dataFromParent.classId),
+          subject_id: Number(valueForm.subject),
+          teacher_id: Number(valueForm.teacher),
         };
       }else{
         dataInput = {
-          class_id: this.dataFromParent.classId,
-          class_subject_id: valueForm.subject,
-          teacher_id: valueForm.teacher,
+          class_id: Number(this.dataFromParent.classId),
+          subject_id: Number(valueForm.subject),
+          teacher_id: Number(valueForm.teacher),
         };
       }
       this.globalStore.isLoading = true;

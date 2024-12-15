@@ -7,7 +7,8 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { SubjectService } from '../../services/subject.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { TIME_TABLE_STRUCT } from 'src/app/_shared/utils/constant';
+import { TIME_TABLE_STRUCT, timeTableOptionSubject } from 'src/app/_shared/utils/constant';
+import { ShowMessageService } from 'src/app/_services/show-message.service';
 
 @Component({
   selector: 'app-time-table-staff',
@@ -23,19 +24,18 @@ import { TIME_TABLE_STRUCT } from 'src/app/_shared/utils/constant';
 })
 export class TimeTableStaffComponent implements OnInit {
   classId: any;
-  dataList: any
-  optionSubject: Select2[] = [
-    {
-      label: "chọn môn học",
-      value: ""
-    }
-  ];
+  optionSubjectArray = [];
+  optionSubjectArrayAfternoon = [];
+  optionSubject: Select2[] = timeTableOptionSubject;
   dataRequest: any = TIME_TABLE_STRUCT;
+  dataOptionsChecked: any = [];
+  updatedOptions: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private globalStore: GlobalStore,
     private classStudyService: ClassStudyService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private showMessageService: ShowMessageService
   ) { }
 
   ngOnInit() {
@@ -43,8 +43,16 @@ export class TimeTableStaffComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('classId');
       this.getListTimetable();
+      // this.createNewSubjectOption();
     });
   }
+
+  // createNewSubjectOption(){
+  //   for(let i =0; i< 35; i++){
+  //     this.optionSubjectArray.push(this.optionSubject);
+  //     this.optionSubjectArrayAfternoon.push(this.optionSubject);
+  //   }
+  // }
 
   onChangeDataSubmit(value: any, calender, date,lesson){
     if(calender == "sang"){
@@ -60,7 +68,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.sang.hai.tiet5 = value;
         }
-      }else if(calender == "ba"){
+      }else if(date == "ba"){
         if(lesson == 1){
           this.dataRequest.sang.ba.tiet1 = value;
         }else if(lesson == 2){
@@ -72,7 +80,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.sang.ba.tiet5 = value;
         }
-      }else if(calender == "tu"){
+      }else if(date == "tu"){
         if(lesson == 1){
           this.dataRequest.sang.tu.tiet1 = value;
         }else if(lesson == 2){
@@ -84,7 +92,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.sang.tu.tiet5 = value;
         }
-      }else if(calender == "nam"){
+      }else if(date == "nam"){
         if(lesson == 1){
           this.dataRequest.sang.nam.tiet1 = value;
         }else if(lesson == 2){
@@ -96,7 +104,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.sang.nam.tiet5 = value;
         }
-      }else if(calender == "sau"){
+      }else if(date == "sau"){
         if(lesson == 1){
           this.dataRequest.sang.sau.tiet1 = value;
         }else if(lesson == 2){
@@ -108,7 +116,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.sang.sau.tiet5 = value;
         }
-      }else if(calender == "bay"){
+      }else if(date == "bay"){
         if(lesson == 1){
           this.dataRequest.sang.bay.tiet1 = value;
         }else if(lesson == 2){
@@ -120,7 +128,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.sang.bay.tiet5 = value;
         }
-      }else if(calender == "chunhat"){
+      }else if(date == "chunhat"){
         if(lesson == 1){
           this.dataRequest.sang.chunhat.tiet1 = value;
         }else if(lesson == 2){
@@ -148,7 +156,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.chieu.hai.tiet5 = value;
         }
-      }else if(calender == "ba"){
+      }else if(date == "ba"){
         if(lesson == 1){
           this.dataRequest.chieu.ba.tiet1 = value;
         }else if(lesson == 2){
@@ -160,7 +168,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.chieu.ba.tiet5 = value;
         }
-      }else if(calender == "tu"){
+      }else if(date == "tu"){
         if(lesson == 1){
           this.dataRequest.chieu.tu.tiet1 = value;
         }else if(lesson == 2){
@@ -172,7 +180,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.chieu.tu.tiet5 = value;
         }
-      }else if(calender == "nam"){
+      }else if(date == "nam"){
         if(lesson == 1){
           this.dataRequest.chieu.nam.tiet1 = value;
         }else if(lesson == 2){
@@ -184,7 +192,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.chieu.nam.tiet5 = value;
         }
-      }else if(calender == "sau"){
+      }else if(date == "sau"){
         if(lesson == 1){
           this.dataRequest.chieu.sau.tiet1 = value;
         }else if(lesson == 2){
@@ -196,7 +204,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.chieu.sau.tiet5 = value;
         }
-      }else if(calender == "bay"){
+      }else if(date == "bay"){
         if(lesson == 1){
           this.dataRequest.chieu.bay.tiet1 = value;
         }else if(lesson == 2){
@@ -208,7 +216,7 @@ export class TimeTableStaffComponent implements OnInit {
         }else if(lesson == 5){
           this.dataRequest.chieu.bay.tiet5 = value;
         }
-      }else if(calender == "chunhat"){
+      }else if(date == "chunhat"){
         if(lesson == 1){
           this.dataRequest.chieu.chunhat.tiet1 = value;
         }else if(lesson == 2){
@@ -221,8 +229,21 @@ export class TimeTableStaffComponent implements OnInit {
           this.dataRequest.chieu.chunhat.tiet5 = value;
         }
       }
+
     }
     console.log(this.dataRequest);
+  }
+
+  mapItemTimetable(value, calender, lesson, options){
+    // if(calender == "sang"){
+    //   if(lesson=="chunhat"){
+    //     value.sang.chunhat.map((item) => {
+    //       let findIndex = options.findIndex((option) => option.value == item.id);
+    //       if(findIndex != -1){
+    //       }
+    //     })   
+    //   }
+    // }
   }
 
   onClickSubmit(){
@@ -233,13 +254,19 @@ export class TimeTableStaffComponent implements OnInit {
       chieu: this.dataRequest.chieu
     }
     this.classStudyService.createUpdateTimetable(dataRequest).subscribe((res: any) => {
-      this.dataList = res;
-      console.log(res);
+      this.showMessageService.success("Cập nhật thời khóa biểu thành công!");
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;
       // this.showMessageSerivce.error(err);
     })
+  }
+
+  updateSelectedOptions(data: any): void {
+    this.updatedOptions = this.optionSubjectArray.map(option => {
+      const isSelected = data.some(d => d.value === option.value && d.selected === true);
+      return { ...option, selected: isSelected };
+    });
   }
 
   private getListSubject(): void{
@@ -249,7 +276,7 @@ export class TimeTableStaffComponent implements OnInit {
       res.data.map((item) => {
         this.optionSubject.push({
           label: item.subjectName,
-          value: item.subject_id
+          value: item.subject_id,
         })
       })
       this.globalStore.isLoading = false;
@@ -265,8 +292,10 @@ export class TimeTableStaffComponent implements OnInit {
       classId: this.classId,
     }
     this.classStudyService.getTimetableData(dataRequest).subscribe((res: any) => {
-      this.dataList = res;
+      // this.dataList = res;
       console.log(res);
+      this.dataOptionsChecked = res.data;
+      console.log(this.dataOptionsChecked);
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;
