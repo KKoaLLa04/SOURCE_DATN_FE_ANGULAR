@@ -56,7 +56,6 @@ export class StatisticAttendanceComponent implements OnInit {
     }
     this.statisticAttendanceSerivce.getListStatisticAttendance(dataRequest).subscribe((res: any) => {
       this.dataList = res;
-      console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);
