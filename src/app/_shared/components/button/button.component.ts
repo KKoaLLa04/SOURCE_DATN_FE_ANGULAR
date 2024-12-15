@@ -22,6 +22,7 @@ export class ButtonComponent implements OnInit {
   @Input() filterIcon: string = "";
   @Input() borderClass: string = "";
   @Input() otherClass: string = "";
+  @Input() disabled:boolean = false;
 
   @Output() onClick = new EventEmitter<boolean>();
   constructor() {
@@ -33,7 +34,11 @@ export class ButtonComponent implements OnInit {
   }
 
   changeClick() {
-    this.onClick.emit(true);
+    if(this.disabled){
+      return;
+    }else{
+      this.onClick.emit(true);
+    }
   }
 
 }

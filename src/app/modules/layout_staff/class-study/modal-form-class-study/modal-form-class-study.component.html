@@ -11,13 +11,24 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Tên lớp học <span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+          <app-input
+          [placeholder]="'Tên lớp học'"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'name'"
+          [validateForm]="validationMessages.name"
+          ></app-input>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Niên khóa<span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+          <app-select
+          [options]="optionAcacdemic"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'academic'"
+          [validateForm]="validationMessages.academic"
+          [disabled]="dataFromParent.nameForm == 'update'"
+          ></app-select>
         </div>
       </div>
     </div>
@@ -26,13 +37,22 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Chủ nhiệm <span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+          <app-select
+          [options]="optionMainTeacher"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'mainTeacher'"
+          ></app-select>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Khối học<span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+          <app-select
+          [options]="optionGrades"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'grade'"
+          [validateForm]="validationMessages.grade"
+          ></app-select>
         </div>
       </div>
     </div>
@@ -41,13 +61,24 @@
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Năm học <span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('role.enterNameRole')" [formGroupInput]="formGroup" [formControlNameInput]="'name'" [validateForm]="validationMessages.name" [validateFormServer]="validationMessagesServer.name"></app-input>
+          <app-select
+          [options]="optionSchoolYear"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'schoolYear'"
+          [validateForm]="validationMessages.schoolYear"
+          [disabled]="dataFromParent.nameForm == 'update'"
+           ></app-select>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
           <label  class="fw-600">Trạng thái<span class="text-danger">*</span></label>
-          <app-input [placeholder]="t('enterCode')" [formGroupInput]="formGroup" [formControlNameInput]="'code'" [validateForm]="validationMessages.code" [validateFormServer]="validationMessagesServer.code" [disabled]="isUpdate"></app-input>
+            <app-select
+            [options]="optionStatus"
+            [formGroupInput]="formGroup"
+            [formControlNameInput]="'status'"
+            [validateForm]="validationMessages.status"
+            ></app-select>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-statistic-detail-attendance',
@@ -25,6 +26,7 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 export class StatisticDetailAttendanceComponent implements OnInit {
   dataList: any = [];
   dataMonth: Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+  dataDateMonth: any;
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -35,22 +37,32 @@ export class StatisticDetailAttendanceComponent implements OnInit {
       value: ""
     }
   ]
+  classId: any;
   constructor(
     private globalStore: GlobalStore,
     private statisticAttendanceSerivce: StatisticAttendanceService,
-    private showMessageSerivce: ShowMessageService
+    private showMessageSerivce: ShowMessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getListStatisticData();
+    this.route.paramMap.subscribe((params) => {
+      this.classId = params.get('id');
+      this.getListStatisticData();
+    });
   }
 
   getListStatisticData(): void{
     this.globalStore.isLoading = true;
 
-    this.statisticAttendanceSerivce.getListStatistic().subscribe((res: any) => {
-      this.dataList = res;
+    let dataRequest = {
+      classId: this.classId,
+    }
+    this.statisticAttendanceSerivce.getListStatistic(dataRequest).subscribe((res: any) => {
+      this.dataList = res?.data;
       console.log(res)
+      this.dataDateMonth = res.data[0]?.date;
+      console.log(this.dataDateMonth)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);

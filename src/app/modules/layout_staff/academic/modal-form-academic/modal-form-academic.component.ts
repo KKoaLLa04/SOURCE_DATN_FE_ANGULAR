@@ -2,11 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
+import { Select2 } from 'src/app/_models/gengeral/select2.model';
+import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ValidatorNotEmptyString, ValidatorNotNull } from 'src/app/_services/validator-custom.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { CheckboxComponent } from 'src/app/_shared/components/checkbox/checkbox.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
+import { SingleFormDatePickerComponent } from 'src/app/_shared/components/single-form-date-picker/single-form-date-picker.component';
+import { statusSchoolYearEnum } from 'src/app/_shared/enums/status-school-year.enum';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { REGEX_CODE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 
@@ -21,9 +26,10 @@ import { GlobalStore } from 'src/app/_store/global.store';
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,
-    CheckboxComponent,
-    SingleDatePickerComponent
-  ]
+    SelectComponent,
+    SingleFormDatePickerComponent
+  ],
+  providers: [FormatTimePipe]
 })
 export class ModalFormAcademicComponent implements OnInit {
   @Input() dataModal: any;
@@ -35,11 +41,32 @@ export class ModalFormAcademicComponent implements OnInit {
     requestLayout: {}
   };
   isUpdate: boolean = false;
+  timestampNow: number = new Date().getTime() /1000 ;
+  optionsStatus: Select2[] =[
+    {
+      label: "Chọn trạng thái năm học",
+      value: ''
+    },
+    {
+      label: "Chưa diễn ra",
+      value: statusSchoolYearEnum.NOT_STARTED_YET
+    },
+    {
+      label: "Đang diễn ra",
+      value: statusSchoolYearEnum.ONGOING
+    },
+    {
+      label: "Đã kết thúc",
+      value: statusSchoolYearEnum.FINISHED
+    }
+  ]
 
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private globalStore: GlobalStore,
+    private showMessageService: ShowMessageService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit(): void {
@@ -52,26 +79,27 @@ export class ModalFormAcademicComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.name
+          ? this.dataFromParent?.data?.name
           : '',
-        [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
+        [Validators.required, ValidatorNotEmptyString],
       ],
-      code: [
+      status: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.code
+          ? this.dataFromParent?.data?.status
           : '',
-        [Validators.required, Validators.maxLength(50), Validators.pattern(REGEX_CODE)],
+        [Validators.required],
       ],
-      requestLayout: [
+      start_date: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.layout
-          : null,
-        [Validators.required, ValidatorNotNull],
+          ? this.dataFromParent?.data?.start_year
+          : this.timestampNow,
+        [Validators.required],
       ],
-      desc: [
+      end_date: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.description
-          : '',
+          ? this.dataFromParent?.data?.end_year
+          : this.timestampNow,
+        [Validators.required],
       ],
     });
   }
@@ -80,18 +108,27 @@ export class ModalFormAcademicComponent implements OnInit {
     if (this.formGroup.valid) {
       let dataInput = {
         name: valueForm.name.trim(),
-        code: valueForm.code.trim(),
-        requestLayout: valueForm.requestLayout,
-        description: valueForm.desc,
+        status: valueForm.status,
       };
       if (this.dataFromParent.nameForm == 'update') {
         // form update
-        dataInput['id'] = this.dataFromParent?.role?.id;
+        dataInput['id'] = this.dataFromParent?.data?.id;
+      }else{
+        dataInput['start_year'] = this.formatTimePipe.transform(valueForm.start_date, 'yyy-MM-dd');
+        dataInput['end_year'] = this.formatTimePipe.transform(valueForm.end_date, 'yyy-MM-dd');
       }
       this.globalStore.isLoading = true;
 
       this.dataFromParent.apiSubmit(dataInput).subscribe(
-        (res: any) => { },
+        (res: any) => {
+          if(this.dataFromParent.nameForm == 'update'){
+            this.showMessageService.success("Cập nhật niên khóa thành công");
+          }else{
+            this.showMessageService.success("Thêm mới niên khóa mới thành công");
+          }
+          this.closeModal(true);
+          this.globalStore.isLoading = false;
+        },
         (err: any) => {
           this.globalStore.isLoading = false;
           this.validateAllFormFieldsErrorServer(err.errors);
@@ -160,33 +197,23 @@ export class ModalFormAcademicComponent implements OnInit {
         type: "required",
         message: 'requiredName'
       },
-      {
-        type: "maxlength",
-        message: 'maxLengthName'
-      },
-      {
-        type: "notEmpty",
-        message: 'requiredName'
-      }
     ],
-    code: [
+    status: [
       {
         type: "required",
-        message: 'requiredCode'
+        message: 'requiredStatus'
       },
-      {
-        type: "maxlength",
-        message: 'maxLengthCode'
-      },
-      {
-        type: "pattern",
-        message: 'patternCode'
-      }
     ],
-    requestLayout: [
+    start_date: [
       {
-        type: "notNull",
-        message: 'role.requiredLayout'
+        type: "required",
+        message: 'requiredStartDate'
+      },
+    ],
+    end_date: [
+      {
+        type: "required",
+        message: 'requiredEndDate'
       },
     ]
   };

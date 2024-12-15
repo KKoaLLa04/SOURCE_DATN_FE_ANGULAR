@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscriber } from 'rxjs';
-import { ListenFirebaseService } from 'src/app/_services/listen-firebase.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { MESSAGE_ERROR_CALL_API, TIME_OUT_LISTEN_FIREBASE } from 'src/app/_shared/utils/constant';
 import { REGEX_PASSWORD } from './../../utils/constant';
@@ -31,7 +30,6 @@ export class ModalChangePasswordGlobalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private showMessage: ShowMessageService,
-    private listenFirebaseService: ListenFirebaseService
   ) { }
 
   ngOnInit(): void {
@@ -94,7 +92,6 @@ export class ModalChangePasswordGlobalComponent implements OnInit {
       this.isLoading = false;
     }, TIME_OUT_LISTEN_FIREBASE);
     const listenFb = new Observable((subscriber: Subscriber<any>) => {
-      this.listenFirebaseService.checkFireBase(action, module, subscriber);
     });
     listenFb.subscribe((ref) => {
       if (ref.status === true) {

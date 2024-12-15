@@ -1,0 +1,82 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3 class="text-color-blue-light fs-18">Chi Tiết lớp học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <app-button-back></app-button-back>
+  </div>
+
+  <div class="row">
+    <div class="col-3 col-lg-3 col-md-12 py-8 px-5">
+      <h3 clas="fs-20">Thông tin lớp học</h3>
+      <p>Lớp: Lớp 6a</p>
+      <p>Khối: Lớp 6a</p>
+      <p>Niên khóa: Lớp 6a</p>
+      <p>Năm học: Lớp 6a</p>
+      <p>GVCN: Lớp 6a</p>
+    </div>
+
+    <div class="col-9 col-lg-9 col-md-12 py-8">
+      <h3 clas="fs-20">Học sinh trong lớp</h3>
+      <div class="table-responsive">
+        <table class="table table-row-bordered table-row-gray-300">
+          <caption></caption>
+          <thead class="">
+            <tr class="fs-14 fw-700 text-color-black">
+              <th class="fw-700 text-center">STT</th>
+              <th class="fw-700">Mã</th>
+              <th class="fw-700">Họ và tên</th>
+              <th class="fw-700">Ngày sinh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dataDetail?.students, let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <td>
+                <span>{{item.code}}</span>
+              </td>
+              <td>{{item.name}}</td>
+              <td>{{item.dob | formatTime}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <app-no-data *ngIf="!dataListStudentDetail?.data?.classSumStudent"></app-no-data> -->
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-12 col-md-12 py-8">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 clas="fs-20">Môn học</h3>
+        <app-button [text]="'Thêm môn học'" (onClick)="onOpenModalAssignSubject()"></app-button>
+      </div>
+
+
+      <div class="table-responsive">
+        <table class="table table-row-bordered table-row-gray-300">
+          <caption></caption>
+          <thead class="bg-color-blue-dark text-color-white">
+            <tr class="fs-14 fw-700 text-color-white">
+              <th class="ps-4">STT</th>
+              <th>Môn học</th>
+              <th>Giáo viên giảng dạy</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ps-4">1</td>
+              <td>
+                <span>Môn toán</span> <br/>
+              </td>
+              <td>Thầy giáo Huy</td>
+              <td>
+                <button>Xóa</button>
+                <button>Sửa</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <app-no-data *ngIf="!dataListStudentDetail?.data?.classSumStudent"></app-no-data> -->
+      </div>
+    </div>
+  </div>
+</div>

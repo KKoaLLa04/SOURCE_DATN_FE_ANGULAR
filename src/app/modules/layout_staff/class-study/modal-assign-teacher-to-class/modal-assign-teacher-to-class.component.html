@@ -1,4 +1,4 @@
-<form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
+<form action="" *transloco="let t; scope: 'role'">
   <div class="modal-header">
     <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
     <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
@@ -7,6 +7,15 @@
     </button>
   </div>
   <div class="modal-body text-normal-global">
+    <h3>Danh sách giáo viên</h3>
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <p>Số giáo viên: <span class="text-color-blue-light">{{dataList?.data?.totalItems}}</span></p>
+      <div class="d-flex">
+        <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      </div>
+    </div>
+
     <div class="table-responsive">
       <table class="table table-row-bordered table-row-gray-300">
         <caption></caption>
@@ -22,37 +31,35 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><input type="radio"/></td>
-            <td>1</td>
+          <tr *ngFor="let item of dataList?.data?.teachers, let i = index">
+            <td><input type="radio" name="teacher_radio" (click)="onClickRadio(item.id)"/></td>
+            <td>{{(pageIndex-1)*pageSize + i + 1}}</td>
             <td>
-              <span>Nguyễn Duy Kiên</span> <br/>
-              <span>Mã: 123456</span>
+              <span class="'text-color-blue-light'">{{item.name}}</span> <br/>
+              <span class="'text-color-blue-light'">Mã: {{item.code}}</span>
             </td>
-            <td>kienndgmail.com</td>
-            <td>nam</td>
-            <td>1/1/2004</td>
-            <td>0123456789</td>
-          </tr>
-          <tr>
-            <td><input type="radio"/></td>
-            <td>2</td>
-            <td>
-              <span>Nguyễn Duy Kiên</span> <br/>
-              <span>Mã: 123456</span>
-            </td>
-            <td>kienndmail.com</td>
-            <td>nam</td>
-            <td>1/1/2004</td>
-            <td>0123456789</td>
+            <td>{{item.email}}</td>
+            <td>{{item.gender}}</td>
+            <td>{{item.dob | formatTime}}</td>
+            <td>{{item.phone}}</td>
           </tr>
         </tbody>
       </table>
+      <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data>
+      <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+        *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+      </app-pagination>
     </div>
   </div>
   <div class="modal-footer">
     <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
-    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnAccept)" [backgroundColor]="'bg-color-azure'" (click)="closeModal(true)"></app-button>
+    <app-button
+    [width]="'w-80px'"
+    [text]="t(dataModal?.btnAccept)"
+    [backgroundColor]="'bg-color-azure'"
+    (click)="onClickSave()"
+    [disabled]="!teacherId"
+    ></app-button>
   </div>
 </form>
 

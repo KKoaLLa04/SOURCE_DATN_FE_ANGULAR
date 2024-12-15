@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
@@ -15,6 +15,9 @@ import { IProperty } from 'src/app/_models/context-menu.interface';
 import { AcademicService } from '../services/academic.service';
 import { ModalFormAcademicComponent } from './modal-form-academic/modal-form-academic.component';
 import { ModalDeleteAcademicComponent } from './modal-delete-academic/modal-delete-academic.component';
+import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
+import { statusSchoolYearEnum } from 'src/app/_shared/enums/status-school-year.enum';
 
 @Component({
   selector: 'app-academic',
@@ -26,7 +29,10 @@ import { ModalDeleteAcademicComponent } from './modal-delete-academic/modal-dele
     InputSearchComponent,
     ButtonComponent,
     NgFor,
-    ContextMenuComponent
+    ContextMenuComponent,
+    NoDataComponent,
+    NgIf,
+    FormatTimePipe
   ]
 })
 export class AcademicComponent implements OnInit {
@@ -42,27 +48,31 @@ export class AcademicComponent implements OnInit {
       value: ""
     }
   ]
+  keyword: string = ''
+  statusAcademic = statusSchoolYearEnum
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
     private academicService: AcademicService,
     private router: Router,
     private modalService: NgbModal,
+    private showMessageService: ShowMessageService
   ) { }
 
   ngOnInit() {
-    this.getListStatisticData();
+    this.getListAcademic();
   }
 
-  onChangeAssignPage(): void{
-    this.router.navigateByUrl('staff/subject/assign');
+  onSearchValue(value:string): void{
+    this.keyword = value
+    this.getListAcademic();
   }
 
   handleAction(event: IProperty): void{
     const actionHandlers = {
       '1': () => {},
-      '2': () => this.update(),
-      '3': () => this.deleteAcademic()
+      '2': () => this.update(event.data),
+      '3': () => this.deleteAcademic(event.value)
     };
 
     const handler = actionHandlers[event.type];
@@ -71,7 +81,7 @@ export class AcademicComponent implements OnInit {
     }
   }
 
-  update(): void{
+  update(item: any): void{
     const modalRef = this.modalService.open(ModalFormAcademicComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -87,6 +97,7 @@ export class AcademicComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
+        data: item,
         service: this.academicService,
         apiSubmit: (dataInput: any) => this.academicService.updateAcademic(dataInput),
         nameForm: 'update',
@@ -97,7 +108,7 @@ export class AcademicComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListAcademic();
         }
       },
       (reason) => { }
@@ -121,7 +132,7 @@ export class AcademicComponent implements OnInit {
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
         service: this.academicService,
-        apiSubmit: (dataInput: any) => this.academicService.updateAcademic(dataInput),
+        apiSubmit: (dataInput: any) => this.academicService.createNewAcademic(dataInput),
         nameForm: 'create',
       },
     };
@@ -130,6 +141,7 @@ export class AcademicComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
+          this.getListAcademic();
           console.log(result)
         }
       },
@@ -137,7 +149,7 @@ export class AcademicComponent implements OnInit {
     );
   }
 
-  deleteAcademic(){
+  deleteAcademic(id: any){
     const modalRef = this.modalService.open(ModalDeleteAcademicComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -153,8 +165,6 @@ export class AcademicComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
-        service: this.academicService,
-        apiSubmit: (dataInput: any) => this.academicService.deleteAcademic(dataInput),
         nameForm: 'create',
       },
     };
@@ -163,21 +173,31 @@ export class AcademicComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.globalStore.isLoading = true;
+          this.academicService.deleteAcademic(id).subscribe((res) => {
+            this.showMessageSerivce.success("Xóa niên khóa thành công");
+            this.globalStore.isLoading = false;
+            this.getListAcademic();
+          }, (err) => {
+            this.globalStore.isLoading = false;
+          })
         }
       },
       (reason) => { }
     );
   }
 
-  private getListStatisticData(): void{
+  private getListAcademic(): void{
     this.globalStore.isLoading = true;
-
-    this.academicService.getListAcademicYear().subscribe((res: any) => {
+    let dataRequest = {
+      keyword: this.keyword
+    }
+    this.academicService.getListAcademicYear(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
+      this.globalStore.isLoading = false;
       this.showMessageSerivce.error(err);
     })
   }

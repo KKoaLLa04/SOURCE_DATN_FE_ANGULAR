@@ -66,6 +66,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     const token = localStorage.getItem("Token");
     if(token){
       this.router.navigateByUrl('/home');
+    }else{
+      localStorage.clear();
     }
     this.siteKey = GOOGLE_CAPTCHA_SITE_KEY;
     this.initForm();

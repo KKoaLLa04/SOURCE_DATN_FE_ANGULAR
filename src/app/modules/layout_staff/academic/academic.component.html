@@ -2,10 +2,9 @@
   <h3>Danh sách niên khóa</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số niên khóa: 10</p>
+    <p>Số niên khóa: <span class="text-color-blue-light">{{dataList?.data?.total}}</span></p>
     <div class="d-flex">
-      <app-input-search [width]="'w-250px'"></app-input-search>
-      <app-button [text]="'Gán môn học vào lớp'" class="ms-4"></app-button>
+      <app-input-search [width]="'w-250px'" (valueChange)="onSearchValue($event)"></app-input-search>
       <app-button [text]="'Thêm mới'"
       (onClick)="create()"
       class="ms-4"
@@ -17,7 +16,7 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead>
+      <thead class="bg-color-blue-dark text-color-white">
         <tr>
           <th class=w-5>STT</th>
           <th>Thông tin niên khóa</th>
@@ -29,34 +28,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList, let i = index">
+        <tr *ngFor="let item of dataList?.data?.data, let i = index">
           <td>{{i+1}}</td>
           <td>
             <span>{{item.name}}</span> <br/>
-            <span>{{item.code}}</span>
+            <span>Mã: {{item.code}}</span>
           </td>
           <td>
             <span>{{item.status}}</span> <br/>
           </td>
           <td class="text-center">
-            {{item.start_year}}
+            {{item.start_year | formatTime}}
           </td>
           <td class="text-center">
-            {{item.end_year}}
+            {{item.end_year | formatTime}}
           </td>
           <td class="text-center">
             {{item.gradeName}}
           </td>
           <td class="text-center">
             <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
-              {
-                svgIcon: iconSvg.eye_show,
-                label: 'Xem chi tiết',
-                type: '1',
-                action: item.id,
-                permission: '',
-                data: item
-              },
               {
                 svgIcon: iconSvg.edit,
                 label: 'Sửa thông tin',
@@ -71,12 +62,14 @@
                 type: '3',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status != statusAcademic.NOT_STARTED_YET
               },
             ]" (action)="handleAction($event)"></app-context-menu>
           </td>
         </tr>
       </tbody>
     </table>
+    <app-no-data *ngIf="!dataList?.data?.data?.length"></app-no-data>
   </div>
 </div>

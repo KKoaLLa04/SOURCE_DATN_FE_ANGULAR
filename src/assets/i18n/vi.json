@@ -164,5 +164,17 @@
   "total": "Tổng",
   "deleteMenu": "Xóa menu",
   "moreSelected": "mục khác được chọn",
-  "and": "và"
+  "and": "và",
+  "enterEmail": "Nhập email",
+  "requiredEmail": "Email bắt buộc nhập",
+  "phoneRequired": "Số điện thoại bắt buộc nhập",
+  "phonePattern": "Số điện thoại không đúng định dạng",
+  "enterPhone": "Nhập số điện thoại",
+  "enterAddress": "Nhập địa chỉ",
+  "requiredRole": "Chức vụ bắt buộc chọn",
+  "confirmPasswordRequired": "Xác nhận mật khẩu không được để trống",
+  "enterUsername": "Nhập tên đăng nhập",
+  "usernameRequired": "Tên đăng nhập không được để trống",
+  "requiredGender": "Giới tính bắt buộc chọn",
+  "requiredStatus": "Trạng thái bắt buộc chọn"
 }

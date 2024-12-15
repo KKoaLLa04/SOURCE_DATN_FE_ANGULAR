@@ -1,10 +1,10 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Danh sách môn học</h3>
+  <h3>Danh sách học sinh</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số lượng công nhân viên chức: 10 </p>
+    <p>Số lượng học sinh: <span class="'text-color-blue-dark'">{{dataList?.total}}</span> </p>
     <div class="d-flex">
-      <app-input-search [width]="'w-250px'"></app-input-search>
+      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
       <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button>
       <app-button [text]="'Thêm mới'"
       (onClick)="create()"
@@ -30,27 +30,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList, let i = index">
+        <tr *ngFor="let item of dataList?.data, let i = index">
           <td>{{i+1}}</td>
           <td>
-            <span>{{item.userName}}</span> <br/>
-            <span>{{item.userCode}}</span>
+            <span>{{item.fullname}}</span> <br/>
+            <span>{{item.student_code}}</span>
           </td>
           <td>
-            <span>{{item.userEmail}}</span> <br/>
-            <span>{{item.userPhone}}</span>
+            <span>{{item.class_name}}</span> <br/>
+          </td>
+          <td>
+            <span>{{item.gender}}</span>
           </td>
           <td class="text-center">
-            {{item.userMainClassName}}
+            {{item.academic_year_name}}
           </td>
           <td class="text-center">
-            {{item.userAccessType}}
+            {{item.status}}
           </td>
           <td class="text-center">
-            {{item.userStatus}}
-          </td>
-          <td class="text-center">
-            {{item.userDob}}
+            {{item.parents?.name}}
           </td>
           <td class="text-center">
             <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
@@ -83,5 +82,9 @@
         </tr>
       </tbody>
     </table>
+    <app-no-data *ngIf="!collectionSize"></app-no-data>
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
   </div>
 </div>

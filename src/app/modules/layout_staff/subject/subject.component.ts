@@ -1,13 +1,12 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { InputSearchComponent } from 'src/app/_shared/components/input-search/input-search.component';
-import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { SubjectService } from '../services/subject.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 
 @Component({
   selector: 'app-subject',
@@ -15,25 +14,15 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   styleUrls: ['./subject.component.scss'],
   standalone: true,
   imports: [
-    InputSearchComponent,
     NgFor,
     ButtonComponent,
-    SelectComponent,
-    RouterLink
+    NoDataComponent,
+    NgIf
   ]
 })
 export class SubjectComponent implements OnInit {
   dataList: any = [];
-  dataOptionsStatus: Select2[] = [
-    {
-      label: "Test",
-      value: ""
-    },
-    {
-      label: "Test",
-      value: ""
-    }
-  ]
+ 
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
@@ -42,19 +31,18 @@ export class SubjectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListStatisticData();
+    this.getListSubject();
   }
 
   onChangeAssignPage(): void{
     this.router.navigateByUrl('staff/subject/assign');
   }
 
-  private getListStatisticData(): void{
+  private getListSubject(): void{
     this.globalStore.isLoading = true;
 
     this.subjectService.getListSubject().subscribe((res: any) => {
       this.dataList = res;
-      console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);

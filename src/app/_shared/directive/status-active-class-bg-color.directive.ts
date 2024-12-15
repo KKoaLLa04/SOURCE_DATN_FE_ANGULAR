@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {STATUS} from "../enums/status.enum";
+import { LeaveRequestType } from '../enums/leave-request-type.enum';
 
 @Directive({
   selector: '[StatusActiveClassBgColor]',
@@ -29,20 +30,25 @@ export class StatusActiveClassBgColorDirective {
     let text: string;
     let bgColor: string;
     switch (Number(status)) {
-      case Number(STATUS.ACTIVE):
+      case Number(LeaveRequestType.ACCEPT):
         textColor = 'var(--bs-white)';
-        bgColor = 'var(--bs-azure)';
-        text = STATUS.ACTIVE_NAME;
+        bgColor = 'var(--bs-green)';
+        text = LeaveRequestType.ACCEPT_LABEL;
         break;
-      case Number(STATUS.NO_ACTIVE):
+      case Number(LeaveRequestType.AWAITING):
         textColor = 'var(--bs-white)';
-        bgColor = 'var(--bs-red-orange)';
-        text = STATUS.NO_ACTIVE_NAME;
+        bgColor = 'var(--bs-butterscotch)';
+        text = LeaveRequestType.AWAITING_LABEL;
+        break;
+      case Number(LeaveRequestType.REJECT):
+        textColor = 'var(--bs-white)';
+        bgColor = 'var(--bs-river-bed)';
+        text = LeaveRequestType.REJECT_LABEL;
         break;
       default:
-        textColor = 'var(--bs-azure)';
-        bgColor = 'var(--bs-light-blue)';
-        text = STATUS.ACTIVE_NAME;
+        textColor = 'var(--bs-white)';
+        bgColor = 'var(--bs-river-bed)';
+        text = LeaveRequestType.AWAITING_LABEL;
         break;
     }
 

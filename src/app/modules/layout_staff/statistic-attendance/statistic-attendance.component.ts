@@ -8,6 +8,8 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
+import { Router } from '@angular/router';
+import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
 
 @Component({
   selector: 'app-statistic-attendance',
@@ -19,7 +21,8 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
     InputSearchComponent,
     NgFor,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    StatusClassAttendanceDirective
   ]
 })
 export class StatisticAttendanceComponent implements OnInit {
@@ -37,7 +40,8 @@ export class StatisticAttendanceComponent implements OnInit {
   constructor(
     private globalStore: GlobalStore,
     private statisticAttendanceSerivce: StatisticAttendanceService,
-    private showMessageSerivce: ShowMessageService
+    private showMessageSerivce: ShowMessageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -47,7 +51,10 @@ export class StatisticAttendanceComponent implements OnInit {
   getListStatisticData(): void{
     this.globalStore.isLoading = true;
 
-    this.statisticAttendanceSerivce.getListStatisticAttendance().subscribe((res: any) => {
+    let dataRequest = {
+
+    }
+    this.statisticAttendanceSerivce.getListStatisticAttendance(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res)
       this.globalStore.isLoading = false;
@@ -56,4 +63,7 @@ export class StatisticAttendanceComponent implements OnInit {
     })
   }
 
+  onChangeStudentDetailPage(id: any){
+    this.router.navigateByUrl('staff/list_attendance_statistic/detail/'+id);
+  }
 }

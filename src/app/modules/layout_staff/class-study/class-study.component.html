@@ -2,10 +2,9 @@
   <h3>Danh sách lớp học</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số lớp học: 10</p>
+    <p>Số lớp học: <span class="text-color-blue-light">{{dataList?.data?.totalItems}}</span></p>
     <div class="d-flex">
-      <app-input-search [width]="'w-250px'"></app-input-search>
-      <app-button [text]="'Gán môn học vào lớp'" class="ms-4"></app-button>
+      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
       <app-button [text]="'Thêm mới'"
       (onClick)="create()"
       class="ms-4"
@@ -18,7 +17,7 @@
   <div class="table table-responsive">
     <table class="table table-custom">
       <thead>
-        <tr>
+        <tr class="text-color-white text-color-blue-dark">
           <th class=w-5>STT</th>
           <th>Thông tin lớp học</th>
           <th>Trạng thái</th>
@@ -29,8 +28,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList, let i = index">
-          <td>{{i+1}}</td>
+        <tr *ngFor="let item of dataList?.data?.classes, let i = index">
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
           <td>
             <span>{{item.name}}</span> <br/>
           </td>
@@ -56,7 +57,8 @@
                 type: '1',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status == 0
               },
               {
                 svgIcon: iconSvg.edit,
@@ -64,7 +66,8 @@
                 type: '2',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status == 0
               },
               {
                 svgIcon: iconSvg.edit,
@@ -80,12 +83,21 @@
                 type: '4',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.status == 0
+              },
+              {
+                svgIcon: iconSvg.edit,
+                label: 'Thời khóa biểu',
+                type: '5',
+                action: item.id,
+                permission: '',
+                data: item,
               },
               {
                 svgIcon: iconSvg.delete_solid,
                 label: 'Xóa',
-                type: '5',
+                type: '6',
                 action: item.id,
                 permission: '',
                 data: item
@@ -95,5 +107,9 @@
         </tr>
       </tbody>
     </table>
+    <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data>
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
   </div>
 </div>

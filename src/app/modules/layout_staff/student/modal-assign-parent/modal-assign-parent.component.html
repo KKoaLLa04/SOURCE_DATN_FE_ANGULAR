@@ -1,0 +1,69 @@
+<form action="" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <h3>Danh sách phụ huynh</h3>
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <p>Số phụ huynh: <span class="text-color-blue-light">{{dataList?.total}}</span></p>
+      <div class="d-flex">
+        <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-row-bordered table-row-gray-300">
+        <caption></caption>
+        <thead>
+          <tr class="fs-14 fw-700 text-color-black">
+            <th>#</th>
+            <th>STT</th>
+            <th>Họ tên phụ huynh</th>
+            <th>Email</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>SĐT</th>
+            <th>Tên đăng nhập</th>
+            <th>Con</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataList?.data, let i = index">
+            <td><input type="radio" name="teacher_radio" (click)="onClickRadio(item.id)"/></td>
+            <td>{{(pageIndex-1)*pageSize + i + 1}}</td>
+            <td>
+              <span class="'text-color-blue-light'">{{item.fullname}}</span> <br/>
+              <span class="'text-color-blue-light'">Mã: {{item.code}}</span>
+            </td>
+            <td>{{item.email}}</td>
+            <td>{{item.gender}}</td>
+            <td>{{item.dob | formatTime}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{item.username}}</td>
+            <td>{{item.children_count}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <app-no-data *ngIf="!dataList?.total"></app-no-data>
+      <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+        *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+      </app-pagination>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button
+    [width]="'w-80px'"
+    [text]="t(dataModal?.btnAccept)"
+    [backgroundColor]="'bg-color-azure'"
+    (click)="onClickSave()"
+    [disabled]="!parentId"
+    ></app-button>
+  </div>
+</form>
+

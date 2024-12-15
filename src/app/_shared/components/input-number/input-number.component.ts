@@ -43,9 +43,10 @@ export class InputNumberComponent implements OnInit {
   @Input() isShowError:boolean = false;
   @Input() min:number = 0;
   @Input() max:number = 999999999;
+  @Input() minValue:number = 0;
+  @Input() maxValue:number = 10;
   @Output() valueChange = new EventEmitter<string>();
 
-  // @ViewChildren('ipNumber') ipNumber: QueryList<ElementRef>;
   @ViewChild('ipNumber') ipNumber: ElementRef;
 
   constructor() {

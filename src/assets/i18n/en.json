@@ -164,5 +164,17 @@
   "total": "Total",
   "deleteMenu": "Delete menu",
   "moreSelected": "more selected",
-  "and": "and"
+  "and": "and",
+  "enterEmail": "Enter email",
+  "requiredEmail": "Email is required",
+  "phoneRequired": "Phone is required",
+  "phonePattern": "Phone is incorrect format",
+  "enterPhone": "Enter phone",
+  "enterAddress": "Enter address",
+  "requiredRole": "Role required",
+  "confirmPasswordRequired": "Confirm password cannot be blank",
+  "enterUsername": "Enter username",
+  "usernameRequired": "Username required",
+  "requiredGender": "Gender required",
+  "requiredStatus": "Required selection status"
 }

@@ -2,7 +2,7 @@
   <h3>Thống kê điểm danh</h3>
 
   <div class="d-flex justify-content-between">
-    <p>Số lượng: 23 lớp</p>
+    <p>Số lượng: {{dataList?.total_classes}} lớp</p>
     <div class="d-flex">
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
@@ -24,10 +24,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList, let i = index">
+        <tr *ngFor="let item of dataList?.data, let i = index">
           <td>{{i+1}}</td>
           <td>{{item.class_name}}</td>
-          <td>{{item.status_class}}</td>
+          <td>
+            <div appStatusClassAttendance [statusValue]="item.status_class"></div>
+            <!-- {{item.status_class}} -->
+          </td>
           <td>{{item.teacher_name}}</td>
           <td>{{item.grade_name}}</td>
           <td>{{item.total_students}}</td>
@@ -36,6 +39,7 @@
             [text]="'Xem thống kê'"
             [backgroundColor]="'bg-color-violet'"
             [color]="'text-color-white'"
+            (onClick)="onChangeStudentDetailPage(item.class_id)"
             ></app-button>
           </td>
         </tr>

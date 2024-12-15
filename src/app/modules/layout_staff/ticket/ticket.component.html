@@ -1,0 +1,52 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3 class="title-custom fs-20 fw-700">Quản lý đơn xin nghỉ</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>Số lượng đơn do phụ huynh & học sinh gửi: <span class="fw-700 text-color-blue-light">{{dataList?.data?.total}} đơn xin nghỉ</span></p>
+    <div class="d-flex">
+      <!-- <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button> -->
+       <app-input-search></app-input-search>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead class="header-color">
+        <tr>
+          <th class=w-5>STT</th>
+          <th>Mã đơn</th>
+          <th>Tiêu đề</th>
+          <th>học sinh - phụ huynh</th>
+          <th>Lý do xin nghỉ</th>
+          <th>Gửi lúc</th>
+          <th>Trạng thái</th>
+          <th class="w-10">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data?.data, let i = index">
+          <td>{{i+1}}</td>
+          <td>{{item.code}}</td>
+          <td>{{item.title}}</td>
+          <td>
+            <span>{{item.studentName}}</span><br/>
+            <span>{{item.className}}</span><br/>
+            <span>Phụ huynh: {{item.parentName}}</span>
+          </td>
+          <td>{{item.note}}</td>
+          <td>{{item.time}} - {{item.leaveDate}}</td>
+          <td>
+            <div StatusActiveClassBgColor [statusValue]="item.status"></div>
+          </td>
+          <td>
+            <p><app-button [text]="'Đồng ý'" (onClick)="agreeTicket(item.id)" [backgroundColor]="'bg-color-green'" *ngIf="item.status==0" [height]="'h-30px'"></app-button></p>
+            <app-button [text]="'Từ chối'" (onClick)="denyTicket(item)" [backgroundColor]="'bg-color-red'" *ngIf="item.status==0" [height]="'h-30px'"></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-container *ngIf="!dataList?.data?.data?.length">
+      <app-no-data></app-no-data>
+    </ng-container>
+  </div>
+</div>

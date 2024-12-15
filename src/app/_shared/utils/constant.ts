@@ -209,3 +209,241 @@ export const ARR_MODULE_CATEGORIES:Select2[] = [
   { label: String(moduleCategoryTypeEnum.STUDY_INFORMATION_NAME), value: moduleCategoryTypeEnum.STUDY_INFORMATION },
   { label: String(moduleCategoryTypeEnum.SERVICE_NAME), value: moduleCategoryTypeEnum.SERVICE }
 ]
+
+// export const TIME_TABLE_STRUCT = {
+//     "sang": [
+//       {
+//         "hai": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "ba": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "tu": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "nam": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "sau": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "bay": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "chunhat": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       }
+//     ],
+//     "chieu": [
+//       {
+//         "hai": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "ba": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "tu": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "nam": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "sau": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "bay": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       },
+//       {
+//         "chunhat": {
+//           "tiet1": '',
+//           "tiet2": '',
+//           "tiet3": '',
+//           "tiet4": '',
+//           "tiet5": '',
+//         }
+//       }
+//     ]
+// }
+
+export const TIME_TABLE_STRUCT = {
+  "sang": {
+      "hai": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "ba": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "tu": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "nam": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "sau": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "bay": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "chunhat": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+  },
+  "chieu": {
+      "hai": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "ba": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "tu": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "nam": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "sau": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "bay": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      },
+      "chunhat": {
+        "tiet1": '',
+        "tiet2": '',
+        "tiet3": '',
+        "tiet4": '',
+        "tiet5": '',
+      }
+  }
+}

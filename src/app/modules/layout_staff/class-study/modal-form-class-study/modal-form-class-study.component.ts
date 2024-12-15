@@ -2,11 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
+import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ValidatorNotEmptyString, ValidatorNotNull } from 'src/app/_services/validator-custom.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
+import { StatusClassEnum } from 'src/app/_shared/enums/status-class.enum';
 import { REGEX_CODE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
+import { ClassStudyService } from '../../services/class-study.service';
+import { ShowMessageService } from 'src/app/_services/show-message.service';
 
 @Component({
   selector: 'app-modal-form-class-study',
@@ -19,11 +24,13 @@ import { GlobalStore } from 'src/app/_store/global.store';
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,
+    SelectComponent
   ]
 })
 export class ModalFormClassStudyComponent implements OnInit {
   @Input() dataModal: any;
   formGroup: FormGroup;
+  dataForm: any
   dataFromParent: any;
   validationMessagesServer = {
     name: {},
@@ -32,62 +39,198 @@ export class ModalFormClassStudyComponent implements OnInit {
   };
   isUpdate: boolean = false;
 
+  optionStatus: Select2[] = [
+    {
+      label: "Chọn trạng thái lớp học",
+      value: '',
+      selected: true
+    },
+    {
+      label: "Chưa diễn ra",
+      value: StatusClassEnum.HAS_NOT_HAPPENDED
+    },
+    {
+      label: "Đang diễn ra",
+      value: StatusClassEnum.HAS_APPROVED
+    },
+    {
+      label: "Đã kết thúc",
+      value: StatusClassEnum.HAS_NOT_HAPPENDED
+    }
+  ]
+
+  optionGrades: Select2[] = [
+    {
+      label: "Chọn khối",
+      value: ""
+    }
+  ]
+
+  optionMainTeacher: Select2[] = [
+    {
+      label: "Giáo viên chủ nhiệm",
+      value: ''
+    }
+  ]
+
+  optionAcacdemic: Select2[] = [
+    {
+      label: "Niên khóa",
+      value: ''
+    }
+  ]
+
+  optionSchoolYear: Select2[] = [
+    {
+      label: "Năm học",
+      value: ''
+    }
+  ]
+
+
+
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private globalStore: GlobalStore,
+    private classStudyService: ClassStudyService,
+    private showMessageService: ShowMessageService
   ) { }
 
   ngOnInit(): void {
+    this.getDataForm();
     this.dataFromParent = this.dataModal.dataFromParent;
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
+  }
+
+
+  getDataForm(): void{
+    this.globalStore.isLoading = true;
+    this.classStudyService.getDataForm().subscribe((res: any) => {
+      this.dataForm = res;
+      console.log(res);
+      res.data.academics.map((item) => {
+        this.optionAcacdemic.push({
+          label: item.name,
+          value: item.id
+        })
+      })
+
+      res.data.grades.map((item) => {
+        this.optionGrades.push({
+          label: item.name,
+          value: item.id
+        })
+      })
+
+      res.data.teachers.map((item) => {
+        this.optionMainTeacher.push({
+          label: item.name,
+          value: item.id
+        })
+      })
+
+      res.data.schoolYears.map((item) => {
+        this.optionSchoolYear.push({
+          label: item.name,
+          value: item.id
+        })
+      })
+
+      this.globalStore.isLoading = false;
+    }, (err) =>{
+      this.showMessageService.error(err);
+    })
   }
 
   initForm() {
     this.formGroup = this.fb.group({
       name: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.name
+          ? this.dataFromParent?.data?.name
           : '',
         [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
       ],
-      code: [
+      academic: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.code
+          ? this.dataFromParent?.data?.academic_id
           : '',
-        [Validators.required, Validators.maxLength(50), Validators.pattern(REGEX_CODE)],
+        [Validators.required],
       ],
-      requestLayout: [
+      mainTeacher: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.layout
-          : null,
-        [Validators.required, ValidatorNotNull],
-      ],
-      desc: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.description
+          ? this.dataFromParent?.data?.teacher_id
           : '',
+      ],
+      grade: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.grade_id
+          : '',
+        [Validators.required],
+      ],
+      schoolYear: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.school_year_id
+          : '',
+        [Validators.required],
+      ],
+      status: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.status
+          : '',
+        [Validators.required],
       ],
     });
+
+    if(this.dataFromParent.nameForm == 'update'){
+      this.formGroup.get('academic').clearValidators();
+      this.formGroup.get('academic').updateValueAndValidity();
+      this.formGroup.get('schoolYear').clearValidators();
+      this.formGroup.get('schoolYear').updateValueAndValidity();
+    }
   }
 
   submit(valueForm: any) {
+    if(this.dataFromParent.nameForm == 'update'){
+      this.formGroup.get('academic').clearValidators();
+      this.formGroup.get('academic').updateValueAndValidity();
+      this.formGroup.get('schoolYear').clearValidators();
+      this.formGroup.get('schoolYear').updateValueAndValidity();
+    }
     if (this.formGroup.valid) {
-      let dataInput = {
-        name: valueForm.name.trim(),
-        code: valueForm.code.trim(),
-        requestLayout: valueForm.requestLayout,
-        description: valueForm.desc,
-      };
+      let dataInput;
       if (this.dataFromParent.nameForm == 'update') {
         // form update
-        dataInput['id'] = this.dataFromParent?.role?.id;
+        dataInput = {
+          class_id: this.dataFromParent.data.id,
+          name: valueForm.name.trim(),
+          teacher_id: valueForm.mainTeacher,
+          status: valueForm.status,
+          grade_id: valueForm.grade,
+        };
+      }else{
+        dataInput = {
+          name: valueForm.name.trim(),
+          academic_id: valueForm.academic,
+          teacher_id: valueForm.mainTeacher,
+          status: valueForm.status,
+          grade_id: valueForm.grade,
+          school_year_id: valueForm.schoolYear,
+        };
       }
       this.globalStore.isLoading = true;
 
       this.dataFromParent.apiSubmit(dataInput).subscribe(
-        (res: any) => { },
+        (res: any) => {
+          if (this.dataFromParent.nameForm == 'update') {
+            this.showMessageService.success("Cập nhật lớp học thành công")
+          }else{
+            this.showMessageService.success("Thêm lớp học mới thành công")
+          }
+          this.globalStore.isLoading = false;
+          this.closeModal(true)
+         },
         (err: any) => {
           this.globalStore.isLoading = false;
           this.validateAllFormFieldsErrorServer(err.errors);
@@ -156,35 +299,30 @@ export class ModalFormClassStudyComponent implements OnInit {
         type: "required",
         message: 'requiredName'
       },
-      {
-        type: "maxlength",
-        message: 'maxLengthName'
-      },
-      {
-        type: "notEmpty",
-        message: 'requiredName'
-      }
     ],
-    code: [
+    academic: [
       {
         type: "required",
-        message: 'requiredCode'
+        message: 'Niên khóa bắt buộc chọn'
       },
-      {
-        type: "maxlength",
-        message: 'maxLengthCode'
-      },
-      {
-        type: "pattern",
-        message: 'patternCode'
-      }
     ],
-    requestLayout: [
+    grade: [
       {
-        type: "notNull",
-        message: 'role.requiredLayout'
+        type: "required",
+        message: 'Khối học bắt buộc chọn'
       },
+    ],
+    schoolYear: [
+      {
+        type: "required",
+        message: 'Năm học bắt buộc chọn'
+      },
+    ],
+    status: [
+      {
+        type: "required",
+        message: "Trạng thái bắt buộc chọn"
+      }
     ]
   };
-
 }

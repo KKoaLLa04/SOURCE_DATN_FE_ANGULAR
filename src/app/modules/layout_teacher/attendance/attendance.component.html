@@ -1,0 +1,68 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Điểm danh lớp học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>
+      <span class="fw-600 me-4">Số lớp đã điểm danh: <span class="fw-700 text-color-green">{{dataList?.totalClassAttendanced}} lớp</span></span>
+      <span class="fw-600">Số lớp chưa điểm danh: <span class="fw-700 text-color-red">{{dataList?.totalClassNoAttendance}} lớp</span></span>
+    </p>
+    <div class="d-flex">
+      <app-single-date-picker [maxDate]="nowTimestamp" class="me-4" (dataTimeOutput)="onSearchDate($event)"></app-single-date-picker>
+      <!-- <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select> -->
+      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Thông tin lớp</th>
+          <th>Ngày điểm danh</th>
+          <th>Giáo viên chủ nhiệm</th>
+          <th>Trạng thái</th>
+          <th>Có mặt</th>
+          <th class="w-10 text-center">Tình trạng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList.data, let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            <span>Tên lớp: {{item.className}}</span> <br/>
+            <span>{{item.grade}}</span> <br/>
+            <span>Số lượng hs: {{item.totalStudent}}</span> <br/>
+          </td>
+          <td>
+            {{item.dateAttendanced | formatTime}}
+          </td>
+          <td>
+            <span>{{item.fullname}}</span> <br/>
+            <span *ngIf="item.email">({{item.email}})</span>
+          </td>
+          <td>
+            <span>{{item.status}}</span> <br/>
+            <span *ngIf="item.attendanceBy">Bởi: ({{item.attendanceBy}})</span> <br/>
+            <span *ngIf="item.attendanceAt">Lúc: ({{item.attendanceAt}})</span>
+          </td>
+          <td>
+            {{item.studentAttendanced}} / {{item.totalStudent}}
+          </td>
+          <td>
+            <app-button
+            [text]="'Điểm danh'"
+            [backgroundColor]="'bg-color-greenish-teal'"
+            [color]="'text-color-white'"
+            (onClick)="onChangeSaveAttendancePage(item.classId)"
+            ></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!dataList?.data?.length">
+      <app-no-data></app-no-data>
+    </div>
+  </div>
+</div>

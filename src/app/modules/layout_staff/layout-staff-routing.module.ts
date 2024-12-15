@@ -11,6 +11,13 @@ import { AcademicComponent } from "./academic/academic.component";
 import { ClassStudyComponent } from "./class-study/class-study.component";
 import { ClassStudyAssignStudentComponent } from "./class-study/class-study-assign-student/class-study-assign-student.component";
 import { StudentComponent } from "./student/student.component";
+import { StudentDetailComponent } from "./student/student-detail/student-detail.component";
+import { ClassStudyDetailComponent } from "./class-study/class-study-detail/class-study-detail.component";
+import { NoteMarkComponent } from "./note-mark/note-mark.component";
+import { NoteMarkDetailComponent } from "./note-mark/note-mark-detail/note-mark-detail.component";
+import { TicketComponent } from "./ticket/ticket.component";
+import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-table-staff.component";
+import { ExamComponent } from "./exam/exam.component";
 
 const routes: Routes = [
   {
@@ -78,8 +85,16 @@ const routes: Routes = [
         component: ClassStudyComponent
       },
       {
-        path: 'assign-student',
+        path: 'assign-student/:classId',
         component: ClassStudyAssignStudentComponent
+      },
+      {
+        path: 'detail/:classId',
+        component: ClassStudyDetailComponent
+      },
+      {
+        path: 'timetable/:classId',
+        component: TimeTableStaffComponent
       }
     ]
   },
@@ -93,6 +108,10 @@ const routes: Routes = [
       {
         path: 'assign-student',
         component: ClassStudyAssignStudentComponent
+      },
+      {
+        path: "detail/:id",
+        component: StudentDetailComponent
       }
     ]
   },
@@ -119,6 +138,45 @@ const routes: Routes = [
       {
         path: 'assign-student',
         component: ClassStudyAssignStudentComponent
+      }
+    ]
+  },
+  {
+    path: 'note-mark',
+    children: [
+      {
+        path: '',
+        component: NoteMarkComponent
+      },
+      {
+        path: 'detail/:id',
+        component: NoteMarkDetailComponent
+      }
+    ]
+  },
+  {
+    path: 'ticket',
+    children: [
+      {
+        path: '',
+        component: TicketComponent
+      },
+      {
+        path: 'detail/:id',
+        component: NoteMarkDetailComponent
+      }
+    ]
+  },
+  {
+    path: 'exam',
+    children: [
+      {
+        path: '',
+        component: ExamComponent
+      },
+      {
+        path: 'detail/:id',
+        component: NoteMarkDetailComponent
       }
     ]
   }
