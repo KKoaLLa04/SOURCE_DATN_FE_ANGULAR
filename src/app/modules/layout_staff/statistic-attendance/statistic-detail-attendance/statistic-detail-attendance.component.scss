@@ -1,7 +1,7 @@
 .fix-width {
 	width: 100%;
 	overflow-y: hidden;
-	overflow-x: auto;
+	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
 }
 
@@ -9,6 +9,8 @@
 	width: 100%;
 	margin-bottom: 0;
 	max-width: none;
+	overflow-x: auto;
+	white-space: nowrap;
 }
 
 // Scrollbar Override

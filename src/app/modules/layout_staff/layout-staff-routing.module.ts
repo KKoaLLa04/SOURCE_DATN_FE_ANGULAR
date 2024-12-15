@@ -18,6 +18,7 @@ import { NoteMarkDetailComponent } from "./note-mark/note-mark-detail/note-mark-
 import { TicketComponent } from "./ticket/ticket.component";
 import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-table-staff.component";
 import { ExamComponent } from "./exam/exam.component";
+import { SchoolYearComponent } from "./school-year/school-year.component";
 
 const routes: Routes = [
   {
@@ -133,7 +134,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: StudentComponent
+        component: SchoolYearComponent
       },
       {
         path: 'assign-student',

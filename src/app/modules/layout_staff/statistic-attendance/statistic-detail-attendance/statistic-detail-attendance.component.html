@@ -3,16 +3,23 @@
 
   <div class="d-flex justify-content-between">
     <p>Số lượng: 23 lớp</p>
-    <div class="d-flex">
+    <div class="d-flex mb-5">
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-input-search [width]="'w-250px'"></app-input-search>
     </div>
   </div>
 
+  <p class="mt-5 bg-color-white-smoke fw-700 p-5">
+    <span>P: có mặt,</span> 
+    <span class="ms-4">V: Nghỉ không phép ,</span> 
+    <span class="ms-4">C: Nghỉ có phép,</span> 
+    <span class="ms-4">M: đi muộn</span> 
+  </p>
   <div class="panel panel-default">
     <div class="table table-responsive center-block fix-width scroll-inner">
-      <div class="table table-striped">
+      <!-- <div class="table table-striped"> -->
+      <div class="">
       <table class="table table-full-bordered">
         <thead>
           <tr>
@@ -38,7 +45,10 @@
             <td>{{item.total_absent}}</td>
             <td>{{item.total_late}}</td>
             <td>{{item.total_present}}</td>
-            <td *ngFor="let date of item.date">{{date.status}}</td>
+            <td *ngFor="let date of item.date">
+              <div appStatusStudent [statusValue]="date.status"></div>
+              <!-- {{date.status}} -->
+            </td>
           </tr>
         </tbody>
       </table>
