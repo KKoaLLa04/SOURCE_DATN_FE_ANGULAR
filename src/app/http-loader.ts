@@ -7,7 +7,10 @@ export class HttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
 
   getTranslation(langPath: string) {
-    return this.http.get<Translation>(`/assets/i18n/vi.json`);
+    if(!langPath){
+      langPath = "vi"
+    }
+    return this.http.get<Translation>(`/assets/i18n/${langPath}.json`);
   }
 }
 
