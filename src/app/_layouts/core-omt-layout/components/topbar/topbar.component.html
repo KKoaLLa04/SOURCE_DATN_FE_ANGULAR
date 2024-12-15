@@ -24,7 +24,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li *ngFor="let item of dataList?.data"><a class="dropdown-item" href="#">{{item?.data?.title}} - {{item?.created_at | formatTime: "hh:mm dd-MM-yyyy"}}</a></li>
-              <li *ngIf="!dataList?.data?.length"><a class="dropdown-item" href="#">Bạn không có thông báo mới!</a></li>
+              <li *ngIf="!dataList?.data?.length">Bạn không có thông báo mới!</li>
             </ul>
             </div>
           </div>

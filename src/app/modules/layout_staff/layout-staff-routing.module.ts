@@ -16,6 +16,7 @@ import { ClassStudyDetailComponent } from "./class-study/class-study-detail/clas
 import { NoteMarkComponent } from "./note-mark/note-mark.component";
 import { NoteMarkDetailComponent } from "./note-mark/note-mark-detail/note-mark-detail.component";
 import { TicketComponent } from "./ticket/ticket.component";
+import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-table-staff.component";
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
       {
         path: 'detail/:classId',
         component: ClassStudyDetailComponent
+      },
+      {
+        path: 'timetable/:classId',
+        component: TimeTableStaffComponent
       }
     ]
   },

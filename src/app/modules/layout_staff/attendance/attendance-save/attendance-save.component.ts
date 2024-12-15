@@ -100,7 +100,7 @@ export class AttendanceSaveComponent implements OnInit {
       })
     })
     let dataRequest = {
-      rollCallData: rollCallData,
+      rollcallData: rollCallData,
       date: this.dateTimestampNow
     }
     this.attendanceSerivce.attendanced(dataRequest, this.classId).subscribe((res) => {
@@ -108,7 +108,6 @@ export class AttendanceSaveComponent implements OnInit {
 
       this.messagingSerivce.receiveMessaging();
       let message = this.messagingSerivce.currentMessage
-      console.log(message);
 
       this.showMessageSerivce.success("Điểm danh thành công!");
     }, (err) => {

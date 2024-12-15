@@ -78,13 +78,18 @@ export class ClassStudyComponent implements OnInit {
       '2': () => this.update(event.data),
       '3': () => this.assignTeacher(event.value),
       '4': () => this.onChangeAssignStudentPage(event.value),
-      '5': () => this.deleteAcademic(event.value)
+      '5': () => this.onChangeTimetable(event.value),
+      '6': () => this.deleteAcademic(event.value)
     };
 
     const handler = actionHandlers[event.type];
     if (handler) {
       handler();
     }
+  }
+
+  onChangeTimetable(classId: any): void{
+    this.router.navigateByUrl(`staff/class-study/timetable/${classId}`)
   }
 
   onChangeDetailPage(classId: any): void{

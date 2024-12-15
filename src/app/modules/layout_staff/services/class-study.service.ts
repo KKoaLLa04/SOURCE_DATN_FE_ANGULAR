@@ -87,4 +87,8 @@ constructor(
   updateSubject(data: any){
     console.log(data)
   }
+
+  getTimetableData(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/khoabieu`, {params: {...data}})
+  }
 }

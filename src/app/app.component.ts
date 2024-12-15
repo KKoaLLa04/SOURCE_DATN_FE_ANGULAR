@@ -6,6 +6,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { GlobalStore } from './_store/global.store';
 import { NgIf, CommonModule } from '@angular/common';
 import { LoadingComponent } from './_shared/components/loading/loading.component';
+import { MessagingService } from 'src/firebase/messaging-service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,6 +15,7 @@ import { LoadingComponent } from './_shared/components/loading/loading.component
   imports: [RouterOutlet,NgIf,LoadingComponent,CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [MessagingService]
 })
 export class AppComponent implements OnInit {
   vm$ = this.globalStore.select((state) => {
@@ -28,20 +30,21 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private globalStore: GlobalStore,
     private router: Router,
+    private messagingSerivce: MessagingService
   ) {
   }
 
   ngOnInit() {
-    // if ('serviceWorker' in navigator) {
-    //   navigator.serviceWorker
-    //     .register('/firebase-messaging-sw.js')
-    //     .then((registration) => {
-    //       console.log('Service Worker registered with scope:', registration.scope);
-    //     })
-    //     .catch((err) => {
-    //       console.log('Service Worker registration failed:', err);
-    //     });
-    // }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/firebase-messaging-sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((err) => {
+          console.log('Service Worker registration failed:', err);
+        });
+    }
 
     const token = localStorage.getItem("Token");
     if(!token){
@@ -49,10 +52,10 @@ export class AppComponent implements OnInit {
     }
 
     // this.msg.requestPerm("anbu");
-    // this.messagingSerivce.requestPermission();
-    // this.messagingSerivce.receiveMessaging();
-    // this.message = this.messagingSerivce.currentMessage
-    // console.log(this.message);
+    this.messagingSerivce.requestPermission();
+    this.messagingSerivce.receiveMessaging();
+    this.message = this.messagingSerivce.currentMessage
+    console.log(this.message);
 
     const currentUserElement  = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentPermissions')));
     this.authService.currentPermissions = currentUserElement.asObservable();
