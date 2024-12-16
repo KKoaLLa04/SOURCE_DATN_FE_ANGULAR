@@ -29,4 +29,16 @@ export class SubjectService {
     // )
     return this.http.get(`${environment.apiUrl}/manager/subject`)
   }
+
+  createNewSubject(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/subject/create`, data)
+  }
+
+  updateSubject(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/subject/update/${data.id}`, data)
+  }
+
+  deleteSubject(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/subject/delete/${data.id}`, data)
+  }
 }

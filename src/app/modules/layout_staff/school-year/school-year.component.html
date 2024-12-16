@@ -1,0 +1,63 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3 class="title-custom fs-20 fw-700">Năm học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>Số lượng năm học: <span class="fw-700 text-color-blue-light">{{dataList?.total}} năm học</span></p>
+    <div class="d-flex">
+      <app-input-search (valueChange)="onSearch($event)"></app-input-search>
+      <app-button [text]="'Thêm mới'" (onClick)="create()" class="ms-4"></app-button>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead class="header-color">
+        <tr>
+          <th class=w-5>STT</th>
+          <th>Thông tin năm học</th>
+          <th>trạng thái</th>
+          <th>thời gian bắt đầu</th>
+          <th>thời gian kết thúc</th>
+          <th class="text-center">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data, let i = index">
+          <td>{{i+1}}</td>
+          <td>{{item.schoolYearName}}</td>
+          <td>
+            <div appStatusSchoolYear [statusValue]="item.schoolYearStatus"></div>
+            <!-- {{item.schoolYearStatus}} -->
+          </td>
+          <td>{{item.schoolYearStartDate | formatTime}}</td>
+          <td>{{item.schoolYearEndDate | formatTime}}</td>
+          <td class="text-center">
+            <app-context-menu *ngIf="item.schoolYearStatus != statusSchoolyearEnum.FINISHED" [text]="iconSvg.three_horizol_dot_icon" [option]="[
+              {
+                svgIcon: iconSvg.eye_show,
+                label: 'Sửa thông tin',
+                type: '1',
+                action: item.id,
+                permission: '',
+                data: item,
+                isHide: item.schoolYearStatus == statusSchoolyearEnum.FINISHED
+              },
+              {
+                svgIcon: iconSvg.delete_solid,
+                label: 'Xóa',
+                type: '2',
+                action: item.id,
+                permission: '',
+                data: item,
+                isHide: item.schoolYearStatus != statusSchoolyearEnum.NOT_STARTED_YET
+              },
+            ]" (action)="handleAction($event)"></app-context-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-container *ngIf="!dataList?.data?.length">
+      <app-no-data></app-no-data>
+    </ng-container>
+  </div>
+</div>

@@ -18,4 +18,20 @@ constructor(
   getListExamTimes(data: any){
     return this.http.get(`${environment.apiUrl}/exam-period`, {params: {...data}})
   }
+
+  createNewExam(data: any){
+    return this.http.post(`${environment.apiUrl}/exam/store`, data)
+  }
+
+  updateExam(data: any){
+    return this.http.post(`${environment.apiUrl}/exam/update`, data)
+  }
+
+  createNewTimesExam(data: any){
+    return this.http.post(`${environment.apiUrl}/exam-period/store`, data)
+  }
+
+   updateTimes(data: any){
+    return this.http.post(`${environment.apiUrl}/exam-period/update`, data)
+  }
 }

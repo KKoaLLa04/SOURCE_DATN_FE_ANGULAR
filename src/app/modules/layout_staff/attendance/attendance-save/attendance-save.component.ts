@@ -95,7 +95,7 @@ export class AttendanceSaveComponent implements OnInit {
     this.dataList.data?.data?.map((item) => {
       rollCallData.push({
         studentID: item.id,
-        status: item.status,
+        status: item.statusValue ? item.statusValue : item.status,
         note: item.note
       })
     })

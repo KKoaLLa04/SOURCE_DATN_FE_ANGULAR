@@ -38,7 +38,7 @@
 
   <!-- Hello User -->
   <div class="d-flex align-items-center me-2" [ngClass]="toolbarButtonMarginClass">
-    <span class="fw-600 text-color-black fs-14 me-2">{{t('sayHi')}}! </span>
+    <span class="fw-600 text-color-black fs-14 me-2 cursor-pointer" (click)="onClickLogout()">Đăng xuất</span>
     <span class="fw-700 text-color-black fs-14">{{user?.fullName}}</span>
   </div>
 

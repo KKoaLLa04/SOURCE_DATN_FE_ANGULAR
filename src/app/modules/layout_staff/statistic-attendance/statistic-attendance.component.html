@@ -4,9 +4,9 @@
   <div class="d-flex justify-content-between">
     <p>Số lượng: {{dataList?.total_classes}} lớp</p>
     <div class="d-flex">
+      <!-- <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-input-search [width]="'w-250px'"></app-input-search>
+      <app-input-search [width]="'w-250px'"></app-input-search> -->
     </div>
   </div>
 
@@ -16,7 +16,7 @@
         <tr>
           <th>STT</th>
           <th>Thông tin lớp học</th>
-          <th>Trạng thái</th>
+          <!-- <th>Trạng thái</th> -->
           <th>Giáo viên chủ nhiệm</th>
           <th>Khối</th>
           <th>Học sinh</th>
@@ -27,10 +27,9 @@
         <tr *ngFor="let item of dataList?.data, let i = index">
           <td>{{i+1}}</td>
           <td>{{item.class_name}}</td>
-          <td>
+          <!-- <td>
             <div appStatusClassAttendance [statusValue]="item.status_class"></div>
-            <!-- {{item.status_class}} -->
-          </td>
+          </td> -->
           <td>{{item.teacher_name}}</td>
           <td>{{item.grade_name}}</td>
           <td>{{item.total_students}}</td>

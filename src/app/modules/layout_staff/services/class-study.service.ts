@@ -81,11 +81,11 @@ constructor(
   }
 
   addNewSubject(data: any){
-    return this.http.post(`${environment.apiUrl}/manager/class/updateTeacherForSubject`, data)
+    return this.http.post(`${environment.apiUrl}/manager/class/createSubjectForClass`, data)
   }
 
   updateSubject(data: any){
-    console.log(data)
+    return this.http.post(`${environment.apiUrl}/manager/class/updateTeacherForSubject`, data)
   }
 
   getTimetableData(data: any){
@@ -94,5 +94,9 @@ constructor(
 
   createUpdateTimetable(data: any){
     return this.http.post(`${environment.apiUrl}/manager/khoabieu/tao-sua-khoa-bieu`, data)
+  }
+
+  removeSubjectClass(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/class/deleteSubjectForClass`, data)
   }
 }

@@ -39,10 +39,11 @@ export class TimeTableStaffComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListSubject();
+    // this.getListSubject();
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('classId');
       this.getListTimetable();
+      this.getListStudentClassDetail();
       // this.createNewSubjectOption();
     });
   }
@@ -241,7 +242,7 @@ export class TimeTableStaffComponent implements OnInit {
     //       let findIndex = options.findIndex((option) => option.value == item.id);
     //       if(findIndex != -1){
     //       }
-    //     })   
+    //     })
     //   }
     // }
   }
@@ -259,6 +260,25 @@ export class TimeTableStaffComponent implements OnInit {
     }, (err) =>{
       this.globalStore.isLoading = false;
       // this.showMessageSerivce.error(err);
+    })
+  }
+
+  getListStudentClassDetail(){
+    this.globalStore.isLoading = true;
+    let dataRequest = {
+      class_id: this.classId,
+    }
+    this.classStudyService.getListDetailAClass(dataRequest).subscribe((res: any) => {
+      res?.data?.classSubject.map((item) => {
+        this.optionSubject.push({
+          label: item.subjectName,
+          value: item.subjectId,
+        })
+      })
+      this.globalStore.isLoading = false;
+    }, (err) =>{
+      this.globalStore.isLoading = false;
+      this.showMessageService.error(err);
     })
   }
 

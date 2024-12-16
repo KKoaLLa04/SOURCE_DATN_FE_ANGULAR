@@ -4,7 +4,12 @@
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>Số môn học theo bộ giáo dục & đào tạo: <span class="fw-700 text-color-blue-light">{{dataList?.total}} môn học</span></p>
     <div class="d-flex">
-      <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button>
+      <app-button 
+        [text]="'Thêm môn học'"
+        [startIconName]="iconSvg.plus"
+        (onClick)="create()" class="ms-4"
+        [backgroundColor]="'bg-color-green'"
+       ></app-button>
     </div>
   </div>
 
@@ -14,12 +19,33 @@
         <tr>
           <th class=w-5>STT</th>
           <th>Tên môn học</th>
+          <th class="w-5">#</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data, let i = index">
           <td>{{i+1}}</td>
           <td>{{item.subjectName}}</td>
+          <td>
+            <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
+              {
+                svgIcon: iconSvg.eye_show,
+                label: 'Sửa',
+                type: '1',
+                action: item.subject_id,
+                permission: '',
+                data: item,
+              },
+              {
+                svgIcon: iconSvg.delete_solid,
+                label: 'Xóa',
+                type: '2',
+                action: item.subject_id,
+                permission: '',
+                data: item,
+              },
+            ]" (action)="handleAction($event)"></app-context-menu>
+          </td>
         </tr>
       </tbody>
     </table>

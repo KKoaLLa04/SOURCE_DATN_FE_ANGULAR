@@ -9,6 +9,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ActivatedRoute } from '@angular/router';
+import { StatusStudentDirective } from 'src/app/_shared/directive/status-student.directive';
 
 @Component({
   selector: 'app-statistic-detail-attendance',
@@ -20,12 +21,12 @@ import { ActivatedRoute } from '@angular/router';
     InputSearchComponent,
     NgFor,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    StatusStudentDirective
   ]
 })
 export class StatisticDetailAttendanceComponent implements OnInit {
   dataList: any = [];
-  dataMonth: Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
   dataDateMonth: any;
   dataOptionsStatus: Select2[] = [
     {

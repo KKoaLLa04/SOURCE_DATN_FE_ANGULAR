@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth';
 import { GeneralService } from 'src/app/_services/general.service';
 import { LayoutService } from '../../core/layout.service';
@@ -43,7 +43,8 @@ export class TopbarComponent implements OnInit {
     private authService: AuthService,
     private globalStore: GlobalStore,
     private notificationService: NotificationService,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -85,4 +86,9 @@ export class TopbarComponent implements OnInit {
   //     this.generalService.showToastMessageError400(err);
   //   })
   // }
+
+  onClickLogout(){
+    localStorage.clear();
+    this.router.navigateByUrl('auth/login')
+  }
 }
