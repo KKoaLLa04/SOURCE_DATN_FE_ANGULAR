@@ -80,7 +80,7 @@ export class TeacherComponent implements OnInit {
     const actionHandlers = {
       '1': () => {},
       '2': () => this.update(event.data),
-      '3': () => this.changePassWordTeacher()
+      '3': () => this.changePassWordTeacher(event.data)
     };
 
     const handler = actionHandlers[event.type];
@@ -156,7 +156,7 @@ export class TeacherComponent implements OnInit {
     );
   }
 
-  changePassWordTeacher(){
+  changePassWordTeacher(item: any){
     const modalRef = this.modalService.open(ModalChangePasswordTeacherComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -172,8 +172,9 @@ export class TeacherComponent implements OnInit {
       btnAccept: 'btnAction.save',
       isHiddenBtnClose: false, // hidden/show btn close modal
       dataFromParent: {
+        data: item,
         service: this.teacherService,
-        apiSubmit: (dataInput: any) => this.teacherService.createNewTeacher(dataInput),
+        apiSubmit: (dataInput: any) => this.teacherService.changePassword(dataInput),
         nameForm: 'create',
       },
     };
@@ -182,7 +183,7 @@ export class TeacherComponent implements OnInit {
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
-          console.log(result)
+          this.getListTeacher();
         }
       },
       (reason) => { }

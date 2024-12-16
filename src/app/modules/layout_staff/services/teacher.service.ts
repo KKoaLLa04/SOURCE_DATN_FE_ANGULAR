@@ -38,4 +38,8 @@ export class TeacherService {
   updateTeacherInformation(data: any){
     return this.http.post(`${environment.apiUrl}/manager/user/edit/${data.userId}`, data);
   }
+
+  changePassword(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/user/${data.userId}`, data);
+  }
 }
