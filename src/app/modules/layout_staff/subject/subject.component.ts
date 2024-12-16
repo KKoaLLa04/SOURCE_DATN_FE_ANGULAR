@@ -81,7 +81,7 @@ export class SubjectComponent implements OnInit {
               windowClass: 'myCustomModalClass',
               keyboard: false,
               backdrop: 'static', // prevent click outside modal to close modal
-              centered: false, // vị trí hiển thị modal ở giữa màn hình
+              centered: false, // vị trí hiển thị modal ở giữa màn 
               size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
             });
         
