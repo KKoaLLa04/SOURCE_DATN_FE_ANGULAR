@@ -16,11 +16,13 @@
       class="ms-4"
       [startIconName]="iconSvg.plus"
       [backgroundColor]="'bg-color-greenish-teal'"
+      (onClick)="create()"
       ></app-button>
       <app-button [text]="'Thêm đợt thi'"
       class="ms-4"
       [startIconName]="iconSvg.plus"
       [backgroundColor]="'bg-color-greenish-teal'"
+      (onClick)="createExamTimes()"
       ></app-button>
     </div>
   </div>
@@ -34,6 +36,8 @@
           <th>năm học</th>
           <th>Hệ số điểm</th>
           <th>Đợt thi</th>
+          <th class="w-150px">#</th>
+          <th class="w-150px">#</th>
         </tr>
       </thead>
       <tbody>
@@ -46,10 +50,19 @@
             <td [attr.rowSpan]="1">
               <span *ngIf="item.examPeriod?.length > 0">{{item.examPeriod[0].name}}</span>
             </td>
+            <td>
+              <app-button [text]="'Sửa đợt thi'" [width]="'w-150px'"></app-button>
+            </td>
+            <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">
+              <app-button [text]="'Sửa bài thi'" [width]="'w-150px'" (onClick)="update(item)"></app-button>
+            </td>
           </tr>
           <tr *ngFor="let exam of item.examPeriod, let j = index">
             <td [rowSpan]="1" *ngIf="j > 0">
               {{exam.name}}
+            </td>
+            <td [rowSpan]="1" *ngIf="j > 0">
+              <app-button [text]="'Sửa đợt thi'" [width]="'w-150px'"></app-button>
             </td>
           </tr>
         </ng-container>
