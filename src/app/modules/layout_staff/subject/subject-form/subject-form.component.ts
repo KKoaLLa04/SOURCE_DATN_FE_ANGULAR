@@ -40,24 +40,6 @@ export class SubjectFormComponent implements OnInit {
      };
      isUpdate: boolean = false;
      timestampNow: number = new Date().getTime() /1000 ;
-     optionsStatus: Select2[] =[
-       {
-         label: "Chọn trạng thái năm học",
-         value: ''
-       },
-       {
-         label: "Chưa diễn ra",
-         value: statusSchoolYearEnum.NOT_STARTED_YET
-       },
-       {
-         label: "Đang diễn ra",
-         value: statusSchoolYearEnum.ONGOING
-       },
-       {
-         label: "Đã kết thúc",
-         value: statusSchoolYearEnum.FINISHED
-       }
-     ]
    
      constructor(
        public activeModal: NgbActiveModal,
@@ -74,31 +56,12 @@ export class SubjectFormComponent implements OnInit {
      }
    
      initForm() {
-      console.log(this.dataFromParent);
        this.formGroup = this.fb.group({
          name: [
            this.dataFromParent.nameForm == 'update'
-             ? this.dataFromParent?.data?.schoolYearName
+             ? this.dataFromParent?.data?.subjectName
              : '',
            [Validators.required, ValidatorNotEmptyString],
-         ],
-         status: [
-           this.dataFromParent.nameForm == 'update'
-             ? this.dataFromParent?.data?.schoolYearStatus
-             : '',
-           [Validators.required],
-         ],
-         start_date: [
-           this.dataFromParent.nameForm == 'update'
-             ? this.dataFromParent?.data?.schoolYearStartDate
-             : this.timestampNow,
-           [Validators.required],
-         ],
-         end_date: [
-           this.dataFromParent.nameForm == 'update'
-             ? this.dataFromParent?.data?.schoolYearEndDate
-             : this.timestampNow,
-           [Validators.required],
          ],
        });
      }
@@ -106,24 +69,20 @@ export class SubjectFormComponent implements OnInit {
      submit(valueForm: any) {
        if (this.formGroup.valid) {
          let dataInput = {
-           schoolYearName: valueForm.name.trim(),
-           schoolYearStatus: valueForm.status,
+           name: valueForm.name.trim(),
          };
          if (this.dataFromParent.nameForm == 'update') {
            // form update
-           dataInput['schoolYearId'] = this.dataFromParent?.data?.schoolYearId;
-         }else{
-           dataInput['schoolYearStartDate'] = this.formatTimePipe.transform(valueForm.start_date, 'yyy-MM-dd');
-           dataInput['schoolYearEndDate'] = this.formatTimePipe.transform(valueForm.end_date, 'yyy-MM-dd');
+           dataInput['id'] = this.dataFromParent?.data?.subject_id;
          }
          this.globalStore.isLoading = true;
    
          this.dataFromParent.apiSubmit(dataInput).subscribe(
            (res: any) => {
              if(this.dataFromParent.nameForm == 'update'){
-               this.showMessageService.success("Cập nhật năm học thành công");
+               this.showMessageService.success("Cập nhật môn học thành công");
              }else{
-               this.showMessageService.success("Thêm mới năm học mới thành công");
+               this.showMessageService.success("Thêm môn học mới thành công");
              }
              this.closeModal(true);
              this.globalStore.isLoading = false;

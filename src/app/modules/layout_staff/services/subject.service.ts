@@ -31,14 +31,14 @@ export class SubjectService {
   }
 
   createNewSubject(data: any){
-    console.log(data);
+    return this.http.post(`${environment.apiUrl}/manager/subject/create`, data)
   }
 
   updateSubject(data: any){
-    console.log(data);
+    return this.http.post(`${environment.apiUrl}/manager/subject/update/${data.id}`, data)
   }
 
   deleteSubject(data: any){
-    console.log(data);
+    return this.http.post(`${environment.apiUrl}/manager/subject/delete/${data.id}`, data)
   }
 }
