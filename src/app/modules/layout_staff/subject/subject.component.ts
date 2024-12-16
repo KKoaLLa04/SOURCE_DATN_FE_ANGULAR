@@ -84,7 +84,6 @@ export class SubjectComponent implements OnInit {
               centered: false, // vị trí hiển thị modal ở giữa màn 
               size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
             });
-            console.log(123);
             let data = {
               titleModal: 'Chỉnh sửa môn học',
               btnCancel: 'btnAction.cancel',
