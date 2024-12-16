@@ -19,6 +19,7 @@ import { TicketComponent } from "./ticket/ticket.component";
 import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-table-staff.component";
 import { ExamComponent } from "./exam/exam.component";
 import { SchoolYearComponent } from "./school-year/school-year.component";
+import { ParentStaffComponent } from "./parent-staff/parent-staff.component";
 
 const routes: Routes = [
   {
@@ -121,7 +122,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: StudentComponent
+        component: ParentStaffComponent
       },
       {
         path: 'assign-student',

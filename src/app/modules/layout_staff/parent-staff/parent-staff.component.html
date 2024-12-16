@@ -1,0 +1,76 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3 class="title-custom fs-20 fw-700">Phụ huynh</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>Số lượng phụ huynh: <span class="fw-700 text-color-blue-light">{{dataList?.data?.total}} phụ huynh</span></p>
+    <div class="d-flex">
+      <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead class="header-color">
+        <tr>
+          <th class=w-5>STT</th>
+          <th>thông tin phụ huynh</th>
+          <th>Liên hệ</th>
+          <th>Giới tính</th>
+          <th>Nghề nghiệp</th>
+          <th>Trạng thái</th>
+          <th>Số lượng con</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data?.data, let i = index">
+          <td>{{i+1}}</td>
+          <td>{{item.fullname}}</td>
+          <td>
+            <span>{{item.email}}</span><br/>
+            <span>SĐT: {{item.phone}}</span>
+          </td>
+          <td>
+            <div appGender [statusValue]="item.gender"></div>
+          </td>
+          <td>{{item.career}}</td>
+          <td>
+            <div appStatusActive [statusValue]="item.status"></div>
+          </td>
+          <td>{{item?.studentsInfo?.length}}</td>
+          <td>
+            <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
+              {
+                svgIcon: iconSvg.eye_show,
+                label: 'Xem chi tiết',
+                type: '1',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+              {
+                svgIcon: iconSvg.edit,
+                label: 'Sửa thông tin',
+                type: '2',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+              {
+                svgIcon: iconSvg.lock,
+                label: 'Đổi mật khẩu',
+                type: '3',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+            ]" (action)="handleAction($event)"></app-context-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-container *ngIf="!dataList?.data?.data?.length">
+      <app-no-data></app-no-data>
+    </ng-container>
+  </div>
+</div>
