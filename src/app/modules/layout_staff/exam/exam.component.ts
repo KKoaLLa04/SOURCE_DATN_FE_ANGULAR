@@ -239,6 +239,7 @@ export class ExamComponent implements OnInit {
       page: this.pageIndex,
     }
     this.examSerivce.getListExam(dataRequest).subscribe((res: any) => {
+      console.log(res);
       this.dataList = res;
       this.collectionSize = res?.data.totalItems;
       this.globalStore.isLoading = false;

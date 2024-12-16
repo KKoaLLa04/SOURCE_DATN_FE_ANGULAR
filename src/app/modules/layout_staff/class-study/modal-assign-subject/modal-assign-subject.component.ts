@@ -108,13 +108,13 @@ export class ModalAssignSubjectComponent implements OnInit {
     this.formGroup = this.fb.group({
       subject: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.subject
+          ? this.dataFromParent?.data?.subjectId
           : '',
-        [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
+        [Validators.required, Validators.maxLength(255)],
       ],
       teacher: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.teacher
+          ? this.dataFromParent?.data?.teacher?.id
           : '',
         [Validators.required],
       ],
@@ -122,12 +122,6 @@ export class ModalAssignSubjectComponent implements OnInit {
   }
 
   submit(valueForm: any) {
-    if(this.dataFromParent.nameForm == 'update'){
-      this.formGroup.get('academic').clearValidators();
-      this.formGroup.get('academic').updateValueAndValidity();
-      this.formGroup.get('schoolYear').clearValidators();
-      this.formGroup.get('schoolYear').updateValueAndValidity();
-    }
     if (this.formGroup.valid) {
       let dataInput;
       if (this.dataFromParent.nameForm == 'update') {

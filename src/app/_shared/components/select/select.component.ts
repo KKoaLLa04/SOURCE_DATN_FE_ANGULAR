@@ -29,7 +29,9 @@ export class SelectComponent implements OnInit {
   @Input() borderColor: string = "";
   @Input() width: string = "";
   @Input() isTranslate:boolean = true;
+  @Input() selectAll: boolean = false;
   @Output() changeSelect = new EventEmitter<any>();
+  @Output() changeSelectAll = new EventEmitter<any>();
   constructor() {
     // todo
   }
@@ -38,6 +40,10 @@ export class SelectComponent implements OnInit {
 
   changeSelectValue(event: any) {
     this.changeSelect.emit(event.target.value);
+  }
+
+  changeSelectAllValue(event: any){
+    this.changeSelectAll.emit(event.target);
   }
 
 }

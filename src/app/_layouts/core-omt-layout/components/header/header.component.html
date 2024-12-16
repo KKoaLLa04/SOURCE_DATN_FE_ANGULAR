@@ -20,6 +20,10 @@
     <a routerLink="/dashboard" class="d-lg-none">
       <img src="./assets/images/png/auth/KO.png" class="h-38px" />
     </a>
+
+    <!-- <app-button class="ms-10"></app-button> -->
+    <app-select [options]="optionSchoolYear" class="ms-10" [width]="'w-200px'" (changeSelect)="onChangeSelectYear($event)" *ngIf="accessType!=3"></app-select>
+    <app-select [options]="optionChildren" class="ms-10" [width]="'w-200px'" [selectAll]="true" (changeSelectAll)="onChangeChildrent($event)" *ngIf="accessType==3"></app-select>
   </div>
   <!-- end::Logo -->
 

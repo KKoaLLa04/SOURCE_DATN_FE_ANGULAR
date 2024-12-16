@@ -50,8 +50,13 @@
             <td [attr.rowSpan]="1">
               <span *ngIf="item.examPeriod?.length > 0">{{item.examPeriod[0].name}}</span>
             </td>
-            <td>
-              <app-button [text]="'Sửa đợt thi'" [width]="'w-150px'" (onClick)="updateTimes(item.examPeriod[0],item.examPeriod[0].id)"></app-button>
+            <td >
+              <app-button 
+              [text]="'Sửa đợt thi'" 
+              [width]="'w-150px'" 
+              (onClick)="updateTimes(item.examPeriod[0],item.id)"
+              *ngIf="item.examPeriod?.length > 0"
+              ></app-button>
             </td>
             <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">
               <app-button [text]="'Sửa bài thi'" [width]="'w-150px'" (onClick)="update(item)"></app-button>
@@ -62,7 +67,7 @@
               {{exam.name}}
             </td>
             <td [rowSpan]="1" *ngIf="j > 0">
-              <app-button [text]="'Sửa đợt thi'" [width]="'w-150px'" (onClick)="updateTimes(exam, exam.id)"></app-button>
+              <app-button [text]="'Sửa đợt thi'" [width]="'w-150px'" (onClick)="updateTimes(exam, item.id)"></app-button>
             </td>
           </tr>
         </ng-container>

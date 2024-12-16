@@ -128,7 +128,7 @@ export class ExamTimesFormComponent implements OnInit {
           };
           if (this.dataFromParent.nameForm == 'update') {
             // form update
-            dataInput['exam_period_id'] = this.dataFromParent?.exam_id;
+            dataInput['exam_period_id'] = this.dataFromParent?.data?.id;
           }
           this.globalStore.isLoading = true;
 

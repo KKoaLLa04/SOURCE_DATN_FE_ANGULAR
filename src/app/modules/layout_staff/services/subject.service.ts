@@ -29,4 +29,16 @@ export class SubjectService {
     // )
     return this.http.get(`${environment.apiUrl}/manager/subject`)
   }
+
+  createNewSubject(data: any){
+    console.log(data);
+  }
+
+  updateSubject(data: any){
+    console.log(data);
+  }
+
+  deleteSubject(data: any){
+    console.log(data);
+  }
 }

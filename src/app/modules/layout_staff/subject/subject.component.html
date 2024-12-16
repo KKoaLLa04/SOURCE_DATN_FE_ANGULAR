@@ -4,7 +4,11 @@
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>Số môn học theo bộ giáo dục & đào tạo: <span class="fw-700 text-color-blue-light">{{dataList?.total}} môn học</span></p>
     <div class="d-flex">
-      <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button>
+      <app-button 
+        [text]="'Gán môn học vào lớp'"
+        [startIconName]="iconSvg.plus"
+        (onClick)="create()" class="ms-4"
+       ></app-button>
     </div>
   </div>
 

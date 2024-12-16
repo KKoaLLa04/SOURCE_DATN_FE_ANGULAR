@@ -27,7 +27,7 @@
     <ng-container *ngIf="!formControlNameInput">
       <select
         class="form-control so-form-control fs-13 h-37px {{ showBorder ? 'border border-color-silver' : 'border-0' }} {{ width }} {{ bgColor }} {{ color }} {{ fontWeight }} {{ borderColor }}"
-        (change)="changeSelectValue($event)">
+        (change)="selectAll ? changeSelectAllValue($event) : changeSelectValue($event)">
         <ng-container *ngFor="let option of options">
           <option [disabled]="disabled" [value]="option.value" [selected]="(value !== null ? value === option.value : option.selected) || selected_id == option.value">
             {{ option.label }}
