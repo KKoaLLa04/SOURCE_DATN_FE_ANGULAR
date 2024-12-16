@@ -196,6 +196,41 @@ export class ExamComponent implements OnInit {
     );
   }
 
+  updateTimes(item: any, examId: any) {
+    const modalRef = this.modalService.open(ExamTimesFormComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
+    });
+
+    let data = {
+      titleModal: 'Cập nhật đợt thi',
+      btnCancel: 'Hủy',
+      btnAccept: 'Lưu',
+      isHiddenBtnClose: false, // hidden/show btn close modal
+      dataFromParent: {
+        data: item,
+        exam_id: examId,
+        service: this.examSerivce,
+        apiSubmit: (dataInput: any) => this.examSerivce.updateTimes(dataInput),
+        nameForm: 'update',
+      },
+    };
+
+    modalRef.componentInstance.dataModal = data;
+    modalRef.result.then(
+      (result: boolean) => {
+        if (result) {
+          this.getListExam();
+        }
+      },
+      (reason) => { }
+    );
+  }
+
   private getListExam(){
     this.globalStore.isLoading = true;
     let dataRequest = {

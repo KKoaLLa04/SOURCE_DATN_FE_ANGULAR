@@ -92,23 +92,31 @@ export class ExamTimesFormComponent implements OnInit {
         this.formGroup = this.fb.group({
           name: [
             this.dataFromParent.nameForm == 'update'
-              ? this.dataFromParent?.data?.schoolYearName
+              ? this.dataFromParent?.data?.name
               : '',
             [Validators.required, ValidatorNotEmptyString],
           ],
           exam: [
             this.dataFromParent.nameForm == 'update'
-              ? this.dataFromParent?.data?.schoolYearStatus
+              ? this.dataFromParent?.exam_id
               : '',
             [Validators.required],
           ],
           date: [
             this.dataFromParent.nameForm == 'update'
-              ? this.dataFromParent?.data?.schoolYearStartDate
+              ? this.convertToEpoch(this.dataFromParent?.data?.date)
               : this.timestampNow,
             [Validators.required],
           ],
         });
+      }
+
+      convertToEpoch(dateString: string): number {
+        // Tạo một đối tượng Date từ chuỗi ngày
+        const date = new Date(dateString);
+
+        // Trả về timestamp dạng Epoch (theo giây)
+        return Math.floor(date.getTime() / 1000);
       }
 
       submit(valueForm: any) {
@@ -118,13 +126,10 @@ export class ExamTimesFormComponent implements OnInit {
             exam_id: valueForm.exam,
             date: Number(valueForm.date)
           };
-          // if (this.dataFromParent.nameForm == 'update') {
-          //   // form update
-          //   dataInput['schoolYearId'] = this.dataFromParent?.data?.schoolYearId;
-          // }else{
-          //   dataInput['schoolYearStartDate'] = this.formatTimePipe.transform(valueForm.start_date, 'yyy-MM-dd');
-          //   dataInput['schoolYearEndDate'] = this.formatTimePipe.transform(valueForm.end_date, 'yyy-MM-dd');
-          // }
+          if (this.dataFromParent.nameForm == 'update') {
+            // form update
+            dataInput['exam_period_id'] = this.dataFromParent?.exam_id;
+          }
           this.globalStore.isLoading = true;
 
           this.dataFromParent.apiSubmit(dataInput).subscribe(
@@ -234,7 +239,6 @@ export class ExamTimesFormComponent implements OnInit {
           value: item?.id
         })
       })
-      console.log(res);
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;

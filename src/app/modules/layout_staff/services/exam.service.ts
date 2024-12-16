@@ -30,4 +30,8 @@ constructor(
   createNewTimesExam(data: any){
     return this.http.post(`${environment.apiUrl}/exam-period/store`, data)
   }
+
+   updateTimes(data: any){
+    return this.http.post(`${environment.apiUrl}/exam-period/update`, data)
+  }
 }
