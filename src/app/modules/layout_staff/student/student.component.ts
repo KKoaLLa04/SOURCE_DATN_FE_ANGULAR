@@ -19,6 +19,7 @@ import { StudentService } from '../services/student.service';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { ModalStudentFormComponent } from './modal-student-form/modal-student-form.component';
+import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-class-student.directive';
 
 @Component({
   selector: 'app-student',
@@ -32,7 +33,8 @@ import { ModalStudentFormComponent } from './modal-student-form/modal-student-fo
     ContextMenuComponent,
     PaginationComponent,
     NoDataComponent,
-    NgIf
+    NgIf,
+    StatusClassStudentDirective
   ]
 })
 export class StudentComponent implements OnInit {

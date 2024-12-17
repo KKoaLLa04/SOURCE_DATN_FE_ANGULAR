@@ -45,7 +45,8 @@
             {{item.academic_year_name}}
           </td>
           <td class="text-center">
-            {{item.status}}
+            <div appStatusClassStudent [statusValue]="item.status"></div>
+            <!-- {{item.status}} -->
           </td>
           <td class="text-center">
             {{item.parents?.name}}
@@ -64,14 +65,6 @@
                 svgIcon: iconSvg.edit,
                 label: 'Sửa thông tin',
                 type: '2',
-                action: item.id,
-                permission: '',
-                data: item
-              },
-              {
-                svgIcon: iconSvg.lock,
-                label: 'Đổi mật khẩu',
-                type: '3',
                 action: item.id,
                 permission: '',
                 data: item

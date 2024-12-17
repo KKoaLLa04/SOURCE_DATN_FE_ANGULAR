@@ -28,7 +28,7 @@
           <td>{{item.fullname}}</td>
           <td>
             <span>{{item.email}}</span><br/>
-            <span>SĐT: {{item.phone}}</span>
+            <span *ngIf="item.phone">SĐT: {{item.phone}}</span>
           </td>
           <td>
             <div appGender [statusValue]="item.gender"></div>
@@ -72,5 +72,8 @@
     <ng-container *ngIf="!dataList?.data?.data?.length">
       <app-no-data></app-no-data>
     </ng-container>
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="dataList?.data?.total"
+      *ngIf="dataList?.data?.total > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
   </div>
 </div>

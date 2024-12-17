@@ -43,7 +43,7 @@ const routes: Routes = [
         component: AttendanceComponent,
       },
       {
-        path: "save/:classId",
+        path: "save/:classId/:attendanceId",
         component: AttendanceSaveComponent
       }
     ]

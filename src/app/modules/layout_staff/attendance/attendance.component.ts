@@ -44,6 +44,7 @@ export class AttendanceComponent implements OnInit {
   date: number = new Date().getTime() / 1000;
   nowTimestamp: number = new Date().getTime() / 1000;
   classIds: Array<number> = []
+  dataArray: any = [];
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -91,15 +92,31 @@ export class AttendanceComponent implements OnInit {
       classIds: this.classIds
     }
     this.attendanceSerivce.getListAttendance(dataRequest).subscribe((res: any) => {
+      console.log(res?.data);
+      let data = Object.values(res?.data)
+      console.log(data);
+      data.map((item: any) => {
+        let timeTableMorning = item.timetable[1];
+        let timeTableAfternoon = item.timetable[2];
+        this.dataArray.push({
+          classId: item.ClassId,
+          className: item.ClassName,
+          morning: timeTableMorning,
+          afternoon: timeTableAfternoon,
+        })
+        console.log(this.dataArray);
+      })
+      // for (const element of res?.data) {
+      //     console.log(element);
+      // }
       this.dataList = res.data;
-      console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);
     })
   }
 
-  onChangeSaveAttendancePage(id: number): void{
-    this.router.navigateByUrl(`staff/list_attendance/save/${id}`)
+  onChangeSaveAttendancePage(id: number, attendance_id): void{
+    this.router.navigateByUrl(`staff/list_attendance/save/${id}/${attendance_id}`)
   }
 }

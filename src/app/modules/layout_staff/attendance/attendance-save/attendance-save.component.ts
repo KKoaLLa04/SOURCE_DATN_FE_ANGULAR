@@ -34,6 +34,7 @@ export class AttendanceSaveComponent implements OnInit {
   date: number = 1;
   classIds: Array<number> = []
   classId: any;
+  attendanceId: any;
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -57,7 +58,11 @@ export class AttendanceSaveComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
-      this.getListStudentAttendance();
+      this.attendanceId = params.get('attendanceId');
+      console.log(this.attendanceId)
+      if(this.attendanceId){
+        this.getListStudentAttendance();
+      }
     });
   }
 
@@ -65,7 +70,8 @@ export class AttendanceSaveComponent implements OnInit {
     this.globalStore.isLoading = true;
 
     let dataRequest = {
-      class_id: this.classId
+      class_id: this.classId,
+      diemdanh_id: this.attendanceId
     }
 
     this.attendanceSerivce.getListStudentAttendance(dataRequest).subscribe((res: any) => {

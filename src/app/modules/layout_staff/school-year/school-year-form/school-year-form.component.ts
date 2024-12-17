@@ -195,13 +195,13 @@ export class SchoolYearFormComponent implements OnInit {
      name: [
        {
          type: "required",
-         message: 'requiredName'
+         message: 'Tên năm học'
        },
      ],
      status: [
        {
          type: "required",
-         message: 'requiredStatus'
+         message: 'Trạng thái năm học bắt buộc chọn'
        },
      ],
      start_date: [

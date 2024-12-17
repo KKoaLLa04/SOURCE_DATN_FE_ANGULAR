@@ -28,37 +28,81 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList.data, let i = index">
-          <td>{{i+1}}</td>
-          <td>
-            <span>Tên lớp: {{item.className}}</span> <br/>
-            <span>{{item.grade}}</span> <br/>
-            <span>Số lượng hs: {{item.totalStudent}}</span> <br/>
-          </td>
-          <td>
-            {{item.dateAttendanced | formatTime}}
-          </td>
-          <td>
-            <span>{{item.fullname}}</span> <br/>
-            <span *ngIf="item.email">({{item.email}})</span>
-          </td>
-          <td>
-            <div appStatusClassAttendance [statusValue]="item.status"></div>
-            <span *ngIf="item.attendanceBy" class="text-color-red">Bởi: ({{item.attendanceBy}})</span> <br/>
-            <span *ngIf="item.attendanceAt">Lúc: ({{item.attendanceAt}})</span>
-          </td>
-          <td>
-            {{item.studentAttendanced}} / {{item.totalStudent}}
-          </td>
-          <td>
-            <app-button
-            [text]="'Điểm danh'"
-            [backgroundColor]="'bg-color-greenish-teal'"
-            [color]="'text-color-white'"
-            (onClick)="onChangeSaveAttendancePage(item.classId)"
-            ></app-button>
-          </td>
-        </tr>
+        <ng-container *ngFor="let item of dataArray, let i = index">
+          <tr>
+            <td [rowSpan]="item?.morning[0]?.length + item?.afternoon[0]?.length+2">{{i+1}}</td>
+            <td [rowSpan]="item?.morning[0]?.length + item?.afternoon[0]?.length+2">
+              <span>Tên lớp: {{item.className}}</span> <br/>
+            </td>
+            <td [rowSpan]="item?.morning[0]?.length+1 + item?.afternoon[0]?.length+2">
+              {{item.dateAttendanced | formatTime}}
+            </td>
+            <!-- <td [rowSpan]="item?.morning[0]?.length+1">
+              <span>{{item.fullname}}</span> <br/>
+              <span *ngIf="item.email">({{item.email}})</span>
+            </td> -->
+            <!-- <td>
+              <div appStatusClassAttendance [statusValue]="item.status"></div>
+              <span *ngIf="item.attendanceBy" class="text-color-red">Bởi: ({{item.attendanceBy}})</span> <br/>
+              <span *ngIf="item.attendanceAt">Lúc: ({{item.attendanceAt}})</span>
+            </td>
+            <td>
+              {{item.studentAttendanced}} / {{item.totalStudent}}
+            </td>
+            <td>
+              <app-button
+              [text]="'Điểm danh'"
+              [backgroundColor]="'bg-color-greenish-teal'"
+              [color]="'text-color-white'"
+              (onClick)="onChangeSaveAttendancePage(item.classId)"
+              ></app-button>
+            </td> -->
+          </tr>
+          <ng-container *ngFor="let data of item.morning[0]">
+            <tr>
+              <td>
+                {{data.fullname}} <br/>
+                {{data.email}}
+              </td>
+              <td>
+                {{data.checkAttendance}}
+              </td>
+              <td>
+                {{data?.rollcall?.totalRollCall}} / {{data?.rollcall?.totalStudent}}
+              </td>
+              <td>
+                <app-button
+                  [text]="'Điểm danh'"
+                  [backgroundColor]="'bg-color-greenish-teal'"
+                  [color]="'text-color-white'"
+                  (onClick)="onChangeSaveAttendancePage(item.classId, data.idTimetable)"
+                ></app-button>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngFor="let data of item.afternoon[0]">
+            <tr>
+              <td>
+                {{data.fullname}} <br/>
+                {{data.email}}
+              </td>
+              <td>
+                {{data.checkAttendance}}
+              </td>
+              <td>
+                {{data?.rollcall?.totalRollCall}} / {{data?.rollcall?.totalStudent}}
+              </td>
+              <td>
+                <app-button
+                  [text]="'Điểm danh'"
+                  [backgroundColor]="'bg-color-greenish-teal'"
+                  [color]="'text-color-white'"
+                  (onClick)="onChangeSaveAttendancePage(item.classId, data.idTimetable)"
+                ></app-button>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
       </tbody>
     </table>
     <div *ngIf="!dataList?.data?.length">
