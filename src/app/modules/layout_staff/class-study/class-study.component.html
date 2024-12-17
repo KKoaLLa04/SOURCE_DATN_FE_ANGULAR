@@ -36,7 +36,8 @@
             <span>{{item.name}}</span> <br/>
           </td>
           <td>
-            <span>{{item.status}}</span> <br/>
+            <div appStatusClass [statusValue]="item.status"></div>
+            <!-- <span>{{item.status}}</span> <br/> -->
           </td>
           <td class="text-center">
             <span>{{item.teacher_name}}</span> <br/>
@@ -75,7 +76,8 @@
                 type: '3',
                 action: item.id,
                 permission: '',
-                data: item
+                data: item,
+                isHide: item.teacher_id
               },
               {
                 svgIcon: iconSvg.edit,

@@ -23,7 +23,7 @@
           <th>Trạng thái</th>
           <th>Thời gian bắt đầu</th>
           <th>Thời gian kết thúc</th>
-          <th>Khối học hiện tại</th>
+          <!-- <th>Khối học hiện tại</th> -->
           <th>Thao tác</th>
         </tr>
       </thead>
@@ -43,9 +43,9 @@
           <td class="text-center">
             {{item.end_year | formatTime}}
           </td>
-          <td class="text-center">
+          <!-- <td class="text-center">
             {{item.gradeName}}
-          </td>
+          </td> -->
           <td class="text-center">
             <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
               {

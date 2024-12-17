@@ -17,7 +17,7 @@
 
     <div class="col-9 col-lg-9 col-md-12 py-8">
       <h3 clas="fs-20">Học sinh trong lớp</h3>
-      <div class="table-responsive">
+      <div class="table-responsive overflow-auto h-300px">
         <table class="table table-row-bordered table-row-gray-300">
           <caption></caption>
           <thead class="">
@@ -39,7 +39,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- <app-no-data *ngIf="!dataListStudentDetail?.data?.classSumStudent"></app-no-data> -->
+        <app-no-data *ngIf="!dataDetail?.students?.length"></app-no-data>
       </div>
     </div>
 
@@ -80,6 +80,7 @@
             </tr>
           </tbody>
         </table>
+        <app-no-data *ngIf="!dataDetail?.classSubject?.length"></app-no-data>
         <!-- <app-no-data *ngIf="!dataListStudentDetail?.data?.classSumStudent"></app-no-data> -->
       </div>
     </div>

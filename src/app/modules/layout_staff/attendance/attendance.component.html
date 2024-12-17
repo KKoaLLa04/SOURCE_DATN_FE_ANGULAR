@@ -43,8 +43,8 @@
             <span *ngIf="item.email">({{item.email}})</span>
           </td>
           <td>
-            <span>{{item.status}}</span> <br/>
-            <span *ngIf="item.attendanceBy">Bởi: ({{item.attendanceBy}})</span> <br/>
+            <div appStatusClassAttendance [statusValue]="item.status"></div>
+            <span *ngIf="item.attendanceBy" class="text-color-red">Bởi: ({{item.attendanceBy}})</span> <br/>
             <span *ngIf="item.attendanceAt">Lúc: ({{item.attendanceAt}})</span>
           </td>
           <td>

@@ -3,15 +3,13 @@
 
   <div class="d-flex justify-content-between">
     <p>
-      <span>Số lượng học sinh: 08 lớp</span> |
-      <span>Số học sinh vắng mặt: 08 lớp</span> |
-      <span>Số học sinh có mặt: 08 lớp</span>
+      <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.data?.totalStudent}} học sinh</span></span> |
+      <span>Số học sinh vắng mặt: <span class="text-color-red fw-700">{{dataList?.data?.totalStudent - dataList?.data?.toltalStudentAttendance}} học sinh</span></span> |
+      <span>Số học sinh có mặt: <span class="text-color-green fw-700">{{dataList?.data?.toltalStudentAttendance}} học sinh</span></span>
     </p>
-    <div class="d-flex">
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+    <!-- <div class="d-flex">
       <app-input-search [width]="'w-250px'"></app-input-search>
-    </div>
+    </div> -->
   </div>
 
   <div class="table table-responsive">

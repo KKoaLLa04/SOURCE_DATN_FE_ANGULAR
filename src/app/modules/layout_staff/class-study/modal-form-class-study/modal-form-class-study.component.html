@@ -1,6 +1,6 @@
 <form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
   <div class="modal-header">
-    <h5 class="title-modal-global text-center">{{t(dataModal?.titleModal)}}</h5>
+    <h5 class="title-modal-global text-center">{{dataModal?.titleModal}}</h5>
     <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
       name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
       <span aria-hidden="true">&times;</span>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6" *ngIf="dataFromParent.nameForm != 'update'">
         <div class="form-group so-form-group">
           <label  class="fw-600">Chủ nhiệm <span class="text-danger">*</span></label>
           <app-select
@@ -44,16 +44,16 @@
           ></app-select>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
-        <div class="form-group so-form-group">
-          <label  class="fw-600">Khối học<span class="text-danger">*</span></label>
-          <app-select
-          [options]="optionGrades"
-          [formGroupInput]="formGroup"
-          [formControlNameInput]="'grade'"
-          [validateForm]="validationMessages.grade"
-          ></app-select>
-        </div>
+      <div class="{{dataFromParent.nameForm == 'update' ? 'col-12' : 'col-6'}} mb-6" *ngIf="dataFromParent.nameForm == 'update'">
+          <div class="form-group so-form-group">
+            <label  class="fw-600">Khối học<span class="text-danger">*</span></label>
+            <app-select
+            [options]="optionGrades"
+            [formGroupInput]="formGroup"
+            [formControlNameInput]="'grade'"
+            [validateForm]="validationMessages.grade"
+            ></app-select>
+          </div>
       </div>
     </div>
 
@@ -85,8 +85,8 @@
 
   </div>
   <div class="modal-footer">
-    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnCancel)" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
-    <app-button [width]="'w-80px'" [text]="t(dataModal?.btnAccept)" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
+    <app-button [width]="'w-80px'" [text]="'Hủy'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="'Lưu'" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
   </div>
 </form>
 

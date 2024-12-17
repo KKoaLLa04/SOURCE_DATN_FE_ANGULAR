@@ -40,6 +40,6 @@ export class TeacherService {
   }
 
   changePassword(data: any){
-    return this.http.post(`${environment.apiUrl}/manager/user/${data.userId}`, data);
+    return this.http.post(`${environment.apiUrl}/manager/user/change_password/${data.userId}`, data);
   }
 }

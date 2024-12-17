@@ -10,7 +10,7 @@
         *ngIf="formGroupInput.get(formControlNameInput)?.hasError(validate.type) && (formGroupInput.get(formControlNameInput)?.touched || formGroupInput.get(formControlNameInput)?.dirty)">
         <app-field-error-display
           [displayError]="formGroupInput.get(formControlNameInput)?.hasError(validate.type) && (formGroupInput.get(formControlNameInput)?.touched || formGroupInput.get(formControlNameInput)?.dirty)"
-          [errorMsg]="validate.message | translate">
+          [errorMsg]="validate.message">
         </app-field-error-display>
       </ng-container>
     </ng-container>

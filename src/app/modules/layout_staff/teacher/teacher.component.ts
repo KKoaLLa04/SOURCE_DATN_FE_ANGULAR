@@ -18,6 +18,7 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { AccessTypeDirective } from 'src/app/_shared/directive/access-type.directive';
+import { StatusActiveDirective } from 'src/app/_shared/directive/status-active.directive';
 
 @Component({
   selector: 'app-teacher',
@@ -33,7 +34,8 @@ import { AccessTypeDirective } from 'src/app/_shared/directive/access-type.direc
     NgIf,
     PaginationComponent,
     FormatTimePipe,
-    AccessTypeDirective
+    AccessTypeDirective,
+    StatusActiveDirective
   ]
 })
 export class TeacherComponent implements OnInit {

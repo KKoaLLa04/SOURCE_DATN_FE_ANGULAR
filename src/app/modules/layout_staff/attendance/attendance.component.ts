@@ -14,6 +14,8 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StatusClassAttendance } from 'src/app/_shared/enums/status-class-attendance.enum';
+import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
 
 @Component({
   selector: 'app-attendance',
@@ -29,7 +31,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     NoDataComponent,
     NgIf,
     FormatTimePipe,
-    SingleDatePickerComponent
+    SingleDatePickerComponent,
+    StatusClassAttendanceDirective
   ],
   providers: [FormatTimePipe]
 })
@@ -82,7 +85,7 @@ export class AttendanceComponent implements OnInit {
 
     let dataRequest = {
       pageIndex: this.pageIndex,
-      pageSize: this.pageSize,
+      pageSize: 40,
       keyWord: this.keyWord,
       date: this.formatTimePipe.transform(this.date, 'yyy-MM-dd'),
       classIds: this.classIds

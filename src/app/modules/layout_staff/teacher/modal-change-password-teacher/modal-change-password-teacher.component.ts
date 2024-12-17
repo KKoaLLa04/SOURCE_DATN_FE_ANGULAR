@@ -69,13 +69,15 @@ export class ModalChangePasswordTeacherComponent implements OnInit {
     if (this.formGroup.valid) {
       let dataInput = {
         userId: this.dataFromParent.data?.userId,
-        userPassword: valueForm.password.trim(),
+        userPassword: valueForm.password,
       };
+      console.log(dataInput)
       this.globalStore.isLoading = true;
 
       this.dataFromParent.apiSubmit(dataInput).subscribe(
         (res: any) => { 
           this.showMessageService.success("Đổi mật khẩu thành công")
+          this.closeModal(true);
         },
         (err: any) => {
           this.globalStore.isLoading = false;
@@ -143,21 +145,21 @@ export class ModalChangePasswordTeacherComponent implements OnInit {
     password: [
       {
         type: "required",
-        message: 'requiredName'
+        message: 'Mật khẩu bắt buộc nhập'
       },
       {
         type: "maxlength",
-        message: 'maxLengthName'
+        message: 'Độ dài mật khẩu vượt quá ký tự'
       },
     ],
     confirm_password: [
       {
         type: "required",
-        message: 'requiredCode'
+        message: 'Xác nhận mật khẩu bắt buộc nhập'
       },
       {
         type: "maxlength",
-        message: 'maxLengthCode'
+        message: 'Độ dài xác nhận mật khẩu vượt quá ký tự'
       },
     ],
   };

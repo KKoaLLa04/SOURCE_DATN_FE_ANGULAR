@@ -47,7 +47,7 @@
             <!-- {{item.userAccessType}} -->
           </td>
           <td class="text-center">
-            {{item.userStatus}}
+            <div appStatusActive [statusValue]="item.userStatus" class="d-flex justify-content-center"></div>
           </td>
           <td class="text-center">
             {{item.userDob | formatTime}}

@@ -16,6 +16,7 @@ import { genderEnum } from 'src/app/_shared/enums/gender.enum';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { REGEX_PHONE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
+import { ClassStudyService } from '../../services/class-study.service';
 
 @Component({
   selector: 'app-modal-assign-teacher',
@@ -60,14 +61,10 @@ export class ModalAssignTeacherComponent implements OnInit {
       label: "Giáo viên",
       value: AccessType.TEACHER,
     },
-    {
-      label: "Phụ huynh",
-      value: AccessType.GUARDIAN
-    }
   ]
   optionTeachers: Select2[] = [
     {
-      label: "Chọn giáo viên chủ nhiệm",
+      label: "Chọn lớp học chủ nhiệm",
       value: '',
       selected: true
     }
@@ -93,13 +90,34 @@ export class ModalAssignTeacherComponent implements OnInit {
     private fb: FormBuilder,
     private globalStore: GlobalStore,
     private formatTimePipe: FormatTimePipe,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private classStudyService: ClassStudyService
   ) { }
 
   ngOnInit(): void {
     this.dataFromParent = this.dataModal.dataFromParent;
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
+    this.getListTeacherNotAssign();
+  }
+
+
+  getListTeacherNotAssign(){
+    this.globalStore.isLoading = true;
+    let dataRequest ={
+      schoolYearId: localStorage.getItem("SchoolYearFirst")
+    }
+    this.classStudyService.getListTeacherNotAssign(dataRequest).subscribe((res: any) => {
+      res?.data.map((item) => {
+        this.optionTeachers.push({
+          label: item.className,
+          value: item.classId
+        })
+      })
+      this.globalStore.isLoading = false;
+    }, (err) => {
+      this.globalStore.isLoading = false;
+    })
   }
 
   initForm() {
@@ -298,11 +316,11 @@ export class ModalAssignTeacherComponent implements OnInit {
     name: [
       {
         type: "required",
-        message: 'requiredName'
+        message: 'Tên không được để trống'
       },
       {
         type: "maxlength",
-        message: 'maxLengthName'
+        message: 'Tên vượt quá 255 ký tự'
       },
       {
         type: "notEmpty",
@@ -312,55 +330,55 @@ export class ModalAssignTeacherComponent implements OnInit {
     username: [
       {
         type: "required",
-        message: "usernameRequired"
+        message: "Tên đăng nhập không được dể trống"
       }
     ],
     email: [
       {
         type: "required",
-        message: 'requiredEmail'
+        message: 'Email không được để trống'
       },
       {
         type: "maxlength",
-        message:'maxLengthEmail'
+        message:'Độ dài email quá số ký tự cho phép'
       },
       {
         type: "email",
-        message: 'invalidEmail'
+        message: 'Email không đúng định dạng'
       }
     ],
     phone: [
       {
         type: "required",
-        message: "phoneRequired"
+        message: "Số điện thoại không được để trống"
       },
       {
         type: "pattern",
-        message: "phonePattern"
+        message: "Số điện thoại không đúng định dạng"
       }
     ],
     role: [
       {
         type: "required",
-        message: "requiredRole"
+        message: "Chọn chức vụ"
       }
     ],
     password: [
       {
         type: "required",
-        message: "requiredPassword"
+        message: "mật khẩu không được để trống"
       }
     ],
     confirm_password: [
       {
         type: "required",
-        message: "confirmPasswordRequired"
+        message: "Xác nhận mật khẩu không được để trống"
       }
     ],
     gender: [
       {
         type: "required",
-        message: "requiredGender"
+        message: "Chọn giới tính"
       }
     ]
   };
