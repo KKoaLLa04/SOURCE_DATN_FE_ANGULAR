@@ -4,9 +4,10 @@
   <div class="d-flex justify-content-between">
     <p>Số lượng: 23 lớp</p>
     <div class="d-flex mb-5">
+      <!-- <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-input-search [width]="'w-250px'"></app-input-search>
+      <app-input-search [width]="'w-250px'"></app-input-search> -->
+      <app-single-date-picker (dataTimeOutput)="onChangeDate($event)"></app-single-date-picker>
     </div>
   </div>
 

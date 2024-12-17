@@ -10,6 +10,7 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { Router } from '@angular/router';
 import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
+import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 
 @Component({
   selector: 'app-statistic-attendance',
@@ -22,7 +23,8 @@ import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status
     NgFor,
     ButtonComponent,
     SelectComponent,
-    StatusClassAttendanceDirective
+    StatusClassAttendanceDirective,
+    SingleDatePickerComponent
   ]
 })
 export class StatisticAttendanceComponent implements OnInit {
