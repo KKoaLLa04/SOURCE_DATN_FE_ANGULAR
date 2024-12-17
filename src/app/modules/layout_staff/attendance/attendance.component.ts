@@ -92,12 +92,11 @@ export class AttendanceComponent implements OnInit {
       classIds: this.classIds
     }
     this.attendanceSerivce.getListAttendance(dataRequest).subscribe((res: any) => {
-      console.log(res?.data);
       let data = Object.values(res?.data)
-      console.log(data);
+      this.dataArray = [];
       data.map((item: any) => {
-        let timeTableMorning = item.timetable[1];
-        let timeTableAfternoon = item.timetable[2];
+        let timeTableMorning = item.timetable[1] ? item.timetable[1] : [];
+        let timeTableAfternoon = item.timetable[2] ? item.timetable[2] : [];
         this.dataArray.push({
           classId: item.ClassId,
           className: item.ClassName,

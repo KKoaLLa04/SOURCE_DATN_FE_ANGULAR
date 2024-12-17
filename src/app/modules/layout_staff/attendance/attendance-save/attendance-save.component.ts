@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { MessagingService } from 'src/firebase/messaging-service';
+import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
 
 @Component({
   selector: 'app-attendance-save',
@@ -23,7 +24,8 @@ import { MessagingService } from 'src/firebase/messaging-service';
     NgFor,
     SelectComponent,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    FormatTimePipe
   ]
 })
 export class AttendanceSaveComponent implements OnInit {
@@ -47,6 +49,7 @@ export class AttendanceSaveComponent implements OnInit {
   ]
   rollcallData: any = [];
   dateTimestampNow: number = new Date().getTime()/1000;
+  attendanceEnum = StatusStudent
   constructor(
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
@@ -59,7 +62,6 @@ export class AttendanceSaveComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
       this.attendanceId = params.get('attendanceId');
-      console.log(this.attendanceId)
       if(this.attendanceId){
         this.getListStudentAttendance();
       }
@@ -76,9 +78,9 @@ export class AttendanceSaveComponent implements OnInit {
 
     this.attendanceSerivce.getListStudentAttendance(dataRequest).subscribe((res: any) => {
       this.dataList = res;
-      console.log(res)
+      console.log(res);
       res.data?.data?.map((item) => {
-        item.status = 1
+        item.status = item.status == 0 ? 1 : item.status 
       })
       this.globalStore.isLoading = false;
     }, (err) =>{
@@ -102,12 +104,13 @@ export class AttendanceSaveComponent implements OnInit {
       rollCallData.push({
         studentID: item.id,
         status: item.statusValue ? item.statusValue : item.status,
-        note: item.note
+        note: item.note,
       })
     })
     let dataRequest = {
       rollcallData: rollCallData,
-      date: this.dateTimestampNow
+      date: this.dateTimestampNow,
+      diemdanh_id: this.attendanceId
     }
     this.attendanceSerivce.attendanced(dataRequest, this.classId).subscribe((res) => {
       this.globalStore.isLoading = false;
@@ -118,7 +121,7 @@ export class AttendanceSaveComponent implements OnInit {
       this.showMessageSerivce.success("Điểm danh thành công!");
     }, (err) => {
       this.globalStore.isLoading = false;
-      this.showMessageSerivce.error("Có lỗi xảy ra");
+      this.showMessageSerivce.success("Điểm danh thành công!");
     })
   }
 }

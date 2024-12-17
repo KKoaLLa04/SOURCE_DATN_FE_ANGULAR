@@ -272,7 +272,7 @@ export class TimeTableStaffComponent implements OnInit {
       res?.data?.classSubject.map((item) => {
         this.optionSubject.push({
           label: item.subjectName,
-          value: item.subjectId,
+          value: item.teacher?.classSubjectTeacherId,
         })
       })
       this.globalStore.isLoading = false;
