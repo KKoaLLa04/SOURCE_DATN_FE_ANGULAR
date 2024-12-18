@@ -43,16 +43,16 @@ export class TimeTableStaffComponent implements OnInit {
     // this.getListSubject();
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('classId');
-      if(localStorage.getItem("classId")){
+      this.accessType = localStorage.getItem("access_type");
+      if(this.accessType == 3){
         this.classId = localStorage.getItem("classId");
-        this.accessType = localStorage.getItem("access_type");
       }else{
         this.getListStudentClassDetail();
       }
       this.getListTimetable();
       // this.createNewSubjectOption();
     });
-    
+
   }
 
   // createNewSubjectOption(){
