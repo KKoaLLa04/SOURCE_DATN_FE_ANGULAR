@@ -182,5 +182,6 @@ export enum iconSVG{
     list_user_icon= "assets/images/svg/list_user_icon.svg",
     lock_icon= "assets/images/svg/lock_icon.svg",
     unlock_icon= "assets/images/svg/unlock_icon.svg",
-    change_student= "assets/images/svg/change_student.svg"
+    change_student= "assets/images/svg/change_student.svg",
+    logo = "assets/images/png/logo.png",
 }

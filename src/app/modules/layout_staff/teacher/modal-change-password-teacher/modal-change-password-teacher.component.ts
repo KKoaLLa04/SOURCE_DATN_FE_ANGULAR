@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ValidatorNotEmptyString, ValidatorNotNull } from 'src/app/_services/validator-custom.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { CheckboxComponent } from 'src/app/_shared/components/checkbox/checkbox.component';
@@ -40,38 +41,25 @@ export class ModalChangePasswordTeacherComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private globalStore: GlobalStore,
+    private showMessageService: ShowMessageService
   ) { }
 
   ngOnInit(): void {
     this.dataFromParent = this.dataModal.dataFromParent;
+    console.log(this.dataFromParent)
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
   }
 
   initForm() {
     this.formGroup = this.fb.group({
-      name: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.name
-          : '',
+      password: [
+        '',
         [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
       ],
-      code: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.code
-          : '',
-        [Validators.required, Validators.maxLength(50), Validators.pattern(REGEX_CODE)],
-      ],
-      requestLayout: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.layout
-          : null,
-        [Validators.required, ValidatorNotNull],
-      ],
-      desc: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.role?.description
-          : '',
+      confirm_password: [
+        '',
+        [Validators.required, Validators.maxLength(50)],
       ],
     });
   }
@@ -80,19 +68,17 @@ export class ModalChangePasswordTeacherComponent implements OnInit {
 
     if (this.formGroup.valid) {
       let dataInput = {
-        name: valueForm.name.trim(),
-        code: valueForm.code.trim(),
-        requestLayout: valueForm.requestLayout,
-        description: valueForm.desc,
+        userId: this.dataFromParent.data?.userId,
+        userPassword: valueForm.password,
       };
-      if (this.dataFromParent.nameForm == 'update') {
-        // form update
-        dataInput['id'] = this.dataFromParent?.role?.id;
-      }
+      console.log(dataInput)
       this.globalStore.isLoading = true;
 
       this.dataFromParent.apiSubmit(dataInput).subscribe(
-        (res: any) => { },
+        (res: any) => { 
+          this.showMessageService.success("Đổi mật khẩu thành công")
+          this.closeModal(true);
+        },
         (err: any) => {
           this.globalStore.isLoading = false;
           this.validateAllFormFieldsErrorServer(err.errors);
@@ -156,40 +142,26 @@ export class ModalChangePasswordTeacherComponent implements OnInit {
   }
 
   validationMessages = {
-    name: [
+    password: [
       {
         type: "required",
-        message: 'requiredName'
+        message: 'Mật khẩu bắt buộc nhập'
       },
       {
         type: "maxlength",
-        message: 'maxLengthName'
+        message: 'Độ dài mật khẩu vượt quá ký tự'
       },
-      {
-        type: "notEmpty",
-        message: 'requiredName'
-      }
     ],
-    code: [
+    confirm_password: [
       {
         type: "required",
-        message: 'requiredCode'
+        message: 'Xác nhận mật khẩu bắt buộc nhập'
       },
       {
         type: "maxlength",
-        message: 'maxLengthCode'
+        message: 'Độ dài xác nhận mật khẩu vượt quá ký tự'
       },
-      {
-        type: "pattern",
-        message: 'patternCode'
-      }
     ],
-    requestLayout: [
-      {
-        type: "notNull",
-        message: 'role.requiredLayout'
-      },
-    ]
   };
 
 }

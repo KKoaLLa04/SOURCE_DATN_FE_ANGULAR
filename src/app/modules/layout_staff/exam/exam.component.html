@@ -5,20 +5,20 @@
   </div> -->
 
   <div class="mt-10"></div>
-  <h3 *ngIf="tabActive==1">Danh sách Bài thi</h3>
+  <h3 *ngIf="tabActive==1">Danh sách cột điểm</h3>
   <!-- <h3 *ngIf="tabActive==2">Danh sách Đợt thi</h3> -->
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số bài thi đang có: <span class="text-color-blue-light">{{dataList?.data?.total}}</span></p>
+    <p>Số cột điểm đang có: <span class="text-color-blue-light">{{dataList?.data?.total || 0}}</span></p>
     <div class="d-flex">
       <!-- <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search> -->
-      <app-button [text]="'Thêm bài thi'"
+      <app-button [text]="'Thêm cột điểm'"
       class="ms-4"
       [startIconName]="iconSvg.plus"
       [backgroundColor]="'bg-color-greenish-teal'"
       (onClick)="create()"
       ></app-button>
-      <app-button [text]="'Thêm đợt thi'"
+      <app-button [text]="'Thêm đầu điểm'"
       class="ms-4"
       [startIconName]="iconSvg.plus"
       [backgroundColor]="'bg-color-greenish-teal'"

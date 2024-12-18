@@ -1,24 +1,23 @@
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
-import { InputSearchComponent } from 'src/app/_shared/components/input-search/input-search.component';
-import { SelectComponent } from 'src/app/_shared/components/select/select.component';
-import { GlobalStore } from 'src/app/_store/global.store';
-import { AttendanceService } from '../../services/attendance.service';
-import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { InputComponent } from 'src/app/_shared/components/input/input.component';
-import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
-import { ActivatedRoute } from '@angular/router';
-import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { MessagingService } from 'src/firebase/messaging-service';
+import { InputSearchComponent } from 'src/app/_shared/components/input-search/input-search.component';
+import { InputComponent } from 'src/app/_shared/components/input/input.component';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
+import { GlobalStore } from 'src/app/_store/global.store';
+import { AttendanceService } from '../../layout_staff/services/attendance.service';
+import { ShowMessageService } from 'src/app/_services/show-message.service';
+import { ActivatedRoute } from '@angular/router';
+import { MessagingService } from 'src/firebase/messaging-service';
 
 @Component({
-  selector: 'app-attendance-save',
-  templateUrl: './attendance-save.component.html',
-  styleUrls: ['./attendance-save.component.scss'],
-  standalone: true,
+  selector: 'app-history-attendance',
+  templateUrl: './history-attendance.component.html',
+  styleUrls: ['./history-attendance.component.scss'],
   imports: [
     InputSearchComponent,
     NgFor,
@@ -26,10 +25,11 @@ import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
     InputComponent,
     ButtonComponent,
     FormatTimePipe
-  ]
+  ],
+  standalone: true
 })
-export class AttendanceSaveComponent implements OnInit {
-  dataList: any = [];
+export class HistoryAttendanceComponent implements OnInit {
+dataList: any = [];
   pageIndex = PAGE_INDEX_DEFAULT;
   pageSize = PAGE_SIZE_DEFAULT;
   keyWord: string = ''
@@ -72,8 +72,9 @@ export class AttendanceSaveComponent implements OnInit {
     this.globalStore.isLoading = true;
 
     let dataRequest = {
-      class_id: this.classId,
-      diemdanh_id: this.attendanceId
+      date: this.date,
+      studentId: localStorage.getItem('child_id'),
+      
     }
 
     this.attendanceSerivce.getListStudentAttendance(dataRequest).subscribe((res: any) => {
@@ -124,4 +125,5 @@ export class AttendanceSaveComponent implements OnInit {
       this.showMessageSerivce.success("Điểm danh thành công!");
     })
   }
+
 }

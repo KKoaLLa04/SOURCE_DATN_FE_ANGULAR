@@ -266,7 +266,7 @@ export class ModalStudentFormComponent implements OnInit {
     name: [
       {
         type: "required",
-        message: 'requiredName'
+        message: 'Tên bắt buộc nhập'
       },
     ],
     gender: [

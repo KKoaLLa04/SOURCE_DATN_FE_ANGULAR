@@ -47,21 +47,13 @@
             <!-- {{item.userAccessType}} -->
           </td>
           <td class="text-center">
-            {{item.userStatus}}
+            <div appStatusActive [statusValue]="item.userStatus" class="d-flex justify-content-center"></div>
           </td>
           <td class="text-center">
             {{item.userDob | formatTime}}
           </td>
           <td class="text-center">
             <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
-              {
-                svgIcon: iconSvg.eye_show,
-                label: 'Xem chi tiết',
-                type: '1',
-                action: item.id,
-                permission: '',
-                data: item
-              },
               {
                 svgIcon: iconSvg.edit,
                 label: 'Sửa thông tin',

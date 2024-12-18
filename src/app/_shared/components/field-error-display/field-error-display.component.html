@@ -4,7 +4,7 @@
   <span class="glyphicon glyphicon-remove form-control-feedback fix-error-icon"></span>
   <span class="sr-only">(error)</span>
   <div class="error-msg">
-    {{ t(errorMsg) }}
+    {{ errorMsg }}
   </div>
 </div>
 <!-- loi validate FE -->
@@ -15,7 +15,7 @@
     <span class="sr-only">(error)</span>
     <ng-container *ngFor="let itemMess of errorServer.message">
       <div class="error-msg">
-        {{ t(itemMess) }}
+        {{ itemMess }}
       </div>
     </ng-container>
   </div>

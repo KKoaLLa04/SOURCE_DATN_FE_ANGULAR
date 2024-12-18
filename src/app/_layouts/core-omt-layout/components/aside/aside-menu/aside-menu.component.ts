@@ -43,20 +43,22 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Năm học", url:"/staff/school-year", permissionCode : '', code: 'school-year', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Sổ điểm", url:"/staff/note-mark", permissionCode : '', code: 'note-mark', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Quản lý đơn", url:"/staff/ticket", permissionCode : '', code: 'ticket', children: []},
-        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Kiểm tra", url:"/staff/exam", permissionCode : '', code: 'exam', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Điểm số", url:"/staff/exam", permissionCode : '', code: 'exam', children: []},
       ]
     }else if (Number(layout) == Number(AccessType.TEACHER)){
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Điểm danh", url:"/teacher/attendance", permissionCode : '', code: 'attendance', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
+        // {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
+        // {icon: "assets/images/svg/address.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
       ]
     }else if (Number(layout) == Number(AccessType.GUARDIAN)){
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/parent/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
+        // {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/parent/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
         {icon: "assets/images/svg/address.svg", name:"Đơn xin nghỉ", url:"/parent/ticket", permissionCode : '', code: 'ticket', children: []},
+        {icon: "assets/images/svg/address.svg", name:"Thời khóa biểu", url:"/parent/timetable", permissionCode : '', code: 'timetable', children: []},
+        // {icon: "assets/images/svg/address.svg", name:"Điểm con", url:"/parent/note-mark", permissionCode : '', code: 'note-mark', children: []},
       ]
     }
   }

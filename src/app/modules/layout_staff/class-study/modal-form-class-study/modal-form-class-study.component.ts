@@ -12,6 +12,7 @@ import { REGEX_CODE } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../../services/class-study.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-modal-form-class-study',
@@ -24,7 +25,8 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    NgIf
   ]
 })
 export class ModalFormClassStudyComponent implements OnInit {
@@ -297,7 +299,7 @@ export class ModalFormClassStudyComponent implements OnInit {
     name: [
       {
         type: "required",
-        message: 'requiredName'
+        message: 'Tên lớp học bắt buộc nhập'
       },
     ],
     academic: [

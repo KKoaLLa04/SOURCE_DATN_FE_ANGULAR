@@ -195,25 +195,25 @@ export class ModalFormAcademicComponent implements OnInit {
     name: [
       {
         type: "required",
-        message: 'requiredName'
+        message: 'Tên niên khóa bắt buộc nhập'
       },
     ],
     status: [
       {
         type: "required",
-        message: 'requiredStatus'
+        message: 'Trạng thái năm học bắt buộc chọn'
       },
     ],
     start_date: [
       {
         type: "required",
-        message: 'requiredStartDate'
+        message: 'Ngày bắt đầu bắt buộc chọn'
       },
     ],
     end_date: [
       {
         type: "required",
-        message: 'requiredEndDate'
+        message: 'Ngày kết thúc bắt buộc chọn'
       },
     ]
   };

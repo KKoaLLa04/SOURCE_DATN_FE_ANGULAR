@@ -19,6 +19,7 @@ import { ModalAssignTeacherToClassComponent } from './modal-assign-teacher-to-cl
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
+import { StatusClassDirective } from 'src/app/_shared/directive/status-class.directive';
 
 @Component({
   selector: 'app-class-study',
@@ -33,7 +34,8 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
     ContextMenuComponent,
     PaginationComponent,
     NoDataComponent,
-    NgIf
+    NgIf,
+    StatusClassDirective
   ]
 })
 export class ClassStudyComponent implements OnInit {

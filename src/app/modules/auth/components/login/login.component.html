@@ -10,7 +10,7 @@
   <!--begin::Content-->
   <div class="d-flex flex-center flex-column flex-column-fluid pb-lg-20 position-relative">
     <!--begin::Change language -->
-    <select name="change-language" id="change-language" class="so-select select-language"
+    <!-- <select name="change-language" id="change-language" class="so-select select-language"
       [(ngModel)]="lang" (change)="changeLanguage()">
       <option value="en">
         <span>
@@ -24,7 +24,7 @@
           Tiếng Việt
         </span>
       </option>
-    </select>
+    </select> -->
     <!--end::Change language -->
     <!--begin::Content body-->
     <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
@@ -56,12 +56,12 @@
 
         <!--begin::Form group-->
         <div class="fv-row mb-10">
-          <label class="form-label fs-13 fw-bolder text-dark">{{t('auth.username')}}</label>
+          <label class="form-label fs-13 fw-bolder text-dark">Tên đăng nhập</label>
           <input class="form-control form-control-lg form-control-solid fs-14" type="text" name="username"
-            formControlName="username" autocomplete="off" placeholder="{{t('auth.enterUsername')}}" />
+            formControlName="username" autocomplete="off" placeholder="Tên đăng nhập" />
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
             validation: 'required',
-            message: t('auth.requiredUsername'),
+            message: 'Tên đăng nhập không được để trống',
             control: loginForm.controls['username']
           }"></ng-container>
         </div>
@@ -71,14 +71,14 @@
         <div class="fv-row mb-10">
           <div class="d-flex justify-content-between mt-n5">
             <div class="d-flex flex-stack mb-2">
-              <label class="form-label fw-bolder text-dark fs-13 mb-0">{{t('auth.password')}}</label>
+              <label class="form-label fw-bolder text-dark fs-13 mb-0">Mật khẩu</label>
             </div>
           </div>
 
           <div class="so-input-password">
             <input class="form-control form-control-lg form-control-solid fs-14"
               type="{{isShowPassword ? 'text' : 'password'}}" name="password" autocomplete="off"
-              formControlName="password" placeholder="{{t('auth.enterPassword')}}" />
+              formControlName="password" placeholder="mật khẩu" />
             <span (click)="showPassword()">
               <img src="{{isShowPassword ? 'assets/images/svg/eye_show.svg': 'assets/images/svg/eye_hide.svg'}}" alt="">
             </span>
@@ -86,7 +86,7 @@
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
-          message: t('auth.requiredPassword'),
+          message: 'Mật khẩu không được để trống',
           control: loginForm.controls['password']
         }"></ng-container>
         <div class=" recaptcha-brand">
@@ -98,7 +98,7 @@
         </div>
         <!--end::Form group-->
         <!-- begin:: remember password -->
-        <div class="d-flex justify-content-between fv-row mb-12">
+        <!-- <div class="d-flex justify-content-between fv-row mb-12">
           <div>
             <nz-switch [(ngModel)]="rememberPassword" [ngModelOptions]="{standalone: true}" name="remember"></nz-switch>
             <span class="fs-14" [style.margin-left]="'5px'">{{t('auth.rememberLogin')}}</span>
@@ -107,7 +107,7 @@
             [style.margin-left]="'5px'">
             {{t('auth.forgotPassword')}}
           </a>
-        </div>
+        </div> -->
         <!-- end:: remember password-->
 
         <!--begin::Action-->
@@ -136,7 +136,7 @@
             </div>
           </div>
           <button class="bnt btn-primary so-btn-login">
-            {{t('auth.login')}}
+            Đăng nhập
           </button>
         </div>
         <!--end::Action-->

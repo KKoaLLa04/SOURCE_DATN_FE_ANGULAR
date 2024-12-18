@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubjectFormComponent } from './subject-form/subject-form.component';
 import { ContextMenuComponent } from 'src/app/_shared/components/context-menu/context-menu.component';
 import { IProperty } from 'src/app/_models/context-menu.interface';
-import { ModalDeleteSubjectComponent } from '../class-study/modal-delete-subject/modal-delete-subject.component';
+import { ModalDeleteSubjectComponent } from './modal-delete-subject/modal-delete-subject.component';
 
 @Component({
   selector: 'app-subject',
@@ -133,8 +133,8 @@ export class SubjectComponent implements OnInit {
     
         let data = {
           titleModal: 'Xóa môn học',
-          btnCancel: 'btnAction.cancel',
-          btnAccept: 'btnAction.save',
+          btnCancel: 'Hủy',
+          btnAccept: 'Lưu',
           isHiddenBtnClose: false, // hidden/show btn close modal
           dataFromParent: {
             nameForm: 'create',

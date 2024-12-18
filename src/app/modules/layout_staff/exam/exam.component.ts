@@ -107,7 +107,7 @@ export class ExamComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Thêm bài thi mới',
+      titleModal: 'Thêm cột điểm mới',
       btnCancel: 'Hủy',
       btnAccept: 'Lưu',
       isHiddenBtnClose: false, // hidden/show btn close modal
@@ -140,7 +140,7 @@ export class ExamComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Cập nhật bài thi',
+      titleModal: 'Cập cột điểm',
       btnCancel: 'Hủy',
       btnAccept: 'Lưu',
       isHiddenBtnClose: false, // hidden/show btn close modal
@@ -174,7 +174,7 @@ export class ExamComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Thêm đợt thi mới',
+      titleModal: 'Thêm đầu điểm mới',
       btnCancel: 'Hủy',
       btnAccept: 'Lưu',
       isHiddenBtnClose: false, // hidden/show btn close modal
@@ -207,7 +207,7 @@ export class ExamComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Cập nhật đợt thi',
+      titleModal: 'Cập nhật đầu điểm',
       btnCancel: 'Hủy',
       btnAccept: 'Lưu',
       isHiddenBtnClose: false, // hidden/show btn close modal

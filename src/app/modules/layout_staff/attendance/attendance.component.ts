@@ -8,12 +8,14 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { AttendanceService } from '../services/attendance.service';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StatusClassAttendance } from 'src/app/_shared/enums/status-class-attendance.enum';
+import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
+import { AttendanceService } from '../services/attendance.service';
 
 @Component({
   selector: 'app-attendance',
@@ -29,7 +31,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     NoDataComponent,
     NgIf,
     FormatTimePipe,
-    SingleDatePickerComponent
+    SingleDatePickerComponent,
+    StatusClassAttendanceDirective
   ],
   providers: [FormatTimePipe]
 })
@@ -41,6 +44,7 @@ export class AttendanceComponent implements OnInit {
   date: number = new Date().getTime() / 1000;
   nowTimestamp: number = new Date().getTime() / 1000;
   classIds: Array<number> = []
+  dataArray: any = [];
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -82,21 +86,36 @@ export class AttendanceComponent implements OnInit {
 
     let dataRequest = {
       pageIndex: this.pageIndex,
-      pageSize: this.pageSize,
+      pageSize: 40,
       keyWord: this.keyWord,
       date: this.formatTimePipe.transform(this.date, 'yyy-MM-dd'),
       classIds: this.classIds
     }
     this.attendanceSerivce.getListAttendance(dataRequest).subscribe((res: any) => {
+      let data = Object.values(res?.data)
+      this.dataArray = [];
+      data.map((item: any) => {
+        let timeTableMorning = item.timetable[1] ? item.timetable[1] : [];
+        let timeTableAfternoon = item.timetable[2] ? item.timetable[2] : [];
+        this.dataArray.push({
+          classId: item.ClassId,
+          className: item.ClassName,
+          morning: timeTableMorning,
+          afternoon: timeTableAfternoon,
+        })
+        console.log(this.dataArray);
+      })
+      // for (const element of res?.data) {
+      //     console.log(element);
+      // }
       this.dataList = res.data;
-      console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);
     })
   }
 
-  onChangeSaveAttendancePage(id: number): void{
-    this.router.navigateByUrl(`staff/list_attendance/save/${id}`)
+  onChangeSaveAttendancePage(id: number, attendance_id): void{
+    this.router.navigateByUrl(`staff/list_attendance/save/${id}/${attendance_id}`)
   }
 }

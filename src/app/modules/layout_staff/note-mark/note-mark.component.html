@@ -36,7 +36,7 @@
             <span>{{item.name}}</span> <br/>
           </td>
           <td>
-            <span>{{item.status}}</span> <br/>
+            <div appStatusClass [statusValue]="item.status"></div>
           </td>
           <td class="text-center">
             <span>{{item.teacher_name}}</span> <br/>

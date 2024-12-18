@@ -6,12 +6,13 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ParentService } from '../services/parent.service';
 import { Router } from '@angular/router';
-import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { ContextMenuComponent } from 'src/app/_shared/components/context-menu/context-menu.component';
 import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
 import { IProperty } from 'src/app/_models/context-menu.interface';
 import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 import { StatusActiveDirective } from 'src/app/_shared/directive/status-active.directive';
+import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-parent-staff',
@@ -25,7 +26,8 @@ import { StatusActiveDirective } from 'src/app/_shared/directive/status-active.d
     NgIf,
     ContextMenuComponent,
     GenderDirective,
-    StatusActiveDirective
+    StatusActiveDirective,
+    PaginationComponent
   ]
 })
 export class ParentStaffComponent implements OnInit {
@@ -34,7 +36,8 @@ export class ParentStaffComponent implements OnInit {
    keyword: string = '';
    pageSize = PAGE_SIZE_DEFAULT;
    pageIndex = PAGE_INDEX_DEFAULT
-   
+   sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
+
     constructor(
       private globalStore: GlobalStore,
       private showMessageSerivce: ShowMessageService,
@@ -63,6 +66,11 @@ export class ParentStaffComponent implements OnInit {
         }
       }
     
+    paginationChange(event: any) {
+      this.pageIndex = event.pageIndex;
+      this.pageSize = event.pageSize;
+      this.getListParent();
+    }
   
     private getListParent(): void{
       this.globalStore.isLoading = true;

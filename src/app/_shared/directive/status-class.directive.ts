@@ -1,14 +1,13 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { StatusClassAttendance } from '../enums/status-class-attendance.enum';
+import { StatusClassEnum } from '../enums/status-class.enum';
 
 @Directive({
-  selector: '[appStatusClassAttendance]',
-  standalone: true,
+  selector: '[appStatusClass]',
+  standalone: true
 })
-export class StatusClassAttendanceDirective {
-
-   @Input() set statusValue(status: string | number) {
+export class StatusClassDirective {
+  @Input() set statusValue(status: string | number) {
       this.setColor(status);
     }
 
@@ -29,20 +28,25 @@ export class StatusClassAttendanceDirective {
       let text: string;
       let bgColor: string;
       switch (Number(status)) {
-        case Number(StatusClassAttendance.HAS_CHECKED):
-          textColor = 'var(--bs-white)';
-          bgColor = 'var(--bs-green)';
-          text = "Đã điểm danh";
-          break;
-        case Number(StatusClassAttendance.NOT_YET_CHECKED):
+        case Number(StatusClassEnum.HAS_NOT_HAPPENDED):
           textColor = 'var(--bs-white)';
           bgColor = 'var(--bs-red)';
-          text = "Chưa điểm danh";
+          text = "Chưa diễn ra";
+          break;
+        case Number(StatusClassEnum.HAS_APPROVED):
+          textColor = 'var(--bs-white)';
+          bgColor = 'var(--bs-green)';
+          text = "Đang diễn ra";
+          break;
+        case Number(StatusClassEnum.FINISH):
+          textColor = 'var(--bs-white)';
+          bgColor = 'var(--bs-black)';
+          text = "Đã kết thúc";
           break;
         default:
           textColor = 'var(--bs-white)';
           bgColor = 'var(--bs-river-bed)';
-          text = "Chưa điểm danh";
+          text = "Chưa diễn ra";
           break;
       }
 

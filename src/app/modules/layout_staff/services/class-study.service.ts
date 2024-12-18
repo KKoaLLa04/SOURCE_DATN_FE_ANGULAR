@@ -99,4 +99,8 @@ constructor(
   removeSubjectClass(data: any){
     return this.http.post(`${environment.apiUrl}/manager/class/deleteSubjectForClass`, data)
   }
+
+  getListTeacherNotAssign(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/user/chooseClassToMainTearch`, {params: {...data}})
+  }
 }

@@ -17,7 +17,7 @@ export class AttendanceService {
   }
 
   getListStudentAttendance(data: any){
-    return this.http.get(`${environment.apiUrl}/manager/rollcall/student/${data.class_id}`);
+    return this.http.get(`${environment.apiUrl}/manager/rollcall/student/${data.class_id}/${data.diemdanh_id}`);
   }
 
   attendanced(data: any, classId: any){

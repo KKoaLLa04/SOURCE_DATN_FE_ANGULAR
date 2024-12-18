@@ -10,6 +10,8 @@ import { StatisticAttendanceService } from '../../services/statistic-attendance.
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ActivatedRoute } from '@angular/router';
 import { StatusStudentDirective } from 'src/app/_shared/directive/status-student.directive';
+import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 
 @Component({
   selector: 'app-statistic-detail-attendance',
@@ -22,12 +24,15 @@ import { StatusStudentDirective } from 'src/app/_shared/directive/status-student
     NgFor,
     ButtonComponent,
     SelectComponent,
-    StatusStudentDirective
-  ]
+    StatusStudentDirective,
+    SingleDatePickerComponent
+  ],
+  providers: [FormatTimePipe]
 })
 export class StatisticDetailAttendanceComponent implements OnInit {
   dataList: any = [];
   dataDateMonth: any;
+  date = new Date().getTime() / 1000;
   dataOptionsStatus: Select2[] = [
     {
       label: "Test",
@@ -43,7 +48,8 @@ export class StatisticDetailAttendanceComponent implements OnInit {
     private globalStore: GlobalStore,
     private statisticAttendanceSerivce: StatisticAttendanceService,
     private showMessageSerivce: ShowMessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formatTimePipe: FormatTimePipe,
   ) { }
 
   ngOnInit() {
@@ -53,17 +59,21 @@ export class StatisticDetailAttendanceComponent implements OnInit {
     });
   }
 
+  onChangeDate(date: any): void{
+    this.date = date;
+    this.getListStatisticData();
+  }
+
   getListStatisticData(): void{
     this.globalStore.isLoading = true;
 
     let dataRequest = {
       classId: this.classId,
+      date: this.formatTimePipe.transform(this.date, "yyyy-MM-dd")
     }
     this.statisticAttendanceSerivce.getListStatistic(dataRequest).subscribe((res: any) => {
       this.dataList = res?.data;
-      console.log(res)
       this.dataDateMonth = res.data[0]?.date;
-      console.log(this.dataDateMonth)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);

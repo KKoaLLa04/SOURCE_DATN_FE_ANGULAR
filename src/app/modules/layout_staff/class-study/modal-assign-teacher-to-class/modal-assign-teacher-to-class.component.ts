@@ -12,6 +12,7 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
 import { NgFor, NgIf } from '@angular/common';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { InputSearchComponent } from 'src/app/_shared/components/input-search/input-search.component';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 
 @Component({
   selector: 'app-modal-assign-teacher-to-class',
@@ -28,7 +29,8 @@ import { InputSearchComponent } from 'src/app/_shared/components/input-search/in
     NgFor,
     FormatTimePipe,
     NgIf,
-    InputSearchComponent
+    InputSearchComponent,
+    GenderDirective
   ]
 })
 export class ModalAssignTeacherToClassComponent implements OnInit {

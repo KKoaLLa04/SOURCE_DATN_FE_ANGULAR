@@ -153,7 +153,7 @@ export class SubjectFormComponent implements OnInit {
        name: [
          {
            type: "required",
-           message: 'requiredName'
+           message: 'Tên môn học bắt buộc nhập'
          },
        ],
        status: [
