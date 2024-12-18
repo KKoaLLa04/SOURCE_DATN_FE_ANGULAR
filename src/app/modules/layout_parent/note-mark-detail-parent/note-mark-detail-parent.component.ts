@@ -1,25 +1,23 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Select2 } from 'src/app/_models/gengeral/select2.model';
+import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
+import { InputNumberComponent } from 'src/app/_shared/components/input-number/input-number.component';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
-import { NoteMarkService } from '../../services/note-mark.service';
+import { NoteMarkService } from '../../layout_staff/services/note-mark.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
-import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { ActivatedRoute } from '@angular/router';
-import { InputNumberComponent } from 'src/app/_shared/components/input-number/input-number.component';
-import { isTemplateRef } from 'ng-zorro-antd/core/util';
-import { SelectComponent } from 'src/app/_shared/components/select/select.component';
-import { SubjectService } from '../../services/subject.service';
-import { Select2 } from 'src/app/_models/gengeral/select2.model';
+import { SubjectService } from '../../layout_staff/services/subject.service';
 
 @Component({
-  selector: 'app-note-mark-detail',
-  templateUrl: './note-mark-detail.component.html',
-  styleUrls: ['./note-mark-detail.component.scss'],
+  selector: 'app-note-mark-detail-parent',
+  templateUrl: './note-mark-detail-parent.component.html',
+  styleUrls: ['./note-mark-detail-parent.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -33,8 +31,8 @@ import { Select2 } from 'src/app/_models/gengeral/select2.model';
     SelectComponent
   ]
 })
-export class NoteMarkDetailComponent implements OnInit {
-  dataList: any;
+export class NoteMarkDetailParentComponent implements OnInit {
+dataList: any;
   keyWord: string = '';
   pageIndex = PAGE_INDEX_DEFAULT;
   pageSize = PAGE_SIZE_DEFAULT;
@@ -53,11 +51,14 @@ export class NoteMarkDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListSubject();
-    this.route.paramMap.subscribe((params) => {
-      this.classId = params.get('id');
+    // this.getListSubject();
+    // this.route.paramMap.subscribe((params) => {
+      
+    // });
+    this.classId = localStorage.getItem('classId');
+    if(this.classId) {
       this.getListNoteMark();
-    });
+    }
   }
 
   getListSubject(){
@@ -184,4 +185,5 @@ export class NoteMarkDetailComponent implements OnInit {
     // Trả về điểm hoặc để trống nếu không có
     return matchingPoint ? matchingPoint.point : '';
   }
+
 }

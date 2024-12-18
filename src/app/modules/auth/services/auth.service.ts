@@ -53,6 +53,8 @@ export class AuthService implements OnDestroy {
       localStorage.setItem('fullname', res?.data?.user.fullname);
       localStorage.setItem('child_name', res?.data?.user?.students[0]?.fullname);
       localStorage.setItem('child_id', res?.data?.user?.students[0]?.id);
+      localStorage.setItem('className', res?.data?.user?.students[0]?.className);
+      localStorage.setItem('classId', res?.data?.user?.students[0]?.classId);
       return res;
     }));
   }

@@ -15,6 +15,7 @@ import { ClassStudyService } from '../services/class-study.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IProperty } from 'src/app/_models/context-menu.interface';
+import { StatusClassDirective } from 'src/app/_shared/directive/status-class.directive';
 
 @Component({
   selector: 'app-note-mark',
@@ -29,7 +30,8 @@ import { IProperty } from 'src/app/_models/context-menu.interface';
     ContextMenuComponent,
     PaginationComponent,
     NoDataComponent,
-    NgIf
+    NgIf,
+    StatusClassDirective
   ]
 })
 export class NoteMarkComponent implements OnInit {

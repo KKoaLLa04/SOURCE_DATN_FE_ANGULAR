@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = JSON.parse(localStorage.getItem('UserInfo'));
     data.students?.map((item) => {
       this.optionChildren.push({
-        label: item.fullname,
+        label: item.fullname + ' - ' + item.className,
         value: item.id,
         selected: item.id == localStorage.getItem('child_id')
       })

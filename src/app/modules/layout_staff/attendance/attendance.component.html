@@ -8,7 +8,7 @@
     </p>
     <div class="d-flex">
       <app-single-date-picker [maxDate]="nowTimestamp" class="me-4" (dataTimeOutput)="onSearchDate($event)"></app-single-date-picker>
-      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      <!-- <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search> -->
     </div>
   </div>
 
@@ -74,8 +74,8 @@
               </td>
               <td>
                 <app-button
-                  [text]="'Điểm danh'"
-                  [backgroundColor]="'bg-color-greenish-teal'"
+                  [text]="data?.checkAttendance == 1 ? 'Cập nhật' : 'Điểm danh'"
+                  [backgroundColor]="data?.checkAttendance == 1 ? 'bg-color-carrot-orange' : 'bg-color-greenish-teal'"
                   [color]="'text-color-white'"
                   (onClick)="onChangeSaveAttendancePage(item.classId, data.idTimetable)"
                 ></app-button>
@@ -99,8 +99,8 @@
               </td>
               <td>
                 <app-button
-                  [text]="'Điểm danh'"
-                  [backgroundColor]="'bg-color-greenish-teal'"
+                  [text]="dataAfternoon?.checkAttendance == 1 ? 'Cập nhật' : 'Điểm danh'"
+                  [backgroundColor]="dataAfternoon?.checkAttendance == 1 ? 'bg-color-carrot-orange' : 'bg-color-greenish-teal'"
                   [color]="'text-color-white'"
                   (onClick)="onChangeSaveAttendancePage(item.classId, dataAfternoon.idTimetable)"
                 ></app-button>

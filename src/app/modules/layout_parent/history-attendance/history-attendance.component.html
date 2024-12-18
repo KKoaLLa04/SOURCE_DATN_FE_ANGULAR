@@ -1,0 +1,57 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Điểm danh</h3>
+
+  <div class="d-flex justify-content-between">
+    <p>
+      <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.data?.totalStudent}} học sinh</span></span> |
+      <span>Số học sinh vắng mặt: <span class="text-color-red fw-700">{{dataList?.data?.totalStudent - dataList?.data?.toltalStudentAttendance}} học sinh</span></span> |
+      <span>Số học sinh có mặt: <span class="text-color-green fw-700">{{dataList?.data?.toltalStudentAttendance}} học sinh</span></span>
+    </p>
+    <!-- <div class="d-flex">
+      <app-input-search [width]="'w-250px'"></app-input-search>
+    </div> -->
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ tên</th>
+          <th>Ngày sinh</th>
+          <th>Ghi chú</th>
+          <th>Có mặt</th>
+          <th>Nghỉ có phép</th>
+          <th>Nghỉ không phép</th>
+          <th>Đến muộn có phép</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data?.data, let i = index">
+          <td>1</td>
+          <td>{{item.fullname}} - {{item.student_code}} </td>
+          <td>{{item.dob | formatTime}}</td>
+          <td>
+            <app-input [placeholder]="'Ghi chú học sinh...'" (valueChange)="onChangeNote(item, $event)" [value]="item.note"></app-input>
+          </td>
+          <td class="text-center p-0">
+            <input type="radio" [checked]="item.status == 1" name="radio{{i}}" (click)="onChangeRadio(item,1)">
+          </td>
+          <td class="text-center p-0">
+            <input type="radio" [checked]="item.status == 3" name="radio{{i}}" (click)="onChangeRadio(item,3)">
+          </td>
+          <td class="text-center p-0">
+            <input type="radio" [checked]="item.status == 2" name="radio{{i}}" (click)="onChangeRadio(item,2)">
+          </td>
+          <td class="text-center p-0">
+            <input type="radio" [checked]="item.status == 4" name="radio{{i}}" (click)="onChangeRadio(item,4)">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end">
+      <app-button [text]="'Lưu'" [width]="'w-100px'" (onClick)="onSubmit()"></app-button>
+    </div>
+  </div>
+</div>

@@ -30,6 +30,7 @@ export class TimeTableStaffComponent implements OnInit {
   dataRequest: any = TIME_TABLE_STRUCT;
   dataOptionsChecked: any = [];
   updatedOptions: any[] = [];
+  accessType: any = 1;
   constructor(
     private route: ActivatedRoute,
     private globalStore: GlobalStore,
@@ -42,10 +43,16 @@ export class TimeTableStaffComponent implements OnInit {
     // this.getListSubject();
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('classId');
+      if(localStorage.getItem("classId")){
+        this.classId = localStorage.getItem("classId");
+        this.accessType = localStorage.getItem("access_type");
+      }else{
+        this.getListStudentClassDetail();
+      }
       this.getListTimetable();
-      this.getListStudentClassDetail();
       // this.createNewSubjectOption();
     });
+    
   }
 
   // createNewSubjectOption(){

@@ -1,0 +1,126 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Sổ điểm của lớp 6a1</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div class="d-flex">
+      <span class="fw-700">SỔ ĐIỂM CHI TIẾT</span>
+      <span class="ms-4">LỚP: <span class="fw-700">{{dataList?.data?.class?.name}}</span></span>
+      <span class="ms-4">Môn học: <span class="fw-700">{{dataList?.data?.subject?.name}}</span></span>
+      <!-- <span class="ms-4">Giáo viên dạy: <span class="fw-700">Nguyễn Tấn Đạt + 0 GV được ủy quyền</span></span>
+      <span class="ms-4">Quyền hạn: <span class="fw-700">Bạn là giáo viên bộ môn</span></span> -->
+    </div>
+  </div>
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>(Ghi chú: sau khi có điểm thi học kỳ hệ thống mới tính điểm TBHK của môn học. Giáo viên giảng dạy chỉ có thể sửa các con điểm chưa bị khóa)</p>
+    <app-select
+      [options]="optionSubject"
+      (changeSelect)="onChangeSubject($event)"
+      [width]="'w-200px'"
+    ></app-select>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class="w-5" rowspan="2">STT</th>
+          <th rowspan="2">Mã HS</th>
+          <th rowspan="2">Họ và tên</th>
+          <th rowspan="2">Ngày sinh</th>
+          <!-- <th colspan="4" class="text-center">ĐĐGtx</th> -->
+           <ng-container *ngFor="let item of dataList?.data?.struct">
+            <th class="text-center" colspan="1" rowspan="2" *ngIf="item?.examPeriods?.length==1 || item?.examPeriods?.length==0">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="2" *ngIf="item?.examPeriods?.length==2">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="3" *ngIf="item?.examPeriods?.length==3">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="4" *ngIf="item?.examPeriods?.length==4">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="5" *ngIf="item?.examPeriods?.length==5">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="6" *ngIf="item?.examPeriods?.length==6">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="7" *ngIf="item?.examPeriods?.length==7">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="8" *ngIf="item?.examPeriods?.length==8">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="9" *ngIf="item?.examPeriods?.length==9">
+              {{item.examName}}
+             </th>
+             <th class="text-center" colspan="10" *ngIf="item?.examPeriods?.length==10">
+              {{item.examName}}
+             </th>
+           </ng-container>
+          <th rowspan="2">Action</th>
+        </tr>
+        <tr *ngIf="dataList?.data?.struct?.length">
+          <ng-container *ngFor="let item of dataList?.data?.struct">
+            <th class="text-center" *ngFor="let exam of item.examPeriods">{{exam.examPeriodName}}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data?.data, let i = index">
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
+          <td>
+            <span>{{item.code}}</span> <br/>
+          </td>
+          <td>
+            <span>{{item.name}}</span> <br/>
+          </td>
+          <td class="text-center">
+            <span>{{item.dob | formatTime}}</span>
+          </td>
+          <ng-container *ngFor="let structs of dataList?.data?.struct">
+            <td *ngIf="!structs?.examPeriods?.length">Chưa thi</td>
+            <ng-container *ngFor="let struct of structs?.examPeriods">
+              <td class="">
+                <span *ngIf="!item?.points?.isEdit">{{ findPoint(item.points, struct.examPeriodId) }}</span>
+                <!-- <app-input [type]="'number'" min value="{{ findPoint(item.points, struct.examPeriodId) }}" *ngIf="item?.points?.isEdit" [width]="'w-50px'"></app-input> -->
+                 <app-input-number
+                  value="{{ findPoint(item.points, struct.examPeriodId) }}"
+                  *ngIf="item?.points?.isEdit"
+                  [width]="'w-50px'"
+                  [minValue]="0"
+                  [maxValue]="10"
+                  [placeholder]="'Điểm số...'"
+                  (valueChange)="onChangeValueInput($event, item.points, struct.examPeriodId)"
+                 ></app-input-number>
+                 <p class="text-danger font-italic fs-11px" *ngIf="item?.points?.isValidate">{{item?.points?.isValidate}}</p>
+              </td>
+            </ng-container>
+          </ng-container>
+          <td class="text-center">
+            <div *ngIf="!item?.points?.isEdit">
+              <app-button [text]="'Sửa'" (onClick)="onChangeEditType(item)" [backgroundColor]="'bg-color-butterscotch'"></app-button>
+            </div>
+            <div *ngIf="item?.points?.isEdit">
+              <p><app-button [height]="'h-30px'" [color]="'text-color-black'" [text]="'Hủy'" (onClick)="onCancelEdit(item)" [backgroundColor]="'bg-color-white-smoke'"></app-button></p>
+              <app-button
+                [height]="'h-30px'"
+                [text]="'Lưu'"
+                (onClick)="onCallApiUpdatePoints(item)"
+                [disabled]="item?.points?.isValidate"
+               ></app-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data> -->
+    <!-- <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination> -->
+  </div>
+</div>
