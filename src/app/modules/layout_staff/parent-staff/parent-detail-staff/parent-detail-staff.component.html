@@ -21,7 +21,7 @@
           <div class="row">
             <div class="col-3">Mã PH</div>
             <div class="col-9">
-              <app-input [value]="dataDetail?.student_code" [disabled]="true"></app-input>
+              <app-input [value]="dataDetail?.code" [disabled]="true"></app-input>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@
           <div class="row">
             <div class="col-3">Tên đăng nhập</div>
             <div class="col-9">
-              <app-input [value]="dataDetail?.fullname" [disabled]="true"></app-input>
+              <app-input [value]="dataDetail?.username" [disabled]="true"></app-input>
             </div>
           </div>
         </div>
@@ -48,34 +48,16 @@
           <div class="row">
             <div class="col-3">Số điện thoại</div>
             <div class="col-9">
-              <app-input [value]="dataDetail?.current_academic_year_name" [disabled]="true"></app-input>
+              <app-input [value]="dataDetail?.phone" [disabled]="true"></app-input>
             </div>
           </div>
         </div>
 
         <div class="col-6">
           <div class="row">
-            <div class="col-3">Lớp </div>
+            <div class="col-3">Email</div>
             <div class="col-9">
-              <app-input [value]="dataDetail?.current_class_name" [disabled]="true"></app-input>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6">
-          <div class="row">
-            <div class="col-3">Phụ huynh</div>
-            <div class="col-9">
-              <app-input [value]="dataDetail?.current_class_name?.parents?.name" [disabled]="true"></app-input>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6">
-          <div class="row">
-            <div class="col-3">Trạng thái</div>
-            <div class="col-9">
-              <app-input [value]="dataDetail?.status" [disabled]="true"></app-input>
+              <app-input [value]="dataDetail?.email" [disabled]="true"></app-input>
             </div>
           </div>
         </div>
@@ -88,70 +70,63 @@
             </div>
           </div>
         </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Trạng thái</div>
+            <div class="col-9">
+              <!-- <app-input [value]="dataDetail?.status" [disabled]="true"></app-input> -->
+               <app-checkbox [disabled]="true" [checked]="dataDetail?.status"></app-checkbox>
+            </div>
+          </div>
+        </div>
+
     </div>
   </div>
 
   <div>
     <hr/>
     <div class="d-flex justify-content-between">
-      <h3>Thông tin gia đình học sinh</h3>
-      <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignParent(dataDetail?.id)"></app-button>
+      <h3>Thông tin con của phụ huynh</h3>
+      <app-button [text]="'Gán học sinh cho phụ huynh'" (onClick)="assignChildrent(dataDetail?.id)"></app-button>
     </div>
 
-    <div class="row m-0 p-0">
-      <div class="col-6 mb-5">
-        <div class="row">
-          <div class="col-3">Tên phụ huynh</div>
-          <div class="col-9">
-            <app-input [value]="dataDetail?.parents[0]?.fullname" [disabled]="true"></app-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 mb-5">
-        <div class="row">
-          <div class="col-3">Ngày sinh</div>
-          <div class="col-9">
-            <app-input [value]="dataDetail?.parents[0]?.dob | formatTime" [disabled]="true"></app-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 mb-5">
-        <div class="row">
-          <div class="col-3">Số điện thoại</div>
-          <div class="col-9">
-            <app-input [value]="dataDetail?.parents[0]?.phone" [disabled]="true"></app-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 mb-5">
-        <div class="row">
-          <div class="col-3">Email</div>
-          <div class="col-9">
-            <app-input [value]="dataDetail?.parents[0]?.email" [disabled]="true"></app-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 mb-5">
-        <div class="row">
-          <div class="col-3">Mã phụ huynh</div>
-          <div class="col-9">
-            <app-input [value]="dataDetail?.parents[0]?.code" [disabled]="true"></app-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 mb-5">
-        <div class="row">
-          <div class="col-3">Giới tính</div>
-          <div class="col-9">
-            <app-input [value]="dataDetail?.parents[0]?.gender" [disabled]="true"></app-input>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="table table-responsive">
+      <table class="table table-custom">
+        <thead>
+          <tr class="text-color-white text-color-blue-dark">
+            <th class=w-5>STT</th>
+            <th class="">Họ tên con</th>
+            <th class="">Giới tính</th>
+            <th class="text-center">Ngày sinh</th>
+            <th class="text-center">Niên khóa</th>
+            <th class="text-center">#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataDetail?.students, let i = index">
+            <td>
+              {{i + 1}}
+            </td>
+            <td>
+              <span>{{item.fullname}}</span> <br/>
+              <span *ngIf="item.code">Mã PH: {{item.code}}</span>
+            </td>
+            <td>
+              <div appGender [statusValue]="item.gender"></div>
+            </td>
+            <td class="text-center">
+              <span>{{item.dob | formatTime}}</span> <br/>
+            </td>
+            <td class="text-center">
+              {{item.academicYear}}
+            </td>
+            <td class="text-center">
+              <app-button [startIconName]="iconSvg.delete_solid" [text]="'Gỡ mối quan hệ'" [backgroundColor]="''" [color]="'text-color-red'" (onClick)="removeUnAssignStudent(item.id, dataDetail?.id)"></app-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+   
   </div>
 </div>

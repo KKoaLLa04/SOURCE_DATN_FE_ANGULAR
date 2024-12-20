@@ -44,7 +44,7 @@
           ></app-select>
         </div>
       </div>
-      <div class="{{dataFromParent.nameForm == 'update' ? 'col-12' : 'col-6'}} mb-6" *ngIf="dataFromParent.nameForm == 'update'">
+      <div class="{{dataFromParent.nameForm == 'update' ? 'col-12' : 'col-6'}} mb-6" *ngIf="dataFromParent.nameForm != 'update'">
           <div class="form-group so-form-group">
             <label  class="fw-600">Khối học<span class="text-danger">*</span></label>
             <app-select

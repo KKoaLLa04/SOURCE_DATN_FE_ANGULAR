@@ -8,6 +8,13 @@ import { StudentService } from '../../services/student.service';
 import { ActivatedRoute } from '@angular/router';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CheckboxComponent } from 'src/app/_shared/components/checkbox/checkbox.component';
+import { ParentService } from '../../services/parent.service';
+import { NgFor, NgIf } from '@angular/common';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
+import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
+import { ModalAssignChildrentComponent } from '../modal-assign-childrent/modal-assign-childrent.component';
+import { ModalUnUnsignChildrentComponent } from '../modal-un-unsign-childrent/modal-un-unsign-childrent.component';
 
 @Component({
   selector: 'app-parent-detail-staff',
@@ -18,37 +25,37 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     ButtonBackComponent,
     InputComponent,
     FormatTimePipe,
-    ButtonComponent
+    ButtonComponent,
+    CheckboxComponent,
+    NgFor,
+    GenderDirective,
+    NgIf
   ]
 })
 export class ParentDetailStaffComponent implements OnInit {
-
- studentId: any;
+  iconSvg = iconSVG
+  parentId: string;
    dataDetail: any;
    constructor(
      private globalStore: GlobalStore,
-     private studentService: StudentService,
+     private parentService: ParentService,
      private route: ActivatedRoute,
-     private showMessageService: ShowMessageService,
-     private modalService: NgbModal
+     private modalService: NgbModal,
+     private showMessageService: ShowMessageService
    ) { }
  
    ngOnInit() {
      this.route.paramMap.subscribe((params) => {
-       this.studentId = params.get('id');
-       this.getDetailStudent();
+       this.parentId = params.get('id');
+       this.getDetailParent();
      });
    }
  
-   getDetailStudent(){
+   getDetailParent(){
      this.globalStore.isLoading = true;
-     let dataRequest = {
-       id: this.studentId
-     }
  
-     this.studentService.getStudentDetail(dataRequest).subscribe((res: any) => {
+     this.parentService.getDetail(this.parentId).subscribe((res: any) => {
        this.dataDetail = res?.data
-       console.log(res?.data);
        this.globalStore.isLoading = false;
      },(err) => {
        this.globalStore.isLoading = false;
@@ -56,38 +63,80 @@ export class ParentDetailStaffComponent implements OnInit {
      })
    }
  
-   assignParent(id: any): void{
-    //  const modalRef = this.modalService.open(ModalAssignParentComponent, {
-    //    scrollable: true,
-    //    windowClass: 'myCustomModalClass',
-    //    keyboard: false,
-    //    backdrop: 'static', // prevent click outside modal to close modal
-    //    centered: false, // vị trí hiển thị modal ở giữa màn hình
-    //    size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
-    //  });
+   assignChildrent(id: any): void{
+     const modalRef = this.modalService.open(ModalAssignChildrentComponent, {
+       scrollable: true,
+       windowClass: 'myCustomModalClass',
+       keyboard: false,
+       backdrop: 'static', // prevent click outside modal to close modal
+       centered: false, // vị trí hiển thị modal ở giữa màn hình
+       size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
+     });
  
-    //  let data = {
-    //    titleModal: 'Gán Phụ huynh cho học sinh',
-    //    btnCancel: 'btnAction.cancel',
-    //    btnAccept: 'btnAction.save',
-    //    isHiddenBtnClose: false, // hidden/show btn close modal
-    //    dataFromParent: {
-    //      data: id,
-    //      service: this.studentService,
-    //      apiSubmit: (dataInput: any) => this.studentService.assignParent(dataInput),
-    //      nameForm: 'update',
-    //    },
-    //  };
+     let data = {
+       titleModal: 'Gán Phụ huynh cho học sinh',
+       btnCancel: 'btnAction.cancel',
+       btnAccept: 'btnAction.save',
+       isHiddenBtnClose: false, // hidden/show btn close modal
+       dataFromParent: {
+         data: id,
+         service: this.parentService,
+         apiSubmit: (dataInput: any) => this.parentService.assignStudent(dataInput),
+         nameForm: 'update',
+       },
+     };
  
-    //  modalRef.componentInstance.dataModal = data;
-    //  modalRef.result.then(
-    //    (result: boolean) => {
-    //      if (result) {
-    //        this.getDetailStudent();
-    //      }
-    //    },
-    //    (reason) => { }
-    //  );
+     modalRef.componentInstance.dataModal = data;
+     modalRef.result.then(
+       (result: boolean) => {
+         if (result) {
+           this.getDetailParent();
+         }
+       },
+       (reason) => { }
+     );
    }
+
+   removeUnAssignStudent(idParent: any, idStudent: any){
+       const modalRef = this.modalService.open(ModalUnUnsignChildrentComponent, {
+         scrollable: true,
+         windowClass: 'myCustomModalClass',
+         keyboard: false,
+         backdrop: 'static', // prevent click outside modal to close modal
+         centered: false, // vị trí hiển thị modal ở giữa màn hình
+         size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
+       });
+   
+       let data = {
+         titleModal: 'Gỡ mối quan hệ phụ huynh - học sinh',
+         btnCancel: 'btnAction.cancel',
+         btnAccept: 'btnAction.save',
+         isHiddenBtnClose: false, // hidden/show btn close modal
+         dataFromParent: {
+           nameForm: 'create',
+         },
+       };
+   
+       modalRef.componentInstance.dataModal = data;
+       modalRef.result.then(
+         (result: boolean) => {
+           if (result) {
+             this.globalStore.isLoading = true;
+             let dataRequest = {
+              id: idParent,
+              student_id: [idStudent]
+             }
+             this.parentService.unAssignStudent(dataRequest).subscribe((res) => {
+               this.showMessageService.success("Gỡ mối quan hệ phụ huynh - học sinh thành công");
+               this.getDetailParent();
+             }, (err) => {
+               this.globalStore.isLoading = false
+               this.showMessageService.error(err)
+             })
+           }
+         },
+         (reason) => { }
+       );
+     }
 
 }

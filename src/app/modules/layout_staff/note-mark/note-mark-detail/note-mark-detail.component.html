@@ -29,7 +29,7 @@
           <th rowspan="2">Ngày sinh</th>
           <!-- <th colspan="4" class="text-center">ĐĐGtx</th> -->
            <ng-container *ngFor="let item of dataList?.data?.struct">
-            <th class="text-center" colspan="1" rowspan="2" *ngIf="item?.examPeriods?.length==1 || item?.examPeriods?.length==0">
+            <th class="text-center" colspan="1" rowspan="1" *ngIf="item?.examPeriods?.length==1 || item?.examPeriods?.length==0">
               {{item.examName}}
              </th>
              <th class="text-center" colspan="2" *ngIf="item?.examPeriods?.length==2">

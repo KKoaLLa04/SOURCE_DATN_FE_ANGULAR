@@ -14,7 +14,7 @@
 </ng-container>
 
 <ng-container *ngIf="!formControlNameInput">
-  <label nz-checkbox class="so-checkbox fs-13" [ngModelOptions]="{standalone: true}" [ngModel]="checked" (ngModelChange)="onInputChange($event)">
+  <label nz-checkbox class="so-checkbox fs-13" [ngModelOptions]="{standalone: true}" [ngModel]="checked" (ngModelChange)="onInputChange($event)" disabled="{{disabled}}">
     <span class="{{fontWeight}} {{fontSize}} {{color}}" [innerHTML]="text"></span>
   </label>
 </ng-container>
