@@ -39,6 +39,11 @@ export class GenderDirective {
           bgColor = 'var(--bs-red)';
           text = "Nữ";
           break;
+        default:
+          textColor = 'var(--bs-white)';
+          bgColor = 'var(--bs-black)';
+          text = "không xác định";
+          break;
       }
   
       this.renderer.setStyle(this.el.nativeElement, 'color', textColor);
@@ -51,9 +56,9 @@ export class GenderDirective {
       this.renderer.setStyle(this.el.nativeElement, 'font-weight', 500);
       this.renderer.setProperty(this.el.nativeElement, 'textContent', this.translateService.instant(text));
   
-      this.translateService.onLangChange.subscribe((ref: any) => {
-        this.renderer.setProperty(this.el.nativeElement, 'textContent', this.translateService.instant(text));
-      });
+      // this.translateService.onLangChange.subscribe((ref: any) => {
+      //   this.renderer.setProperty(this.el.nativeElement, 'textContent', this.translateService.instant(text));
+      // });
     }
   
     private setSizeText(size:string){

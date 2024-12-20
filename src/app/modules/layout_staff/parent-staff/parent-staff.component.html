@@ -4,7 +4,13 @@
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>Số lượng phụ huynh: <span class="fw-700 text-color-blue-light">{{dataList?.data?.total}} phụ huynh</span></p>
     <div class="d-flex">
-      <!-- <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button> -->
+      <app-input-search (valueChange)="onSearch($event)" [width]="'w-250px'" [placeholder]="'Tìm kiếm phụ huynh...'"></app-input-search>
+      <app-button 
+      [text]="'Thêm phụ huynh'" 
+      (onClick)="create()" 
+      class="ms-4"
+      [startIconName]="iconSvg.plus"
+      ></app-button>
     </div>
   </div>
 
@@ -24,7 +30,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data?.data, let i = index">
-          <td>{{i+1}}</td>
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
           <td>{{item.fullname}}</td>
           <td>
             <span>{{item.email}}</span><br/>
@@ -60,6 +68,14 @@
                 svgIcon: iconSvg.lock,
                 label: 'Đổi mật khẩu',
                 type: '3',
+                action: item.id,
+                permission: '',
+                data: item
+              },
+              {
+                svgIcon: item.status == 0 ? iconSvg.unlock_icon : iconSvg.lock,
+                label: item.status == 0 ? 'Mở khóa tài khoản phụ huynh' : 'khóa tài khoản phụ huynh',
+                type: '4',
                 action: item.id,
                 permission: '',
                 data: item

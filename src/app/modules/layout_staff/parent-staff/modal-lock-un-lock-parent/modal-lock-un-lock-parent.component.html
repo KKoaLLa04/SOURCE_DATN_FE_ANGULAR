@@ -1,0 +1,21 @@
+<form action="" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{dataModal?.titleModal}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <p class="text-center {{dataFromParent?.nameForm=='lock' ? 'text-danger' : 'text-color-green'  }}">{{
+      dataFromParent?.nameForm=="lock" ?  
+      "Bạn có chắc chắn muốn khóa tài khoản của phụ huynh - " + dataFromParent?.data?.fullname : 
+      "Bạn có chắc chắn muốn mở khóa tài khoản của phụ huynh - " + dataFromParent?.data?.fullname
+    }}</p>
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="'Hủy'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="'Đồng ý'" [backgroundColor]="'bg-color-azure'" (click)="closeModal(true)"></app-button>
+  </div>
+</form>
+

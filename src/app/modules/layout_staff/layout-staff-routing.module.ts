@@ -20,6 +20,7 @@ import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-tab
 import { ExamComponent } from "./exam/exam.component";
 import { SchoolYearComponent } from "./school-year/school-year.component";
 import { ParentStaffComponent } from "./parent-staff/parent-staff.component";
+import { ParentDetailStaffComponent } from "./parent-staff/parent-detail-staff/parent-detail-staff.component";
 
 const routes: Routes = [
   {
@@ -123,6 +124,10 @@ const routes: Routes = [
       {
         path: '',
         component: ParentStaffComponent
+      },
+      {
+        path: ':id',
+        component: ParentDetailStaffComponent 
       },
       {
         path: 'assign-student',
