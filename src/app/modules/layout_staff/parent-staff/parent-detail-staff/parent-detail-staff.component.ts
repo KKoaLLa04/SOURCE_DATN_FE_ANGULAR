@@ -97,7 +97,7 @@ export class ParentDetailStaffComponent implements OnInit {
      );
    }
 
-   removeUnAssignStudent(idParent: any, idStudent: any){
+   removeUnAssignStudent(idStudent: any, idParent: any){
        const modalRef = this.modalService.open(ModalUnUnsignChildrentComponent, {
          scrollable: true,
          windowClass: 'myCustomModalClass',
