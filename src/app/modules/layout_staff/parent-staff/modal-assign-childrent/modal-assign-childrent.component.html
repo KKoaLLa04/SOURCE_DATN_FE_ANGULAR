@@ -41,7 +41,7 @@
           </tr>
         </tbody>
       </table>
-      <app-no-data *ngIf="!dataList?.total"></app-no-data>
+      <app-no-data *ngIf="!dataList?.data.total"></app-no-data>
       <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="dataList?.data?.total"
         *ngIf="dataList?.data?.total > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
       </app-pagination>

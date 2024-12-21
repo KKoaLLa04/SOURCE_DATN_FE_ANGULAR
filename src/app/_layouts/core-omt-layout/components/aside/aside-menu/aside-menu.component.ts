@@ -44,6 +44,7 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Sổ điểm", url:"/staff/note-mark", permissionCode : '', code: 'note-mark', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Quản lý đơn", url:"/staff/ticket", permissionCode : '', code: 'ticket', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Điểm số", url:"/staff/exam", permissionCode : '', code: 'exam', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Cấu hình", url:"/staff/config", permissionCode : '', code: 'config', children: []},
       ]
     }else if (Number(layout) == Number(AccessType.TEACHER)){
       this.menuLayout = [

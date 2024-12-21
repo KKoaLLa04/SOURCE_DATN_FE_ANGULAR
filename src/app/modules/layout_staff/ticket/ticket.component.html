@@ -37,6 +37,7 @@
           <td>{{item.time}} - {{item.leaveDate}}</td>
           <td>
             <div StatusActiveClassBgColor [statusValue]="item.status"></div>
+            <p *ngIf="item.refuseNote" class="mt-4 mb-0"><b>Lý do từ chối: </b> {{item.refuseNote}}</p>
           </td>
           <td>
             <p><app-button [text]="'Đồng ý'" (onClick)="agreeTicket(item.id)" [backgroundColor]="'bg-color-green'" *ngIf="item.status==0" [height]="'h-30px'"></app-button></p>
