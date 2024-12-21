@@ -22,6 +22,7 @@
           <th class="fw-700">Thông tin giáo viên</th>
           <th class="fw-700">Liên hệ</th>
           <th class="text-center fw-700">Lớp chủ nhiệm</th>
+          <th class="text-center fw-700">Dạy môn</th>
           <th class="text-center fw-700">Chức vụ</th>
           <th class="text-center fw-700">Trạng thái</th>
           <th class="text-center fw-700">Ngày sinh</th>
@@ -43,6 +44,9 @@
           </td>
           <td class="text-center">
             {{item.userMainClassName}}
+          </td>
+          <td class="text-center">
+            {{item.subject}}
           </td>
           <td class="text-center">
             <div appAccessType [statusValue]="item.userAccessType"></div>

@@ -117,17 +117,19 @@ export class NoteMarkDetailComponent implements OnInit {
   }
 
   onChangeValueInput(value: any, points: any, examPeriodIds: any){
-    if(value < 0 || value > 10){
-      points.isValidate = "Thang điểm 0 - 10"
-    }else{
-      points.isValidate = ""
-    }
     points.map((item: any) => {
       if(item.exam_period_id == examPeriodIds){
+        if(value < 0 || value > 10){
+          item.isValidate = "Thang điểm 0 - 10";
+          points.isValidate = "Thang điểm 0 - 10";
+        }else{
+          item.isValidate = "",
+          points.isValidate = ""
+        }
         item.newPoint = Number(value);
       }
     })
-
+    console.log(points)
     let index = points.findIndex((item) => item.exam_period_id == examPeriodIds)
 
     if(index == -1){
@@ -183,5 +185,20 @@ export class NoteMarkDetailComponent implements OnInit {
 
     // Trả về điểm hoặc để trống nếu không có
     return matchingPoint ? matchingPoint.point : '';
+  }
+
+  findPointValidate(points: any[], examPeriodId: number): string | number {
+    // Nếu không có điểm
+    if (!points || points.length === 0) {
+      return ''; // Nội dung mặc định
+    }
+
+    // Tìm điểm phù hợp
+    const matchingPoint = points.find(
+      (point) => point.exam_period_id === examPeriodId
+    );
+
+    // Trả về điểm hoặc để trống nếu không có
+    return matchingPoint ? matchingPoint.isValidate : '';
   }
 }

@@ -97,7 +97,7 @@
                   [placeholder]="'Điểm số...'"
                   (valueChange)="onChangeValueInput($event, item.points, struct.examPeriodId)"
                  ></app-input-number>
-                 <p class="text-danger font-italic fs-11px" *ngIf="item?.points?.isValidate">{{item?.points?.isValidate}}</p>
+                 <p class="text-danger font-italic fs-11px" *ngIf="findPointValidate(item.points, struct.examPeriodId)">{{ findPointValidate(item.points, struct.examPeriodId) }}</p>
               </td>
             </ng-container>
           </ng-container>
