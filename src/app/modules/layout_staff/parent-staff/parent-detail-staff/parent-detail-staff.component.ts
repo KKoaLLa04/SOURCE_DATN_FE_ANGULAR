@@ -5,7 +5,7 @@ import { InputComponent } from 'src/app/_shared/components/input/input.component
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StudentService } from '../../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CheckboxComponent } from 'src/app/_shared/components/checkbox/checkbox.component';
@@ -29,7 +29,8 @@ import { ModalUnUnsignChildrentComponent } from '../modal-un-unsign-childrent/mo
     CheckboxComponent,
     NgFor,
     GenderDirective,
-    NgIf
+    NgIf,
+    RouterLink
   ]
 })
 export class ParentDetailStaffComponent implements OnInit {

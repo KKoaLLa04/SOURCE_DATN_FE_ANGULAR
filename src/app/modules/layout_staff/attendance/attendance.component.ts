@@ -6,14 +6,12 @@ import { InputSearchComponent } from 'src/app/_shared/components/input-search/in
 import { Select2Component } from 'src/app/_shared/components/select-2/select-2.component';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { GlobalStore } from 'src/app/_store/global.store';
-import { StatisticAttendanceService } from '../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StatusClassAttendance } from 'src/app/_shared/enums/status-class-attendance.enum';
+import { Router } from '@angular/router';
 import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
 import { AttendanceService } from '../services/attendance.service';
 
@@ -42,7 +40,7 @@ export class AttendanceComponent implements OnInit {
   pageSize = PAGE_SIZE_DEFAULT;
   keyWord: string = ''
   date: number = new Date().getTime() / 1000;
-  nowTimestamp: number = new Date().getTime() / 1000;
+  nowTimestamp: any = new Date().getTime() / 1000;
   classIds: Array<number> = []
   dataArray: any = [];
   dataOptionsStatus: Select2[] = [

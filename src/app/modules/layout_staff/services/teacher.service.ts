@@ -13,21 +13,6 @@ export class TeacherService {
   ) { }
 
   getListTeacher(data: any){
-    // return of(
-    //   [
-    //     {
-    //       userId: 1,
-    //       userName: "Duy kien",
-    //       userCode: "212",
-    //       userEmail: "duykien@gmail.com",
-    //       userPhone: "0123654789",
-    //       userMainClassName: "6a2",
-    //       userAccessType: 1,
-    //       userStatus: 1,
-    //       userDob: 123456798
-    //     }
-    //   ]
-    // )
     return this.http.get(`${environment.apiUrl}/manager/user`, {params: {...data}});
   }
 
@@ -41,5 +26,9 @@ export class TeacherService {
 
   changePassword(data: any){
     return this.http.post(`${environment.apiUrl}/manager/user/change_password/${data.userId}`, data);
+  }
+
+  assignTeacherSubject(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/user/assign-teacher/${data.id}`, data);
   }
 }

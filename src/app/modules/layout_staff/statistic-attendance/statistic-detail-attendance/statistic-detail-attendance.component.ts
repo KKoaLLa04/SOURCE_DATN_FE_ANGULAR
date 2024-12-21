@@ -1,17 +1,14 @@
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
-import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { InputSearchComponent } from 'src/app/_shared/components/input-search/input-search.component';
-import { Select2Component } from 'src/app/_shared/components/select-2/select-2.component';
-import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StatisticAttendanceService } from '../../services/statistic-attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { StatusStudentDirective } from 'src/app/_shared/directive/status-student.directive';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
+import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
 
 @Component({
   selector: 'app-statistic-detail-attendance',
@@ -19,13 +16,11 @@ import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
   styleUrls: ['./statistic-detail-attendance.component.scss'],
   standalone: true,
   imports: [
-    Select2Component,
-    InputSearchComponent,
     NgFor,
-    ButtonComponent,
-    SelectComponent,
     StatusStudentDirective,
-    SingleDatePickerComponent
+    SingleDatePickerComponent,
+    ButtonBackComponent,
+    RouterLink
   ],
   providers: [FormatTimePipe]
 })

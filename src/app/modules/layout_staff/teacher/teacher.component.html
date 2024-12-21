@@ -76,6 +76,15 @@
                 permission: '',
                 data: item
               },
+              {
+                svgIcon: iconSvg.edit,
+                label: 'Gán môn học',
+                type: '4',
+                action: item.id,
+                permission: '',
+                data: item,
+                isHide: item.userAccessType == 1
+              },
             ]" (action)="handleAction($event)"></app-context-menu>
           </td>
         </tr>

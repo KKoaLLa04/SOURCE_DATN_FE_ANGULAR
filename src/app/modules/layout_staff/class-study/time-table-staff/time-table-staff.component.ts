@@ -1,6 +1,6 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../../services/class-study.service';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
@@ -9,6 +9,7 @@ import { SubjectService } from '../../services/subject.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { TIME_TABLE_STRUCT, timeTableOptionSubject } from 'src/app/_shared/utils/constant';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
+import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
 
 @Component({
   selector: 'app-time-table-staff',
@@ -19,7 +20,9 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
     NgFor,
     CommonModule,
     SelectComponent,
-    ButtonComponent
+    ButtonComponent,
+    ButtonBackComponent,
+    RouterLink
   ]
 })
 export class TimeTableStaffComponent implements OnInit {

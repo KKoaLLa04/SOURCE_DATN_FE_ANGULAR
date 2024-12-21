@@ -3,7 +3,7 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StudentService } from '../../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
@@ -25,7 +25,8 @@ import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-cl
     ButtonComponent,
     NgFor,
     StatusClassStudentDirective,
-    NgIf
+    NgIf,
+    RouterLink
   ]
 })
 export class StudentDetailComponent implements OnInit {

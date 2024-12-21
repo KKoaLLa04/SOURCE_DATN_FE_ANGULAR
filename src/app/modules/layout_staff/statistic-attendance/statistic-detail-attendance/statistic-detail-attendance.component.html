@@ -2,7 +2,10 @@
   <h3>Thống kê điểm danh</h3>
 
   <div class="d-flex justify-content-between">
-    <p>Số lượng: 23 lớp</p>
+    <div class="d-flex flex-column">
+      <p>Số lượng: <span class="text-color-azure">23 lớp</span></p>
+      <app-button-back [routerLink]="'/staff/list_attendance_statistic'"></app-button-back>
+    </div>
     <div class="d-flex mb-5">
       <!-- <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>

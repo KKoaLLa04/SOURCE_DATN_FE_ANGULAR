@@ -19,6 +19,7 @@ import { PaginationComponent } from 'src/app/_shared/components/pagination/pagin
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { AccessTypeDirective } from 'src/app/_shared/directive/access-type.directive';
 import { StatusActiveDirective } from 'src/app/_shared/directive/status-active.directive';
+import { ModalAssignSubjectTeacherComponent } from './modal-assign-subject-teacher/modal-assign-subject-teacher.component';
 
 @Component({
   selector: 'app-teacher',
@@ -82,7 +83,8 @@ export class TeacherComponent implements OnInit {
     const actionHandlers = {
       '1': () => {},
       '2': () => this.update(event.data),
-      '3': () => this.changePassWordTeacher(event.data)
+      '3': () => this.changePassWordTeacher(event.data),
+      '4': () => this.onOpenModalAssignSubject(event.data)
     };
 
     const handler = actionHandlers[event.type];
@@ -215,5 +217,75 @@ export class TeacherComponent implements OnInit {
       this.showMessageSerivce.error(err);
     })
   }
+
+  onOpenModalAssignSubject(item: any) {
+      const modalRef = this.modalService.open(ModalAssignSubjectTeacherComponent, {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        keyboard: false,
+        backdrop: 'static', // prevent click outside modal to close modal
+        centered: false, // vị trí hiển thị modal ở giữa màn hình
+        size: 'sm', // 'sm' | 'md' | 'lg' | 'xl',
+      });
+  
+      let data = {
+        titleModal: 'Gán môn học cho giáo viên',
+        btnCancel: 'btnAction.cancel',
+        btnAccept: 'btnAction.save',
+        isHiddenBtnClose: false, // hidden/show btn close modal
+        dataFromParent: {
+          teacherId: item.userId,
+          service: this.teacherService,
+          apiSubmit: (dataInput: any) => this.teacherService.assignTeacherSubject(dataInput),
+          nameForm: 'create',
+        },
+      };
+  
+      modalRef.componentInstance.dataModal = data;
+      modalRef.result.then(
+        (result: boolean) => {
+          if (result) {
+            this.getListTeacher()
+          }
+        },
+        (reason) => { }
+      );
+    }
+  
+    // onOpenModalUpdateAssignSubject(item: any) {
+    //   const modalRef = this.modalService.open(ModalAssignSubjectComponent, {
+    //     scrollable: true,
+    //     windowClass: 'myCustomModalClass',
+    //     keyboard: false,
+    //     backdrop: 'static', // prevent click outside modal to close modal
+    //     centered: false, // vị trí hiển thị modal ở giữa màn hình
+    //     size: 'sm', // 'sm' | 'md' | 'lg' | 'xl',
+    //   });
+  
+    //   let data = {
+    //     titleModal: 'Chỉnh môn học trong lớp',
+    //     btnCancel: 'Hủy',
+    //     btnAccept: 'Lưu',
+    //     isHiddenBtnClose: false, // hidden/show btn close modal
+    //     dataFromParent: {
+    //       classId: this.classId,
+    //       data: item,
+    //       service: this.classStudyService,
+    //       apiSubmit: (dataInput: any) => this.classStudyService.updateSubject(dataInput),
+    //       nameForm: 'update',
+    //     },
+    //   };
+  
+    //   modalRef.componentInstance.dataModal = data;
+    //   modalRef.result.then(
+    //     (result: boolean) => {
+    //       if (result) {
+    //         this.getListStudentClassDetail()
+    //       }
+    //     },
+    //     (reason) => { }
+    //   );
+    // }
+
 
 }

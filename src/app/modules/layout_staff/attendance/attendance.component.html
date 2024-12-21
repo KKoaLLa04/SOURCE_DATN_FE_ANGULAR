@@ -7,7 +7,7 @@
       <span class="fw-600">Số lớp chưa điểm danh: <span class="fw-700 text-color-red">{{dataList?.totalClassNoAttendance}} lớp</span></span> -->
     </p>
     <div class="d-flex">
-      <app-single-date-picker [maxDate]="nowTimestamp" class="me-4" (dataTimeOutput)="onSearchDate($event)"></app-single-date-picker>
+      <app-single-date-picker [maxDate]="nowTimestamp" class="me-4" (dataTimeOutput)="onSearchDate($event)" [currentDate]="nowTimestamp"></app-single-date-picker>
       <!-- <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search> -->
     </div>
   </div>
