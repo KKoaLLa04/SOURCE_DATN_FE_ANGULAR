@@ -9,10 +9,10 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
-import { NoteMarkService } from '../../layout_staff/services/note-mark.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ActivatedRoute } from '@angular/router';
 import { SubjectService } from '../../layout_staff/services/subject.service';
+import { NoteMarkParentService } from '../services/note-mark-parent.service';
 
 @Component({
   selector: 'app-note-mark-detail-parent',
@@ -21,7 +21,6 @@ import { SubjectService } from '../../layout_staff/services/subject.service';
   standalone: true,
   imports: [
     CommonModule,
-    PaginationComponent,
     NgFor,
     NgIf,
     NoDataComponent,
@@ -44,7 +43,7 @@ dataList: any;
   ];
   constructor(
     private globalStore: GlobalStore,
-    private noteMarkService: NoteMarkService,
+    private noteMarkParentService: NoteMarkParentService,
     private showMessageService: ShowMessageService,
     private route: ActivatedRoute,
     private subjectService: SubjectService
@@ -92,13 +91,9 @@ dataList: any;
     this.globalStore.isLoading = true;
     let dataRequest = {
       school_year_id: localStorage.getItem('SchoolYearFirst'),
-      size: this.pageSize,
-      page: this.pageIndex,
-      search: this.keyWord,
-      subject_id: this.subject_id,
-      class_id: this.classId
+      student_id: localStorage.getItem('child_id'),
     }
-    this.noteMarkService.getListNoteMarkToSubject(dataRequest).subscribe((res: any) => {
+    this.noteMarkParentService.getListNoteMark(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       // this.collectionSize = res?.data.totalItems;
       this.globalStore.isLoading = false;
@@ -137,38 +132,6 @@ dataList: any;
         newPoint: value
       })
     }
-  }
-
-  onCallApiUpdatePoints(item: any){
-    let dataPoints = [];
-    item.points.map((data: any) => {
-      dataPoints.push({
-        examPeriodId: data.exam_period_id,
-        students: [
-          {
-            studentId: item.id,
-            point: data.newPoint ? data.newPoint : data.point
-          }
-        ]
-      })
-    })
-
-    let dataRequest: any = {
-      classId: this.classId,
-      subjectId: this.subject_id,
-      data: dataPoints
-    }
-
-    this.globalStore.isLoading = true;
-
-    this.noteMarkService.updateNoteMark(dataRequest).subscribe((res: any) => {
-      item.points.isEdit = false;
-      this.showMessageService.success("Cập nhật điểm số mới thành công");
-      this.getListNoteMark();
-    }, (err) =>{
-      this.globalStore.isLoading = false;
-      // this.showMessageService.error(err);
-    })
   }
 
   findPoint(points: any[], examPeriodId: number): string | number {
