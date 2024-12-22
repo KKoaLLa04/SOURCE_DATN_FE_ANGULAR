@@ -15,7 +15,15 @@ export class ConfigTimetableService {
     return this.http.get(`${environment.apiUrl}/manager/timetable/config`)
   }
 
+  getListTimetableSubjectConfig(){
+    return this.http.get(`${environment.apiUrl}/manager/timetable/subject-config`)
+  }
+
   updateTimetable(data: any){
     return this.http.post(`${environment.apiUrl}/manager/timetable/edit-config`, data)
+  }
+
+  updateTimetableSubject(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/timetable/edit-subject-config`, data)
   }
 }

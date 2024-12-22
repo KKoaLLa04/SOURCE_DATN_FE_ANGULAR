@@ -49,4 +49,22 @@
   <div class="d-flex justify-content-end mt-10">
     <app-button [text]="'Lưu'" (onClick)="changeDataSubmitFormat()"></app-button>
   </div>
+
+  <div class="border-custom my-10"></div>
+  <div>
+    <h3>Cấu hình số tiết theo môn học</h3>
+    <div class="row">
+      <div class="col-4" *ngFor="let item of dataConfigSubject">
+        <p class="d-flex align-items-center justify-content-between">
+          <span>Tên môn học: <b class="text-color-azure">{{item.subject_name}}</b></span>
+          <app-input [width]="'w-150px'" [placeholder]="'Nhập số tiết'" class="ms-5" [value]="item?.quantity" (valueChange)="validateSubmitSubjectConfig($event, item)"></app-input>
+        </p>
+        <p *ngIf="item.isValidate" class="text-danger fst-italic">{{item.isValidate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-10">
+    <app-button [text]="'Lưu'" (onClick)="submitFormChangeSubject()" [disabled]="!flag"></app-button>
+  </div>
 </div>

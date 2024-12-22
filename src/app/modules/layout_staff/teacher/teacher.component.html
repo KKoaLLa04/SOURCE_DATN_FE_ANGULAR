@@ -83,7 +83,7 @@
                 action: item.id,
                 permission: '',
                 data: item,
-                isHide: item.userAccessType == 1
+                isHide: item.userAccessType != 2
               },
             ]" (action)="handleAction($event)"></app-context-menu>
           </td>

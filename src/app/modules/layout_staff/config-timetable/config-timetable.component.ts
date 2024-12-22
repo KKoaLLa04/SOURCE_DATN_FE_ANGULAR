@@ -20,7 +20,9 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 })
 export class ConfigTimetableComponent implements OnInit {
   dataList: any = [];
+  dataConfigSubject: any = [];
   dataSubmit: any = [];
+  flag: boolean = true;
   constructor(
     private configTimetableSerivce: ConfigTimetableService,
     private globalStore: GlobalStore,
@@ -29,6 +31,19 @@ export class ConfigTimetableComponent implements OnInit {
 
   ngOnInit() {
     this.getListTimetable();
+    this.getListTimetableSubjectConfig();
+  }
+
+  getListTimetableSubjectConfig(): void{
+    this.globalStore.isLoading = true;
+    this.configTimetableSerivce.getListTimetableSubjectConfig().subscribe((res: any) => {
+      console.log(res);
+      this.dataConfigSubject = res?.data;
+      this.globalStore.isLoading = false;
+    }, (err) =>{
+      this.globalStore.isLoading = false;
+      this.showMessageService.error(err);
+    })
   }
 
   getListTimetable(): void{
@@ -69,8 +84,8 @@ export class ConfigTimetableComponent implements OnInit {
     this.dataList.map((item) => {
       item.periods.map((data: any) => {
         this.dataSubmit.push({
-          period: data.period,
-          time: data.time,
+          period: data.time,
+          time: data.period,
           from_time: data.from_time,
           to_time: data.to_time,
         })
@@ -90,6 +105,48 @@ export class ConfigTimetableComponent implements OnInit {
       this.globalStore.isLoading = false;
       this.showMessageService.success("Cập nhật thời gian tiết học thành công");
     }, (err) =>{
+      this.globalStore.isLoading = false;
+      this.showMessageService.error(err);
+    })
+  }
+
+  validateSubmitSubjectConfig(value: any, item: any){
+    if(value < 1 || value > 10){
+      item.isValidate = "Số tiết trong môn học không được lớn hơn 10 và nhỏ hơn 1"
+      this.flag = false;
+    }else if(isNaN(Number(value))){
+      item.isValidate = "Số tiết trong môn học phải là kiểu số"
+      this.flag = false;
+    }else{
+      item.isValidate = ""
+      this.flag = true;
+    }
+
+    if(!item.isValidate){
+      item.quantity = value;
+    }
+  }
+
+  submitFormChangeSubject(){
+    this.globalStore.isLoading = true;
+    console.log(this.dataConfigSubject);
+    let dataSubmit = [];
+    this.dataConfigSubject.map((item) => {
+      dataSubmit.push({
+        id: item.subjectTimetableConfigId,
+        quantity: item.quantity
+      })
+    })
+    let dataRequest = {
+      data: dataSubmit
+    }
+
+    this.configTimetableSerivce.updateTimetableSubject(dataRequest).subscribe((res: any) => {
+      this.globalStore.isLoading = false;
+      dataSubmit = [];
+      this.showMessageService.success("Cập nhật số tiết theo môn học thành công");
+    }, (err) =>{
+      dataSubmit = [];
       this.globalStore.isLoading = false;
       this.showMessageService.error(err);
     })

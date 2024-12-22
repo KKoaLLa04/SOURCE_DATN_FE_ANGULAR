@@ -62,21 +62,24 @@ export class ModalAssignSubjectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDataForm();
-    this.getListSubject();
     this.dataFromParent = this.dataModal.dataFromParent;
+    if(this.dataFromParent){
+      this.getListSubjectClassStudy();
+    }
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
   }
 
 
-  getDataForm(): void{
+  getDataTeacherToSubject(subjectId: any): void{
     this.globalStore.isLoading = true;
-    this.classStudyService.getListTeacherForSubject().subscribe((res: any) => {
-      console.log(res);
-      res.data.map((item) => {
+    let dataRequest = {
+      subject_id: subjectId
+    }
+    this.classStudyService.getListTeacherTosubject(dataRequest).subscribe((res: any) => {
+      res?.data?.map((item) => {
         this.optionTeachers.push({
-          label: item.name,
+          label: item.fullname,
           value: item.id
         })
       })
@@ -87,14 +90,22 @@ export class ModalAssignSubjectComponent implements OnInit {
     })
   }
 
-  getListSubject(){
+  onChangeSubjectSelect(subjectId: any): void{
+    this.getDataTeacherToSubject(subjectId);
+  }
+
+
+  getListSubjectClassStudy(){
+    let dataRequest = {
+      class_id: Number(this.dataFromParent.classId)
+    }
     this.globalStore.isLoading = true;
-    this.subjectService.getListSubject().subscribe((res: any) => {
+    this.classStudyService.getListSubjectClassStudy(dataRequest).subscribe((res: any) => {
       console.log(res);
-      res.data.map((item) => {
+      res.data?.subjects?.map((item) => {
         this.optionSubjects.push({
-          label: item.subjectName,
-          value: item.subject_id
+          label: item.fullname,
+          value: item.id
         })
       })
 

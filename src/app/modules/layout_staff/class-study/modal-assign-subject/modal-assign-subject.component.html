@@ -17,6 +17,7 @@
           [formControlNameInput]="'subject'"
           [validateForm]="validationMessages.subject"
           [disabled]="dataFromParent.nameForm == 'update'"
+          (changeSelect)="onChangeSubjectSelect($event)"
            ></app-select>
         </div>
       </div>
