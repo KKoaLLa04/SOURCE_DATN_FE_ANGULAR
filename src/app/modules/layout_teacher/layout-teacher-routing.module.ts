@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AttendanceComponent } from "./attendance/attendance.component";
 import { AttendanceSaveComponent } from "./attendance/attendance-save/attendance-save.component";
 import { StudentLayoutTeacherComponent } from "./student-layout-teacher/student-layout-teacher.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,15 @@ const routes: Routes = [
         path: "save/:classId",
         component: AttendanceSaveComponent
       }
+    ]
+  },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: '',
+        component: ProfileComponent
+      },
     ]
   },
 ];

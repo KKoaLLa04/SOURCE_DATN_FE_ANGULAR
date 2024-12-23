@@ -22,6 +22,7 @@ import { SchoolYearComponent } from "./school-year/school-year.component";
 import { ParentStaffComponent } from "./parent-staff/parent-staff.component";
 import { ParentDetailStaffComponent } from "./parent-staff/parent-detail-staff/parent-detail-staff.component";
 import { ConfigTimetableComponent } from "./config-timetable/config-timetable.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 const routes: Routes = [
   {
@@ -194,6 +195,15 @@ const routes: Routes = [
       {
         path: '',
         component: ConfigTimetableComponent
+      },
+    ]
+  },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: '',
+        component: ProfileComponent
       },
     ]
   }

@@ -1,0 +1,108 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+
+  <div class="table table-responsive">
+    <h3 class="fs-30 text-color-azure fw-700 text-center">THÔNG TIN NGƯỜI DÙNG</h3>
+    <div class="my-10 border-custom"></div>
+    <div class="row m-0 p-0">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" />  Họ và tên</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.fullname" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon"/> Chủ nghiệm</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.classMainName ?? ''" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon"/> Môn dạy</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.teacherSubjectName ?? ''" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Mã tài khoản</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.code" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Email</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.email" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Giới tính</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.gender == 1 ? 'Nam' : 'Nữ'" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Ngày sinh</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.dob | formatTime" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Số điện thoại</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.phone" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Tên đăng nhập</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.username" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Địa chỉ</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.address" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" /> Chức vụ</div>
+            <div class="col-9">
+              <app-input [value]="'Giáo viên'" [color]="'text-danger'" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>

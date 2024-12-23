@@ -204,7 +204,7 @@ dataList: any = [];
       keyword: this.keyWord,
       pageIndex: this.pageIndex,
       pageSize: this.pageSize,
-      // classId: localStorage.getItem("classId")
+      class_id: localStorage.getItem("classIdTeacher")
     }
 
     this.studentLayoutTeacherService.getListStudent(dataRequest).subscribe((res: any) => {

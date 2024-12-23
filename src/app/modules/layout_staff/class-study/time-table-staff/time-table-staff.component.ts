@@ -10,6 +10,7 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 import { TIME_TABLE_STRUCT, timeTableOptionSubject } from 'src/app/_shared/utils/constant';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
+import { Select2Component } from 'src/app/_shared/components/select-2/select-2.component';
 
 @Component({
   selector: 'app-time-table-staff',
@@ -22,7 +23,8 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
     SelectComponent,
     ButtonComponent,
     ButtonBackComponent,
-    RouterLink
+    RouterLink,
+    Select2Component
   ]
 })
 export class TimeTableStaffComponent implements OnInit {
@@ -34,229 +36,24 @@ export class TimeTableStaffComponent implements OnInit {
   dataOptionsChecked: any = [];
   updatedOptions: any[] = [];
   accessType: any = 1;
+  dataListMorning: any = []
+  dataListAfternoon: any = [];
+  periods: any = [1,2,3,4,5];
   constructor(
     private route: ActivatedRoute,
     private globalStore: GlobalStore,
     private classStudyService: ClassStudyService,
-    private subjectService: SubjectService,
     private showMessageService: ShowMessageService
   ) { }
 
   ngOnInit() {
-    // this.getListSubject();
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('classId');
-      if(localStorage.getItem("classId")){
-        this.classId = localStorage.getItem("classId");
-        this.accessType = localStorage.getItem("access_type");
-      }else{
-        this.getListStudentClassDetail();
-      }
+      console.log(this.classId);
       this.getListTimetable();
-      // this.createNewSubjectOption();
     });
     
   }
-
-  // createNewSubjectOption(){
-  //   for(let i =0; i< 35; i++){
-  //     this.optionSubjectArray.push(this.optionSubject);
-  //     this.optionSubjectArrayAfternoon.push(this.optionSubject);
-  //   }
-  // }
-
-  onChangeDataSubmit(value: any, calender, date,lesson){
-    if(calender == "sang"){
-      if(date == "hai"){
-        if(lesson == 1){
-          this.dataRequest.sang.hai.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.hai.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.hai.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.hai.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.hai.tiet5 = value;
-        }
-      }else if(date == "ba"){
-        if(lesson == 1){
-          this.dataRequest.sang.ba.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.ba.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.ba.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.ba.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.ba.tiet5 = value;
-        }
-      }else if(date == "tu"){
-        if(lesson == 1){
-          this.dataRequest.sang.tu.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.tu.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.tu.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.tu.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.tu.tiet5 = value;
-        }
-      }else if(date == "nam"){
-        if(lesson == 1){
-          this.dataRequest.sang.nam.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.nam.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.nam.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.nam.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.nam.tiet5 = value;
-        }
-      }else if(date == "sau"){
-        if(lesson == 1){
-          this.dataRequest.sang.sau.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.sau.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.sau.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.sau.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.sau.tiet5 = value;
-        }
-      }else if(date == "bay"){
-        if(lesson == 1){
-          this.dataRequest.sang.bay.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.bay.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.bay.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.bay.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.bay.tiet5 = value;
-        }
-      }else if(date == "chunhat"){
-        if(lesson == 1){
-          this.dataRequest.sang.chunhat.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.sang.chunhat.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.sang.chunhat.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.sang.chunhat.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.sang.chunhat.tiet5 = value;
-        }
-      }
-    }
-
-    if(calender == "chieu"){
-      if(date == "hai"){
-        if(lesson == 1){
-          this.dataRequest.chieu.hai.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.hai.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.hai.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.hai.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.hai.tiet5 = value;
-        }
-      }else if(date == "ba"){
-        if(lesson == 1){
-          this.dataRequest.chieu.ba.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.ba.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.ba.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.ba.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.ba.tiet5 = value;
-        }
-      }else if(date == "tu"){
-        if(lesson == 1){
-          this.dataRequest.chieu.tu.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.tu.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.tu.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.tu.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.tu.tiet5 = value;
-        }
-      }else if(date == "nam"){
-        if(lesson == 1){
-          this.dataRequest.chieu.nam.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.nam.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.nam.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.nam.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.nam.tiet5 = value;
-        }
-      }else if(date == "sau"){
-        if(lesson == 1){
-          this.dataRequest.chieu.sau.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.sau.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.sau.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.sau.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.sau.tiet5 = value;
-        }
-      }else if(date == "bay"){
-        if(lesson == 1){
-          this.dataRequest.chieu.bay.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.bay.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.bay.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.bay.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.bay.tiet5 = value;
-        }
-      }else if(date == "chunhat"){
-        if(lesson == 1){
-          this.dataRequest.chieu.chunhat.tiet1 = value;
-        }else if(lesson == 2){
-          this.dataRequest.chieu.chunhat.tiet2 = value;
-        }else if(lesson == 3){
-          this.dataRequest.chieu.chunhat.tiet3 = value;
-        }else if(lesson == 4){
-          this.dataRequest.chieu.chunhat.tiet4 = value;
-        }else if(lesson == 5){
-          this.dataRequest.chieu.chunhat.tiet5 = value;
-        }
-      }
-
-    }
-    console.log(this.dataRequest);
-  }
-
-  mapItemTimetable(value, calender, lesson, options){
-    // if(calender == "sang"){
-    //   if(lesson=="chunhat"){
-    //     value.sang.chunhat.map((item) => {
-    //       let findIndex = options.findIndex((option) => option.value == item.id);
-    //       if(findIndex != -1){
-    //       }
-    //     })
-    //   }
-    // }
-  }
-
   onClickSubmit(){
     this.globalStore.isLoading = true;
     let dataRequest = {
@@ -292,27 +89,24 @@ export class TimeTableStaffComponent implements OnInit {
     })
   }
 
-  updateSelectedOptions(data: any): void {
-    this.updatedOptions = this.optionSubjectArray.map(option => {
-      const isSelected = data.some(d => d.value === option.value && d.selected === true);
-      return { ...option, selected: isSelected };
-    });
-  }
+  onEditTimetable(value: any, item: any){
+    const dayData = this.optionSubject.find(subject => subject?.data?.subject_id == value);
+    let dataRequest = {
+      classId: this.classId,
+      userId: dayData?.data?.user_id,
+      timetableId: item.id,
+      subjectId: dayData?.data?.subject_id,
+      classSubjectTeacherId: dayData?.data?.class_subject_teacher_id
+    }
 
-  private getListSubject(): void{
     this.globalStore.isLoading = true;
-    this.subjectService.getListSubject().subscribe((res: any) => {
-      console.log(res);
-      res.data.map((item) => {
-        this.optionSubject.push({
-          label: item.subjectName,
-          value: item.subject_id,
-        })
-      })
+    this.classStudyService.updateTimetable(dataRequest).subscribe((res) => {
       this.globalStore.isLoading = false;
-    }, (err) =>{
+      item.validateConfig = ''
+      this.showMessageService.success("Cập nhật thời khóa biểu thành công!");
+    }, (err) => {
+      item.validateConfig = err.msg
       this.globalStore.isLoading = false;
-      // this.showMessageSerivce.error(err);
     })
   }
 
@@ -323,13 +117,26 @@ export class TimeTableStaffComponent implements OnInit {
     }
     this.classStudyService.getTimetableData(dataRequest).subscribe((res: any) => {
       // this.dataList = res;
-      console.log(res);
-      this.dataOptionsChecked = res.data;
-      console.log(this.dataOptionsChecked);
+      res?.data?.subject_teachers?.map((item) => {
+        if(item.subject_id !=0){
+          this.optionSubject.push({
+            label: item.subject_name + ' - ' + item.user_name,
+            value: item.subject_id,
+            data: item
+          })
+        }
+      })
+      this.dataListMorning = res?.data?.timetables[0]
+      this.dataListAfternoon = res?.data?.timetables[1]
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;
       // this.showMessageSerivce.error(err);
     })
+  }
+
+  getPeriodData(day: number, period: number) {
+    const dayData = this.dataListMorning.days.find(d => d.day == day);
+    return dayData?.period.find(p => p.period == period);
   }
 }

@@ -12,6 +12,6 @@ constructor(
   ) { }
 
   getListStudent(data: any){
-    return this.http.get(`${environment.apiUrl}/teacher/student/${data.classId}`, {params: {...data}});
+    return this.http.get(`${environment.apiUrl}/teacher/student/${data.class_id}`, {params: {...data}});
   }
 }

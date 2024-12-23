@@ -18,16 +18,16 @@
          id="kt_drawer_chat_toggle">
     <!-- <span class="svg-icon"
           [ngClass]="toolbarButtonIconSizeClass"><img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure"></span> -->
-          <div class="dropdown">
-            <button class="border-custom dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure">
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li *ngFor="let item of dataList?.data"><a class="dropdown-item" href="#">{{item?.data?.title}} - {{item?.created_at | formatTime: "hh:mm dd-MM-yyyy"}}</a></li>
-              <li *ngIf="!dataList?.data?.length">Bạn không có thông báo mới!</li>
-            </ul>
-            </div>
-          </div>
+      <div class="dropdown">
+        <button class="border-custom dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="{{iconSvg.noti1_icon}}" alt="" class="svg-icon filter-color-azure">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li *ngFor="let item of dataList?.data"><a class="dropdown-item" href="#">{{item?.data?.title}} - {{item?.created_at | formatTime: "hh:mm dd-MM-yyyy"}}</a></li>
+          <li *ngIf="!dataList?.data?.length">Bạn không có thông báo mới!</li>
+        </ul>
+      </div>
+    </div>  
     <!-- end::Menu wrapper -->
   </div>
 
@@ -38,7 +38,16 @@
 
   <!-- Hello User -->
   <div class="d-flex align-items-center me-2" [ngClass]="toolbarButtonMarginClass">
-    <span class="fw-600 text-color-black fs-14 me-2 cursor-pointer" (click)="onClickLogout()">Đăng xuất</span>
+    <!-- <span class="fw-600 text-color-black fs-14 me-2 cursor-pointer" (click)="onClickLogout()">Đăng xuất</span> -->
+    <div class="dropdown">
+      <button class="border-custom dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Chào bạn {{fullname}}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item fs-12 px-4 pb-4" href="#" [routerLink]="linkProfile">Thông tin tài khoản</a></li>
+        <li><span class="dropdown-item fs-12" (click)="onClickLogout()">Đăng xuất</span></li>
+      </ul>
+    </div>
     <span class="fw-700 text-color-black fs-14">{{user?.fullName}}</span>
   </div>
 

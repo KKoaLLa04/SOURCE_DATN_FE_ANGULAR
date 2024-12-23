@@ -1,0 +1,150 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+
+  <div class="table table-responsive">
+    <h3 class="fs-30 text-color-azure fw-700 text-center mt-5">THÔNG TIN CỦA BẠN</h3>
+    <div class="my-10 border-custom"></div>
+    <div class="row m-0 p-0">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Họ và tên</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.fullname" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Mã tài khoản</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.code" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Email</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.email" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Giới tính</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.gender == 1 ? 'Nam' : 'Nữ'" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Ngày sinh</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.dob | formatTime" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Số điện thoại</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.phone" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Tên đăng nhập</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.username" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Địa chỉ</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.address" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3">Chức vụ</div>
+            <div class="col-9">
+              <app-input [value]="'Phụ huynh'" [color]="'text-color-azure'" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="my-10 border-custom"></div>
+
+  <ng-container *ngIf="studentInformation">
+    <h3 class="fs-30 text-color-azure fw-700 text-center mb-10">THÔNG TIN CON CỦA BẠN</h3>
+    <div class="row">
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Họ tên</div>
+          <div class="col-9">
+            <app-input [value]="studentInformation.fullname" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">lớp học</div>
+          <div class="col-9">
+            <app-input [value]="studentInformation.className" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Mã học sinh</div>
+          <div class="col-9">
+            <app-input [value]="studentInformation.student_code" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Ngày sinh</div>
+          <div class="col-9">
+            <app-input [value]="studentInformation.dob | formatTime" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Giới tính</div>
+          <div class="col-9">
+            <app-input [value]="studentInformation.gender == 1 ? 'Nam' : 'Nữ'" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3">Địa chỉ</div>
+          <div class="col-9">
+            <app-input [value]="studentInformation.address" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

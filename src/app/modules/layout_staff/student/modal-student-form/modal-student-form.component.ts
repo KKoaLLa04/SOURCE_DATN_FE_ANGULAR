@@ -43,16 +43,13 @@ export class ModalStudentFormComponent implements OnInit {
     requestLayout: {}
   };
   isUpdate: boolean = false;
-  nowTimestamp: number = new Date().getTime()/1000 - 86400;
+  nowTimestamp: any = new Date().getTime()/1000 - 86400 - 86400;
+  disabledOptionClasses: boolean = false;
   optionStatus: Select2[] = [
     {
       label: "Chọn trạng thái lớp học",
       value: '',
       selected: true
-    },
-    {
-      label: "Nghỉ học",
-      value: statusClassStudentEnum.LEAVE
     },
     {
       label: "Đang học",
@@ -98,10 +95,36 @@ export class ModalStudentFormComponent implements OnInit {
   ngOnInit(): void {
     this.getListClass();
     this.dataFromParent = this.dataModal.dataFromParent;
-
+    if(this.dataFromParent.nameForm === "update"){
+      this.optionStatus.push(
+        {
+          label: "Nghỉ học",
+          value: statusClassStudentEnum.LEAVE
+        },
+      )
+    }
     console.log(this.dataFromParent)
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
+  }
+
+  onChangeSelectStatus(value: any): void{
+    this.optionClasses = [
+      {
+        label: "Chọn lớp học",
+        value: ''
+      }
+    ]
+    if(value == statusClassStudentEnum.NOT_YET_CLASS){
+      this.disabledOptionClasses = true;
+      this.formGroup.get('class').value('');
+    }else if(value == statusClassStudentEnum.LEAVE){
+      this.disabledOptionClasses = true;
+      this.getListClass();
+    }else{
+      this.disabledOptionClasses = false;
+      this.getListClass();
+    }
   }
 
   getListClass(){
@@ -171,21 +194,21 @@ export class ModalStudentFormComponent implements OnInit {
         // form update
         dataInput = {
           id: this.dataFromParent.data.id,
-          fullname: valueForm.name.trim(),
-          address: valueForm.address.trim(),
+          fullname: valueForm.name,
+          address: valueForm.address,
           dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),
           gender: valueForm.gender,
           status: valueForm.status,
-          class_id: valueForm.class,
+          class_id: valueForm.status == statusClassStudentEnum.NOT_YET_CLASS ? '' : valueForm.class,
         };
       }else{
         dataInput = {
-          fullname: valueForm.name.trim(),
-          address: valueForm.address.trim(),
+          fullname: valueForm.name,
+          address: valueForm.address,
           dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),
           gender: valueForm.gender,
           status: valueForm.status,
-          class_id: valueForm.class,
+          class_id: valueForm.status == statusClassStudentEnum.NOT_YET_CLASS ? '' : valueForm.class,
         };
       }
       this.globalStore.isLoading = true;

@@ -50,7 +50,7 @@ dataList: any;
   ) { }
 
   ngOnInit() {
-    // this.getListSubject();
+    this.getListSubject();
     // this.route.paramMap.subscribe((params) => {
       
     // });
