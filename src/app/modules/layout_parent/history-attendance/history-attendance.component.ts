@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
@@ -9,10 +9,11 @@ import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
-import { AttendanceService } from '../../layout_staff/services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessagingService } from 'src/firebase/messaging-service';
+import { AttendanceParentService } from '../services/attendance-parent.service';
+import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 
 @Component({
   selector: 'app-history-attendance',
@@ -24,7 +25,9 @@ import { MessagingService } from 'src/firebase/messaging-service';
     SelectComponent,
     InputComponent,
     ButtonComponent,
-    FormatTimePipe
+    FormatTimePipe,
+    NoDataComponent,
+    NgIf
   ],
   standalone: true
 })
@@ -52,32 +55,24 @@ dataList: any = [];
   attendanceEnum = StatusStudent
   constructor(
     private globalStore: GlobalStore,
-    private attendanceSerivce: AttendanceService,
+    private attendanceParentService: AttendanceParentService,
     private showMessageSerivce: ShowMessageService,
     private route: ActivatedRoute,
     private messagingSerivce: MessagingService
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
-      this.attendanceId = params.get('attendanceId');
-      if(this.attendanceId){
-        this.getListStudentAttendance();
-      }
-    });
+    this.getHistoryAttendance();
   }
 
-  getListStudentAttendance(): void{
+  getHistoryAttendance(): void{
     this.globalStore.isLoading = true;
 
     let dataRequest = {
-      date: this.date,
       studentId: localStorage.getItem('child_id'),
-      
     }
 
-    this.attendanceSerivce.getListStudentAttendance(dataRequest).subscribe((res: any) => {
+    this.attendanceParentService.getListHistoryParent(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res);
       res.data?.data?.map((item) => {
@@ -95,35 +90,6 @@ dataList: any = [];
 
   onChangeNote(item: any, value: string){
     item.note = value;
-  }
-
-  onSubmit(){
-    this.globalStore.isLoading = true;
-
-    let rollCallData = [];
-    this.dataList.data?.data?.map((item) => {
-      rollCallData.push({
-        studentID: item.id,
-        status: item.statusValue ? item.statusValue : item.status,
-        note: item.note,
-      })
-    })
-    let dataRequest = {
-      rollcallData: rollCallData,
-      date: this.dateTimestampNow + 25200,
-      diemdanh_id: this.attendanceId
-    }
-    this.attendanceSerivce.attendanced(dataRequest, this.classId).subscribe((res) => {
-      this.globalStore.isLoading = false;
-
-      this.messagingSerivce.receiveMessaging();
-      let message = this.messagingSerivce.currentMessage
-
-      this.showMessageSerivce.success("Điểm danh thành công!");
-    }, (err) => {
-      this.globalStore.isLoading = false;
-      this.showMessageSerivce.success("Điểm danh thành công!");
-    })
   }
 
 }

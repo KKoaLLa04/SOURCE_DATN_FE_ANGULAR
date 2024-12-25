@@ -15,6 +15,8 @@ import { StudentLayoutTeacherService } from '../services/student-layout-teacher.
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IProperty } from 'src/app/_models/context-menu.interface';
+import { ModalStudentFormTeacherComponent } from './modal-student-form-teacher/modal-student-form-teacher.component';
+import { ModalLockUnlockParentLayoutTeacherComponent } from './modal-lock-unlock-parent-layout-teacher/modal-lock-unlock-parent-layout-teacher.component';
 
 @Component({
   selector: 'app-student-layout-teacher',
@@ -69,18 +71,13 @@ dataList: any = [];
   }
 
   onChangeStudentDetailPage(id: any){
-    this.router.navigateByUrl('staff/student/detail/'+id);
-  }
-
-  onChangeAssignPage(): void{
-    this.router.navigateByUrl('staff/subject/assign');
+    this.router.navigateByUrl('teacher/student/detail/'+id);
   }
 
   handleAction(event: IProperty): void{
     const actionHandlers = {
       '1': () => this.onChangeStudentDetailPage(event.value),
       '2': () => this.update(event.data),
-      '3': () => this.changePassWordTeacher()
     };
 
     const handler = actionHandlers[event.type];
@@ -90,104 +87,70 @@ dataList: any = [];
   }
 
   update(item: any): void{
-    // const modalRef = this.modalService.open(ModalStudentFormComponent, {
-    //   scrollable: true,
-    //   windowClass: 'myCustomModalClass',
-    //   keyboard: false,
-    //   backdrop: 'static', // prevent click outside modal to close modal
-    //   centered: false, // vị trí hiển thị modal ở giữa màn hình
-    //   size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
-    // });
+    const modalRef = this.modalService.open(ModalStudentFormTeacherComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
+    });
 
-    // let data = {
-    //   titleModal: 'Chỉnh sửa thông tin học sinh',
-    //   btnCancel: 'btnAction.cancel',
-    //   btnAccept: 'btnAction.save',
-    //   isHiddenBtnClose: false, // hidden/show btn close modal
-    //   dataFromParent: {
-    //     data: item,
-    //     service: this.studentService,
-    //     apiSubmit: (dataInput: any) => this.studentService.updateStudentInformation(dataInput),
-    //     nameForm: 'update',
-    //   },
-    // };
+    let data = {
+      titleModal: 'Chỉnh sửa thông tin học sinh',
+      btnCancel: 'btnAction.cancel',
+      btnAccept: 'btnAction.save',
+      isHiddenBtnClose: false, // hidden/show btn close modal
+      dataFromParent: {
+        data: item,
+        service: this.studentLayoutTeacherService,
+        apiSubmit: (dataInput: any) => this.studentLayoutTeacherService.updateStudentInformation(dataInput),
+        nameForm: 'update',
+      },
+    };
 
-    // modalRef.componentInstance.dataModal = data;
-    // modalRef.result.then(
-    //   (result: boolean) => {
-    //     if (result) {
-    //       this.getListStudent();
-    //     }
-    //   },
-    //   (reason) => { }
-    // );
+    modalRef.componentInstance.dataModal = data;
+    modalRef.result.then(
+      (result: boolean) => {
+        if (result) {
+          this.getListStudent();
+        }
+      },
+      (reason) => { }
+    );
   }
 
   create() {
-    // const modalRef = this.modalService.open(ModalStudentFormComponent, {
-    //   scrollable: true,
-    //   windowClass: 'myCustomModalClass',
-    //   keyboard: false,
-    //   backdrop: 'static', // prevent click outside modal to close modal
-    //   centered: false, // vị trí hiển thị modal ở giữa màn hình
-    //   size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
-    // });
+    const modalRef = this.modalService.open(ModalStudentFormTeacherComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
+    });
 
-    // let data = {
-    //   titleModal: 'Thêm mới học sinh',
-    //   btnCancel: 'btnAction.cancel',
-    //   btnAccept: 'btnAction.save',
-    //   isHiddenBtnClose: false, // hidden/show btn close modal
-    //   dataFromParent: {
-    //     service: this.studentService,
-    //     apiSubmit: (dataInput: any) => this.studentService.createNewStudent(dataInput),
-    //     nameForm: 'create',
-    //   },
-    // };
+    let data = {
+      titleModal: 'Thêm mới học sinh',
+      btnCancel: 'btnAction.cancel',
+      btnAccept: 'btnAction.save',
+      isHiddenBtnClose: false, // hidden/show btn close modal
+      dataFromParent: {
+        service: this.studentLayoutTeacherService,
+        apiSubmit: (dataInput: any) => this.studentLayoutTeacherService.createNewStudent(dataInput),
+        nameForm: 'create',
+      },
+    };
 
-    // modalRef.componentInstance.dataModal = data;
-    // modalRef.result.then(
-    //   (result: boolean) => {
-    //     if (result) {
-    //       // console.log(result)
-    //       this.getListStudent();
-    //     }
-    //   },
-    //   (reason) => { }
-    // );
-  }
-
-  changePassWordTeacher(){
-    // const modalRef = this.modalService.open(ModalChangePasswordTeacherComponent, {
-    //   scrollable: true,
-    //   windowClass: 'myCustomModalClass',
-    //   keyboard: false,
-    //   backdrop: 'static', // prevent click outside modal to close modal
-    //   centered: false, // vị trí hiển thị modal ở giữa màn hình
-    //   size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
-    // });
-
-    // let data = {
-    //   titleModal: 'Đổi mật khẩu',
-    //   btnCancel: 'btnAction.cancel',
-    //   btnAccept: 'btnAction.save',
-    //   isHiddenBtnClose: false, // hidden/show btn close modal
-    //   dataFromParent: {
-    //     service: this.studentService,
-    //     apiSubmit: (dataInput: any) => this.studentService.createNewStudent(dataInput),
-    //     nameForm: 'create',
-    //   },
-    // };
-
-    // modalRef.componentInstance.dataModal = data;
-    // modalRef.result.then(
-    //   (result: boolean) => {
-    //     if (result) {
-    //       console.log(result)
-    //     }
-    //   },
-    //   (reason) => { }
-    // );
+    modalRef.componentInstance.dataModal = data;
+    modalRef.result.then(
+      (result: boolean) => {
+        if (result) {
+          this.getListStudent();
+        }
+      },
+      (reason) => { }
+    );
   }
 
   onSearch(value: string): void{

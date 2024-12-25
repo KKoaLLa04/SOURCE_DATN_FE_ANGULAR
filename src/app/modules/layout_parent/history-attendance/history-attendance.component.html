@@ -50,8 +50,6 @@
       </tbody>
     </table>
 
-    <div class="d-flex justify-content-end">
-      <app-button [text]="'Lưu'" [width]="'w-100px'" (onClick)="onSubmit()"></app-button>
-    </div>
+    <app-no-data *ngIf="!dataList?.data?.length"></app-no-data>
   </div>
 </div>

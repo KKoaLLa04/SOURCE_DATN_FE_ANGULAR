@@ -47,56 +47,38 @@ export class TimeTableStaffComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (!sessionStorage.getItem('reloaded')) {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    } else {
+      sessionStorage.removeItem('reloaded');
+    } // giai phap tam thoi =))
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('classId');
-      console.log(this.classId);
+      console.log(this.optionSubject)
       this.getListTimetable();
     });
-    
-  }
-  onClickSubmit(){
-    this.globalStore.isLoading = true;
-    let dataRequest = {
-      classId: this.classId,
-      sang: this.dataRequest.sang,
-      chieu: this.dataRequest.chieu
-    }
-    this.classStudyService.createUpdateTimetable(dataRequest).subscribe((res: any) => {
-      this.showMessageService.success("Cập nhật thời khóa biểu thành công!");
-      this.globalStore.isLoading = false;
-    }, (err) =>{
-      this.globalStore.isLoading = false;
-      // this.showMessageSerivce.error(err);
-    })
-  }
-
-  getListStudentClassDetail(){
-    this.globalStore.isLoading = true;
-    let dataRequest = {
-      class_id: this.classId,
-    }
-    this.classStudyService.getListDetailAClass(dataRequest).subscribe((res: any) => {
-      res?.data?.classSubject.map((item) => {
-        this.optionSubject.push({
-          label: item.subjectName,
-          value: item.teacher?.classSubjectTeacherId,
-        })
-      })
-      this.globalStore.isLoading = false;
-    }, (err) =>{
-      this.globalStore.isLoading = false;
-      this.showMessageService.error(err);
-    })
   }
 
   onEditTimetable(value: any, item: any){
     const dayData = this.optionSubject.find(subject => subject?.data?.subject_id == value);
-    let dataRequest = {
-      classId: this.classId,
-      userId: dayData?.data?.user_id,
-      timetableId: item.id,
-      subjectId: dayData?.data?.subject_id,
-      classSubjectTeacherId: dayData?.data?.class_subject_teacher_id
+    let dataRequest;
+    if(value){
+      dataRequest = {
+        classId: this.classId,
+        userId: dayData?.data?.user_id,
+        timetableId: item.id,
+        subjectId: dayData?.data?.subject_id,
+        classSubjectTeacherId: dayData?.data?.class_subject_teacher_id
+      }
+    }else{
+      dataRequest = {
+        classId: this.classId,
+        userId: 0,
+        timetableId: item.id,
+        subjectId: 0,
+        classSubjectTeacherId: 0
+      }
     }
 
     this.globalStore.isLoading = true;
@@ -115,8 +97,10 @@ export class TimeTableStaffComponent implements OnInit {
     let dataRequest = {
       classId: this.classId,
     }
+
     this.classStudyService.getTimetableData(dataRequest).subscribe((res: any) => {
       // this.dataList = res;
+      this.optionSubject = timeTableOptionSubject;
       res?.data?.subject_teachers?.map((item) => {
         if(item.subject_id !=0){
           this.optionSubject.push({
@@ -137,6 +121,11 @@ export class TimeTableStaffComponent implements OnInit {
 
   getPeriodData(day: number, period: number) {
     const dayData = this.dataListMorning.days.find(d => d.day == day);
+    return dayData?.period.find(p => p.period == period);
+  }
+
+  getPeriodDataAfternoon(day: number, period: number) {
+    const dayData = this.dataListAfternoon.days.find(d => d.day == day);
     return dayData?.period.find(p => p.period == period);
   }
 }

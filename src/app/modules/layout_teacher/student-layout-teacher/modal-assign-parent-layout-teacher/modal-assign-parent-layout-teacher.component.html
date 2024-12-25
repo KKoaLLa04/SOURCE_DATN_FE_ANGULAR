@@ -1,3 +1,4 @@
+
 <form action="" *transloco="let t; scope: 'role'">
   <div class="modal-header">
     <h5 class="title-modal-global text-center">{{dataModal?.titleModal}}</h5>
@@ -50,8 +51,8 @@
         </tbody>
       </table>
       <app-no-data *ngIf="!dataList?.total"></app-no-data>
-      <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
-        *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+      <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="dataList?.total"
+        *ngIf="dataList?.total > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
       </app-pagination>
     </div>
   </div>
@@ -59,7 +60,7 @@
     <app-button [width]="'w-80px'" [text]="'Hủy'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
     <app-button
     [width]="'w-80px'"
-    [text]="'Đồng ý'"
+    [text]="'Lưu'"
     [backgroundColor]="'bg-color-azure'"
     (click)="onClickSave()"
     [disabled]="!parentId"

@@ -5,6 +5,7 @@ import { TimeTableStaffComponent } from "../layout_staff/class-study/time-table-
 import { HistoryAttendanceComponent } from "./history-attendance/history-attendance.component";
 import { NoteMarkDetailParentComponent } from "./note-mark-detail-parent/note-mark-detail-parent.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { TimetableParentComponent } from "./timetable-parent/timetable-parent.component";
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: TimeTableStaffComponent
+        component: TimetableParentComponent
       }
     ]
   },

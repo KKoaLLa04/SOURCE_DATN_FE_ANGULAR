@@ -1,0 +1,26 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3 class="text-color-azure">Lịch dạy của bạn</h3>
+
+  <br/>
+  <div class="table table-responsive">
+      <table class="table table-custom">
+        <thead>
+          <tr class="text-color-white text-color-blue-dark">
+            <th class="w-15">STT</th>
+            <th class="w-14">Lớp học</th>
+            <th class="w-14">Môn học</th>
+            <th class="w-14">thời gian dạy</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr *ngFor="let item of dataList, let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.class_name}}</td>
+            <td>{{item.subject_name}}</td>
+            <td>{{item.timetable_day_name + ' - tiết ' + item.timetable_time + ' (' + item.timetable_from_time + ' - ' + item.timetable_to_time +')' }}</td>
+          </tr>          
+        </tbody>
+      </table>
+  </div>
+</div>

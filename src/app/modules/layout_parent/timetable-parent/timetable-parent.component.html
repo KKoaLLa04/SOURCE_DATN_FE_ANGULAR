@@ -1,0 +1,55 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Thời khóa biểu - Lớp: {{className}}</h3>
+
+  <br/>
+  <div class="table table-responsive">
+    <h3>Lịch sáng</h3>
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class="w-15">Tiết</th>
+          <th class="w-14">Thứ 2</th>
+          <th class="w-14">Thứ 3</th>
+          <th class="w-14">Thứ 4</th>
+          <th class="w-14">Thứ 5</th>
+          <th class="w-14">Thứ 6</th>
+          <th class="w-14">Thứ 7</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let period of periods, let i = index">
+          <td>Tiết {{ period }} <span class="text-danger">({{getConfigTimeMorning[i]?.fromTime + ' - ' + getConfigTimeMorning[i]?.toTime}})</span></td>
+          <td *ngFor="let dayData of dataListMorning.days">
+            <span>{{getPeriodData(dayData.day, period)?.subject_name}} <span *ngIf="getPeriodData(dayData.day, period)?.user_name">- {{getPeriodData(dayData.day, period)?.user_name}}</span></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-10"></div>
+    <h3>Lịch chiều</h3>
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class="w-15">Tiết</th>
+          <th class="w-14">Thứ 2</th>
+          <th class="w-14">Thứ 3</th>
+          <th class="w-14">Thứ 4</th>
+          <th class="w-14">Thứ 5</th>
+          <th class="w-14">Thứ 6</th>
+          <th class="w-14">Thứ 7</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let period of periods, let i = index">
+          <td>Tiết {{ period }} <span class="text-danger">({{getConfigTimeAfternoon[i]?.fromTime + ' - ' + getConfigTimeAfternoon[i]?.toTime}})</span></td>
+          <td *ngFor="let dayData of dataListAfternoon.days">
+            <span>{{getPeriodDataAfternoon(dayData.day, period)?.subject_name}} <span *ngIf="getPeriodDataAfternoon(dayData.day, period)?.user_name">- {{getPeriodDataAfternoon(dayData.day, period)?.user_name}}</span></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
