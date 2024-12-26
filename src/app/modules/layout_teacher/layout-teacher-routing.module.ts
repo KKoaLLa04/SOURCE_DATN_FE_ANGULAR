@@ -6,6 +6,8 @@ import { StudentLayoutTeacherComponent } from "./student-layout-teacher/student-
 import { ProfileComponent } from "./profile/profile.component";
 import { TimetableTeacherComponent } from "./timetable-teacher/timetable-teacher.component";
 import { StudentDetailTeacherComponent } from "./student-layout-teacher/student-detail-teacher/student-detail-teacher.component";
+import { ClassStudyTeacherComponent } from "./class-study-teacher/class-study-teacher.component";
+import { AttendanceDetailComponent } from "./attendance/attendance-detail/attendance-detail.component";
 
 const routes: Routes = [
   {
@@ -16,7 +18,11 @@ const routes: Routes = [
         component: AttendanceComponent
       },
       {
-        path: "save/:classId",
+        path: 'detail/:classId',
+        component: AttendanceDetailComponent
+      },
+      {
+        path: "save/:classId/:attendanceId",
         component: AttendanceSaveComponent
       }
     ]
@@ -49,6 +55,15 @@ const routes: Routes = [
       {
         path: '',
         component: TimetableTeacherComponent
+      },
+    ]
+  },
+  {
+    path: 'class',
+    children: [
+      {
+        path: '',
+        component: ClassStudyTeacherComponent
       },
     ]
   },

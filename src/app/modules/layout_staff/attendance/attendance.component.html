@@ -1,14 +1,11 @@
-<div class="card card-flush shadow-sm p-0 h-full p-10">
+<!-- <div class="card card-flush shadow-sm p-0 h-full p-10">
   <h3>Điểm danh</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>
-      <!-- <span class="fw-600 me-4">Số lớp đã điểm danh: <span class="fw-700 text-color-green">{{dataList?.totalClassAttendanced}} lớp</span></span>
-      <span class="fw-600">Số lớp chưa điểm danh: <span class="fw-700 text-color-red">{{dataList?.totalClassNoAttendance}} lớp</span></span> -->
     </p>
     <div class="d-flex">
       <app-single-date-picker [maxDate]="nowTimestamp" class="me-4" (dataTimeOutput)="onSearchDate($event)" [currentDate]="nowTimestamp"></app-single-date-picker>
-      <!-- <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search> -->
     </div>
   </div>
 
@@ -18,7 +15,6 @@
         <tr>
           <th>STT</th>
           <th>Thông tin lớp</th>
-          <!-- <th>Ngày điểm danh</th> -->
           <th>Giáo viên chủ nhiệm</th>
           <th>Trạng thái</th>
           <th>Tiết - môn</th>
@@ -33,29 +29,6 @@
             <td [rowSpan]="item?.morning[0]?.length + item?.afternoon[0]?.length + (item?.morning[0]?.length ? 1 : 0) + (item?.afternoon[0]?.length ? 1 : 0)">
               <span>Tên lớp: {{item.className}}</span> <br/>
             </td>
-            <!-- <td [rowSpan]="item?.morning[0]?.length+1 + item?.afternoon[0]?.length+ (item?.morning[0]?.length ? 1 : 0) + (item?.afternoon[0]?.length ? 1 : 0)">
-              {{item.dateAttendanced | formatTime}}
-            </td> -->
-            <!-- <td [rowSpan]="item?.morning[0]?.length+1">
-              <span>{{item.fullname}}</span> <br/>
-              <span *ngIf="item.email">({{item.email}})</span>
-            </td> -->
-            <!-- <td>
-              <div appStatusClassAttendance [statusValue]="item.status"></div>
-              <span *ngIf="item.attendanceBy" class="text-color-red">Bởi: ({{item.attendanceBy}})</span> <br/>
-              <span *ngIf="item.attendanceAt">Lúc: ({{item.attendanceAt}})</span>
-            </td>
-            <td>
-              {{item.studentAttendanced}} / {{item.totalStudent}}
-            </td>
-            <td>
-              <app-button
-              [text]="'Điểm danh'"
-              [backgroundColor]="'bg-color-greenish-teal'"
-              [color]="'text-color-white'"
-              (onClick)="onChangeSaveAttendancePage(item.classId)"
-              ></app-button>
-            </td> -->
           </tr>
           <ng-container *ngFor="let data of item.morning[0]">
             <tr>
@@ -113,5 +86,64 @@
     <div *ngIf="!dataArray?.length">
       <app-no-data></app-no-data>
     </div>
+  </div>
+</div> -->
+
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Danh sách lớp học</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>Số lớp học: <span class="text-color-blue-light">{{dataList?.data?.totalItems}} lớp học</span></p>
+    <div class="d-flex">
+      <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+    </div>
+  </div>
+
+  <div class="table table-responsive">
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class=w-5>STT</th>
+          <th>Thông tin lớp học</th>
+          <th>Trạng thái</th>
+          <th>Chủ nhiệm</th>
+          <th>Niên khóa</th>
+          <th>Khối học</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataList?.data?.classes, let i = index">
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
+          <td>
+            <span>{{item.name}}</span> <br/>
+          </td>
+          <td>
+            <div appStatusClass [statusValue]="item.status"></div>
+            <!-- <span>{{item.status}}</span> <br/> -->
+          </td>
+          <td class="text-center">
+            <span>{{item.teacher_name}}</span> <br/>
+            <span>{{item.teacher_email}}</span>
+          </td>
+          <td class="text-center">
+            <span>{{item.academic_name}}</span> <br/>
+            <span>mã: {{item.academic_code}}</span>
+          </td>
+          <td class="text-center">
+            {{item.grade}}
+          </td>
+          <td>
+            <app-button [text]="'Chọn lớp'" [routerLink]="['/staff/list_attendance/detail', item.id]" ></app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data>
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
   </div>
 </div>

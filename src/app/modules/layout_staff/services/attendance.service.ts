@@ -23,4 +23,8 @@ export class AttendanceService {
   attendanced(data: any, classId: any){
     return this.http.post(`${environment.apiUrl}/manager/rollcall/attendaced/student/${classId}`, data);
   }
+
+  listAttendanceTimetable(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/rollcall`, data);
+  }
 }

@@ -29,7 +29,8 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
     FormatTimePipe,
     ButtonBackComponent,
     RouterLink
-  ]
+  ],
+  providers: [FormatTimePipe]
 })
 export class AttendanceSaveComponent implements OnInit {
   dataList: any = [];
@@ -51,14 +52,15 @@ export class AttendanceSaveComponent implements OnInit {
     }
   ]
   rollcallData: any = [];
-  dateTimestampNow: number = new Date().getTime()/1000;
+  dateTimestampNow: any = new Date().getTime()/1000;
   attendanceEnum = StatusStudent
   constructor(
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
     private showMessageSerivce: ShowMessageService,
     private route: ActivatedRoute,
-    private messagingSerivce: MessagingService
+    private messagingSerivce: MessagingService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit() {
@@ -112,8 +114,8 @@ export class AttendanceSaveComponent implements OnInit {
     })
     let dataRequest = {
       rollcallData: rollCallData,
-      date: this.dateTimestampNow + 25200,
-      diemdanh_id: this.attendanceId
+      date:  this.formatTimePipe.transform(this.dateTimestampNow, "yyyy-MM-dd"),
+      teacher_subject_timetable_id: this.attendanceId
     }
     this.attendanceSerivce.attendanced(dataRequest, this.classId).subscribe((res) => {
       this.globalStore.isLoading = false;

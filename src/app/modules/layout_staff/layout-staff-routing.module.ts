@@ -23,6 +23,7 @@ import { ParentStaffComponent } from "./parent-staff/parent-staff.component";
 import { ParentDetailStaffComponent } from "./parent-staff/parent-detail-staff/parent-detail-staff.component";
 import { ConfigTimetableComponent } from "./config-timetable/config-timetable.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { AttendanceDetailComponent } from "./attendance/attendance-detail/attendance-detail.component";
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: '',
         component: AttendanceComponent,
+      },
+      {
+        path: "detail/:classId",
+        component: AttendanceDetailComponent
       },
       {
         path: "save/:classId/:attendanceId",
