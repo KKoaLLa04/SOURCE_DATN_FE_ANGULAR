@@ -23,6 +23,7 @@ export class ConfigTimetableComponent implements OnInit {
   dataConfigSubject: any = [];
   dataSubmit: any = [];
   flag: boolean = true;
+  flagTime: boolean = true;
   constructor(
     private configTimetableSerivce: ConfigTimetableService,
     private globalStore: GlobalStore,
@@ -65,10 +66,12 @@ export class ConfigTimetableComponent implements OnInit {
 
   onValueChangeFromTime(event: any, item: any){
     item.from_time = event.target.value
+    this.checkValidateTime(event.target.value, item)
   }
 
   onValueChangeToTime(event: any, item: any){
     item.to_time = event.target.value
+    this.checkValidateTime(event.target.value, item)
   }
 
   changeDataRequestFormat(){
@@ -152,4 +155,43 @@ export class ConfigTimetableComponent implements OnInit {
     })
   }
 
+  private checkValidateTime(value: any, item: any){
+    const [inputHours, inputMinutes] = value.split(':').map(Number);
+    const inputTotalMinutes = inputHours * 60 + inputMinutes;
+    const startTimeMinutes = 5 * 60; // 5:00 sáng
+    const endTimeMinutes = 12 * 60 + 30; // 12:30 trưa
+
+    if(item.period == 1){
+      if(inputTotalMinutes < startTimeMinutes || inputTotalMinutes > endTimeMinutes ){
+        item.validate = "Thời gian ca học buổi sáng diễn ra từ 5:00 - 12:30";
+        this.flagTime = false;
+      }else{
+        if(item.from_time > item.to_time){
+          item.validate = "Thời gian bắt đầu học nhỏ hơn thời gian kết thúc";
+          this.flagTime = false;
+        }else{
+          item.validate = "";
+          this.flagTime = true;
+        }
+      }
+    }
+
+    if(item.period == 2){
+      const inputTotalMinuteAfternoon = inputHours * 60 + inputMinutes;
+      const startTimeMinuteAfternoon = 12 * 60 + 30; // 12:30 trưa
+      const endTimeMinutesAfternoon = 19 * 60; // 7:00 tối
+      if(inputTotalMinuteAfternoon < startTimeMinuteAfternoon || inputTotalMinuteAfternoon > endTimeMinutesAfternoon ){
+        item.validate = "Thời gian ca học buổi chiều diễn ra từ 12:30 - 19:00";
+        this.flagTime = false;
+      }else{
+        if(item.from_time > item.to_time){
+          item.validate = "Thời gian bắt đầu học nhỏ hơn thời gian kết thúc";
+          this.flagTime = false;
+        }else{
+          item.validate = "";
+          this.flagTime = true;
+        }
+      }
+    }
+  }
 }

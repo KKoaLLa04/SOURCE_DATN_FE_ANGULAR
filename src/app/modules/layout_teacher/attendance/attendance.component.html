@@ -137,7 +137,7 @@
             {{item.grade}}
           </td>
           <td>
-            <app-button [text]="'Chọn lớp'" [routerLink]="['/teacher/attendance/detail', item.classId]" ></app-button>
+            <app-button [text]="'Chọn lớp'" [routerLink]="['/teacher/attendance/detail', item.classId, item.status_teacher]" ></app-button>
           </td>
         </tr>
       </tbody>

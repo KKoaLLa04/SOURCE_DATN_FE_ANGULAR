@@ -18,7 +18,7 @@ const routes: Routes = [
         component: AttendanceComponent
       },
       {
-        path: 'detail/:classId',
+        path: 'detail/:classId/:statusTeacher',
         component: AttendanceDetailComponent
       },
       {

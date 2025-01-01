@@ -77,6 +77,12 @@ export class ModalAssignSubjectComponent implements OnInit {
       subject_id: subjectId
     }
     this.classStudyService.getListTeacherTosubject(dataRequest).subscribe((res: any) => {
+      this.optionTeachers = [
+        {
+          label: "Chọn giáo viên giảng dạy",
+          value: ""
+        }
+      ]
       res?.data?.map((item) => {
         this.optionTeachers.push({
           label: item.fullname,

@@ -35,7 +35,7 @@ import { Select2 } from 'src/app/_models/gengeral/select2.model';
   providers: [FormatTimePipe]
 })
 export class AttendanceDetailComponent implements OnInit {
-dataList: any = [];
+  dataList: any = [];
     iconSvg = iconSVG;
     keyWord: string = '';
     pageIndex = PAGE_INDEX_DEFAULT;
@@ -50,6 +50,7 @@ dataList: any = [];
     ]
     dateTimestampNow: number = new Date().getTime()/1000;
     classId: any;
+    statusTeacher: any;
     constructor(
       private globalStore: GlobalStore,
       private showMessageSerivce: ShowMessageService,
@@ -61,7 +62,9 @@ dataList: any = [];
     ngOnInit() {
       this.route.paramMap.subscribe(params => {
         this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
-          this.getDataTimetable();
+        this.statusTeacher = params.get('statusTeacher');
+        console.log(this.statusTeacher);
+        this.getDataTimetable();
       });
     }
   
@@ -82,7 +85,8 @@ dataList: any = [];
       this.globalStore.isLoading = true;
       let dataRequest = {
         classId: this.classId,
-        date: this.dateTimestampNow
+        date: this.dateTimestampNow,
+        status_teacher: this.statusTeacher
       }
       this.attendanceService.listAttendanceTimetable(dataRequest).subscribe((res: any) => {
         this.dataList = res;
