@@ -1,0 +1,72 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Cấu hình điểm danh tiết theo giờ</h3>
+
+  <div class="row">
+    <div class="col-6 pe-20 border-right-custom">
+      <h3>Sáng</h3>
+      <div class="row">
+        <!-- tiết 1 -->
+        <div class="col-12 align-items-center mb-10" *ngFor="let item of dataList[0]?.periods">
+          <div class="row">
+            <div class="col-1 d-flex align-items-center">
+              <p class="mb-0">Tiết {{item.time}}</p>
+            </div>
+            <div class="col">
+              <label>Từ</label>
+              <app-input [type]="'time'" [value]="item.from_time" (change)="onValueChangeFromTime($event,item)"></app-input>
+            </div>
+            <div class="col">
+              <label>Đến</label>
+              <app-input [type]="'time'" [value]="item.to_time" (change)="onValueChangeToTime($event,item)"></app-input>
+            </div>
+            <p *ngIf="item.validate" class="fw-700 text-danger fst-italic">{{item.validate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 ps-20">
+      <h3>Chiều</h3>
+      <div class="row">
+        <!-- tiết 1 -->
+        <div class="col-12 align-items-center mb-10" *ngFor="let item of dataList[1]?.periods">
+          <div class="row">
+            <div class="col-1 d-flex align-items-center">
+              <p class="mb-0">Tiết {{item.time}}</p>
+            </div>
+            <div class="col">
+              <label>Từ</label>
+              <app-input [type]="'time'" [value]="item.from_time"  (change)="onValueChangeFromTime($event,item)"></app-input>
+            </div>
+            <div class="col">
+              <label>Đến</label>
+              <app-input [type]="'time'" [value]="item.to_time"  (change)="onValueChangeToTime($event,item)"></app-input>
+            </div>
+            <p *ngIf="item.validate" class="fw-700 text-danger fst-italic">{{item.validate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-10">
+    <app-button [text]="'Lưu'" (onClick)="changeDataSubmitFormat()" [disabled]="flagTime"></app-button>
+  </div>
+
+  <div class="border-custom my-10"></div>
+  <div>
+    <h3>Cấu hình số tiết theo môn học</h3>
+    <div class="row">
+      <div class="col-4" *ngFor="let item of dataConfigSubject">
+        <p class="d-flex align-items-center justify-content-between">
+          <span>Tên môn học: <b class="text-color-azure">{{item.subject_name}}</b></span>
+          <app-input [width]="'w-150px'" [placeholder]="'Nhập số tiết'" class="ms-5" [value]="item?.quantity" (valueChange)="validateSubmitSubjectConfig($event, item)"></app-input>
+        </p>
+        <p *ngIf="item.isValidate" class="text-danger fst-italic">{{item.isValidate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-10">
+    <app-button [text]="'Lưu'" (onClick)="submitFormChangeSubject()" [disabled]="!flag"></app-button>
+  </div>
+</div>

@@ -164,6 +164,7 @@ export class ModalFormClassStudyComponent implements OnInit {
         this.dataFromParent.nameForm == 'update'
           ? this.dataFromParent?.data?.teacher_id
           : '',
+          [Validators.required]
       ],
       grade: [
         this.dataFromParent.nameForm == 'update'
@@ -190,6 +191,8 @@ export class ModalFormClassStudyComponent implements OnInit {
       this.formGroup.get('academic').updateValueAndValidity();
       this.formGroup.get('schoolYear').clearValidators();
       this.formGroup.get('schoolYear').updateValueAndValidity();
+      this.formGroup.get('mainTeacher').clearValidators();
+      this.formGroup.get('mainTeacher').updateValueAndValidity();
     }
   }
 
@@ -199,6 +202,8 @@ export class ModalFormClassStudyComponent implements OnInit {
       this.formGroup.get('academic').updateValueAndValidity();
       this.formGroup.get('schoolYear').clearValidators();
       this.formGroup.get('schoolYear').updateValueAndValidity();
+      this.formGroup.get('mainTeacher').clearValidators();
+      this.formGroup.get('mainTeacher').updateValueAndValidity();
     }
     if (this.formGroup.valid) {
       let dataInput;
@@ -324,6 +329,12 @@ export class ModalFormClassStudyComponent implements OnInit {
       {
         type: "required",
         message: "Trạng thái bắt buộc chọn"
+      }
+    ],
+    mainTeacher: [
+      {
+        type: "required",
+        message: "Giáo viên chủ nhiệm bắt buộc chọn"
       }
     ]
   };

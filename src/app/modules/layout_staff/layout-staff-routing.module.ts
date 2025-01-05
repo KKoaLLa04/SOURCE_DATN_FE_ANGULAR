@@ -20,6 +20,10 @@ import { TimeTableStaffComponent } from "./class-study/time-table-staff/time-tab
 import { ExamComponent } from "./exam/exam.component";
 import { SchoolYearComponent } from "./school-year/school-year.component";
 import { ParentStaffComponent } from "./parent-staff/parent-staff.component";
+import { ParentDetailStaffComponent } from "./parent-staff/parent-detail-staff/parent-detail-staff.component";
+import { ConfigTimetableComponent } from "./config-timetable/config-timetable.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { AttendanceDetailComponent } from "./attendance/attendance-detail/attendance-detail.component";
 
 const routes: Routes = [
   {
@@ -41,6 +45,10 @@ const routes: Routes = [
       {
         path: '',
         component: AttendanceComponent,
+      },
+      {
+        path: "detail/:classId",
+        component: AttendanceDetailComponent
       },
       {
         path: "save/:classId/:attendanceId",
@@ -125,6 +133,10 @@ const routes: Routes = [
         component: ParentStaffComponent
       },
       {
+        path: ':id',
+        component: ParentDetailStaffComponent 
+      },
+      {
         path: 'assign-student',
         component: ClassStudyAssignStudentComponent
       }
@@ -180,6 +192,24 @@ const routes: Routes = [
         path: 'detail/:id',
         component: NoteMarkDetailComponent
       }
+    ]
+  },
+  {
+    path: 'config',
+    children: [
+      {
+        path: '',
+        component: ConfigTimetableComponent
+      },
+    ]
+  },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: '',
+        component: ProfileComponent
+      },
     ]
   }
 ];

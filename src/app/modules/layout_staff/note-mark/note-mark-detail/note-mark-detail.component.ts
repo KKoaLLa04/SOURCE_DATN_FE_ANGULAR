@@ -9,12 +9,13 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { InputNumberComponent } from 'src/app/_shared/components/input-number/input-number.component';
 import { isTemplateRef } from 'ng-zorro-antd/core/util';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { SubjectService } from '../../services/subject.service';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
+import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
 
 @Component({
   selector: 'app-note-mark-detail',
@@ -30,7 +31,9 @@ import { Select2 } from 'src/app/_models/gengeral/select2.model';
     FormatTimePipe,
     ButtonComponent,
     InputNumberComponent,
-    SelectComponent
+    SelectComponent,
+    RouterLink,
+    ButtonBackComponent
   ]
 })
 export class NoteMarkDetailComponent implements OnInit {
@@ -117,17 +120,19 @@ export class NoteMarkDetailComponent implements OnInit {
   }
 
   onChangeValueInput(value: any, points: any, examPeriodIds: any){
-    if(value < 0 || value > 10){
-      points.isValidate = "Thang điểm 0 - 10"
-    }else{
-      points.isValidate = ""
-    }
     points.map((item: any) => {
       if(item.exam_period_id == examPeriodIds){
+        if(value < 0 || value > 10){
+          item.isValidate = "Thang điểm 0 - 10";
+          points.isValidate = "Thang điểm 0 - 10";
+        }else{
+          item.isValidate = "",
+          points.isValidate = ""
+        }
         item.newPoint = Number(value);
       }
     })
-
+    console.log(points)
     let index = points.findIndex((item) => item.exam_period_id == examPeriodIds)
 
     if(index == -1){
@@ -183,5 +188,20 @@ export class NoteMarkDetailComponent implements OnInit {
 
     // Trả về điểm hoặc để trống nếu không có
     return matchingPoint ? matchingPoint.point : '';
+  }
+
+  findPointValidate(points: any[], examPeriodId: number): string | number {
+    // Nếu không có điểm
+    if (!points || points.length === 0) {
+      return ''; // Nội dung mặc định
+    }
+
+    // Tìm điểm phù hợp
+    const matchingPoint = points.find(
+      (point) => point.exam_period_id === examPeriodId
+    );
+
+    // Trả về điểm hoặc để trống nếu không có
+    return matchingPoint ? matchingPoint.isValidate : '';
   }
 }

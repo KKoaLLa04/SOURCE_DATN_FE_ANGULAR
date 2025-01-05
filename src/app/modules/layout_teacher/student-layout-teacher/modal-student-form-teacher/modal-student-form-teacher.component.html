@@ -1,0 +1,80 @@
+<form action="" [formGroup]="formGroup" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{dataModal?.titleModal}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Tên Học sinh <span class="text-danger">*</span></label>
+          <app-input
+          [placeholder]="'Tên học sinh'"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'name'"
+          [validateForm]="validationMessages.name"
+          ></app-input>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Giới tính<span class="text-danger">*</span></label>
+          <app-select
+          [options]="optionsGender"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'gender'"
+          [validateForm]="validationMessages.gender"
+          ></app-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Trạng thái <span class="text-danger">*</span></label>
+          <app-select
+          [options]="optionStatus"
+          [formGroupInput]="formGroup"
+          [formControlNameInput]="'status'"
+          [validateForm]="validationMessages.status"
+          ></app-select>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Ngày sinh <span class="text-danger">*</span></label>
+           <app-single-form-date-picker
+             [formGroupInput]="formGroup"
+              [formControlNameInput]="'dob'"
+              [validateForm]="validationMessages.dob"
+              [maxDate]="nowTimestamp"
+              [currentDate]="nowTimestamp"
+           ></app-single-form-date-picker>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
+        <div class="form-group so-form-group">
+          <label  class="fw-600">Địa chỉ</label>
+            <app-input
+            [formGroupInput]="formGroup"
+            [formControlNameInput]="'address'"
+            ></app-input>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="'Hủy'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button [width]="'w-80px'" [text]="'Lưu'" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
+  </div>
+</form>
+

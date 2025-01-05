@@ -1,17 +1,17 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <h3>Điểm danh</h3>
 
+  <app-button-back [routerLink]="'/teacher/attendance/detail/'+classId"></app-button-back>
+  <br/>
   <div class="d-flex justify-content-between">
     <p>
-      <span>Số lượng học sinh: 08 lớp</span> |
-      <span>Số học sinh vắng mặt: 08 lớp</span> |
-      <span>Số học sinh có mặt: 08 lớp</span>
+      <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.data?.totalStudent}} học sinh</span></span> |
+      <span>Số học sinh vắng mặt: <span class="text-color-red fw-700">{{dataList?.data?.totalStudent - dataList?.data?.toltalStudentAttendance}} học sinh</span></span> |
+      <span>Số học sinh có mặt: <span class="text-color-green fw-700">{{dataList?.data?.toltalStudentAttendance}} học sinh</span></span>
     </p>
-    <div class="d-flex">
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
+    <!-- <div class="d-flex">
       <app-input-search [width]="'w-250px'"></app-input-search>
-    </div>
+    </div> -->
   </div>
 
   <div class="table table-responsive">
@@ -30,23 +30,23 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data?.data, let i = index">
-          <td>1</td>
+          <td>{{i+1}}</td>
           <td>{{item.fullname}} - {{item.student_code}} </td>
-          <td>{{item.dob}}</td>
+          <td>{{item.dob | formatTime}}</td>
           <td>
-            <app-input [placeholder]="'Ghi chú học sinh...'" (valueChange)="onChangeNote(item, $event)"></app-input>
+            <app-input [placeholder]="'Ghi chú học sinh...'" (valueChange)="onChangeNote(item, $event)" [value]="item.note"></app-input>
           </td>
           <td class="text-center p-0">
-            <input type="radio" checked name="radio{{i}}" (click)="onChangeRadio(item,1)">
+            <input type="radio" [checked]="item.status == 1" name="radio{{i}}" (click)="onChangeRadio(item,1)">
           </td>
           <td class="text-center p-0">
-            <input type="radio" name="radio{{i}}" (click)="onChangeRadio(item,3)">
+            <input type="radio" [checked]="item.status == 3" name="radio{{i}}" (click)="onChangeRadio(item,3)">
           </td>
           <td class="text-center p-0">
-            <input type="radio" name="radio{{i}}" (click)="onChangeRadio(item,2)">
+            <input type="radio" [checked]="item.status == 2" name="radio{{i}}" (click)="onChangeRadio(item,2)">
           </td>
           <td class="text-center p-0">
-            <input type="radio" name="radio{{i}}" (click)="onChangeRadio(item,4)">
+            <input type="radio" [checked]="item.status == 4" name="radio{{i}}" (click)="onChangeRadio(item,4)">
           </td>
         </tr>
       </tbody>

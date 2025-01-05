@@ -38,6 +38,7 @@
           <td>{{item.leave_date_time}}</td>
           <td>
             <div StatusActiveClassBgColor [statusValue]="item.status"></div>
+            <p *ngIf="item.refuse_note" class="mt-4 mb-0"><b>Lý do từ chối: </b> {{item.refuse_note}}</p>
           </td>
           <td>
             <app-button [text]="'Hủy đơn'" (onClick)="removeTicket(item.id)" [backgroundColor]="'bg-color-red'" *ngIf="item.status==0"></app-button>

@@ -2,11 +2,11 @@
   <h3>Danh sách học sinh</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <app-button-back></app-button-back>
+    <app-button-back [routerLink]="'/staff/student'"></app-button-back>
   </div>
 
   <div class="table table-responsive">
-    <h3>Thông tin học sinh</h3>
+    <h3 class="fs-30">Thông tin học sinh</h3>
     <div class="row m-0 p-0">
         <div class="col-6">
           <div class="row">
@@ -91,10 +91,10 @@
     </div>
   </div>
 
+  <div class="border-custom my-20"></div>
   <div>
-    <hr/>
     <div class="d-flex justify-content-between">
-      <h3>Thông tin gia đình học sinh</h3>
+      <h3 class="fs-30">Thông tin gia đình học sinh</h3>
       <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignParent(dataDetail?.id)"></app-button>
     </div>
 
@@ -152,6 +152,17 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="border-custom my-20"></div>
+  <h3 class="fs-30 mb-10">Lịch sử học sinh</h3>
+  <div *ngFor="let item of dataDetail?.class_history" class="border-bottom-custom pb-5">
+    <h4 class="mb-4 fs-18">{{item.school_year_name}}</h4>
+    <div *ngFor="let history of item.classes" class="fw-700">
+      <img [src]="iconSvg.label_icon" alt=""> Lớp: {{history.class_name}} <span class="mx-10"></span>
+      <img [src]="iconSvg.label_icon" alt=""> Trạng thái: <span appStatusClassStudent [statusValue]="history.status"></span> <span class="mx-10"></span>
+      <img [src]="iconSvg.calendar" alt=""> Thời gian: {{history.start_date | formatTime}} - <span *ngIf="history.end_date">{{history.end_date | formatTime}} </span> <span *ngIf="!history.end_date">Hiện tại </span>
     </div>
   </div>
 </div>

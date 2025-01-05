@@ -89,7 +89,8 @@ constructor(
   }
 
   getTimetableData(data: any){
-    return this.http.get(`${environment.apiUrl}/manager/khoabieu`, {params: {...data}})
+    // return this.http.get(`${environment.apiUrl}/manager/khoabieu`, {params: {...data}})
+    return this.http.get(`${environment.apiUrl}/manager/timetable`, {params: {...data}})
   }
 
   createUpdateTimetable(data: any){
@@ -102,5 +103,17 @@ constructor(
 
   getListTeacherNotAssign(data: any){
     return this.http.get(`${environment.apiUrl}/manager/user/chooseClassToMainTearch`, {params: {...data}})
+  }
+
+  getListSubjectClassStudy(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/class/formCreateSubjectForClass`, {params: {...data}})
+  }
+
+  getListTeacherTosubject(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/class/teachers-by-subject`, {params: {...data}})
+  }
+
+  updateTimetable(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/timetable/edit`, data)
   }
 }

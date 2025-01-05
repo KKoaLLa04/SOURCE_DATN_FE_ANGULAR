@@ -22,6 +22,7 @@
           <th class="fw-700">Thông tin giáo viên</th>
           <th class="fw-700">Liên hệ</th>
           <th class="text-center fw-700">Lớp chủ nhiệm</th>
+          <th class="text-center fw-700">Dạy môn</th>
           <th class="text-center fw-700">Chức vụ</th>
           <th class="text-center fw-700">Trạng thái</th>
           <th class="text-center fw-700">Ngày sinh</th>
@@ -30,7 +31,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data, let i = index">
-          <td>{{i+1}}</td>
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
           <td>
             <span class="fw-700">{{item.userName}}</span> <br/>
             <span class="fw-700">Mã: {{item.userCode}}</span>
@@ -41,6 +44,9 @@
           </td>
           <td class="text-center">
             {{item.userMainClassName}}
+          </td>
+          <td class="text-center">
+            {{item.subject}}
           </td>
           <td class="text-center">
             <div appAccessType [statusValue]="item.userAccessType"></div>
@@ -69,6 +75,15 @@
                 action: item.id,
                 permission: '',
                 data: item
+              },
+              {
+                svgIcon: iconSvg.edit,
+                label: 'Gán môn học',
+                type: '4',
+                action: item.id,
+                permission: '',
+                data: item,
+                isHide: item.userAccessType != 2
               },
             ]" (action)="handleAction($event)"></app-context-menu>
           </td>

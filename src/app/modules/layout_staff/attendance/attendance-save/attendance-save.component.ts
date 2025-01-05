@@ -8,11 +8,12 @@ import { AttendanceService } from '../../services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT } from 'src/app/_shared/utils/constant';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { MessagingService } from 'src/firebase/messaging-service';
 import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
+import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
 
 @Component({
   selector: 'app-attendance-save',
@@ -25,8 +26,11 @@ import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
     SelectComponent,
     InputComponent,
     ButtonComponent,
-    FormatTimePipe
-  ]
+    FormatTimePipe,
+    ButtonBackComponent,
+    RouterLink
+  ],
+  providers: [FormatTimePipe]
 })
 export class AttendanceSaveComponent implements OnInit {
   dataList: any = [];
@@ -48,14 +52,15 @@ export class AttendanceSaveComponent implements OnInit {
     }
   ]
   rollcallData: any = [];
-  dateTimestampNow: number = new Date().getTime()/1000;
+  dateTimestampNow: any = new Date().getTime()/1000;
   attendanceEnum = StatusStudent
   constructor(
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
     private showMessageSerivce: ShowMessageService,
     private route: ActivatedRoute,
-    private messagingSerivce: MessagingService
+    private messagingSerivce: MessagingService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit() {
@@ -109,8 +114,8 @@ export class AttendanceSaveComponent implements OnInit {
     })
     let dataRequest = {
       rollcallData: rollCallData,
-      date: this.dateTimestampNow + 25200,
-      diemdanh_id: this.attendanceId
+      date:  this.formatTimePipe.transform(this.dateTimestampNow, "yyyy-MM-dd"),
+      teacher_subject_timetable_id: this.attendanceId
     }
     this.attendanceSerivce.attendanced(dataRequest, this.classId).subscribe((res) => {
       this.globalStore.isLoading = false;

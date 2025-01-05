@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth';
 import { GeneralService } from 'src/app/_services/general.service';
 import { LayoutService } from '../../core/layout.service';
@@ -25,7 +25,8 @@ import { AccessType } from 'src/app/_shared/enums/access-type.enum';
         NgIf,
         TranslocoModule,
         NgFor,
-        FormatTimePipe
+        FormatTimePipe,
+        RouterLink
     ],
 })
 export class TopbarComponent implements OnInit {
@@ -37,6 +38,8 @@ export class TopbarComponent implements OnInit {
   iconSvg = iconSVG
   user = this.globalStore.currentUser
   dataList: any;
+  fullname: string;
+  linkProfile: string = '';
   constructor(
     private layout: LayoutService,
     private router: Router,
@@ -50,8 +53,14 @@ export class TopbarComponent implements OnInit {
   ngOnInit(): void {
     let layout = localStorage.getItem('access_type');
     if(Number(layout) == Number(AccessType.GUARDIAN)){
+      this.linkProfile = '/parent/profile'
       this.getNotification();
+    }else if(Number(layout) == Number(AccessType.TEACHER)){
+      this.linkProfile = '/teacher/profile'
+    }else if(Number(layout) == Number(AccessType.MANAGER)){
+      this.linkProfile = '/staff/profile'
     }
+    this.fullname = localStorage.getItem("fullname")
     this.headerLeft = this.layout.getProp('header.left') as string;
   }
 

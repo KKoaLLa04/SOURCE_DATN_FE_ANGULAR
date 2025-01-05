@@ -5,7 +5,9 @@
         <select
           class="form-control so-form-control fs-13 h-37px {{ showBorder ? 'border border-color-silver' : 'border-0' }} {{ width }} {{ bgColor }} {{ color }} {{ fontWeight }} {{ borderColor }}"
           [formControlName]="formControlNameInput"
-          [class.is-invalid]="formGroupInput.get(formControlNameInput).invalid && (formGroupInput.get(formControlNameInput).dirty || formGroupInput.get(formControlNameInput).touched)">
+          [class.is-invalid]="formGroupInput.get(formControlNameInput).invalid && (formGroupInput.get(formControlNameInput).dirty || formGroupInput.get(formControlNameInput).touched)"
+          (change)="changeSelectValue($event)"
+          >
           <ng-container *ngFor="let option of options">
             <option [disabled]="disabled" [value]="option.value">{{ option.label }}</option>
           </ng-container>

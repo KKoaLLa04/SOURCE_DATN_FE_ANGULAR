@@ -17,10 +17,18 @@ export class AttendanceService {
   }
 
   getListStudentAttendance(data: any){
-    return this.http.get(`${environment.apiUrl}/teacher/rollcallteacher/student/${data.class_id}`);
+    return this.http.get(`${environment.apiUrl}/teacher/rollcall/student/${data.class_id}/${data.diemdanh_id}`);
   }
 
-  attendanced(data: any){
-    return this.http.post(`${environment.apiUrl}/teacher/rollcallteacher/attendaced/student/${data.classId}`, data);
+  attendanced(data: any, classId: any){
+    return this.http.post(`${environment.apiUrl}/teacher/rollcall/attendaced/student/${classId}`, data);
+  }
+
+  getListClassTeacher(){
+    return this.http.get(`${environment.apiUrl}/teacher/rollcall/class`);
+  }
+
+  listAttendanceTimetable(data: any){
+    return this.http.post(`${environment.apiUrl}/teacher/rollcall`, data);
   }
 }

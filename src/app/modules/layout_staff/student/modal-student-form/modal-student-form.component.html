@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Tên học sinh <span class="text-danger">*</span></label>
+          <label  class="fw-600">Tên lớp học <span class="text-danger">*</span></label>
           <app-input
           [placeholder]="'Tên lớp học'"
           [formGroupInput]="formGroup"
@@ -41,6 +41,7 @@
           [formGroupInput]="formGroup"
           [formControlNameInput]="'status'"
           [validateForm]="validationMessages.status"
+          (changeSelect)="onChangeSelectStatus($event)"
           ></app-select>
         </div>
       </div>
@@ -51,6 +52,9 @@
           [options]="optionClasses"
           [formGroupInput]="formGroup"
           [formControlNameInput]="'class'"
+          [value]="formGroup.get('class').value"
+          [disabled]="disabledOptionClasses"
+          [bgColor]="disabledOptionClasses ? 'bg-color-white-smoke' : ''"
           ></app-select>
         </div>
       </div>
@@ -65,12 +69,13 @@
               [formControlNameInput]="'dob'"
               [validateForm]="validationMessages.dob"
               [maxDate]="nowTimestamp"
+              [currentDate]="nowTimestamp"
            ></app-single-form-date-picker>
         </div>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Địa chỉ<span class="text-danger">*</span></label>
+          <label  class="fw-600">Địa chỉ</label>
             <app-input
             [formGroupInput]="formGroup"
             [formControlNameInput]="'address'"

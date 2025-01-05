@@ -1,0 +1,61 @@
+<form action="" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{dataModal?.titleModal}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    <h3>Danh sách học sinh</h3>
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <p>Số học sinh: <span class="text-color-blue-light">{{dataList?.data?.total ?? 0}} học sinh</span></p>
+      <div class="d-flex">
+        <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-row-bordered table-row-gray-300">
+        <caption></caption>
+        <thead>
+          <tr class="fs-14 fw-700 text-color-black">
+            <th>#</th>
+            <th>STT</th>
+            <th>Họ tên học sinh</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataList?.data?.data, let i = index">
+            <td><input type="radio" name="teacher_radio" (click)="onClickRadio(item.id)"/></td>
+            <td>{{(pageIndex-1)*pageSize + i + 1}}</td>
+            <td>
+              <span class="'text-color-blue-light'">{{item.fullname}}</span> <br/>
+              <span class="'text-color-blue-light'">Mã: {{item.student_code}}</span>
+            </td>
+            <td>{{item.gender}}</td>
+            <td>{{item.dob | formatTime}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <app-no-data *ngIf="!dataList?.data.total"></app-no-data>
+      <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="dataList?.data?.total"
+        *ngIf="dataList?.data?.total > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+      </app-pagination>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="'Hủy'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+    <app-button
+    [width]="'w-80px'"
+    [text]="'Lưu'"
+    [backgroundColor]="'bg-color-azure'"
+    (click)="onClickSave()"
+    [disabled]="!childrenId"
+    ></app-button>
+  </div>
+</form>
+

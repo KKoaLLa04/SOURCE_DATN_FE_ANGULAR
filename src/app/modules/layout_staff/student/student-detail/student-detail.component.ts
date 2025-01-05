@@ -3,12 +3,15 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StudentService } from '../../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAssignParentComponent } from '../modal-assign-parent/modal-assign-parent.component';
+import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
+import { NgFor, NgIf } from '@angular/common';
+import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-class-student.directive';
 
 @Component({
   selector: 'app-student-detail',
@@ -19,10 +22,15 @@ import { ModalAssignParentComponent } from '../modal-assign-parent/modal-assign-
     ButtonBackComponent,
     InputComponent,
     FormatTimePipe,
-    ButtonComponent
+    ButtonComponent,
+    NgFor,
+    StatusClassStudentDirective,
+    NgIf,
+    RouterLink
   ]
 })
 export class StudentDetailComponent implements OnInit {
+  iconSvg = iconSVG
   studentId: any;
   dataDetail: any;
   constructor(

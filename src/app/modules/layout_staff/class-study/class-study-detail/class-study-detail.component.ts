@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
@@ -24,7 +24,8 @@ import { ModalDeleteSubjectComponent } from '../modal-delete-subject/modal-delet
     NgFor,
     FormatTimePipe,
     NgIf,
-    ButtonComponent
+    ButtonComponent,
+    RouterLink
   ]
 })
 export class ClassStudyDetailComponent implements OnInit {

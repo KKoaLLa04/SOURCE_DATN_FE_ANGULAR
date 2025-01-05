@@ -30,7 +30,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data, let i = index">
-          <td>{{i+1}}</td>
+          <td>
+            {{(pageIndex-1)*pageSize + i + 1}}
+          </td>
           <td>
             <span>{{item.fullname}}</span> <br/>
             <span>Mã: {{item.student_code}}</span>

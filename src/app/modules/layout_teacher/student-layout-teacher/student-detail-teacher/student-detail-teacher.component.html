@@ -1,0 +1,168 @@
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <h3>Danh sách học sinh</h3>
+
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <app-button-back [routerLink]="'/teacher/student'"></app-button-back>
+  </div>
+
+  <div class="table table-responsive">
+    <h3 class="fs-30">Thông tin học sinh</h3>
+    <div class="row m-0 p-0">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Tên học sinh</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.fullname" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Mã học sinh</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.student_code" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Username</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.fullname" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Ngày sinh</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.dob | formatTime" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Niên khóa</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.current_academic_year_name" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Lớp học</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.current_class_name" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Phụ huynh</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.current_class_name?.parents?.name" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Trạng thái</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.status == 1 ? 'Đang hoạt động' : 'Đã khóa'" [color]="dataDetail?.status == 1 ? 'text-color-azure' : 'text-danger'" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Địa chỉ</div>
+            <div class="col-9">
+              <app-input [value]="dataDetail?.address" [disabled]="true"></app-input>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="border-custom my-20"></div>
+  <div>
+    <div class="d-flex justify-content-between mb-10">
+      <h3 class="fs-30">Thông tin gia đình học sinh</h3>
+      <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignParent(dataDetail?.id)" *ngIf="!dataDetail?.parents_id"></app-button>
+      <app-button [text]="'Sửa thông tin phụ huynh'" (onClick)="assignParent(dataDetail?.id)" *ngIf="dataDetail?.parents_id"></app-button>
+    </div>
+
+    <div class="row m-0 p-0">
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Tên phụ huynh</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_name" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Ngày sinh</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_dob | formatTime" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Số điện thoại</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_phone" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Email</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_email" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Mã phụ huynh</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_code" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Giới tính</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_gender == 1 ? 'Nam' : dataDetail?.parents_gender == 2 ? 'Nữ': '' " [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="col-3"><img [src]="iconSvg.label_icon" alt=""> Địa chỉ</div>
+          <div class="col-9">
+            <app-input [value]="dataDetail?.parents_address" [disabled]="true"></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

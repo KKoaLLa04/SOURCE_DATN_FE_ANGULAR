@@ -78,7 +78,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.optionChildren.push({
         label: item.fullname + ' - ' + item.className,
         value: item.id,
-        selected: item.id == localStorage.getItem('child_id')
+        selected: item.id == localStorage.getItem('child_id'),
+        data: item,
       })
     })
   }
@@ -104,6 +105,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     let value = data.value;
     localStorage.setItem('child_id', value);
     localStorage.setItem('child_name', selectData);
+
+    this.optionChildren.map((item) => {
+      if(item.value == value){
+        localStorage.setItem('classId', item?.data?.classId);
+        localStorage.setItem('className', item?.data?.className);
+      }
+    })
     window.location.reload();
   }
 
