@@ -13,17 +13,14 @@ RUN npm install
 # Bước 5: Sao chép tất cả mã nguồn vào container
 COPY . .
 
-# Bước 6: Xây dựng dự án Angular
-RUN npm run build --prod
+# Bước 6: Xây dựng dự án Angular (build để có thư mục dist)
+RUN npm run build
 
-# Bước 7: Tạo image chạy ứng dụng (dùng nginx để phục vụ ứng dụng Angular)
-FROM nginx:alpine
+# Bước 7: Cài đặt Angular CLI và các công cụ cần thiết
+RUN npm install -g @angular/cli
 
-# Bước 8: Sao chép các file build của Angular từ build container vào nginx container
-COPY --from=build /app/dist/ /usr/share/nginx/html
-
-# Bước 9: Mở cổng 80 để phục vụ ứng dụng
+# Bước 8: Mở cổng 80 để phục vụ ứng dụng
 EXPOSE 80
 
-# Bước 10: Chạy nginx khi container bắt đầu
-CMD ["nginx", "-g", "daemon off;"]
+# Bước 9: Chạy ứng dụng bằng lệnh ng serve trên cổng 80
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "80", "--disable-host-check"]
