@@ -8,13 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Bước 4: Cài đặt các phụ thuộc của dự án
-RUN npm install
+RUN npm install --force
 
 # Bước 5: Sao chép tất cả mã nguồn vào container
 COPY . .
 
 # Bước 6: Xây dựng dự án Angular (build để có thư mục dist)
-RUN npm run build
+# RUN npm run build
 
 # Bước 7: Cài đặt Angular CLI và các công cụ cần thiết
 RUN npm install -g @angular/cli
