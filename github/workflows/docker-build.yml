@@ -3,10 +3,10 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - build  # Hoặc tên nhánh mà bạn muốn trigger (ví dụ: master hoặc develop)
+      - master  # Hoặc tên nhánh mà bạn muốn trigger (ví dụ: master hoặc develop)
   pull_request:
     branches:
-      - build
+      - master
 
 jobs:
   build:
