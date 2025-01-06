@@ -41,6 +41,7 @@ dataList: any;
   subject_id = 1;
   optionSubject: Select2[] = [
   ];
+  className: string = '';
   constructor(
     private globalStore: GlobalStore,
     private noteMarkParentService: NoteMarkParentService,
@@ -56,17 +57,20 @@ dataList: any;
     // });
     this.classId = localStorage.getItem('classId');
     if(this.classId) {
+      this.className = localStorage.getItem('className')
       this.getListNoteMark();
     }
   }
 
   getListSubject(){
     this.globalStore.isLoading = true;
-    this.subjectService.getListSubject().subscribe((res: any) => {
-      console.log(res);
+    let dataRequest = {
+      student_id: localStorage.getItem('child_id')
+    }
+    this.subjectService.getListSubjectForParent(dataRequest).subscribe((res: any) => {
       res.data.map((item: any) => {
         this.optionSubject.push({
-          label: item.subjectName,
+          label: item.subject_name,
           value: item.subject_id,
           selected: this.subject_id == item.subject_id
         })

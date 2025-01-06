@@ -1,0 +1,72 @@
+<form action="" *transloco="let t; scope: 'role'">
+  <div class="modal-header">
+    <h5 class="title-modal-global text-center">{{'Chi tiết thời khóa biểu của lớp'}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+      name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-normal-global">
+    
+<div class="card card-flush shadow-sm p-0 h-full p-10">
+  <div class="table table-responsive">
+    <h3>Lịch sáng</h3>
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class=w-5>Tiết</th>
+          <th>Thứ 2</th>
+          <th>Thứ 3</th>
+          <th>Thứ 4</th>
+          <th>Thứ 5</th>
+          <th>Thứ 6</th>
+          <th>Thứ 7</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let period of periods">
+          <td>Tiết {{ period }}</td>
+          <td *ngFor="let dayData of dataListMorning.days">
+            <!-- {{ getPeriodData(dayData.day, period)?.id || '' }} -->
+            <app-select [options]="optionSubject" [selected_id]="getPeriodData(dayData.day, period)?.subject_id" (changeSelect)="onEditTimetable($event,getPeriodData(dayData.day, period))"></app-select>
+            <p *ngIf="getPeriodData(dayData.day, period)?.validateConfig" class="text-danger fs-11 mb-0 ps-4">{{getPeriodData(dayData.day, period)?.validateConfig}}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-10"></div>
+    <h3>Lịch chiều</h3>
+    <table class="table table-custom">
+      <thead>
+        <tr class="text-color-white text-color-blue-dark">
+          <th class=w-5>Tiết</th>
+          <th>Thứ 2</th>
+          <th>Thứ 3</th>
+          <th>Thứ 4</th>
+          <th>Thứ 5</th>
+          <th>Thứ 6</th>
+          <th>Thứ 7</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let period of periods">
+          <td>Tiết {{ period }}</td>
+          <td *ngFor="let dayData of dataListAfternoon.days">
+            <app-select [options]="optionSubject" [selected_id]="getPeriodDataAfternoon(dayData.day, period)?.subject_id" (changeSelect)="onEditTimetable($event,getPeriodDataAfternoon(dayData.day, period))"></app-select>
+            <p *ngIf="getPeriodDataAfternoon(dayData.day, period)?.validateConfig" class="text-danger fs-11 mb-0 ps-4">{{getPeriodDataAfternoon(dayData.day, period)?.validateConfig}}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+  </div>
+  <div class="modal-footer">
+    <app-button [width]="'w-80px'" [text]="'Đóng'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
+  </div>
+</form>

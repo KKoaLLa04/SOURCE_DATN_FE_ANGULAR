@@ -11,7 +11,7 @@ export class TimetableTeacherService {
     private http: HttpClient,
   ) { }
 
-  getListTimetable(){
-    return this.http.get(`${environment.apiUrl}/teacher/timetable`);
+  getListTimetable(data: any){
+    return this.http.get(`${environment.apiUrl}/teacher/timetable`, {params: {...data}});
   }
 }

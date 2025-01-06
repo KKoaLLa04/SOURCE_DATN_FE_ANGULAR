@@ -7,6 +7,7 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { TimetableTeacherService } from '../services/timetable-teacher.service';
+import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 
 @Component({
   selector: 'app-timetable-teacher',
@@ -20,6 +21,7 @@ import { TimetableTeacherService } from '../services/timetable-teacher.service';
     ButtonComponent,
     ButtonBackComponent,
     RouterLink,
+    SingleDatePickerComponent,
   ]
 })
 export class TimetableTeacherComponent implements OnInit {
@@ -34,6 +36,8 @@ export class TimetableTeacherComponent implements OnInit {
   className: string = '';
   getConfigTimeMorning: any = [];
   getConfigTimeAfternoon: any = [];
+  date: number = new Date().getTime() / 1000;
+  nowTimestamp: any = new Date().getTime() / 1000;
   constructor(
     private route: ActivatedRoute,
     private globalStore: GlobalStore,
@@ -47,16 +51,21 @@ export class TimetableTeacherComponent implements OnInit {
     this.getListTimetable();
   }
 
+  onSearchDate(event: any){
+    this.date = event;
+    this.getListTimetable();
+  }
+
   private getListTimetable(){
     this.globalStore.isLoading = true;
-    
-    this.timetableTeacherService.getListTimetable().subscribe((res: any) => {
+    let dataRequest = {
+      date: this.date
+    }
+    this.timetableTeacherService.getListTimetable(dataRequest).subscribe((res: any) => {
       this.dataList = res.data.timetables;
-      console.log(this.dataList);
       res.data.timetables.map((item: any) => {
         this.mapCalenderLesson(item);
       })
-      console.log(this.dataList);
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;

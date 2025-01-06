@@ -6,18 +6,18 @@
       <h3>Sáng</h3>
       <div class="row">
         <!-- tiết 1 -->
-        <div class="col-12 align-items-center mb-10" *ngFor="let item of dataList[0]?.periods">
+        <div class="col-12 align-items-center mb-10" *ngFor="let item of dataList[0]?.periods, let i = index">
           <div class="row">
             <div class="col-1 d-flex align-items-center">
               <p class="mb-0">Tiết {{item.time}}</p>
             </div>
             <div class="col">
               <label>Từ</label>
-              <app-input [type]="'time'" [value]="item.from_time" (change)="onValueChangeFromTime($event,item)"></app-input>
+              <app-input [type]="'time'" [value]="item.from_time" (change)="onValueChangeFromTime($event,item, dataList[0]?.periods[i < 4 ? i + 1 : i], i+1)"></app-input>
             </div>
             <div class="col">
               <label>Đến</label>
-              <app-input [type]="'time'" [value]="item.to_time" (change)="onValueChangeToTime($event,item)"></app-input>
+              <app-input [type]="'time'" [value]="item.to_time" (change)="onValueChangeToTime($event,item, dataList[0]?.periods[i < 4 ? i + 1 : i], i+1)"></app-input>
             </div>
             <p *ngIf="item.validate" class="fw-700 text-danger fst-italic">{{item.validate}}</p>
           </div>
@@ -28,18 +28,18 @@
       <h3>Chiều</h3>
       <div class="row">
         <!-- tiết 1 -->
-        <div class="col-12 align-items-center mb-10" *ngFor="let item of dataList[1]?.periods">
+        <div class="col-12 align-items-center mb-10" *ngFor="let item of dataList[1]?.periods, let i = index">
           <div class="row">
             <div class="col-1 d-flex align-items-center">
               <p class="mb-0">Tiết {{item.time}}</p>
             </div>
             <div class="col">
               <label>Từ</label>
-              <app-input [type]="'time'" [value]="item.from_time"  (change)="onValueChangeFromTime($event,item)"></app-input>
+              <app-input [type]="'time'" [value]="item.from_time"  (change)="onValueChangeFromTime($event,item, dataList[1]?.periods[i < 4 ? i + 1 : i], i+1)"></app-input>
             </div>
             <div class="col">
               <label>Đến</label>
-              <app-input [type]="'time'" [value]="item.to_time"  (change)="onValueChangeToTime($event,item)"></app-input>
+              <app-input [type]="'time'" [value]="item.to_time"  (change)="onValueChangeToTime($event,item, dataList[1]?.periods[i < 4 ? i + 1 : i], i+1)"></app-input>
             </div>
             <p *ngIf="item.validate" class="fw-700 text-danger fst-italic">{{item.validate}}</p>
           </div>
@@ -49,7 +49,7 @@
   </div>
 
   <div class="d-flex justify-content-end mt-10">
-    <app-button [text]="'Lưu'" (onClick)="changeDataSubmitFormat()" [disabled]="flagTime"></app-button>
+    <app-button [text]="'Lưu'" (onClick)="changeDataSubmitFormat()" [disabled]="!flagTime"></app-button>
   </div>
 
   <div class="border-custom my-10"></div>

@@ -38,7 +38,6 @@ export class ConfigTimetableComponent implements OnInit {
   getListTimetableSubjectConfig(): void{
     this.globalStore.isLoading = true;
     this.configTimetableSerivce.getListTimetableSubjectConfig().subscribe((res: any) => {
-      console.log(res);
       this.dataConfigSubject = res?.data;
       this.globalStore.isLoading = false;
     }, (err) =>{
@@ -64,14 +63,29 @@ export class ConfigTimetableComponent implements OnInit {
     })
   }
 
-  onValueChangeFromTime(event: any, item: any){
+  onValueChangeFromTime(event: any, item: any, itemNext: any, index: number){
     item.from_time = event.target.value
+    // if(item.from_time < itemNext.to_time && index < 5){
+    //   item.validate = "Thời gian tiết " + index + " phải nhỏ hơn thời gian tiết " + (Number(index+1));
+    //   this.flagTime = false;
+    // }else{
+    //   item.validate = "";
+    //   this.flagTime = true;
+    //   this.checkValidateTime(event.target.value, item)
+    // }
     this.checkValidateTime(event.target.value, item)
   }
 
-  onValueChangeToTime(event: any, item: any){
+  onValueChangeToTime(event: any, item: any, itemNext: any, index: number){
     item.to_time = event.target.value
-    this.checkValidateTime(event.target.value, item)
+    if(item.to_time > itemNext.from_time && index < 5){
+      item.validate = "Thời gian tiết " + index + " phải nhỏ hơn thời gian tiết " + (Number(index+1));
+      this.flagTime = false;
+    }else{
+      item.validate = "";
+      this.flagTime = true;
+      this.checkValidateTime(event.target.value, item)
+    }
   }
 
   changeDataRequestFormat(){
@@ -98,7 +112,7 @@ export class ConfigTimetableComponent implements OnInit {
     this.submitForm();
   }
 
-  submitForm(){
+  submitForm(){    
     this.globalStore.isLoading = true;
     let dataRequest = {
       data: this.dataSubmit
@@ -132,7 +146,6 @@ export class ConfigTimetableComponent implements OnInit {
 
   submitFormChangeSubject(){
     this.globalStore.isLoading = true;
-    console.log(this.dataConfigSubject);
     let dataSubmit = [];
     this.dataConfigSubject.map((item) => {
       dataSubmit.push({
@@ -166,7 +179,10 @@ export class ConfigTimetableComponent implements OnInit {
         item.validate = "Thời gian ca học buổi sáng diễn ra từ 5:00 - 12:30";
         this.flagTime = false;
       }else{
-        if(item.from_time > item.to_time){
+        if(startTimeMinutes < item.from_time || endTimeMinutes > item.from_time){
+          item.validate = "Thời gian ca học buổi sáng diễn ra từ 5:00 - 12:30";
+          this.flagTime = false;
+        }else if(item.from_time > item.to_time){
           item.validate = "Thời gian bắt đầu học nhỏ hơn thời gian kết thúc";
           this.flagTime = false;
         }else{

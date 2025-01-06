@@ -24,6 +24,7 @@ import { ParentDetailStaffComponent } from "./parent-staff/parent-detail-staff/p
 import { ConfigTimetableComponent } from "./config-timetable/config-timetable.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AttendanceDetailComponent } from "./attendance/attendance-detail/attendance-detail.component";
+import { TimetableComponent } from "./timetable/timetable.component";
 
 const routes: Routes = [
   {
@@ -209,6 +210,15 @@ const routes: Routes = [
       {
         path: '',
         component: ProfileComponent
+      },
+    ]
+  },
+  {
+    path: 'timetable',
+    children: [
+      {
+        path: '',
+        component: TimetableComponent
       },
     ]
   }

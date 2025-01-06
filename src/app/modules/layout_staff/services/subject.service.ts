@@ -30,6 +30,10 @@ export class SubjectService {
     return this.http.get(`${environment.apiUrl}/manager/subject`)
   }
 
+  getListSubjectForParent(data: any){
+    return this.http.get(`${environment.apiUrl}/guardian/parentsubject`, {params: {...data}})
+  }
+
   createNewSubject(data: any){
     return this.http.post(`${environment.apiUrl}/manager/subject/create`, data)
   }

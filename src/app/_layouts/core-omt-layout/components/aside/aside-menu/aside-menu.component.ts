@@ -41,6 +41,7 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Học sinh", url:"/staff/student", permissionCode : '', code: 'student', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Phụ huynh", url:"/staff/parent", permissionCode : '', code: 'parent', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Năm học", url:"/staff/school-year", permissionCode : '', code: 'school-year', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Thời khóa biểu", url:"/staff/timetable", permissionCode : '', code: 'timetable', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Sổ điểm", url:"/staff/note-mark", permissionCode : '', code: 'note-mark', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Quản lý đơn", url:"/staff/ticket", permissionCode : '', code: 'ticket', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Điểm số", url:"/staff/exam", permissionCode : '', code: 'exam', children: []},

@@ -1,6 +1,14 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <h3 class="text-color-azure">Lịch dạy của bạn</h3>
 
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <p>
+    </p>
+    <div class="d-flex">
+      <app-single-date-picker [maxDate]="nowTimestamp" class="me-4" (dataTimeOutput)="onSearchDate($event)" [currentDate]="nowTimestamp"></app-single-date-picker>
+    </div>
+  </div>
+  
   <br/>
   <div class="table table-responsive">
       <table class="table table-custom">
