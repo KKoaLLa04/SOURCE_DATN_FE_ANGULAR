@@ -8,6 +8,7 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
 import { GlobalStore } from 'src/app/_store/global.store';
 import { TimetableTeacherService } from '../services/timetable-teacher.service';
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 
 @Component({
   selector: 'app-timetable-teacher',
@@ -22,7 +23,8 @@ import { SingleDatePickerComponent } from 'src/app/_shared/components/single-dat
     ButtonBackComponent,
     RouterLink,
     SingleDatePickerComponent,
-  ]
+  ],
+  providers: [FormatTimePipe]
 })
 export class TimetableTeacherComponent implements OnInit {
   classId: any;
@@ -42,7 +44,8 @@ export class TimetableTeacherComponent implements OnInit {
     private route: ActivatedRoute,
     private globalStore: GlobalStore,
     private timetableTeacherService: TimetableTeacherService,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit() {
@@ -59,7 +62,7 @@ export class TimetableTeacherComponent implements OnInit {
   private getListTimetable(){
     this.globalStore.isLoading = true;
     let dataRequest = {
-      date: this.date
+      date: this.formatTimePipe.transform(this.date, "yyyy-MM-dd")
     }
     this.timetableTeacherService.getListTimetable(dataRequest).subscribe((res: any) => {
       this.dataList = res.data.timetables;
