@@ -6,25 +6,25 @@
       <div class="col-3 pe-10">
         <div class="bg-color-aqua p-10">
           <p class="fw-700">Có mặt</p>
-          <p><span class="fw-700 fs-18 text-color-green">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-green">{{dataStaffDay?.data.allAttendances}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-pink-light p-10">
           <p class="fw-700">Nghỉ không phép</p>
-          <p><span class="fw-700 fs-18 text-color-pink-text">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-pink-text">{{dataStaffDay?.data.allUnattend}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-aqua p-10">
           <p class="fw-700">Nghỉ có phép</p>
-          <p><span class="fw-700 fs-18 text-color-green">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-green">{{dataStaffDay?.data.allUnattend}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-pink-light p-10">
           <p class="fw-700">Đi muộn</p>
-          <p><span class="fw-700 fs-18 text-color-pink-text">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-pink-text">{{dataStaffDay?.data.allLate}}</span></p>
         </div>
       </div>
     </div>
@@ -36,25 +36,25 @@
       <div class="col-3 pe-10">
         <div class="bg-color-aqua p-10">
           <p class="fw-700">Có mặt</p>
-          <p><span class="fw-700 fs-18 text-color-green">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-green">{{dataStaffWeek?.data.allAttendances}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-pink-light p-10">
           <p class="fw-700">Nghỉ không phép</p>
-          <p><span class="fw-700 fs-18 text-color-pink-text">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-pink-text">{{dataStaffWeek?.data.allUnattend}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-aqua p-10">
           <p class="fw-700">Nghỉ có phép</p>
-          <p><span class="fw-700 fs-18 text-color-green">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-green">{{dataStaffWeek?.data.allUnattend}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-pink-light p-10">
           <p class="fw-700">Đi muộn</p>
-          <p><span class="fw-700 fs-18 text-color-pink-text">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-pink-text">{{dataStaffWeek?.data.allLate}}</span></p>
         </div>
       </div>
     </div>
@@ -66,25 +66,25 @@
       <div class="col-3 pe-10">
         <div class="bg-color-aqua p-10">
           <p class="fw-700">Có mặt</p>
-          <p><span class="fw-700 fs-18 text-color-green">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-green">{{dataStaffMonth?.data.allAttendances}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-pink-light p-10">
           <p class="fw-700">Nghỉ không phép</p>
-          <p><span class="fw-700 fs-18 text-color-pink-text">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-pink-text">{{dataStaffMonth?.data.allUnattend}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-aqua p-10">
           <p class="fw-700">Nghỉ có phép</p>
-          <p><span class="fw-700 fs-18 text-color-green">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-green">{{dataStaffMonth?.data.allUnattend}}</span></p>
         </div>
       </div>
       <div class="col-3 pe-10">
         <div class="bg-color-pink-light p-10">
           <p class="fw-700">Đi muộn</p>
-          <p><span class="fw-700 fs-18 text-color-pink-text">0</span> buổi</p>
+          <p><span class="fw-700 fs-18 text-color-pink-text">{{dataStaffMonth?.data.allLate}}</span></p>
         </div>
       </div>
     </div>
@@ -92,171 +92,66 @@
 
   <div class="col-12 w-100">
     <h3 class="text-color-azure fw-700"><i class="fa fa-calendar-alt fs-20px-custom"></i> DỮ LIỆU TRONG NGÀY 
-      <i class="fa fa-arrow-up text-color-azure fs-15 ps-3"></i>
-      <i class="fa fa-arrow-down text-color-azure fs-15 ps-3"></i>
+      <i class="fa fa-arrow-up text-color-azure fs-15 ps-3 cursor-pointer" (click)="onShow(4)" *ngIf="onShowClassDay"></i>
+      <i class="fa fa-arrow-down text-color-azure fs-15 ps-3 cursor-pointer" (click)="onShow(1)" *ngIf="!onShowClassDay"></i>
     </h3>
 
-    <div class="row">
-      <div class="col-4 pe-10 mb-5">
+    <div class="row" *ngIf="onShowClassDay">
+      <div class="col-4 pe-10 mb-5" *ngFor="let item of dataClassDay?.data">
         <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
+          <p class="text-color-azure fw-700">{{item.className}}</p>
           <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
           <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
+            <span class="fw-700 fs-14 text-color-green">{{item.allAttendances}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.unpresentper}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.allUnattend}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.allLate}}</span> buổi
           </p>
         </div>
       </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
-      </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
-      </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
     </div>
   </div>
   <div class="col-12 w-100">
     <h3 class="text-color-azure fw-700"><i class="fa fa-calendar-alt fs-20px-custom"></i> DỮ LIỆU TRONG TUẦN 
-      <i class="fa fa-arrow-up text-color-azure fs-15 ps-3"></i>
-      <i class="fa fa-arrow-down text-color-azure fs-15 ps-3"></i>
+      <i class="fa fa-arrow-up text-color-azure fs-15 ps-3 cursor-pointer" (click)="onShow(5)" *ngIf="onShowClassWeek"></i>
+      <i class="fa fa-arrow-down text-color-azure fs-15 ps-3 cursor-pointer" (click)="onShow(2)" *ngIf="!onShowClassWeek"></i>
     </h3>
 
-    <div class="row">
-      <div class="col-4 pe-10 mb-5">
+    <div class="row" *ngIf="onShowClassWeek">
+      <div class="col-4 pe-10 mb-5" *ngFor="let item of dataClassWeek?.data">
         <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
+          <p class="text-color-azure fw-700">{{item.className}}</p>
           <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
           <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
+            <span class="fw-700 fs-14 text-color-green">{{item.allAttendances}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.unpresentper}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.allUnattend}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.allLate}}</span> buổi
           </p>
         </div>
       </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
-      </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
-      </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
     </div>
   </div>
 
   <div class="col-12 w-100">
     <h3 class="text-color-azure fw-700"><i class="fa fa-calendar-alt fs-20px-custom"></i> DỮ LIỆU TRONG THÁNG
-      <i class="fa fa-arrow-up text-color-azure fs-15 ps-3"></i>
-      <i class="fa fa-arrow-down text-color-azure fs-15 ps-3"></i>
+      <i class="fa fa-arrow-up text-color-azure fs-15 ps-3 cursor-pointer" (click)="onShow(6)" *ngIf="onShowClassMonth"></i>
+      <i class="fa fa-arrow-down text-color-azure fs-15 ps-3 cursor-pointer" (click)="onShow(3)" *ngIf="!onShowClassMonth"></i>
     </h3>
 
-    <div class="row">
-      <div class="col-4 pe-10 mb-5">
+    <div class="row" *ngIf="onShowClassMonth">
+      <div class="col-4 pe-10 mb-5" *ngFor="let item of dataClassWeek?.data">
         <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
+          <p class="text-color-azure fw-700">{{item.className}}</p>
           <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
           <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
+            <span class="fw-700 fs-14 text-color-green">{{item.allAttendances}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.unpresentper}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.allUnattend}}</span> buổi | 
+            <span class="fw-700 fs-14 text-color-green">{{item.allLate}}</span> buổi
           </p>
         </div>
       </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
-      </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
-      </div>
-      <div class="col-4 pe-10 mb-5">
-        <div class="bg-color-aqua p-10">
-          <p>Lớp 6A1</p>
-          <p class="fw-700 fs-11">Có mặt | Nghỉ có phép | Nghỉ không phép | Đi muộn</p>
-          <p>
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi | 
-            <span class="fw-700 fs-14 text-color-green">0</span> buổi
-          </p>
-        </div>
     </div>
   </div>
 </div>
