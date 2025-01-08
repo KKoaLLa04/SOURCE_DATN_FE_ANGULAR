@@ -94,6 +94,8 @@ export class ClassStudyAssignStudentComponent implements OnInit {
     }
     this.classStudyService.addNewStudent(dataRequest).subscribe((res: any) => {
       this.showMessageService.success("Gán học sinh vào lớp học thành công");
+      this.getListDetailStudentClass();
+      this.getListStudentByClass();
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;

@@ -14,6 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MessagingService } from 'src/firebase/messaging-service';
 import { AttendanceParentService } from '../services/attendance-parent.service';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
+import { StatusClassDirective } from 'src/app/_shared/directive/status-class.directive';
+import { StatusDayOfWeekDirective } from 'src/app/_shared/directive/status-day-of-week.directive';
+import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
+import { StatusStudentAttendanceDirective } from 'src/app/_shared/directive/status-student-attendance.directive';
 
 @Component({
   selector: 'app-history-attendance',
@@ -27,12 +31,15 @@ import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.comp
     ButtonComponent,
     FormatTimePipe,
     NoDataComponent,
-    NgIf
+    NgIf,
+    StatusStudentAttendanceDirective,
+    StatusDayOfWeekDirective
   ],
   standalone: true
 })
 export class HistoryAttendanceComponent implements OnInit {
-dataList: any = [];
+  dataList: any = [];
+  tabSelect: number = 1;
   pageIndex = PAGE_INDEX_DEFAULT;
   pageSize = PAGE_SIZE_DEFAULT;
   keyWord: string = ''
@@ -63,6 +70,10 @@ dataList: any = [];
 
   ngOnInit() {
     this.getHistoryAttendance();
+  }
+
+  onChangeSelect(value: number): void{
+    this.tabSelect = value;
   }
 
   getHistoryAttendance(): void{

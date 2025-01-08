@@ -12,6 +12,7 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAssignSubjectComponent } from '../modal-assign-subject/modal-assign-subject.component';
 import { ModalDeleteSubjectComponent } from '../modal-delete-subject/modal-delete-subject.component';
+import { ModalChangeTeacherSubjectComponent } from '../modal-change-teacher-subject/modal-change-teacher-subject.component';
 
 @Component({
   selector: 'app-class-study-detail',
@@ -102,7 +103,7 @@ export class ClassStudyDetailComponent implements OnInit {
   }
 
   onOpenModalUpdateAssignSubject(item: any) {
-    const modalRef = this.modalService.open(ModalAssignSubjectComponent, {
+    const modalRef = this.modalService.open(ModalChangeTeacherSubjectComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
       keyboard: false,
@@ -112,7 +113,7 @@ export class ClassStudyDetailComponent implements OnInit {
     });
 
     let data = {
-      titleModal: 'Chỉnh môn học trong lớp',
+      titleModal: 'Đổi giáo viên giảng dạy',
       btnCancel: 'Hủy',
       btnAccept: 'Lưu',
       isHiddenBtnClose: false, // hidden/show btn close modal

@@ -106,7 +106,13 @@ export class ModalTimetableComponent implements OnInit {
   
       this.classStudyService.getTimetableData(dataRequest).subscribe((res: any) => {
         // this.dataList = res;
-        this.optionSubject = timeTableOptionSubject;
+        this.optionSubject = [
+          {
+            label: "chọn môn học",
+            value: "",
+            selected: true
+          }
+        ];
         res?.data?.subject_teachers?.map((item) => {
           if(item.subject_id !=0){
             this.optionSubject.push({

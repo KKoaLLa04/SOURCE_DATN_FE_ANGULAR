@@ -39,6 +39,10 @@
     --bs-red-light: #FF0000;
     --bs-blue-low: #235DF4;
     --bs-maya-blue: #5ac8fa;
+    --bs-attendance1: #15B500;
+    --bs-attendance2: #FFC700;
+    --bs-attendance3: #FF9800;
+    --bs-attendance4: #FF0000;
 }
 
 $my-map: (
@@ -81,7 +85,11 @@ $my-map: (
     "pink-text",
     "red-light",
     "blue-low",
-    "maya-blue"
+    "maya-blue",
+    "attendance1",
+    "attendance2",
+    "attendance3",
+    "attendance4",
 );
 
 

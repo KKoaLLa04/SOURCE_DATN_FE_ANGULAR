@@ -46,4 +46,12 @@ constructor(
   changePassword(data: any){
     return this.http.put(`${environment.apiUrl}/manager/guardian/change/${data.id}`, data)
   }
+
+  unAssignParent(data: any){
+    return this.http.post(`${environment.apiUrl}/teacher/student/detach-parent/${data.student_id}`, data)
+  }
+
+  updateParent(data: any){
+    return this.http.put(`${environment.apiUrl}/teacher/guardian/update/${data.id}`, data)
+  }
 }

@@ -95,8 +95,11 @@
   <div>
     <div class="d-flex justify-content-between mb-10">
       <h3 class="fs-30">Thông tin gia đình học sinh</h3>
-      <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignParent(dataDetail?.id)" *ngIf="!dataDetail?.parents_id"></app-button>
-      <app-button [text]="'Sửa thông tin phụ huynh'" (onClick)="assignParent(dataDetail?.id)" *ngIf="dataDetail?.parents_id"></app-button>
+      <div class="d-flex">
+        <app-button [text]="'Gán phụ huynh cho học sinh'" (onClick)="assignParent(dataDetail?.id)" *ngIf="!dataDetail?.parents_id"></app-button>
+        <app-button [text]="'Hủy gán phụ huynh'" [backgroundColor]="'bg-color-red'" (onClick)="unAssignParent(dataDetail?.id, dataDetail?.parents_id)" *ngIf="dataDetail?.parents_id" class="me-5"></app-button>
+        <app-button [text]="'Sửa thông tin phụ huynh'" (onClick)="update(dataDetail)" *ngIf="dataDetail?.parents_id"></app-button>
+      </div>
     </div>
 
     <div class="row m-0 p-0">

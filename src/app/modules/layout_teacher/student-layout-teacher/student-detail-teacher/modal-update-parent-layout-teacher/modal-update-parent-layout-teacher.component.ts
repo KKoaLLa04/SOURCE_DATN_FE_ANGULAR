@@ -1,23 +1,25 @@
+import { NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
-import { ValidatorNotEmptyString, ValidatorNotNull } from 'src/app/_services/validator-custom.service';
+import { ShowMessageService } from 'src/app/_services/show-message.service';
+import { ValidatorNotEmptyString } from 'src/app/_services/validator-custom.service';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
-import { StatusClassEnum } from 'src/app/_shared/enums/status-class.enum';
-import { REGEX_CODE } from 'src/app/_shared/utils/constant';
+import { SingleFormDatePickerComponent } from 'src/app/_shared/components/single-form-date-picker/single-form-date-picker.component';
+import { activeStatusEnum } from 'src/app/_shared/enums/active-status.enum';
+import { genderEnum } from 'src/app/_shared/enums/gender.enum';
+import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { GlobalStore } from 'src/app/_store/global.store';
-import { ClassStudyService } from '../../services/class-study.service';
-import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { NgIf } from '@angular/common';
+import { ClassStudyService } from 'src/app/modules/layout_staff/services/class-study.service';
 
 @Component({
-  selector: 'app-modal-form-class-study',
-  templateUrl: './modal-form-class-study.component.html',
-  styleUrls: ['./modal-form-class-study.component.scss'],
+  selector: 'app-modal-update-parent-layout-teacher',
+  templateUrl: './modal-update-parent-layout-teacher.component.html',
+  styleUrls: ['./modal-update-parent-layout-teacher.component.scss'],
   standalone: true,
   imports: [
     TranslocoModule,
@@ -26,10 +28,12 @@ import { NgIf } from '@angular/common';
     InputComponent,
     ButtonComponent,
     SelectComponent,
+    SingleFormDatePickerComponent,
     NgIf
-  ]
+  ],
+  providers: [FormatTimePipe]
 })
-export class ModalFormClassStudyComponent implements OnInit {
+export class ModalUpdateParentLayoutTeacherComponent implements OnInit {
   @Input() dataModal: any;
   formGroup: FormGroup;
   dataForm: any
@@ -40,55 +44,37 @@ export class ModalFormClassStudyComponent implements OnInit {
     requestLayout: {}
   };
   isUpdate: boolean = false;
-
+  nowTimestamp: number = new Date().getTime()/1000 - 86400;
   optionStatus: Select2[] = [
     {
-      label: "Chọn trạng thái lớp học",
+      label: "Chọn trạng thái phụ huynh",
       value: '',
       selected: true
     },
     {
-      label: "Chưa diễn ra",
-      value: StatusClassEnum.HAS_NOT_HAPPENDED
+      label: "Hoạt động",
+      value: activeStatusEnum.ACTIVE
     },
     {
-      label: "Đang diễn ra",
-      value: StatusClassEnum.HAS_APPROVED
+      label: "Khóa tài khoản",
+      value: activeStatusEnum.ACTIVE
     },
-    {
-      label: "Đã kết thúc",
-      value: StatusClassEnum.FINISH
-    }
   ]
 
-  optionGrades: Select2[] = [
+  optionsGender: Select2[] = [
     {
-      label: "Chọn khối",
+      label: "Chọn giới tính",
       value: ""
-    }
-  ]
-
-  optionMainTeacher: Select2[] = [
+    },
     {
-      label: "Giáo viên chủ nhiệm",
-      value: ''
-    }
-  ]
-
-  optionAcacdemic: Select2[] = [
+      label: "Nam",
+      value: genderEnum.NAM
+    },
     {
-      label: "Niên khóa",
-      value: ''
+      label: "Nữ",
+      value: genderEnum.WOMAN
     }
   ]
-
-  optionSchoolYear: Select2[] = [
-    {
-      label: "Năm học",
-      value: ''
-    }
-  ]
-
 
 
   constructor(
@@ -96,134 +82,105 @@ export class ModalFormClassStudyComponent implements OnInit {
     private fb: FormBuilder,
     private globalStore: GlobalStore,
     private classStudyService: ClassStudyService,
-    private showMessageService: ShowMessageService
+    private showMessageService: ShowMessageService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit(): void {
-    this.getDataForm();
     this.dataFromParent = this.dataModal.dataFromParent;
+
+    console.log(this.dataFromParent)
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();
   }
 
-
-  getDataForm(): void{
-    this.globalStore.isLoading = true;
-    this.classStudyService.getDataForm().subscribe((res: any) => {
-      this.dataForm = res;
-      console.log(res);
-      res.data.academics.map((item) => {
-        this.optionAcacdemic.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      res.data.grades.map((item) => {
-        this.optionGrades.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      res.data.teachers.map((item) => {
-        this.optionMainTeacher.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      res.data.schoolYears.map((item) => {
-        this.optionSchoolYear.push({
-          label: item.name,
-          value: item.id
-        })
-      })
-
-      this.globalStore.isLoading = false;
-    }, (err) =>{
-      this.showMessageService.error(err);
-    })
-  }
-
   initForm() {
+    console.log(this.dataFromParent?.data);
     this.formGroup = this.fb.group({
       name: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.name
+          ? this.dataFromParent?.data?.parents_name
           : '',
         [Validators.required, Validators.maxLength(255), ValidatorNotEmptyString],
       ],
-      academic: [
+      username: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.academic_id
-          : '',
-        [Validators.required],
-      ],
-      mainTeacher: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.teacher_id
-          : '',
-          [Validators.required]
-      ],
-      grade: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.grade_id
-          : '',
-        [Validators.required],
-      ],
-      schoolYear: [
-        this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.school_year_id
+          ? this.dataFromParent?.data?.parents_username
           : '',
         [Validators.required],
       ],
       status: [
         this.dataFromParent.nameForm == 'update'
-          ? this.dataFromParent?.data?.status
+          ? this.dataFromParent?.data?.parents_status
           : '',
         [Validators.required],
       ],
+      phone: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.parents_phone
+          : '',
+        [Validators.required],
+      ],
+      email: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.parents_email
+          : '',
+        [Validators.required],
+      ],
+      dob: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.convertToTimestamp(this.dataFromParent?.data?.parents_dob)
+          : '',
+        [Validators.required],
+      ],
+      address: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.parents_address
+          : '',
+      ],
+      gender: [
+        this.dataFromParent.nameForm == 'update'
+          ? this.dataFromParent?.data?.parents_gender
+          : '',
+          [Validators.required],
+      ],
     });
 
-    if(this.dataFromParent.nameForm == 'update'){
-      this.formGroup.get('academic').clearValidators();
-      this.formGroup.get('academic').updateValueAndValidity();
-      this.formGroup.get('schoolYear').clearValidators();
-      this.formGroup.get('schoolYear').updateValueAndValidity();
-      this.formGroup.get('mainTeacher').clearValidators();
-      this.formGroup.get('mainTeacher').updateValueAndValidity();
-    }
+  }
+
+  convertToTimestamp(dateString: string): number {
+    return Math.floor(new Date(dateString).getTime() / 1000);
   }
 
   submit(valueForm: any) {
-    if(this.dataFromParent.nameForm == 'update'){
-      this.formGroup.get('academic').clearValidators();
-      this.formGroup.get('academic').updateValueAndValidity();
-      this.formGroup.get('schoolYear').clearValidators();
-      this.formGroup.get('schoolYear').updateValueAndValidity();
-      this.formGroup.get('mainTeacher').clearValidators();
-      this.formGroup.get('mainTeacher').updateValueAndValidity();
-    }
     if (this.formGroup.valid) {
       let dataInput;
       if (this.dataFromParent.nameForm == 'update') {
         // form update
         dataInput = {
-          class_id: this.dataFromParent.data.id,
-          name: valueForm.name.trim(),
-          teacher_id: valueForm.mainTeacher,
+          id: this.dataFromParent.data.id,
+          fullname: valueForm.name.trim(),
+          phone: valueForm.phone,
+          dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),
+          gender: valueForm.gender,
           status: valueForm.status,
-          grade_id: valueForm.grade,
+          email: valueForm.email,
+          address: valueForm.address,
+          career: valueForm.career,
         };
       }else{
         dataInput = {
-          name: valueForm.name.trim(),
-          academic_id: valueForm.academic,
-          teacher_id: valueForm.mainTeacher,
+          fullname: valueForm.name.trim(),
+          phone: valueForm.phone,
+          dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),
+          gender: valueForm.gender,
           status: valueForm.status,
-          grade_id: valueForm.grade,
-          school_year_id: valueForm.schoolYear,
+          email: valueForm.email,
+          address: valueForm.address,
+          career: valueForm.career,
+          username: valueForm.username,
+          password: valueForm.password,
+          confirm_password: valueForm.confirmPassword,
         };
       }
       this.globalStore.isLoading = true;
@@ -231,9 +188,9 @@ export class ModalFormClassStudyComponent implements OnInit {
       this.dataFromParent.apiSubmit(dataInput).subscribe(
         (res: any) => {
           if (this.dataFromParent.nameForm == 'update') {
-            this.showMessageService.success("Cập nhật lớp học thành công")
+            this.showMessageService.success("Cập nhật phụ huynh thành công")
           }else{
-            this.showMessageService.success("Thêm lớp học mới thành công")
+            this.showMessageService.success("Thêm phụ huynh mới thành công")
           }
           this.globalStore.isLoading = false;
           this.closeModal(true)
@@ -304,38 +261,57 @@ export class ModalFormClassStudyComponent implements OnInit {
     name: [
       {
         type: "required",
-        message: 'Tên lớp học bắt buộc nhập'
-      },
-    ],
-    academic: [
-      {
-        type: "required",
-        message: 'Niên khóa bắt buộc chọn'
-      },
-    ],
-    grade: [
-      {
-        type: "required",
-        message: 'Khối học bắt buộc chọn'
-      },
-    ],
-    schoolYear: [
-      {
-        type: "required",
-        message: 'Năm học bắt buộc chọn'
+        message: 'Tên bắt buộc nhập'
       },
     ],
     status: [
       {
         type: "required",
-        message: "Trạng thái bắt buộc chọn"
-      }
+        message: 'Trạng thái bắt buộc chọn'
+      },
     ],
-    mainTeacher: [
+    dob: [
       {
         type: "required",
-        message: "Giáo viên chủ nhiệm bắt buộc chọn"
-      }
-    ]
+        message: 'Ngày sinh bắt buộc chọn'
+      },
+    ],
+    username: [
+      {
+        type: "required",
+        message: 'Tên đăng nhập bắt buộc nhập'
+      },
+    ],
+    password: [
+      {
+        type: "required",
+        message: 'Mật khẩu bắt buộc chọn'
+      },
+    ],
+    confirmPassword: [
+      {
+        type: "required",
+        message: 'Xác nhận mật khẩu bắt buộc chọn'
+      },
+    ],
+    phone: [
+      {
+        type: "required",
+        message: 'Số điện thoại bắt buộc nhập'
+      },
+    ],
+    email: [
+      {
+        type: "required",
+        message: 'Email bắt buộc nhập'
+      },
+    ],
+    gender: [
+      {
+        type: "required",
+        message: 'Giới tính bắt buộc chọn'
+      },
+    ], 
   };
+
 }

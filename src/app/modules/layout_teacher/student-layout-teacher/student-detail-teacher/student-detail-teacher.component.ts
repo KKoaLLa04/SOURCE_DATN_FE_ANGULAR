@@ -13,6 +13,8 @@ import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAssignParentLayoutTeacherComponent } from '../modal-assign-parent-layout-teacher/modal-assign-parent-layout-teacher.component';
 import { ModalLockUnlockParentLayoutTeacherComponent } from '../modal-lock-unlock-parent-layout-teacher/modal-lock-unlock-parent-layout-teacher.component';
+import { ModalUnassignParentToStudentComponent } from './modal-unassign-parent-to-student/modal-unassign-parent-to-student.component';
+import { ModalUpdateParentLayoutTeacherComponent } from './modal-update-parent-layout-teacher/modal-update-parent-layout-teacher.component';
 
 @Component({
   selector: 'app-student-detail-teacher',
@@ -220,4 +222,79 @@ export class StudentDetailTeacherComponent implements OnInit {
     // );
   }
 
+  unAssignParent(studentId: any, parentId: any){
+    const modalRef = this.modalService.open(ModalUnassignParentToStudentComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'md', // 'sm' | 'md' | 'lg' | 'xl',
+    });
+
+    let data = {
+      titleModal: 'Xóa đợt thời khóa biểu',
+      btnCancel: 'Hủy',
+      btnAccept: 'Lưu',
+      isHiddenBtnClose: false, // hidden/show btn close modal
+      dataFromParent: {
+        nameForm: 'create',
+      },
+    };
+
+    modalRef.componentInstance.dataModal = data;
+    modalRef.result.then(
+      (result: boolean) => {
+        if (result) {
+          this.globalStore.isLoading = true;
+          let dataRequest = {
+            student_id: studentId,
+            parent_id: parentId
+          }
+          this.studentLayoutTeacherService.unAssignParent(dataRequest).subscribe((res) => {
+            this.showMessageService.success("Hủy gán phụ huynh thành công");
+            this.globalStore.isLoading = false;
+            this.getDetailStudent();
+          }, (err) => {
+            this.globalStore.isLoading = false;
+          })
+        }
+      },
+      (reason) => { }
+    );
+  }
+
+  update(item: any): void{
+    const modalRef = this.modalService.open(ModalUpdateParentLayoutTeacherComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'xl', // 'sm' | 'md' | 'lg' | 'xl',
+    });
+
+    let data = {
+      titleModal: 'Chỉnh sửa thông tin phụ huynh',
+      btnCancel: 'btnAction.cancel',
+      btnAccept: 'btnAction.save',
+      isHiddenBtnClose: false, // hidden/show btn close modal
+      dataFromParent: {
+        data: item,
+        service: this.studentLayoutTeacherService,
+        apiSubmit: (dataInput: any) => this.studentLayoutTeacherService.updateParent(dataInput),
+        nameForm: 'update',
+      },
+    };
+
+    modalRef.componentInstance.dataModal = data;
+    modalRef.result.then(
+      (result: boolean) => {
+        if (result) {
+          this.getDetailStudent();
+        }
+      },
+      (reason) => { }
+    );
+  }
 }
