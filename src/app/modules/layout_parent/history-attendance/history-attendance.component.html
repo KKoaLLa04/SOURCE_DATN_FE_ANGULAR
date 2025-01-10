@@ -40,6 +40,7 @@
           <th>Thứ</th>
           <th>Thời gian</th>
           <th>Giáo viên</th>
+          <th>Ghi chú</th>
           <th class="w-10">Trạng thái</th>
         </tr>
       </thead>
@@ -66,28 +67,38 @@
                 {{item.morning_timetable[0].teacher_phone}}
               </td>
               <td class="">
+                {{item.morning_timetable[0].note}} <br/>
+              </td>
+              <td class="">
                 <div appStatusStudentAttendance [statusValue]="item.morning_timetable[0].status"></div>
               </td>
             </ng-container>
           </tr>
-          <tr *ngFor="let history of item.morning_timetable">
-            <td>
-              {{history.subject}}
-            </td>
-            <td class="">
-              <div appStatusDayOfWeek [statusValue]="history.day"></div>
-            </td>
-            <td class="">
-              Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
-            </td>
-            <td class="">
-              {{history.teacher_name}} <br/>
-              {{history.teacher_phone}}
-            </td>
-            <td class="">
-              <div appStatusStudentAttendance [statusValue]="history.status"></div>
-            </td>
-          </tr>
+          <ng-container *ngIf="item.morning_timetable?.length > 1">
+            <tr *ngFor="let history of item.morning_timetable, let i = index">
+              <ng-container *ngIf="i > 0">
+                <td>
+                  {{history.subject}}
+                </td>
+                <td class="">
+                  <div appStatusDayOfWeek [statusValue]="history.day"></div>
+                </td>
+                <td class="">
+                  Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
+                </td>
+                <td class="">
+                  {{history.teacher_name}} <br/>
+                  {{history.teacher_phone}}
+                </td>
+                <td class="">
+                  {{history.note}} <br/>
+                </td>
+                <td class="">
+                  <div appStatusStudentAttendance [statusValue]="history.status"></div>
+                </td>
+              </ng-container>
+            </tr>
+          </ng-container>
         </ng-container>
        </ng-container>
       </tbody>
@@ -108,36 +119,67 @@
           <th>Thứ</th>
           <th>Thời gian</th>
           <th>Giáo viên</th>
+          <th>Ghi chú</th>
           <th class="w-10">Trạng thái</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngIf="dataList?.data?.[0]?.afternoon_timetable?.length">
-          <tr *ngFor="let item of dataList?.data, let i = index">
-            <td>{{i+1}}</td>
-            <td>{{dataList?.student_name}} - {{dataList?.code}} </td>
-            <td>{{dataList?.dob}}</td>
-            <td>{{item.date | formatTime}}</td>
-            <ng-container *ngFor="let history of item.afternoon_timetable">
-              <td>
-                {{history.subject}}
-              </td>
-              <td class="">
-                <div appStatusDayOfWeek [statusValue]="history.day"></div>
-              </td>
-              <td class="">
-                Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
-              </td>
-              <td class="">
-                {{history.teacher_name}} <br/>
-                {{history.teacher_phone}}
-              </td>
-              <td class="">
-                <div appStatusStudentAttendance [statusValue]="history.status"></div>
-              </td>
+            <ng-container *ngFor="let item of dataList?.data, let i = index">
+              <tr *ngFor="let item of dataList?.data, let i = index">
+                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{i+1}}</td>
+                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{dataList?.student_name}} - {{dataList?.code}} </td>
+                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{dataList?.dob}}</td>
+                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{item.date | formatTime}}</td>
+                <ng-container >
+                  <td>
+                    {{item.afternoon_timetable[0].subject}}
+                  </td>
+                  <td class="">
+                    <div appStatusDayOfWeek [statusValue]="item.afternoon_timetable[0].day"></div>
+                  </td>
+                  <td class="">
+                    Tiết {{item.afternoon_timetable[0].period}} ({{item.afternoon_timetable[0].from_time}} - {{item.afternoon_timetable[0].to_time}})
+                  </td>
+                  <td class="">
+                    {{item.afternoon_timetable[0].teacher_name}} <br/>
+                    {{item.afternoon_timetable[0].teacher_phone}}
+                  </td>
+                  <td class="">
+                    {{item.afternoon_timetable[0].note}} <br/>
+                  </td>
+                  <td class="">
+                    <div appStatusStudentAttendance [statusValue]="item.afternoon_timetable[0].status"></div>
+                  </td>
+                </ng-container>
+              </tr>
+              <ng-container *ngIf="item.afternoon_timetable?.length > 1">
+                <tr *ngFor="let history of item.afternoon_timetable, let i = index">
+                  <ng-container *ngIf="i > 0">
+                    <td>
+                      {{history.subject}}
+                    </td>
+                    <td class="">
+                      <div appStatusDayOfWeek [statusValue]="history.day"></div>
+                    </td>
+                    <td class="">
+                      Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
+                    </td>
+                    <td class="">
+                      {{history.teacher_name}} <br/>
+                      {{history.teacher_phone}}
+                    </td>
+                    <td class="">
+                      {{history.note}} <br/>
+                    </td>
+                    <td class="">
+                      <div appStatusStudentAttendance [statusValue]="history.status"></div>
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
             </ng-container>
-          </tr>
-        </ng-container>
+           </ng-container>
       </tbody>
     </table>
 

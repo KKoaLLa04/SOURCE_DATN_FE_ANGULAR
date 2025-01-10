@@ -15,6 +15,9 @@ import { ModalDeleteTimetableComponent } from './modal-delete-timetable/modal-de
 import { ClassStudyService } from '../services/class-study.service';
 import { StatusClassDirective } from 'src/app/_shared/directive/status-class.directive';
 import { ModalTimetableComponent } from './modal-timetable/modal-timetable.component';
+import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
+import { InputSearchComponent } from 'src/app/_shared/components/input-search/input-search.component';
 
 @Component({
   selector: 'app-timetable',
@@ -27,7 +30,9 @@ import { ModalTimetableComponent } from './modal-timetable/modal-timetable.compo
     NoDataComponent,
     NgIf,
     ContextMenuComponent,
-    StatusClassDirective
+    StatusClassDirective,
+    PaginationComponent,
+    InputSearchComponent
   ]
 })
 export class TimetableComponent implements OnInit {
@@ -35,6 +40,11 @@ export class TimetableComponent implements OnInit {
   dataClass: any = [];
   iconSvg = iconSVG;
   timetableSelect: any;
+  pageIndex = PAGE_INDEX_DEFAULT;
+  pageSize = PAGE_SIZE_DEFAULT;
+  collectionSize: number = 0;
+  sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
+  keyWord: string = '';
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
@@ -46,6 +56,19 @@ export class TimetableComponent implements OnInit {
 
   ngOnInit() {
     this.getListTimetableTimes();
+    this.getListClass();
+  }
+
+  paginationChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getListClass();
+  }
+
+  onSearch(value: string): void{
+    this.keyWord = value;
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.pageSize = PAGE_SIZE_DEFAULT;
     this.getListClass();
   }
 
@@ -215,13 +238,13 @@ export class TimetableComponent implements OnInit {
     this.globalStore.isLoading = true;
     let dataRequest = {
       school_year_id: localStorage.getItem('SchoolYearFirst'),
-      size: 15,
-      page: 1,
-      search: ''
+      size: this.pageSize,
+      page: this.pageIndex,
+      search: this.keyWord
     }
     this.classStudyService.getListClass(dataRequest).subscribe((res: any) => {
       this.dataClass = res;
-      console.log(this.dataClass);
+      this.collectionSize = res?.data?.totalItems
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);

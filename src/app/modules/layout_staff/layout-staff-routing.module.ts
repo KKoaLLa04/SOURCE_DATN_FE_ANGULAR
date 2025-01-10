@@ -25,6 +25,8 @@ import { ConfigTimetableComponent } from "./config-timetable/config-timetable.co
 import { ProfileComponent } from "./profile/profile.component";
 import { AttendanceDetailComponent } from "./attendance/attendance-detail/attendance-detail.component";
 import { TimetableComponent } from "./timetable/timetable.component";
+import { HistoryAttendanceComponent } from "./history-attendance/history-attendance.component";
+import { HistoryDetailAttendanceComponent } from "./history-attendance/history-detail-attendance/history-detail-attendance.component";
 
 const routes: Routes = [
   {
@@ -220,6 +222,19 @@ const routes: Routes = [
         path: '',
         component: TimetableComponent
       },
+    ]
+  },
+  {
+    path: 'history_attendance',
+    children: [
+      {
+        path: '',
+        component: HistoryAttendanceComponent
+      },
+      {
+        path: ':classId',
+        component: HistoryDetailAttendanceComponent
+      }
     ]
   }
 ];

@@ -27,4 +27,8 @@ export class AttendanceService {
   listAttendanceTimetable(data: any){
     return this.http.post(`${environment.apiUrl}/manager/rollcall`, data);
   }
+
+  getHistoryAttendance(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/rollcallhistory/showclass/${data.classId}` , {params: {...data}});
+  }
 }

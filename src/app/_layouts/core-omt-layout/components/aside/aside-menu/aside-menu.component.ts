@@ -34,6 +34,7 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Thống kê điểm danh", url:"/staff/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-khach-hang.svg", name:"Điểm danh", url:"/staff/list_attendance", permissionCode : '', code: 'attendance', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"lịch sử điểm danh", url:"/staff/history_attendance", permissionCode : '', code: 'history_attendance', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Môn học", url:"/staff/subject", permissionCode : '', code: 'subject', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Công nhân viên chức", url:"/staff/teacher", permissionCode : '', code: 'teacher', children: []},
         {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Niên khóa", url:"/staff/academic", permissionCode : '', code: 'academic', children: []},
