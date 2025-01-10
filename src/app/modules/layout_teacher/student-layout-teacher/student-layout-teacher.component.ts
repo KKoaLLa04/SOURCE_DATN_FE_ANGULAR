@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IProperty } from 'src/app/_models/context-menu.interface';
 import { ModalStudentFormTeacherComponent } from './modal-student-form-teacher/modal-student-form-teacher.component';
 import { ModalLockUnlockParentLayoutTeacherComponent } from './modal-lock-unlock-parent-layout-teacher/modal-lock-unlock-parent-layout-teacher.component';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 
 @Component({
   selector: 'app-student-layout-teacher',
@@ -31,7 +32,8 @@ import { ModalLockUnlockParentLayoutTeacherComponent } from './modal-lock-unlock
     PaginationComponent,
     NoDataComponent,
     NgIf,
-    StatusClassStudentDirective
+    StatusClassStudentDirective,
+    SelectComponent
   ]
 })
 export class StudentLayoutTeacherComponent implements OnInit {
@@ -42,16 +44,8 @@ dataList: any = [];
   iconSvg = iconSVG;
   collectionSize: number = 0;
   sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
-  dataOptionsStatus: Select2[] = [
-    {
-      label: "Test",
-      value: ""
-    },
-    {
-      label: "Test",
-      value: ""
-    }
-  ]
+  dataOptionsStatus: Select2[] = [];
+  classId: string = ''
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
@@ -61,6 +55,13 @@ dataList: any = [];
   ) { }
 
   ngOnInit() {
+    let data = JSON.parse(localStorage.getItem('UserInfo'));
+    data?.classes?.map((item) => {
+      this.dataOptionsStatus.push({
+        label: item.className,
+        value: item.classId
+      })
+    })
     this.getListStudent();
   }
 
@@ -72,6 +73,11 @@ dataList: any = [];
 
   onChangeStudentDetailPage(id: any){
     this.router.navigateByUrl('teacher/student/detail/'+id);
+  }
+
+  onChangeSelectClass(value: any){
+    this.classId = value;
+    this.getListStudent();
   }
 
   handleAction(event: IProperty): void{
@@ -167,13 +173,12 @@ dataList: any = [];
       keyword: this.keyWord,
       pageIndex: this.pageIndex,
       pageSize: this.pageSize,
-      class_id: localStorage.getItem("classIdTeacher")
+      class_id: this.classId ? this.classId : localStorage.getItem("classIdTeacher")
     }
 
     this.studentLayoutTeacherService.getListStudent(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       this.collectionSize = res?.total
-      console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);
