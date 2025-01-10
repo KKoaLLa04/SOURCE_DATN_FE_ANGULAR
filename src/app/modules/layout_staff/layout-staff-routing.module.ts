@@ -27,6 +27,7 @@ import { AttendanceDetailComponent } from "./attendance/attendance-detail/attend
 import { TimetableComponent } from "./timetable/timetable.component";
 import { HistoryAttendanceComponent } from "./history-attendance/history-attendance.component";
 import { HistoryDetailAttendanceComponent } from "./history-attendance/history-detail-attendance/history-detail-attendance.component";
+import { HistoryDataAttendanceComponent } from "./history-attendance/history-data-attendance/history-data-attendance.component";
 
 const routes: Routes = [
   {
@@ -234,6 +235,10 @@ const routes: Routes = [
       {
         path: ':classId',
         component: HistoryDetailAttendanceComponent
+      },
+      {
+        path: 'history/:classId',
+        component: HistoryDataAttendanceComponent
       }
     ]
   }

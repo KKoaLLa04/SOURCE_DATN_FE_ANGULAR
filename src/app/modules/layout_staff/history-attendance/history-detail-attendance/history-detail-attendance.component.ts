@@ -14,100 +14,112 @@ import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { AttendanceService } from '../../services/attendance.service';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
+import { InputComponent } from 'src/app/_shared/components/input/input.component';
+import { StatusStudentAttendanceDirective } from 'src/app/_shared/directive/status-student-attendance.directive';
+import { StatusDayOfWeekDirective } from 'src/app/_shared/directive/status-day-of-week.directive';
+import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
+import { MessagingService } from 'src/firebase/messaging-service';
+import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 
 @Component({
   selector: 'app-history-detail-attendance',
   templateUrl: './history-detail-attendance.component.html',
   styleUrls: ['./history-detail-attendance.component.scss'],
-  standalone: true,
   imports: [
-    InputSearchComponent,
-    NgFor,
-    ButtonComponent,
-    NoDataComponent,
-    NgIf,
-    FormatTimePipe,
-    StatusClassAttendanceDirective,
-    PaginationComponent,
-    ButtonBackComponent,
-    RouterLink
-  ],
-  providers: [FormatTimePipe]
+      InputSearchComponent,
+      NgFor,
+      SelectComponent,
+      InputComponent,
+      ButtonComponent,
+      FormatTimePipe,
+      NoDataComponent,
+      NgIf,
+      StatusStudentAttendanceDirective,
+      StatusDayOfWeekDirective,
+      SingleDatePickerComponent
+    ],
+    standalone: true,
+    providers: [FormatTimePipe]
 })
 export class HistoryDetailAttendanceComponent implements OnInit {
   dataList: any = [];
-  iconSvg = iconSVG;
-  keyWord: string = '';
-  pageIndex = PAGE_INDEX_DEFAULT;
-  pageSize = PAGE_SIZE_DEFAULT;
-  collectionSize: number = 0;
-  sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
-  dataOptionsStatus: Select2[] = [
-    {
-      label: "Test",
-      value: ""
-    },
-  ]
-  dateTimestampNow: number = new Date().getTime()/1000;
-  classId: any;
-  constructor(
-    private globalStore: GlobalStore,
-    private showMessageSerivce: ShowMessageService,
-    private attendanceService: AttendanceService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private formatTimePipe: FormatTimePipe
-  ) { }
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
-        this.getDataTimetable();
-    });
-  }
-
-  paginationChange(event: any) {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.getDataTimetable();
-  }
-
-  onChangeTimetable(classId: any): void{
-    this.router.navigateByUrl(`staff/class-study/timetable/${classId}`)
-  }
-
-  onChangeDetailPage(classId: any): void{
-    this.router.navigateByUrl(`staff/class-study/detail/${classId}`)
-  }
-
-  onChangeAssignStudentPage(classId: any): void{
-    this.router.navigateByUrl(`staff/class-study/assign-student/${classId}`)
-  }
-
-  onSearch(value: string): void{
-    this.pageIndex = PAGE_INDEX_DEFAULT;
-    this.pageSize = PAGE_SIZE_DEFAULT
-    this.keyWord = value;
-    this.getDataTimetable()
-  }
-
-  private getDataTimetable(): void{
-    this.globalStore.isLoading = true;
-    let dataRequest = {
-      classId: this.classId,
-      date: this.formatTimePipe.transform(this.dateTimestampNow, "yyyy-MM-dd"),
-      keyword: '',
-      pageIndex: 1,
-      pageSize: 1000
+    tabSelect: number = 1;
+    pageIndex = PAGE_INDEX_DEFAULT;
+    pageSize = PAGE_SIZE_DEFAULT;
+    keyWord: string = ''
+    date: number = 1;
+    classIds: Array<number> = []
+    classId: any;
+    attendanceId: any;
+    dataOptionsStatus: Select2[] = [
+      {
+        label: "Test",
+        value: ""
+      },
+      {
+        label: "Test2",
+        value: ""
+      }
+    ]
+    rollcallData: any = [];
+    dateTimestampNow: number = new Date().getTime()/1000;
+    attendanceEnum = StatusStudent
+    
+    constructor(
+      private globalStore: GlobalStore,
+      private attendanceService: AttendanceService,
+      private showMessageSerivce: ShowMessageService,
+      private route: ActivatedRoute,
+      private messagingSerivce: MessagingService,
+      private formatTimePipe: FormatTimePipe
+    ) { }
+  
+    ngOnInit() {
+      this.route.paramMap.subscribe(params => {
+        this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
+          this.getHistoryAttendance();
+      });
     }
-    this.attendanceService.getHistoryAttendance(dataRequest).subscribe((res: any) => {
-      this.dataList = res;
-      console.log(res);
-      this.collectionSize = res?.data.totalItems;
-      this.globalStore.isLoading = false;
-    }, (err) =>{
-      this.showMessageSerivce.error(err);
-    })
-  }
+  
+    onChangeSelect(value: number): void{
+      this.tabSelect = value;
+    }
+  
+    onChangeDate(date: any): void{
+      this.dateTimestampNow = date;
+      this.getHistoryAttendance();
+    }
+
+    getHistoryAttendance(): void{
+      this.globalStore.isLoading = true;
+  
+      let dataRequest = {
+        classId: this.classId,
+        date: this.formatTimePipe.transform(this.dateTimestampNow, "yyyy-MM-dd"),
+        size: this.pageSize,
+        page: this.pageIndex,
+        keyword: this.keyWord
+      }
+  
+      this.attendanceService.getHistoryAttendance(dataRequest).subscribe((res: any) => {
+        this.dataList = res;
+        console.log(res);
+        res.data?.data?.map((item) => {
+          item.status = item.status == 0 ? 1 : item.status 
+        })
+        this.globalStore.isLoading = false;
+      }, (err) =>{
+        this.showMessageSerivce.error(err);
+      })
+    }
+  
+    onChangeRadio(item: any, value: any){
+      item.statusValue = value;
+    }
+  
+    onChangeNote(item: any, value: string){
+      item.note = value;
+    }
 
 }

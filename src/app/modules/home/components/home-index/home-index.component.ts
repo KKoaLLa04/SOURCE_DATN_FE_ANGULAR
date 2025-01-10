@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeIndexService } from '../../home-index.service';
 import { forkJoin } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home-index',
@@ -25,13 +26,20 @@ export class HomeIndexComponent implements OnInit {
   onShowClassWeek: number = 1;
   onShowClassMonth: number = 1;
   constructor(
-    private homeIndexService: HomeIndexService
+    private homeIndexService: HomeIndexService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.needToChangePass = JSON.parse(localStorage.getItem('needToChangePass'));
     if(this.needToChangePass) {
       // open modal required change password
+    }
+    let accessType = localStorage.getItem("access_type")
+    if(Number(accessType) == 2){
+      this.router.navigate(['/home/index']);
+    }else if(Number(accessType) == 3){
+      this.router.navigate(['/parent']);
     }
     this.getData();
   }

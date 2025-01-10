@@ -1,69 +1,167 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Danh sách điểm danh của lớp: </h3>
+  <div class="d-flex justify-content-end">
+    <app-button 
+      [text]="'Buổi sáng'" 
+      [backgroundColor]="tabSelect == 1 ? 'bg-color-azure' : 'bg-color-white-smoke'" 
+      [color]="tabSelect == 1 ? 'text-color-white' : 'text-color-black'"
+      class="me-5"
+      (onClick)="onChangeSelect(1)"
+     ></app-button>
+    <app-button 
+      [text]="'Buổi chiều'" 
+      [backgroundColor]="tabSelect == 2 ? 'bg-color-azure' : 'bg-color-white-smoke'" 
+      [color]="tabSelect == 2 ? 'text-color-white' : 'text-color-black'"
+      (onClick)="onChangeSelect(2)"
+    ></app-button>
+  </div>
+  <h3>Điểm danh</h3>
 
-  <app-button-back [routerLink]="'/staff/list_attendance'" class="mb-5"></app-button-back>
-  <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Tổng số tiết cần điểm danh: <span class="text-color-blue-light">{{dataList?.data?.length}} tiết</span></p>
+  <div class="d-flex justify-content-end mb-5">
+    <!-- <p>
+      <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.total}} học sinh</span></span> |
+      <span>Số học sinh nghỉ học: <span class="text-color-red fw-700">{{dataList?.total_absent}} học sinh</span></span> |
+      <span>Số học sinh đi muộn: <span class="text-color-red fw-700">{{dataList?.total_late}} học sinh</span></span> |
+      <span>Số học sinh có mặt: <span class="text-color-green fw-700">{{dataList?.total_present}} học sinh</span></span>
+    </p> -->
+    <!-- <div class="d-flex">
+      <app-input-search [width]="'w-250px'"></app-input-search>
+    </div> -->
+    <app-single-date-picker (dataTimeOutput)="onChangeDate($event)"></app-single-date-picker>
   </div>
 
-  <div class="table table-responsive">
+  <div class="table table-responsive" *ngIf="tabSelect == 1">
     <table class="table table-custom">
       <thead>
-        <tr class="text-color-white text-color-blue-dark">
-          <th class=w-5>STT</th>
-          <th>Người dạy</th>
+        <tr>
+          <th>STT</th>
           <th>Ngày điểm danh</th>
-          <th>Thông tin tiết học</th>
           <th>Môn học</th>
-          <th>Thời gian tiết học</th>
-          <th>Học sinh</th>
-          <th>Trạng thái</th>
-          <th>#</th>
+          <th>Thứ</th>
+          <th>Thời gian</th>
+          <th>Giáo viên</th>
+          <th class="w-10">#</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data, let i = index">
-          <td>
-            {{(pageIndex-1)*pageSize + i + 1}}
-          </td>
-          <td>
-            <span class="text-color-azure">{{item.teacher_name}}</span> <br/>
-            <span>{{item.teacher_email}}</span>
-          </td>
-          <td>
-            {{dateTimestampNow | formatTime}}
-            <!-- <div appStatusClass [statusValue]="item.status"></div> -->
-          </td>
-          <td class="">
-            <span>Tiết: {{item.timetable_period}}</span> <br/>
-            <span>
-              Buổi: 
-              <b *ngIf="item.timetable_time==1"> Sáng</b>
-              <b *ngIf="item.timetable_time==2"> Chiều</b>
-            </span> <br/>
-          </td>
-          <td class="text-center">
-            <span>Môn học: {{item.subject_name}}</span> <br/> 
-          </td>
-          <td class="text-center">
-            {{item.timetable_from_time}} - {{item.timetable_to_time}}
-          </td>
-          <td class="text-center">
-            {{item.totalChecked}}/{{item.totalStudent}}
-          </td>
-          <td>
-            <div appStatusClassAttendance [statusValue]="item.attendance_checked">trạng thái</div>
-          </td>
-          <td>
-            <app-button [text]="'Điểm danh'" [routerLink]="['/staff/list_attendance/save', classId, item?.teacher_subject_timetable_id]"></app-button>
-            <!-- [routerLink]="['/staff/list_attendance/detail', item.id]"  -->
-          </td>
-        </tr>
+       <ng-container *ngIf="dataList?.data?.[0]?.morning_timetable?.length">
+        <ng-container *ngFor="let item of dataList?.data, let i = index">
+          <tr *ngFor="let item of dataList?.data, let i = index">
+            <td [rowSpan]="item.morning_timetable?.length + 1">{{i+1}}</td>
+            <td [rowSpan]="item.morning_timetable?.length + 1">{{item.date | formatTime}}</td>
+            <ng-container >
+              <td>
+                {{item.morning_timetable[0].subject}}
+              </td>
+              <td class="">
+                <div appStatusDayOfWeek [statusValue]="item.morning_timetable[0].day"></div>
+              </td>
+              <td class="">
+                Tiết {{item.morning_timetable[0].period}} ({{item.morning_timetable[0].from_time}} - {{item.morning_timetable[0].to_time}})
+              </td>
+              <td class="">
+                {{item.morning_timetable[0].teacher_name}} <br/>
+                {{item.morning_timetable[0].teacher_email}}
+              </td>
+              <td class="">
+                <app-button [text]="'Chi tiết'"></app-button>
+              </td>
+            </ng-container>
+          </tr>
+          <ng-container *ngIf="item.morning_timetable?.length > 1">
+            <tr *ngFor="let history of item.morning_timetable, let i = index">
+              <ng-container *ngIf="i > 0">
+                <td>
+                  {{history.subject}}
+                </td>
+                <td class="">
+                  <div appStatusDayOfWeek [statusValue]="history.day"></div>
+                </td>
+                <td class="">
+                  Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
+                </td>
+                <td class="">
+                  {{history.teacher_name}} <br/>
+                  {{history.teacher_email}}
+                </td>
+                <td class="">
+                  <app-button [text]="'Chi tiết'"></app-button>
+                </td>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </ng-container>
+       </ng-container>
       </tbody>
     </table>
-    <app-no-data *ngIf="!dataList?.data?.length"></app-no-data>
-    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
-      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
-    </app-pagination>
+
+    <app-no-data *ngIf="!dataList?.data?.[0]?.morning_timetable?.length"></app-no-data>
+  </div>
+
+  <div class="table table-responsive" *ngIf="tabSelect == 2">
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Ngày điểm danh</th>
+          <th>Môn học</th>
+          <th>Thứ</th>
+          <th>Thời gian</th>
+          <th>Giáo viên</th>
+          <th class="w-10">#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="dataList?.data?.[0]?.afternoon_timetable?.length">
+            <ng-container *ngFor="let item of dataList?.data, let i = index">
+              <tr *ngFor="let item of dataList?.data, let i = index">
+                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{i+1}}</td>
+                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{item.date | formatTime}}</td>
+                <ng-container >
+                  <td>
+                    {{item.afternoon_timetable[0].subject}}
+                  </td>
+                  <td class="">
+                    <div appStatusDayOfWeek [statusValue]="item.afternoon_timetable[0].day"></div>
+                  </td>
+                  <td class="">
+                    Tiết {{item.afternoon_timetable[0].period}} ({{item.afternoon_timetable[0].from_time}} - {{item.afternoon_timetable[0].to_time}})
+                  </td>
+                  <td class="">
+                    {{item.afternoon_timetable[0].teacher_name}} <br/>
+                    {{item.afternoon_timetable[0].teacher_email}}
+                  </td>
+                  <td class="">
+                    <app-button [text]="'Chi tiết'"></app-button>
+                  </td>
+                </ng-container>
+              </tr>
+              <ng-container *ngIf="item.afternoon_timetable?.length > 1">
+                <tr *ngFor="let history of item.afternoon_timetable, let i = index">
+                  <ng-container *ngIf="i > 0">
+                    <td>
+                      {{history.subject}}
+                    </td>
+                    <td class="">
+                      <div appStatusDayOfWeek [statusValue]="history.day"></div>
+                    </td>
+                    <td class="">
+                      Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
+                    </td>
+                    <td class="">
+                      {{history.teacher_name}} <br/>
+                      {{history.teacher_phone}}
+                    </td>
+                    <td class="">
+                      <app-button [text]="'Chi tiết'"></app-button>
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </ng-container>
+           </ng-container>
+      </tbody>
+    </table>
+
+    <app-no-data *ngIf="!dataList?.data?.[0]?.afternoon_timetable?.length"></app-no-data>
   </div>
 </div>

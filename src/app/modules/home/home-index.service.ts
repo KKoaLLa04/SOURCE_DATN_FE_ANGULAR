@@ -34,4 +34,16 @@ export class HomeIndexService {
   getStatisticClassMonthHome(){
     return this.http.get(`${environment.apiUrl}/manager/statisattendance/month-class`)
   }
+
+  getStatisticClassTeacherDayHome(){
+    return this.http.get(`${environment.apiUrl}/teacher/statisattendance/day`)
+  }
+
+  getStatisticClassTeacherWeekHome(){
+    return this.http.get(`${environment.apiUrl}/teacher/statisattendance/week`)
+  }
+
+  getStatisticClassTeacherMonthHome(){
+    return this.http.get(`${environment.apiUrl}/teacher/statisattendance/month`)
+  }
 }
