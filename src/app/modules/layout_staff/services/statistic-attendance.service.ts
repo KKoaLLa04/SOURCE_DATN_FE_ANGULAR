@@ -36,7 +36,7 @@ export class StatisticAttendanceService {
     //     }
     //   ]
     // )
-    return this.http.get(`http://127.0.0.1:8000/api/manager/rollcallStatistics`, {params: {...data}})
+    return this.http.get(`http://127.0.0.1:8000/api/rollcallStatistics`, {params: {...data}})
   }
 
   getListStatistic(data: any){
@@ -69,6 +69,6 @@ export class StatisticAttendanceService {
     //     }
     //   ]
     // )
-    return this.http.get(`${environment.apiUrl}/manager/rollcallStatistics/showclass/${data.classId}`, {params: {...data}})
+    return this.http.get(`${environment.apiUrl}/rollcallStatistics/showclass/${data.classId}`, {params: {...data}})
   }
 }

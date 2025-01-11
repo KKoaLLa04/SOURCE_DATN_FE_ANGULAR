@@ -8,17 +8,23 @@
     </div>
     <div class="d-flex mb-5">
       <!-- <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
-      <app-select [options]="dataOptionsStatus" class="me-4" [width]="'w-200px'"></app-select>
       <app-input-search [width]="'w-250px'"></app-input-search> -->
-      <app-single-date-picker (dataTimeOutput)="onChangeDate($event)"></app-single-date-picker>
+      <!-- <app-single-date-picker (dataTimeOutput)="onChangeDate($event)"></app-single-date-picker> -->
+      <app-range-date-picker
+      [startDate]="nowTimestamp"
+      [endDate]="endDate"
+      (dataTimeOutput)="onChangeDate($event)"
+      ></app-range-date-picker>
+      <app-select [options]="dataOptionsStatus" class="ms-4" [width]="'w-200px'" (changeSelect)="changeTimes($event)"></app-select>
     </div>
   </div>
 
   <p class="mt-5 bg-color-white-smoke fw-700 p-5">
-    <span>P: có mặt,</span> 
-    <span class="ms-4">V: Nghỉ không phép ,</span> 
-    <span class="ms-4">C: Nghỉ có phép,</span> 
-    <span class="ms-4">M: đi muộn</span> 
+    <span>P: có mặt</span>
+    <span class="ms-4">A: Nghỉ không phép ,</span> 
+    <span class="ms-4">LI: Nghỉ có phép,</span> 
+    <span class="ms-4">L: đi muộn</span> 
+    <span class="ms-4">...: không điểm danh </span>
   </p>
   <div class="panel panel-default">
     <div class="table table-responsive center-block fix-width scroll-inner">
@@ -27,32 +33,43 @@
       <table class="table table-full-bordered">
         <thead>
           <tr>
-            <th rowspan="2" class="w-3">STT</th>
-            <th rowspan="2" class="w-150px">Mã học sinh</th>
-            <th rowspan="2" class="w-150px">Họ và tên</th>
-            <th colspan="3" class="w-15">Tổng số ngày nghỉ</th>
+            <th rowspan="3" class="w-3 text-center">STT</th>
+            <th rowspan="3" class="w-100px">Mã học sinh</th>
+            <th rowspan="3" class="w-150px">Họ và tên</th>
+            <th colspan="4" class="w-15 text-center">Tổng số thống kê</th>
             <ng-container *ngFor="let item of dataDateMonth">
-              <th rowspan="2">{{item.date}}</th>
+              <th [rowSpan]="!item?.data.length ? 2 : 1" [colSpan]="item?.data.length" class="w-250px text-center">{{item.date}}</th>              
             </ng-container>
           </tr>
           <tr>
-            <th class="text-center">P</th>
-            <th class="text-center">V</th>
-            <th class="text-center">M</th>
+            <th rowspan="2" class="text-center">P</th>
+            <th rowspan="2" class="text-center">A</th>
+            <th rowspan="2" class="text-center">LI</th>
+            <th rowspan="2" class="text-center">L</th>
+          </tr>
+          <tr>
+            <ng-container *ngFor="let item of dataDateMonth">
+              <ng-container *ngFor="let period of item.data">
+                <th class="w-50px text-center">Tiết {{period.period}}</th>
+              </ng-container>
+            </ng-container>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of dataList, let i = index">
-            <td>{{i+1}}</td>
+            <td class="text-center">{{i+1}}</td>
             <td>{{item.student_code}}</td>
             <td>{{item.student_name}}</td>
-            <td>{{item.total_absent}}</td>
-            <td>{{item.total_late}}</td>
             <td>{{item.total_present}}</td>
-            <td *ngFor="let date of item.date">
-              <div appStatusStudent [statusValue]="date.status"></div>
-              <!-- {{date.status}} -->
-            </td>
+            <td>{{item.total_absent}}</td>
+            <td>{{item.total_licensed}}</td>
+            <td>{{item.total_late}}</td>
+            <ng-container *ngFor="let date of item.data">
+              <td *ngFor="let period of date.data">
+                <div appStatusStudent [statusValue]="period.status"></div>
+                <!-- {{date.status}} -->
+              </td>
+            </ng-container>
           </tr>
         </tbody>
       </table>

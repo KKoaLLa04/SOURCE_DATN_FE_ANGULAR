@@ -9,6 +9,8 @@ import { StatusStudentDirective } from 'src/app/_shared/directive/status-student
 import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
+import { RangeDatePickerComponent } from 'src/app/_shared/components/range-date-picker/range-date-picker.component';
+import { SelectComponent } from 'src/app/_shared/components/select/select.component';
 
 @Component({
   selector: 'app-statistic-detail-attendance',
@@ -20,7 +22,9 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
     StatusStudentDirective,
     SingleDatePickerComponent,
     ButtonBackComponent,
-    RouterLink
+    RouterLink,
+    RangeDatePickerComponent,
+    SelectComponent
   ],
   providers: [FormatTimePipe]
 })
@@ -30,15 +34,19 @@ export class StatisticDetailAttendanceComponent implements OnInit {
   date = new Date().getTime() / 1000;
   dataOptionsStatus: Select2[] = [
     {
-      label: "Test",
-      value: ""
+      label: "Buổi sáng",
+      value: 1,
+      selected: true
     },
     {
-      label: "Test",
-      value: ""
+      label: "Buổi chiều",
+      value: 2
     }
   ]
+  statusTime: number = 1;
   classId: any;
+  nowTimestamp: any = new Date().getTime() / 1000;
+  endDate: any = this.nowTimestamp + 86400;
   constructor(
     private globalStore: GlobalStore,
     private statisticAttendanceSerivce: StatisticAttendanceService,
@@ -54,8 +62,14 @@ export class StatisticDetailAttendanceComponent implements OnInit {
     });
   }
 
-  onChangeDate(date: any): void{
-    this.date = date;
+  onChangeDate(event: any){
+    this.nowTimestamp = event.startDate;
+    this.endDate = event.endDate
+    this.getListStatisticData();
+  }
+
+  changeTimes(value){
+    this.statusTime = value;
     this.getListStatisticData();
   }
 
@@ -64,11 +78,14 @@ export class StatisticDetailAttendanceComponent implements OnInit {
 
     let dataRequest = {
       classId: this.classId,
-      date: this.formatTimePipe.transform(this.date, "yyyy-MM-dd")
+      from_date: this.formatTimePipe.transform(this.nowTimestamp, "yyyy-MM-dd"),
+      to_date: this.formatTimePipe.transform(this.endDate, "yyyy-MM-dd"),
+      time: this.statusTime
     }
     this.statisticAttendanceSerivce.getListStatistic(dataRequest).subscribe((res: any) => {
       this.dataList = res?.data;
-      this.dataDateMonth = res.data[0]?.date;
+      console.log(res.data);
+      this.dataDateMonth = res.data[0]?.data;
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);

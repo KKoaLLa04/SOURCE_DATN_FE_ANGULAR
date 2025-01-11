@@ -50,7 +50,6 @@ export class StatusStudentDirective {
         }
   
         this.renderer.setStyle(this.el.nativeElement, 'color', textColor);
-        this.renderer.setStyle(this.el.nativeElement, 'width', '150px');
         this.renderer.setStyle(this.el.nativeElement, 'text-align', 'center');
         this.renderer.setStyle(this.el.nativeElement, 'font-size', "12px");
         this.renderer.setStyle(this.el.nativeElement, 'border-radius', "5px");

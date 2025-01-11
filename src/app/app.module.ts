@@ -38,11 +38,14 @@ import { environment } from 'src/environments/environment';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { initializeApp } from '@angular/fire/app';
 import { MessagingService } from 'src/firebase/messaging-service';
+import { DemoComponent } from './demo/demo.component';
 registerLocaleData(en);
 // #fake-end#
 
 @NgModule({
-    declarations: [],
+    declarations: [	
+      DemoComponent
+   ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

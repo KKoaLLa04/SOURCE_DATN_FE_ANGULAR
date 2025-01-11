@@ -4,6 +4,7 @@ import { AuthGuard } from './_core/_helpers/guard/auth.guard';
 import { PageNotFoundComponent } from './_shared/components/page-not-found/page-not-found.component';
 import { ServerErrorComponent } from './_shared/components/server-error/server-error.component';
 import { AccessDeniedComponent } from './_shared/components/access-denied/access-denied.component';
+import { DemoComponent } from './demo/demo.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,8 @@ export const routes: Routes = [
   { path: 'page-not-found', component: PageNotFoundComponent },
 
   { path: 'server-error', component: ServerErrorComponent },
+
+  { path: 'demo', component: DemoComponent },
 
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' },
 ];
