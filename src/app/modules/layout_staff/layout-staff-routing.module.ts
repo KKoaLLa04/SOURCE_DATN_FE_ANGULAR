@@ -55,7 +55,7 @@ const routes: Routes = [
         component: AttendanceDetailComponent
       },
       {
-        path: "save/:classId/:attendanceId",
+        path: "save/:classId/:attendanceId/:timestampNow",
         component: AttendanceSaveComponent
       }
     ]
@@ -237,7 +237,7 @@ const routes: Routes = [
         component: HistoryDetailAttendanceComponent
       },
       {
-        path: 'history/:classId',
+        path: ':classId/:teacherId',
         component: HistoryDataAttendanceComponent
       }
     ]

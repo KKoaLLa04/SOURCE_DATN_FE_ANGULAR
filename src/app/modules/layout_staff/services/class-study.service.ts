@@ -116,4 +116,12 @@ constructor(
   updateTimetable(data: any){
     return this.http.post(`${environment.apiUrl}/manager/timetable/edit`, data)
   }
+
+  getListClassTeacher(){
+    return this.http.get(`${environment.apiUrl}/teacher/rollcallhistory`)
+  }
+
+  importExcelData(data: any){
+    return this.http.post(`${environment.apiUrl}/manager/timetable/import`, data)
+  }
 }

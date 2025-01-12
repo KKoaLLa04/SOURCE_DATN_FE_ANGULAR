@@ -8,6 +8,9 @@ import { TimetableTeacherComponent } from "./timetable-teacher/timetable-teacher
 import { StudentDetailTeacherComponent } from "./student-layout-teacher/student-detail-teacher/student-detail-teacher.component";
 import { ClassStudyTeacherComponent } from "./class-study-teacher/class-study-teacher.component";
 import { AttendanceDetailComponent } from "./attendance/attendance-detail/attendance-detail.component";
+import { HistoryAttendanceTeacherComponent } from "./history-attendance-teacher/history-attendance-teacher.component";
+import { HistoryDetailAttendanceTeacherComponent } from "./history-attendance-teacher/history-detail-attendance-teacher/history-detail-attendance-teacher.component";
+import { HistoryDataAttendanceTeacherComponent } from "./history-attendance-teacher/history-data-attendance-teacher/history-data-attendance-teacher.component";
 
 const routes: Routes = [
   {
@@ -67,6 +70,23 @@ const routes: Routes = [
       },
     ]
   },
+  {
+      path: 'history-attendance',
+      children: [
+        {
+          path: '',
+          component: HistoryAttendanceTeacherComponent
+        },
+        {
+          path: ':classId',
+          component: HistoryDetailAttendanceTeacherComponent
+        },
+        {
+          path: ':classId/:teacherId',
+          component: HistoryDataAttendanceTeacherComponent
+        }
+      ]
+    }
 ];
 
 @NgModule({

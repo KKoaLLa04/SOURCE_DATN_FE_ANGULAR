@@ -12,6 +12,7 @@ import { GeneralService } from 'src/app/_services/general.service';
 import { GlobalStore } from 'src/app/_store/global.store';
 import * as ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
+import { ClassStudyService } from '../../services/class-study.service';
 
 @Component({
   selector: 'app-modal-import-timetable',
@@ -29,9 +30,12 @@ import { saveAs } from 'file-saver';
 export class ModalImportTimetableComponent implements OnInit {
   @Input() dataModal: any;
   @Output() dataModalEmit = new EventEmitter<any>();
+  dataFromParent: any;
   fileName: string ='';
   file: any = null;
   data: any[] = [];  // Dữ liệu từ file Excel sẽ được lưu ở đây
+  subjects = [];
+
 
   nzNotFoundContent: string = 'employee.notFoundContent';
   // schoolId: string = '';
@@ -42,10 +46,30 @@ export class ModalImportTimetableComponent implements OnInit {
     private router: Router,
     private parentService: ParentService,
     private generalService: GeneralService,
-    private globalStore:GlobalStore
+    private globalStore:GlobalStore,
+    private classStudyService: ClassStudyService
   ) { }
 
   ngOnInit(): void {
+    this.dataFromParent = this.dataModal.dataFromParent;
+    this.getListStudentClassDetail();
+  }
+
+  getListStudentClassDetail(){
+    this.globalStore.isLoading = true;
+    let dataRequest = {
+      class_id: this.dataFromParent.data,
+    }
+    this.classStudyService.getListDetailAClass(dataRequest).subscribe((res: any) => {
+      res.data.classSubject.map((item) => {
+        this.subjects.push(item.subjectName)
+      })
+      console.log(res);
+      this.globalStore.isLoading = false;
+    }, (err) =>{
+      this.globalStore.isLoading = false;
+      this.showMessageService.error(err);
+    })
   }
 
   closeModal(sendData: any) {
@@ -53,7 +77,27 @@ export class ModalImportTimetableComponent implements OnInit {
   }
 
   confirmSubmitForm(){
-    this.dataModalEmit.emit(this.data);
+    let dataRequest = [];
+    this.data.map((item, index) => {
+      if(index > 0){
+        let dataSubjects = []
+        item.map((data, length) => {
+          if(length > 1){
+            dataSubjects.push(
+              {
+                name: data,
+                day: length - 1
+              }
+            )
+          }
+        })
+        dataRequest.push({
+          period: index,
+          subjects: dataSubjects
+        })
+      }
+    })
+    this.dataModalEmit.emit(dataRequest);
     this.activeModal.close(true);
   }
 
@@ -108,11 +152,6 @@ export class ModalImportTimetableComponent implements OnInit {
     document.getElementById('input-file-upload-parent').click();
   }
 
-  subjects = [
-      'Toán', 'Văn', 'Anh', 'Lý', 'Hóa', 'Sinh',
-      'Sử', 'Địa', 'GDCD', 'Tin', 'Công nghệ',
-      'Thể dục', 'Âm nhạc', 'Mỹ thuật'
-    ];
   
     // Thời khóa biểu mẫu
     timetableTemplate = [

@@ -31,4 +31,12 @@ export class AttendanceService {
   listAttendanceTimetable(data: any){
     return this.http.post(`${environment.apiUrl}/teacher/rollcall`, data);
   }
+
+  getListAttendanceTimetableTeacher(data: any){
+    return this.http.get(`${environment.apiUrl}/teacher/rollcallhistory/showclass/${data.classId}`, {params: {...data}});
+  }
+
+  getHistoryDataTeacher(data: any){
+    return this.http.get(`${environment.apiUrl}/teacher/rollcallhistory/student/${data.class_id}/${data.teacher_subject_timetable_id}`, {params: {...data}});
+  }
 }
