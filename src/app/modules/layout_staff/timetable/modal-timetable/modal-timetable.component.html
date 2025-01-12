@@ -10,7 +10,10 @@
     
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <div class="table table-responsive">
-    <h3>Lịch sáng</h3>
+    <div class="d-flex justify-content-between">
+      <h3>Lịch sáng</h3>
+      <app-button (onClick)="viewImportTimetable()" [text]="'Import excel'"></app-button>
+    </div>
     <table class="table table-custom">
       <thead>
         <tr class="text-color-white text-color-blue-dark">

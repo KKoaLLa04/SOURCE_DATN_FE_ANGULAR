@@ -10,8 +10,9 @@ import { TIME_TABLE_STRUCT, timeTableOptionSubject } from 'src/app/_shared/utils
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ClassStudyService } from '../../services/class-study.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ModalImportTimetableComponent } from '../modal-import-timetable/modal-import-timetable.component';
 
 @Component({
   selector: 'app-modal-timetable',
@@ -49,6 +50,8 @@ export class ModalTimetableComponent implements OnInit {
       private classStudyService: ClassStudyService,
       private showMessageService: ShowMessageService,
       public activeModal: NgbActiveModal,
+      private modalService: NgbModal,
+      private showMessageSerivce: ShowMessageService
     ) { }
   
     ngOnInit() {
@@ -141,4 +144,45 @@ export class ModalTimetableComponent implements OnInit {
       return dayData?.period.find(p => p.period == period);
     }
 
+    viewImportTimetable() {
+      const modalRef = this.modalService.open(ModalImportTimetableComponent, {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        keyboard: false,
+        backdrop: 'static', // prevent click outside modal to close modal
+        centered: false, // vị trí hiển thị modal ở giữa màn hình
+        size: 'lg', // 'sm' | 'md' | 'lg' | 'xl',
+      });
+  
+      let data = {
+        titleModal: 'Thời khóa biểu lớp ... tuần ...',
+        btnCancel: 'Hủy',
+        btnAccept: 'Lưu',
+        isHiddenBtnClose: false, // hidden/show btn close modal
+        dataFromParent: {
+          // data: classData,
+          // dataTimetable: dataTimetable,
+          // service: this.timetableService,
+          // apiSubmit: (dataInput: any) => this.timetableService.createNewTimes(dataInput),
+          nameForm: 'create',
+        },
+      };
+  
+      modalRef.componentInstance.dataModal = data;
+      console.log(modalRef.componentInstance);
+      // Nhận dữ liệu từ modal khi người dùng xác nhận
+      modalRef.componentInstance.dataModalEmit.subscribe((confirmedData) => {
+        console.log('Dữ liệu xác nhận:', confirmedData);
+      });
+      modalRef.result.then(
+        (result: boolean) => {
+          if (result) {
+            this.getListTimetable();
+          }
+        },
+        (reason) => { 
+          this.showMessageSerivce.error(reason);
+        }
+      );
+    }
 }
