@@ -2,7 +2,7 @@
   <h3 class="text-color-blue-light fs-18">Gán học sinh vào lớp học</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <app-button-back></app-button-back>
+    <app-button-back [routerLink]="['/staff/class-study']"></app-button-back>
   </div>
   <div>
     <p class="d-flex align-items-center" *ngIf="objectIds?.size">Bạn đã chọn <span> {{objectIds?.size}} học sinh </span>. Bạn vui lòng click vào nút sau để tiến hành chuyển lớp học sinh:
@@ -13,13 +13,13 @@
   <div class="row">
     <div class="col-5 col-lg-5 col-md-12 bg-color-black-light py-8 px-5">
       <h3 clas="fs-20">Học sinh chưa gán vào lớp</h3>
-      <div class="d-flex align-items-center border-bottom-custom">
+      <!-- <div class="d-flex align-items-center border-bottom-custom">
         <span>Khối</span>
         <app-select [bgColor]="'bg-color-white'" [width]="'w-200px'" class="ms-4"></app-select>
-      </div>
+      </div> -->
       <p class="d-flex justify-content-between align-items-center mt-5">
         <span>Đã chọn: {{objectIds?.size}} học sinh</span>
-        <app-input-search [bgColor]="'bg-color-white'"></app-input-search>
+        <app-input-search [bgColor]="'bg-color-white'" (valueChange)="onSearchNotClass($event)"></app-input-search>
       </p>
 
       <div class="table-responsive">
@@ -27,7 +27,7 @@
           <caption></caption>
           <thead class="bg-color-blue-dark text-color-white">
             <tr class="fs-14 fw-700 text-color-white">
-              <th class="ps-4"><app-checkbox (valueChange)="changeCheckAllObject()"></app-checkbox></th>
+              <th class="ps-4"><app-checkbox (valueChange)="changeCheckAllObject()" [checked]="checkAllObject"></app-checkbox></th>
               <th>Họ và tên</th>
               <th>Ngày sinh</th>
               <th>Lớp</th>
@@ -36,7 +36,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of dataListStudentByClass?.data">
-              <td class="ps-4"><app-checkbox (valueChange)="changCheckedObject(item.studentId)"></app-checkbox></td>
+              <td class="ps-4"><app-checkbox (valueChange)="changCheckedObject(item.studentId)" [value]="item.studentId" [checked]="objectIds.has(item.studentId)"></app-checkbox></td>
               <td>
                 <span>{{item.studentName}}</span> <br/>
                 <span>Mã: {{item.studentId}}</span>
@@ -56,13 +56,13 @@
 
     <div class="col-5 col-lg-5 col-md-12 bg-color-black-light py-8">
       <h3 clas="fs-20">{{dataListStudentDetail?.data?.className}}</h3>
-      <div class="d-flex align-items-center border-bottom-custom">
+      <!-- <div class="d-flex align-items-center border-bottom-custom">
         <span>Khối</span>
         <app-select [bgColor]="'bg-color-white'" [width]="'w-200px'" class="ms-4"></app-select>
-      </div>
+      </div> -->
       <p class="d-flex justify-content-between align-items-center mt-5">
         <span>Học sinh: {{dataListStudentDetail?.data?.classSumStudent}} học sinh</span>
-        <app-input-search [bgColor]="'bg-color-white'"></app-input-search>
+        <app-input-search [bgColor]="'bg-color-white'" (valueChange)="onSearchHasClass($event)"></app-input-search>
       </p>
 
       <div class="table-responsive">
@@ -89,7 +89,7 @@
             </tr>
           </tbody>
         </table>
-        <app-no-data *ngIf="!dataListStudentDetail?.data?.classSumStudent"></app-no-data>
+        <app-no-data *ngIf="!dataListStudentDetail?.data?.students?.length"></app-no-data>
       </div>
     </div>
   </div>
