@@ -10,7 +10,7 @@ import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { NgFor, NgIf } from '@angular/common';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
 
 @Component({
@@ -27,7 +27,8 @@ import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
     NoDataComponent,
     NgFor,
     NgIf,
-    ButtonComponent
+    ButtonComponent,
+    RouterLink
   ]
 })
 export class ClassStudyAssignStudentComponent implements OnInit {
@@ -37,7 +38,9 @@ export class ClassStudyAssignStudentComponent implements OnInit {
   dataObjects: Array<string> = [];
   checkAllObject: boolean = false;
   classId: any;
-  iconSvg = iconSVG
+  iconSvg = iconSVG;
+  keywordNotClass: string = '';
+  keywordClass: string = '';
   constructor(
     private classStudyService: ClassStudyService,
     private globalStore: GlobalStore,
@@ -53,11 +56,21 @@ export class ClassStudyAssignStudentComponent implements OnInit {
     });
   }
 
+  onSearchHasClass(value: string){
+    this.keywordClass = value;
+    this.getListDetailStudentClass();
+  }
+
+  onSearchNotClass(value: string){
+    this.keywordNotClass = value;
+    this.getListStudentByClass();
+  }
+
   getListStudentByClass() {
     this.globalStore.isLoading = true;
     let dataRequest = {
       // classId: this.classId,
-      keyword: '',
+      keyword: this.keywordNotClass,
     }
     this.classStudyService.getListStudentByClass(dataRequest).subscribe((res: any) => {
       this.dataListStudentByClass = res;
@@ -73,11 +86,10 @@ export class ClassStudyAssignStudentComponent implements OnInit {
     this.globalStore.isLoading = true;
     let dataRequest = {
       classId: this.classId,
-      keyword: '',
+      keyword: this.keywordClass,
     }
     this.classStudyService.getListStudentDetailClass(dataRequest).subscribe((res: any) => {
       this.dataListStudentDetail = res;
-      console.log(res);
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.globalStore.isLoading = false;
@@ -111,26 +123,28 @@ export class ClassStudyAssignStudentComponent implements OnInit {
       this.objectIds.add(objectId)
     }
 
-    const dataChecked = this.dataListStudentByClass.data.filter((item: any) => {return this.objectIds.has(item.id)})
+    const dataChecked = this.dataListStudentByClass.data.filter((item: any) => {return this.objectIds.has(item.studentId)})
+    console.log(dataChecked);
+    console.log(this.dataListStudentByClass?.data?.length);
     this.checkAllObject = (this.dataListStudentByClass?.data?.length !== 0 && this.objectIds.size !== 0 && dataChecked.length === this.dataListStudentByClass?.data?.length);
   }
 
   changeCheckAllObject(): void{
     this.checkAllObject = !this.checkAllObject
+    console.log(this.dataListStudentByClass);
     this.dataListStudentByClass.data.forEach((item: any) => {
       if (this.checkAllObject){
-          if (!this.objectIds.has(item.id)){
-            this.objectIds.add(item.id);
+          if (!this.objectIds.has(item.studentId)){
+            this.objectIds.add(item.studentId);
         }else{
-          if (!this.objectIds.has(item.id)){
-            this.objectIds.add(item.id);
+          if (!this.objectIds.has(item.studentId)){
+            this.objectIds.add(item.studentId);
           }
         }
       }
       else{
-        this.objectIds.delete(item.id)
+        this.objectIds.delete(item.studentId)
       }
     })
-    console.log(this.objectIds);
   }
 }

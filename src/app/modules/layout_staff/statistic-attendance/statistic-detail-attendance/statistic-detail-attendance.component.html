@@ -52,6 +52,7 @@
               <ng-container *ngFor="let period of item.data">
                 <th class="w-50px text-center">Tiết {{period.period}}</th>
               </ng-container>
+              <th class="w-50px text-center" *ngIf="!item?.data?.data?.length">NGHỈ</th>
             </ng-container>
           </tr>
         </thead>
