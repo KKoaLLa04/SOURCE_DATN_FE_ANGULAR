@@ -52,7 +52,7 @@ export class AsideMenuComponent implements OnInit {
       this.menuLayout = [
         {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
         {icon: "assets/images/svg/address.svg", name:"Điểm danh", url:"/teacher/attendance", permissionCode : '', code: 'attendance', children: []},
-        // {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
+        {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
         {icon: "assets/images/svg/address.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
         {icon: "assets/images/svg/address.svg", name:"Lịch dạy", url:"/teacher/timetable", permissionCode : '', code: 'student', children: []},
         // {icon: "assets/images/svg/address.svg", name:"Lớp học", url:"/teacher/class", permissionCode : '', code: 'class', children: []},

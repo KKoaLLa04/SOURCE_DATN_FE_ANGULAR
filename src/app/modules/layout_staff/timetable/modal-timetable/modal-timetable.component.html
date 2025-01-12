@@ -12,7 +12,7 @@
   <div class="table table-responsive">
     <div class="d-flex justify-content-between">
       <h3>Lịch sáng</h3>
-      <app-button (onClick)="viewImportTimetable()" [text]="'Import excel'"></app-button>
+      <app-button (onClick)="viewImportTimetable(1)" [text]="'Import excel'"></app-button>
     </div>
     <table class="table table-custom">
       <thead>
@@ -40,7 +40,10 @@
     </table>
 
     <div class="mt-10"></div>
-    <h3>Lịch chiều</h3>
+    <div class="d-flex justify-content-between">
+      <h3>Lịch sáng</h3>
+      <app-button (onClick)="viewImportTimetable(2)" [text]="'Import excel'"></app-button>
+    </div>
     <table class="table table-custom">
       <thead>
         <tr class="text-color-white text-color-blue-dark">

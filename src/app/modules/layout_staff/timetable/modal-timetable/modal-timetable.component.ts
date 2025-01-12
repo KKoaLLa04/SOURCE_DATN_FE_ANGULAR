@@ -144,7 +144,7 @@ export class ModalTimetableComponent implements OnInit {
       return dayData?.period.find(p => p.period == period);
     }
 
-    viewImportTimetable() {
+    viewImportTimetable(time: number) {
       const modalRef = this.modalService.open(ModalImportTimetableComponent, {
         scrollable: true,
         windowClass: 'myCustomModalClass',
@@ -160,7 +160,7 @@ export class ModalTimetableComponent implements OnInit {
         btnAccept: 'Lưu',
         isHiddenBtnClose: false, // hidden/show btn close modal
         dataFromParent: {
-          // data: classData,
+          data: this.dataModal.dataFromParent?.data?.id,
           // dataTimetable: dataTimetable,
           // service: this.timetableService,
           // apiSubmit: (dataInput: any) => this.timetableService.createNewTimes(dataInput),
@@ -172,7 +172,13 @@ export class ModalTimetableComponent implements OnInit {
       console.log(modalRef.componentInstance);
       // Nhận dữ liệu từ modal khi người dùng xác nhận
       modalRef.componentInstance.dataModalEmit.subscribe((confirmedData) => {
-        console.log('Dữ liệu xác nhận:', confirmedData);
+        let dataSubmit = {
+          category_attendance: this.dataModal.dataFromParent?.dataTimetable?.id,
+          class_id: this.dataModal.dataFromParent?.data?.id,
+          time: time,
+          periods: confirmedData
+        }
+        this.importDataTimetable(dataSubmit)
       });
       modalRef.result.then(
         (result: boolean) => {
@@ -184,5 +190,17 @@ export class ModalTimetableComponent implements OnInit {
           this.showMessageSerivce.error(reason);
         }
       );
+    }
+
+    importDataTimetable(dataRequest: any){
+      this.globalStore.isLoading = true;
+  
+      this.classStudyService.importExcelData(dataRequest).subscribe((res: any) => {
+        this.globalStore.isLoading = false;
+        this.showMessageSerivce.success("Import dữ liệu file excel thành công");
+      }, (err) =>{
+        this.globalStore.isLoading = false;
+        // this.showMessageSerivce.error(err);
+      })
     }
 }

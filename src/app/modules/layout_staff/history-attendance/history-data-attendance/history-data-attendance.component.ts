@@ -14,6 +14,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { AttendanceService } from '../../services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { MessagingService } from 'src/firebase/messaging-service';
+import { StatusStudentAttendanceDirective } from 'src/app/_shared/directive/status-student-attendance.directive';
 
 @Component({
   selector: 'app-history-data-attendance',
@@ -28,7 +29,8 @@ import { MessagingService } from 'src/firebase/messaging-service';
     ButtonComponent,
     FormatTimePipe,
     ButtonBackComponent,
-    RouterLink
+    RouterLink,
+    StatusStudentAttendanceDirective
   ],
   providers: [FormatTimePipe]
 })
@@ -53,7 +55,8 @@ dataList: any = [];
   ]
   rollcallData: any = [];
   dateTimestampNow: any = new Date().getTime()/1000;
-  attendanceEnum = StatusStudent
+  attendanceEnum = StatusStudent;
+  teacherTimetableId: any;
   constructor(
     private globalStore: GlobalStore,
     private attendanceSerivce: AttendanceService,
@@ -65,23 +68,24 @@ dataList: any = [];
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      console.log(params);
       this.classId = params.get('classId'); // Lấy giá trị của tham số 'id'
-      this.attendanceId = params.get('attendanceId');
-      if(this.attendanceId){
-        this.getListStudentAttendance();
+      this.teacherTimetableId = params.get('teacherId');
+      if(this.teacherTimetableId && this.classId){
+        this.getHistoryListStudentAttendance();
       }
     });
   }
 
-  getListStudentAttendance(): void{
+  getHistoryListStudentAttendance(): void{
     this.globalStore.isLoading = true;
 
     let dataRequest = {
       class_id: this.classId,
-      diemdanh_id: this.attendanceId
+      teacher_subject_timetable_id: this.teacherTimetableId
     }
 
-    this.attendanceSerivce.getListStudentAttendance(dataRequest).subscribe((res: any) => {
+    this.attendanceSerivce.getHistoryListStudentAttendance(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res);
       res.data?.data?.map((item) => {

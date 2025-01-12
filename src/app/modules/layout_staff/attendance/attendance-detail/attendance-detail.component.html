@@ -147,7 +147,7 @@
             <div appStatusClassAttendance [statusValue]="item.attendance_checked">trạng thái</div>
           </td>
           <td>
-            <app-button [text]="'Điểm danh'" [routerLink]="['/staff/list_attendance/save', classId, item?.teacher_subject_timetable_id]"></app-button>
+            <app-button [text]="'Điểm danh'" [routerLink]="['/staff/list_attendance/save', classId, item?.teacher_subject_timetable_id, dateTimestampNow]"></app-button>
             <!-- [routerLink]="['/staff/list_attendance/detail', item.id]"  -->
           </td>
         </tr>

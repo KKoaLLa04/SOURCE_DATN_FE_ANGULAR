@@ -14,7 +14,7 @@
       (onClick)="onChangeSelect(2)"
     ></app-button>
   </div>
-  <app-button-back [routerLink]="'/staff/history_attendance'" class="mb-5"></app-button-back>
+  <app-button-back [routerLink]="'/teacher/history-attendance'" class="mb-5"></app-button-back>
   <h3>Tiết học điểm danh</h3>
 
   <div class="d-flex justify-content-end mb-5">
@@ -64,7 +64,7 @@
                 {{item.morning_timetable[0].teacher_email}}
               </td>
               <td class="">
-                <app-button [text]="'Chi tiết'" [routerLink]="['/staff/history_attendance', dataList?.class_id, item.morning_timetable[0].teacherSubject]"></app-button>
+                <app-button [text]="'Chi tiết'" [routerLink]="['/teacher/history-attendance', dataList?.class_id, item.morning_timetable[0].teacherSubject]"></app-button>
               </td>
             </ng-container>
           </tr>
@@ -85,7 +85,7 @@
                   {{history.teacher_email}}
                 </td>
                 <td class="">
-                  <app-button [text]="'Chi tiết'" [routerLink]="['/staff/history_attendance', dataList?.class_id, history.teacherSubject]"></app-button>
+                  <app-button [text]="'Chi tiết'" [routerLink]="['/teacher/history-attendance', dataList?.class_id, history.teacherSubject]"></app-button>
                 </td>
               </ng-container>
             </tr>
@@ -132,7 +132,7 @@
                     {{item.afternoon_timetable[0].teacher_email}}
                   </td>
                   <td class="">
-                    <app-button [text]="'Chi tiết'" [routerLink]="['/staff/history_attendance', dataList?.class_id, item.afternoon_timetable[0].teacherSubject]"></app-button>
+                    <app-button [text]="'Chi tiết'" [routerLink]="['/teacher/history-attendance', dataList?.class_id, item.afternoon_timetable[0].teacherSubject]"></app-button>
                   </td>
                 </ng-container>
               </tr>
@@ -153,7 +153,7 @@
                       {{history.teacher_phone}}
                     </td>
                     <td class="">
-                      <app-button [text]="'Chi tiết'" [routerLink]="['/staff/history_attendance', dataList?.class_id, history.teacherSubject]" ></app-button>
+                      <app-button [text]="'Chi tiết'" [routerLink]="['/teacher/history-attendance', dataList?.class_id, history.teacherSubject]" ></app-button>
                     </td>
                   </ng-container>
                 </tr>

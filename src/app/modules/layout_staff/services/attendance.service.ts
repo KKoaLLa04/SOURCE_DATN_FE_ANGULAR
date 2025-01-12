@@ -31,4 +31,8 @@ export class AttendanceService {
   getHistoryAttendance(data: any){
     return this.http.get(`${environment.apiUrl}/manager/rollcallhistory/showclass/${data.classId}` , {params: {...data}});
   }
+
+  getHistoryListStudentAttendance(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/rollcallhistory/student/${data.class_id}/${data.teacher_subject_timetable_id}`);
+  }
 }
