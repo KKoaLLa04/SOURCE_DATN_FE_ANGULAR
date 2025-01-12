@@ -13,6 +13,8 @@
       <app-range-date-picker
       [startDate]="nowTimestamp"
       [endDate]="endDate"
+      [minDate]="minDateSearch"
+      [maxDate]="maxDateSearch"
       (dataTimeOutput)="onChangeDate($event)"
       ></app-range-date-picker>
       <app-select [options]="dataOptionsStatus" class="ms-4" [width]="'w-200px'" (changeSelect)="changeTimes($event)"></app-select>
@@ -52,7 +54,7 @@
               <ng-container *ngFor="let period of item.data">
                 <th class="w-50px text-center">Tiết {{period.period}}</th>
               </ng-container>
-              <th class="w-50px text-center" *ngIf="!item?.data?.data?.length">NGHỈ</th>
+              <th class="w-50px text-center" *ngIf="!item?.data?.length">NGHỈ</th>
             </ng-container>
           </tr>
         </thead>
@@ -70,6 +72,7 @@
                 <div appStatusStudent [statusValue]="period.status"></div>
                 <!-- {{date.status}} -->
               </td>
+              <td class="w-50px text-center" *ngIf="!date?.data?.length">...</td>
             </ng-container>
           </tr>
         </tbody>

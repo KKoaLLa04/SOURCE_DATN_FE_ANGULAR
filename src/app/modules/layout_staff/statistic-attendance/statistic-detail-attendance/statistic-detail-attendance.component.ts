@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Select2 } from 'src/app/_models/gengeral/select2.model';
 import { GlobalStore } from 'src/app/_store/global.store';
@@ -24,7 +24,8 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
     ButtonBackComponent,
     RouterLink,
     RangeDatePickerComponent,
-    SelectComponent
+    SelectComponent,
+    NgIf
   ],
   providers: [FormatTimePipe]
 })
@@ -32,6 +33,8 @@ export class StatisticDetailAttendanceComponent implements OnInit {
   dataList: any = [];
   dataDateMonth: any;
   date = new Date().getTime() / 1000;
+  minDateSearch = this.date - 1300000;
+  maxDateSearch = this.date + 1300000;
   dataOptionsStatus: Select2[] = [
     {
       label: "Buổi sáng",
