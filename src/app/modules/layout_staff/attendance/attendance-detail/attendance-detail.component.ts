@@ -35,7 +35,8 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
     StatusClassAttendanceDirective,
     PaginationComponent,
     ButtonBackComponent,
-    RouterLink
+    RouterLink,
+    SingleDatePickerComponent
   ],
   providers: [FormatTimePipe]
 })
@@ -53,7 +54,7 @@ export class AttendanceDetailComponent implements OnInit {
         value: ""
       },
     ]
-    dateTimestampNow: number = new Date().getTime()/1000;
+    dateTimestampNow: any = new Date().getTime()/1000;
     classId: any;
     constructor(
       private globalStore: GlobalStore,
@@ -71,6 +72,13 @@ export class AttendanceDetailComponent implements OnInit {
       });
     }
   
+    onSearchDate(event: any){
+        this.pageSize = PAGE_SIZE_DEFAULT;
+        this.pageIndex = PAGE_INDEX_DEFAULT;
+        this.dateTimestampNow = event;
+        this.getDataTimetable();
+      }
+
     paginationChange(event: any) {
       this.pageIndex = event.pageIndex;
       this.pageSize = event.pageSize;

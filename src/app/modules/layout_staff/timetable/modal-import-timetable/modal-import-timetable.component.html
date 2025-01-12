@@ -1,0 +1,45 @@
+<ng-container class="modal-import" *transloco="let t; scope: 'parent'">
+  <div class="modal-header border-none">
+    <h5 class="title-modal-global fw-700 ">{{t(dataModal.title)}}</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+            [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="fw-600 text-danger">{{t('note')}}:</p>
+    <p class="fw-600">
+      - {{t('parent.note1')}}<br>
+      - {{t('parent.note2')}}<br>
+      - {{t('parent.note3')}}
+    </p>
+    <div class="row mt-4">
+      <label class="col-sm-2 col-form-label fw-600">{{t('fileFormat')}}</label>
+      <div class="col-sm-6 px-0 input-import-modal">
+        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden
+               id="input-file-upload-parent" class="form-control so-form-control" (change)="onFileChange($event)">
+        <img src="assets/images/svg/icon-excel.svg" class="image-upload-import-custom cursor-pointer">
+        <div class="cursor-pointer" (click)="uploadFile()">
+          <app-input class="cursor-pointer" [disabled]="true" [value]="fileName" [placeholder]="t('warmingValidateFormImport')"></app-input>
+        </div>
+        <span class="span-image-upload-import-custom fw-600 d-flex justify-content-center align-items-center"
+              (click)="uploadFile()">
+          <img src="/assets/images/svg/import6.svg" class="filter-color-azure">
+          {{t('clickUpload')}}
+        </span>
+      </div>
+
+      <div class="col-sm-4 d-flex justify-content-end">
+        <a download="file-import-mau-upload-PH" href="assets/files/BM_09_15_Ghi_danh_phu_huynh_cho_nhung_hoc_sinh_da_co_tren_he_thong.xlsx"
+           type="text/plain"
+           class="so-btn bg-color-carrot-orange text-color-white so-btn-primary--small btn-download-sample-files me-2" >
+          <img src="assets/images/svg/icon-import.svg" alt="icon">
+          {{t('downloadSampleFiles')}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer border-none d-flex justify-content-center">
+    <app-button [otherClass]="'so-btn btn-confirm-import-custom'" [disabled]="!file" [text]="t('btnAction.confirm')" (onClick)="confirmUploadFile()"></app-button>
+  </div>
+</ng-container>

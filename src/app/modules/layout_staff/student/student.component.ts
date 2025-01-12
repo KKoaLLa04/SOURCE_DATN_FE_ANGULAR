@@ -22,6 +22,7 @@ import { ModalStudentFormComponent } from './modal-student-form/modal-student-fo
 import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-class-student.directive';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { ExportImportService } from '../services/export-import.service';
 
 @Component({
   selector: 'app-student',
@@ -57,12 +58,14 @@ export class StudentComponent implements OnInit {
       value: ""
     }
   ]
+  dataExport;
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
     private studentService: StudentService,
     private router: Router,
     private modalService: NgbModal,
+    private exportImportService: ExportImportService
   ) { }
 
   ngOnInit() {
@@ -206,26 +209,39 @@ export class StudentComponent implements OnInit {
 
   exportAsExcel() {
       // Dữ liệu mẫu để export
-      const data = [
-        { Name: 'John', Age: 25, Gender: 'Male' },
-        { Name: 'Jane', Age: 30, Gender: 'Female' }
-      ];
-    
-      // Chuyển dữ liệu sang định dạng sheet
-      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-    
-      // Tạo workbook
-      const workbook: XLSX.WorkBook = {
-        Sheets: { 'Sheet1': worksheet },
-        SheetNames: ['Sheet1']
-      };
-    
-      // Xuất file Excel
-      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    
-      // Lưu file
-      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-      saveAs(blob, 'ExportedData.xlsx');
+      this.getListStudentAll()
+    }
+
+    private getListStudentAll(): void{
+      this.globalStore.isLoading = true;
+  
+      let dataRequest = {
+        keyword: this.keyWord,
+        pageIndex: this.pageIndex,
+        pageSize: 5000,
+      }
+  
+      this.studentService.getListStudent(dataRequest).subscribe((res: any) => {
+        this.dataExport = res;
+        let dataExport = []
+        res?.data.map((item, index) => {
+          dataExport.push(
+            {
+              STT: index+1, 
+              "Thông tin học sinh": `${item.fullname} - Mã: ${item.student_code}`, 
+              "Lớp học": item.class_name, 
+              "Giới tính": item.gender == 1 ? "Nam": "Nữ",
+              "Niên khóa": item.academic_year_Name,
+              "Trạng thái": item.status,
+              "Phụ huynh": item.parents?.name ? item.parents?.name : item.parents,
+            }
+          )
+        })
+        this.exportImportService.exportToExcel(dataExport, 'file-custom');
+        this.globalStore.isLoading = false;
+      }, (err) =>{
+        this.showMessageSerivce.error(err);
+      })
     }
 
   private getListStudent(): void{

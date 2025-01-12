@@ -5,6 +5,10 @@
     <p>Số lượng học sinh: <span class="text-color-azure">{{dataList?.total}} học sinh</span> </p>
     <div class="d-flex">
       <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      <app-button [text]="'Export'"
+      (onClick)="exportAsExcel()"
+      class="ms-4"
+      ></app-button>
       <app-button [text]="'Thêm mới'"
       (onClick)="create()"
       class="ms-4"

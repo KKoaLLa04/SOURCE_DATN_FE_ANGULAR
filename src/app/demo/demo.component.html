@@ -2,4 +2,15 @@
   demo works!
 </p>
 
-<button (click)="exportAsExcel()">Export excel</button>
+<!-- <input type="file" (change)="onFileChange($event)" multiple="false" /> -->
+<table>
+	<tbody>
+		<tr *ngFor="let row of data">
+			<td *ngFor="let val of row">
+				{{val}}
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<button (click)="exportTimetable()">export file</button>

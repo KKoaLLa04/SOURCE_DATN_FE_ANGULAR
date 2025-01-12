@@ -2,6 +2,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "skipLibCheck": true,
+    "types": ["node"],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "allowSyntheticDefaultImports": true,
@@ -45,7 +47,7 @@
       ],
       "@data/*": [
         "app/data/*"
-      ]
+      ],
     },
     "resolveJsonModule": true
   },

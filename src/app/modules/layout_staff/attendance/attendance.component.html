@@ -143,7 +143,7 @@
     </table>
     <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data>
     <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
-      *ngIf="collectionSize > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+      *ngIf="dataList?.data?.totalItems > sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
     </app-pagination>
   </div>
 </div>
