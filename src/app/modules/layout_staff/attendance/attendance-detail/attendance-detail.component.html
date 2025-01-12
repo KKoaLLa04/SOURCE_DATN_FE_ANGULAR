@@ -95,6 +95,7 @@
   <app-button-back [routerLink]="'/staff/list_attendance'" class="mb-5"></app-button-back>
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>Tổng số tiết cần điểm danh: <span class="text-color-blue-light">{{dataList?.data?.length}} tiết</span></p>
+    <app-single-date-picker class="me-4" (dataTimeOutput)="onSearchDate($event)" [currentDate]="dateTimestampNow"></app-single-date-picker>
   </div>
 
   <div class="table table-responsive">
