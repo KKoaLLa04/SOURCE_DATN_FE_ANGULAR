@@ -55,6 +55,7 @@ export class AsideMenuComponent implements OnInit {
         {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
         {icon: "assets/images/svg/address.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
         {icon: "assets/images/svg/address.svg", name:"Lịch dạy", url:"/teacher/timetable", permissionCode : '', code: 'student', children: []},
+        {icon: "assets/images/svg/address.svg", name:"Sổ điểm", url:"/teacher/note-mark", permissionCode : '', code: 'note-mark', children: []},
         // {icon: "assets/images/svg/address.svg", name:"Lớp học", url:"/teacher/class", permissionCode : '', code: 'class', children: []},
       ]
     }else if (Number(layout) == Number(AccessType.GUARDIAN)){

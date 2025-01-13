@@ -42,6 +42,7 @@ dataList: any;
   optionSubject: Select2[] = [
   ];
   className: string = '';
+  dataDetail: any;
   constructor(
     private globalStore: GlobalStore,
     private noteMarkParentService: NoteMarkParentService,
@@ -51,6 +52,10 @@ dataList: any;
   ) { }
 
   ngOnInit() {
+    let dataUser = localStorage.getItem("UserInfo");
+    // let dataUserJsonParse = JSON.parse(dataUser)
+    this.dataDetail = JSON.parse(dataUser);
+    console.log(this.dataDetail);
     this.getListSubject();
     // this.route.paramMap.subscribe((params) => {
       

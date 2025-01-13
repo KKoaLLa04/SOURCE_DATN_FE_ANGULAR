@@ -72,8 +72,8 @@
               <td>{{item?.teacher?.name}}</td>
               <td>
                 <div class="d-flex">
-                  <app-button [text]="'sửa'" class="me-4" (onClick)="onOpenModalUpdateAssignSubject(item)"></app-button>
-                  <app-button [text]="'Xóa'" [backgroundColor]="'bg-color-red'" (onClick)="removeSubject(item.id)"></app-button>
+                  <app-button [text]="'sửa'" class="me-4" (onClick)="onOpenModalUpdateAssignSubject(item)" *ngIf="item.subjectName != 'Chào cờ' && item.subjectName != 'Sinh hoạt'"></app-button>
+                  <app-button [text]="'Xóa'" [backgroundColor]="'bg-color-red'" *ngIf="item.subjectName != 'Chào cờ' && item.subjectName != 'Sinh hoạt'" (onClick)="removeSubject(item.id)"></app-button>
                 </div>
               </td>
             </tr>
