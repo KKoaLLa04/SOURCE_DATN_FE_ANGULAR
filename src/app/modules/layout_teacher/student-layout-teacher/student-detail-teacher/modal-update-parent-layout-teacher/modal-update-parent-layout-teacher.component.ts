@@ -158,7 +158,7 @@ export class ModalUpdateParentLayoutTeacherComponent implements OnInit {
       if (this.dataFromParent.nameForm == 'update') {
         // form update
         dataInput = {
-          id: this.dataFromParent.data.id,
+          id: this.dataFromParent.data.parents_id,
           fullname: valueForm.name.trim(),
           phone: valueForm.phone,
           dob: this.formatTimePipe.transform(valueForm.dob, 'yyy-MM-dd'),

@@ -11,6 +11,7 @@ import { AttendanceDetailComponent } from "./attendance/attendance-detail/attend
 import { HistoryAttendanceTeacherComponent } from "./history-attendance-teacher/history-attendance-teacher.component";
 import { HistoryDetailAttendanceTeacherComponent } from "./history-attendance-teacher/history-detail-attendance-teacher/history-detail-attendance-teacher.component";
 import { HistoryDataAttendanceTeacherComponent } from "./history-attendance-teacher/history-data-attendance-teacher/history-data-attendance-teacher.component";
+import { NoteMarkTeacherComponent } from "./note-mark-teacher/note-mark-teacher.component";
 
 const routes: Routes = [
   {
@@ -71,22 +72,35 @@ const routes: Routes = [
     ]
   },
   {
-      path: 'history-attendance',
+    path: 'history-attendance',
+    children: [
+      {
+        path: '',
+        component: HistoryAttendanceTeacherComponent
+      },
+      {
+        path: ':classId',
+        component: HistoryDetailAttendanceTeacherComponent
+      },
+      {
+        path: ':classId/:teacherId',
+        component: HistoryDataAttendanceTeacherComponent
+      }
+    ]
+  },
+   {
+      path: 'note-mark',
       children: [
         {
           path: '',
-          component: HistoryAttendanceTeacherComponent
+          component: NoteMarkTeacherComponent
         },
-        {
-          path: ':classId',
-          component: HistoryDetailAttendanceTeacherComponent
-        },
-        {
-          path: ':classId/:teacherId',
-          component: HistoryDataAttendanceTeacherComponent
-        }
+        // {
+        //   path: 'detail/:id',
+        //   component: NoteMarkDetailComponent
+        // }
       ]
-    }
+    },
 ];
 
 @NgModule({
