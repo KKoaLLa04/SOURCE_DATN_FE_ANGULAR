@@ -146,7 +146,7 @@
             <div appStatusClassAttendance [statusValue]="item.attendance_checked">trạng thái</div>
           </td>
           <td>
-            <app-button [text]="'Điểm danh'" [routerLink]="['/teacher/attendance/save', classId, item?.teacher_subject_timetable_id]"></app-button>
+            <app-button [text]="'Điểm danh'" [routerLink]="['/teacher/attendance/save', classId, item?.teacher_subject_timetable_id]" *ngIf="item.canEdit"></app-button>
           </td>
         </tr>
       </tbody>

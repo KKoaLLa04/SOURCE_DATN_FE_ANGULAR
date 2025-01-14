@@ -34,4 +34,5 @@ export class StudentService {
   getListParents(data: any){
     return this.http.get(`${environment.apiUrl}/manager/student/parents`, {params: {...data}})
   }
+
 }

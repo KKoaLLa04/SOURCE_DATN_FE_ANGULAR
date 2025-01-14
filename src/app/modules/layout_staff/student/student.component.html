@@ -5,8 +5,17 @@
     <p>Số lượng học sinh: <span class="text-color-azure">{{dataList?.total}} học sinh</span> </p>
     <div class="d-flex">
       <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
-      <app-button [text]="'Export'"
+      <app-button [text]="'Export excel'"
       (onClick)="exportAsExcel()"
+      [startIconName]="iconSvg.export"
+      [filterIcon]="'filter-color-white'"
+      class="ms-4"
+      ></app-button>
+      <app-button [text]="'Import học sinh'"
+      (onClick)="viewImportStudent()"
+      [backgroundColor]="'bg-color-carrot-orange'"
+      [startIconName]="iconSvg.import_icon"
+      [filterIcon]="'filter-color-white'"
       class="ms-4"
       ></app-button>
       <app-button [text]="'Thêm mới'"

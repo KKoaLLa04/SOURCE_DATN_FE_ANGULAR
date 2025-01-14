@@ -23,6 +23,7 @@ import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-cl
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ExportImportService } from '../services/export-import.service';
+import { ModalImportStudentComponent } from './modal-import-student/modal-import-student.component';
 
 @Component({
   selector: 'app-student',
@@ -237,7 +238,7 @@ export class StudentComponent implements OnInit {
             }
           )
         })
-        this.exportImportService.exportToExcel(dataExport, 'file-custom');
+        this.exportImportService.exportToExcel(dataExport, 'danh-sach-hoc-sinh');
         this.globalStore.isLoading = false;
       }, (err) =>{
         this.showMessageSerivce.error(err);
@@ -256,11 +257,69 @@ export class StudentComponent implements OnInit {
     this.studentService.getListStudent(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       this.collectionSize = res?.total
-      console.log(res)
       this.globalStore.isLoading = false;
     }, (err) =>{
       this.showMessageSerivce.error(err);
     })
   }
 
+  viewImportStudent() {
+    const modalRef = this.modalService.open(ModalImportStudentComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'lg', // 'sm' | 'md' | 'lg' | 'xl',
+    });
+
+    let data = {
+      btnCancel: 'Hủy',
+      btnAccept: 'Lưu',
+      isHiddenBtnClose: false, // hidden/show btn close modal
+      dataFromParent: {
+        // data: this.dataModal.dataFromParent?.data?.id,
+        // dataTimetable: dataTimetable,
+        // service: this.timetableService,
+        // apiSubmit: (dataInput: any) => this.timetableService.createNewTimes(dataInput),
+        nameForm: 'create',
+      },
+    };
+
+    modalRef.componentInstance.dataModal = data;
+    console.log(modalRef.componentInstance);
+    // Nhận dữ liệu từ modal khi người dùng xác nhận
+    modalRef.componentInstance.dataModalEmit.subscribe((confirmedData) => {
+      console.log(confirmedData);
+      let dataSubmit = {
+        // category_attendance: this.dataModal.dataFromParent?.dataTimetable?.id,
+        // class_id: this.dataModal.dataFromParent?.data?.id,
+        // time: time,
+        // periods: confirmedData
+      }
+      this.importDataTimetable(dataSubmit)
+    });
+    modalRef.result.then(
+      (result: boolean) => {
+        if (result) {
+          this.getListStudent();
+        }
+      },
+      (reason) => { 
+        this.showMessageSerivce.error(reason);
+      }
+    );
+  }
+
+  importDataTimetable(dataRequest: any){
+    this.globalStore.isLoading = true;
+    console.log(dataRequest);
+    // this.studentService.importExcelData(dataRequest).subscribe((res: any) => {
+    //   this.globalStore.isLoading = false;
+    //   this.showMessageSerivce.success("Import dữ liệu file excel thành công");
+    // }, (err) =>{
+    //   this.globalStore.isLoading = false;
+    //   // this.showMessageSerivce.error(err);
+    // })
+  }
 }
