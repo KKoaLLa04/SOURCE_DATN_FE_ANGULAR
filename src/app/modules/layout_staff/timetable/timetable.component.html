@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-between align-items-center mb-5">
         <p>Số đợt thời khóa biểu: <span class="fw-700 text-color-blue-light">{{dataList.data?.length}} đợt</span></p>
         <div class="d-flex">
-          <app-button 
+          <app-button
             [text]="'Thêm đợt mới'"
             [startIconName]="iconSvg.plus"
             (onClick)="create()" class="ms-4"
@@ -21,15 +21,15 @@
             <tr>
               <th class=w-5>STT</th>
               <th>Tên đợt</th>
-              <th>Bắt đầu</th>
-              <th>Kết thúc</th>
+              <th class="text-center">Bắt đầu</th>
+              <th class="text-center">Kết thúc</th>
               <th class="w-5 text-center">#</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of dataList?.data, let i = index" (click)="selectTimetable(item)" class="cursor-pointer">
-              <td>{{i+1}}</td>
-              <td>{{item.name}}</td>
+              <td class="text-center fw-700">{{i+1}}</td>
+              <td class="fw-700">{{item.name}}</td>
               <td><b class="fw-700 text-color-azure">{{item.from_date}}</b></td>
               <td><b class="fw-700 text-color-azure">{{item.to_date}}</b></td>
               <td class="text-center">
@@ -83,8 +83,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of dataClass?.data?.classes, let i = index">
-                <td>
+              <tr  class="fw-700" *ngFor="let item of dataClass?.data?.classes, let i = index">
+                <td class="text-center">
                   {{(pageIndex-1)*pageSize + i + 1}}
                 </td>
                 <td>{{item.name}}</td>

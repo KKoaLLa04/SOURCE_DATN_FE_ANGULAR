@@ -1,10 +1,10 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3 class="title-custom fs-20 fw-700">Môn học</h3>
+  <h2 class="title-custom fs-20 fw-700">Môn học</h2>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số môn học theo bộ giáo dục & đào tạo: <span class="fw-700 text-color-blue-light">{{dataList?.total}} môn học</span></p>
+    <h4>Số môn học theo bộ giáo dục & đào tạo: <span class="fw-700 text-color-blue-light">{{dataList?.total}} môn học</span></h4>
     <div class="d-flex">
-      <app-button 
+      <app-button
         [text]="'Thêm môn học'"
         [startIconName]="iconSvg.plus"
         (onClick)="create()" class="ms-4"
@@ -17,15 +17,15 @@
     <table class="table table-custom">
       <thead class="header-color">
         <tr>
-          <th class=w-5>STT</th>
+          <th class="w-5 text-center">STT</th>
           <th>Tên môn học</th>
-          <th class="w-5 text-center">#</th>
+          <th class="w-10 text-center">#</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data, let i = index">
-          <td>{{i+1}}</td>
-          <td>{{item.subjectName}}</td>
+          <td  class="text-center fw-700">{{i+1}}</td>
+          <td class="fw-700">{{item.subjectName}}</td>
           <td class="text-center">
             <app-context-menu [text]="iconSvg.three_horizol_dot_icon" [option]="[
               {

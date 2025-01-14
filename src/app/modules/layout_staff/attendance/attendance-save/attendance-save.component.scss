@@ -3,3 +3,64 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+.hoangdxph-custom{
+  color: #4154F1;
+}
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: #007bff;
+    color: #ffffff;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    th {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 2px solid #eaeaea;
+    }
+  }
+
+  tbody {
+    display: block;
+    max-height: 400px;
+    overflow-y: scroll; // Thanh cuộn dọc
+    scrollbar-width: none; // Ẩn thanh cuộn cho Firefox
+  }
+
+  // Ẩn thanh cuộn cho Chrome, Edge, Safari
+  tbody::-webkit-scrollbar {
+    display: none;
+  }
+
+  thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+  }
+  // Thu nhỏ cột STT
+  thead th:nth-child(1),
+  tbody td:nth-child(1) {
+    width: 50px;   // Chiều rộng cột STT
+    min-width: 50px;
+    text-align: center;
+  }
+  thead th:nth-child(4),
+  tbody td:nth-child(4) {
+    width: 250px;
+    min-width: 250px;
+    text-align: center;
+  }
+}
+
+

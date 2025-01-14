@@ -1,5 +1,5 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Điểm danh</h3>
+  <h2 class="hoangdxph-custom fw-700">Điểm danh</h2>
 
   <app-button-back [routerLink]="'/staff/list_attendance/detail/'+classId"></app-button-back>
   <br/>
@@ -16,8 +16,8 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead>
-        <tr>
+      <thead class="bg-color-blue-light">
+        <tr class="text-white text-center fw-700">
           <th>STT</th>
           <th>Họ tên</th>
           <th>Ngày sinh</th>
@@ -30,9 +30,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data?.data, let i = index">
-          <td>{{i+1}}</td>
-          <td>{{item.fullname}} - {{item.student_code}} </td>
-          <td>{{item.dob | formatTime}}</td>
+          <td class="text-center fw-700">{{i+1}}</td>
+          <td class="text-center fw-700">{{item.fullname}} - {{item.student_code}} </td>
+          <td class="text-center fw-700">{{item.dob | formatTime}}</td>
           <td>
             <app-input [placeholder]="'Ghi chú học sinh...'" (valueChange)="onChangeNote(item, $event)" [value]="item.note"></app-input>
           </td>

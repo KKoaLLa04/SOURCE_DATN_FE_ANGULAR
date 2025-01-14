@@ -1,21 +1,21 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <div class="d-flex justify-content-end">
-    <app-button 
-      [text]="'Buổi sáng'" 
-      [backgroundColor]="tabSelect == 1 ? 'bg-color-azure' : 'bg-color-white-smoke'" 
+    <app-button
+      [text]="'Buổi sáng'"
+      [backgroundColor]="tabSelect == 1 ? 'bg-color-azure' : 'bg-color-white-smoke'"
       [color]="tabSelect == 1 ? 'text-color-white' : 'text-color-black'"
       class="me-5"
       (onClick)="onChangeSelect(1)"
      ></app-button>
-    <app-button 
-      [text]="'Buổi chiều'" 
-      [backgroundColor]="tabSelect == 2 ? 'bg-color-azure' : 'bg-color-white-smoke'" 
+    <app-button
+      [text]="'Buổi chiều'"
+      [backgroundColor]="tabSelect == 2 ? 'bg-color-azure' : 'bg-color-white-smoke'"
       [color]="tabSelect == 2 ? 'text-color-white' : 'text-color-black'"
       (onClick)="onChangeSelect(2)"
     ></app-button>
   </div>
   <app-button-back [routerLink]="'/staff/history_attendance'" class="mb-5"></app-button-back>
-  <h3>Tiết học điểm danh</h3>
+  <h2 class="hoangdxph-custom fw-700">Tiết học điểm danh</h2>
 
   <div class="d-flex justify-content-end mb-5">
     <!-- <p>
@@ -32,9 +32,9 @@
 
   <div class="table table-responsive" *ngIf="tabSelect == 1">
     <table class="table table-custom">
-      <thead>
-        <tr>
-          <th>STT</th>
+      <thead class="bg-color-blue-light">
+        <tr class="text-white text-center fw-700">
+          <th class="w-2">STT</th>
           <th>Ngày điểm danh</th>
           <th>Môn học</th>
           <th>Thứ</th>
@@ -46,20 +46,20 @@
       <tbody>
        <ng-container *ngIf="dataList?.data?.[0]?.morning_timetable?.length">
         <ng-container *ngFor="let item of dataList?.data, let i = index">
-          <tr *ngFor="let item of dataList?.data, let i = index">
-            <td [rowSpan]="item.morning_timetable?.length + 1">{{i+1}}</td>
+          <tr class="text-center fw-700" *ngFor="let item of dataList?.data, let i = index">
+            <td class="text-center fw-700" [rowSpan]="item.morning_timetable?.length + 1">{{i+1}}</td>
             <td [rowSpan]="item.morning_timetable?.length + 1">{{item.date | formatTime}}</td>
             <ng-container >
               <td>
                 {{item.morning_timetable[0].subject}}
               </td>
-              <td class="">
+              <td class="text-center fw-700">
                 <div appStatusDayOfWeek [statusValue]="item.morning_timetable[0].day"></div>
               </td>
-              <td class="">
+              <td class="text-center fw-700">
                 Tiết {{item.morning_timetable[0].period}} ({{item.morning_timetable[0].from_time}} - {{item.morning_timetable[0].to_time}})
               </td>
-              <td class="">
+              <td class="text-center fw-700">
                 {{item.morning_timetable[0].teacher_name}} <br/>
                 {{item.morning_timetable[0].teacher_email}}
               </td>
@@ -69,7 +69,7 @@
             </ng-container>
           </tr>
           <ng-container *ngIf="item.morning_timetable?.length > 1">
-            <tr *ngFor="let history of item.morning_timetable, let i = index">
+            <tr class="text-center fw-700" *ngFor="let history of item.morning_timetable, let i = index">
               <ng-container *ngIf="i > 0">
                 <td>
                   {{history.subject}}
@@ -100,8 +100,8 @@
 
   <div class="table table-responsive" *ngIf="tabSelect == 2">
     <table class="table table-custom">
-      <thead>
-        <tr>
+      <thead class="bg-color-blue-light">
+        <tr class="text-white text-center fw-700">
           <th>STT</th>
           <th>Ngày điểm danh</th>
           <th>Môn học</th>
@@ -114,7 +114,7 @@
       <tbody>
         <ng-container *ngIf="dataList?.data?.[0]?.afternoon_timetable?.length">
             <ng-container *ngFor="let item of dataList?.data, let i = index">
-              <tr *ngFor="let item of dataList?.data, let i = index">
+              <tr  class="text-center fw-700" *ngFor="let item of dataList?.data, let i = index">
                 <td [rowSpan]="item.afternoon_timetable?.length + 1">{{i+1}}</td>
                 <td [rowSpan]="item.afternoon_timetable?.length + 1">{{item.date | formatTime}}</td>
                 <ng-container >
@@ -137,7 +137,7 @@
                 </ng-container>
               </tr>
               <ng-container *ngIf="item.afternoon_timetable?.length > 1">
-                <tr *ngFor="let history of item.afternoon_timetable, let i = index">
+                <tr  class="text-center fw-700" *ngFor="let history of item.afternoon_timetable, let i = index">
                   <ng-container *ngIf="i > 0">
                     <td>
                       {{history.subject}}

@@ -11,7 +11,7 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead class="header-color">
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
         <tr>
           <th class=w-5>STT</th>
           <th>Mã đơn</th>
@@ -24,19 +24,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data?.data, let i = index">
-          <td>{{i+1}}</td>
-          <td>{{item.code}}</td>
-          <td>{{item.title}}</td>
-          <td>
+        <tr  *ngFor="let item of dataList?.data?.data, let i = index">
+          <td class="text-center fw-700">{{i+1}}</td>
+          <td class="text-center fw-700">{{item.code}}</td>
+          <td class="text-center fw-700">{{item.title}}</td>
+          <td class="text-center fw-700">
             <span>{{item.studentName}}</span><br/>
             <span>{{item.className}}</span><br/>
             <span>Phụ huynh: {{item.parentName}}</span>
           </td>
-          <td>{{item.note}}</td>
-          <td>{{item.time}} - {{item.leaveDate}}</td>
+          <td class="text-center fw-700">{{item.note}}</td>
+          <td class="text-center fw-700">{{item.time}} - {{item.leaveDate}}</td>
           <td>
-            <div StatusActiveClassBgColor [statusValue]="item.status"></div>
+            <div StatusActiveClassBgColor [statusValue]="item.status" ></div>
             <p *ngIf="item.refuseNote" class="mt-4 mb-0"><b>Lý do từ chối: </b> {{item.refuseNote}}</p>
           </td>
           <td>

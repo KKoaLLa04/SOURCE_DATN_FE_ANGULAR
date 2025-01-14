@@ -1,5 +1,5 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Lịch sử điểm danh của lớp {{dataList?.data?.className}}</h3>
+  <h2 class="hoangdxph-custom fw-700">Lịch sử điểm danh của {{dataList?.data?.className}}</h2>
 
   <app-button-back [routerLink]="'/staff/history_attendance/'+classId" class="mb-5"></app-button-back>
 
@@ -19,8 +19,8 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead>
-        <tr>
+      <thead class="bg-color-blue-light">
+        <tr class="text-white text-center fw-700">
           <th>STT</th>
           <th>Họ tên</th>
           <th>Ngày sinh</th>
@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data?.data, let i = index">
+        <tr  class="text-center fw-700" *ngFor="let item of dataList?.data?.data, let i = index">
           <td>{{i+1}}</td>
           <td>{{item.fullname}} - {{item.student_code}} </td>
           <td>{{item.dob | formatTime}}</td>

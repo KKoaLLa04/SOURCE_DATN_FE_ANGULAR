@@ -1,9 +1,9 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Thống kê điểm danh</h3>
+  <h2 class="hoangdxph-custom fw-700">Thống kê điểm danh</h2>
 
   <div class="d-flex justify-content-between">
     <div class="d-flex flex-column">
-      <p>Số lượng: <span class="text-color-azure">23 lớp</span></p>
+      <p>Số lượng: <span class="text-color-azure fw-700">23 lớp</span></p>
       <app-button-back [routerLink]="'/staff/list_attendance_statistic'"></app-button-back>
     </div>
     <div class="d-flex mb-5">
@@ -23,9 +23,9 @@
 
   <p class="mt-5 bg-color-white-smoke fw-700 p-5">
     <span>P: có mặt</span>
-    <span class="ms-4">A: Nghỉ không phép ,</span> 
-    <span class="ms-4">LI: Nghỉ có phép,</span> 
-    <span class="ms-4">L: đi muộn</span> 
+    <span class="ms-4">A: Nghỉ không phép ,</span>
+    <span class="ms-4">LI: Nghỉ có phép,</span>
+    <span class="ms-4">L: đi muộn</span>
     <span class="ms-4">...: không điểm danh </span>
   </p>
   <div class="panel panel-default">
@@ -34,39 +34,39 @@
       <div class="">
       <table class="table table-full-bordered">
         <thead>
-          <tr>
+          <tr class="bg-color-blue-light text-center fw-700 text-white">
             <th rowspan="3" class="w-3 text-center">STT</th>
             <th rowspan="3" class="w-100px">Mã học sinh</th>
             <th rowspan="3" class="w-150px">Họ và tên</th>
             <th colspan="4" class="w-15 text-center">Tổng số thống kê</th>
             <ng-container *ngFor="let item of dataDateMonth">
-              <th [rowSpan]="!item?.data.length ? 2 : 1" [colSpan]="item?.data.length" class="w-250px text-center">{{item.date}}</th>              
+              <th [rowSpan]="!item?.data.length ? 2 : 1" [colSpan]="item?.data.length" class="w-250px text-center fw-700">{{item.date}}</th>
             </ng-container>
           </tr>
-          <tr>
-            <th rowspan="2" class="text-center">P</th>
-            <th rowspan="2" class="text-center">A</th>
-            <th rowspan="2" class="text-center">LI</th>
-            <th rowspan="2" class="text-center">L</th>
+          <tr class="fw-700">
+            <th rowspan="2" class="text-center bg-color-aqua">P</th>
+            <th rowspan="2" class="text-center bg-color-aqua">A</th>
+            <th rowspan="2" class="text-center bg-color-aqua">LI</th>
+            <th rowspan="2" class="text-center bg-color-aqua">L</th>
           </tr>
           <tr>
             <ng-container *ngFor="let item of dataDateMonth">
               <ng-container *ngFor="let period of item.data">
-                <th class="w-50px text-center">Tiết {{period.period}}</th>
+                <th class="w-50px text-center fw-700 bg-color-white-smoke">Tiết {{period.period}}</th>
               </ng-container>
-              <th class="w-50px text-center" *ngIf="!item?.data?.length">...</th>
+              <th class="w-50px text-center fw-700" *ngIf="!item?.data?.length">...</th>
             </ng-container>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of dataList, let i = index">
-            <td class="text-center">{{i+1}}</td>
-            <td>{{item.student_code}}</td>
-            <td>{{item.student_name}}</td>
-            <td>{{item.total_present}}</td>
-            <td>{{item.total_absent}}</td>
-            <td>{{item.total_licensed}}</td>
-            <td>{{item.total_late}}</td>
+            <td class="text-center fw-700">{{i+1}}</td>
+            <td class="text-center fw-700">{{item.student_code}}</td>
+            <td class="fw-700">{{item.student_name}}</td>
+            <td class="text-center fw-700">{{item.total_present}}</td>
+            <td class="text-center fw-700">{{item.total_absent}}</td>
+            <td class="text-center fw-700">{{item.total_licensed}}</td>
+            <td class="text-center fw-700">{{item.total_late}}</td>
             <ng-container *ngFor="let date of item.data">
               <td *ngFor="let period of date.data">
                 <div appStatusStudent [statusValue]="period.status"></div>
