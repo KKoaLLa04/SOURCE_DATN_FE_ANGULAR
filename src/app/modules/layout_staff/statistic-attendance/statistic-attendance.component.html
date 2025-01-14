@@ -1,5 +1,5 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Thống kê điểm danh</h3>
+  <h2 class="hoangdxph-custom fw-700">Thống kê điểm danh</h2>
 
   <div class="d-flex justify-content-between">
     <p>Số lượng: <span class="text-color-azure">{{dataList?.total_classes}} lớp</span></p>
@@ -11,29 +11,28 @@
   </div>
 
   <div class="table table-responsive">
-    <table class="table table-custom">
-      <thead>
+    <table class="table table-custom  ">
+      <thead class="headerr-hoangdxph-custom ">
         <tr>
-          <th>STT</th>
+          <th class="text-center">STT</th>
           <th>Thông tin lớp học</th>
-          <!-- <th>Trạng thái</th> -->
           <th>Giáo viên chủ nhiệm</th>
-          <th>Khối</th>
+          <th class="text-center">Khối</th>
           <th class="text-center">Học sinh</th>
-          <th class="w-10 text-center">Thao tác</th>
+          <th class="w-15 text-center">Thao tác</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data, let i = index">
-          <td>{{i+1}}</td>
-          <td>{{item.class_name}}</td>
+          <td class="text-center fw-700" style="width: 25px;">{{i+1}}</td>
+          <td class="fw-700">{{item.class_name}}</td>
           <!-- <td>
             <div appStatusClassAttendance [statusValue]="item.status_class"></div>
           </td> -->
-          <td>{{item.teacher_name}}</td>
-          <td>{{item.grade_name}}</td>
+          <td class="fw-700">{{item.teacher_name}}</td>
+          <td class="text-center ">{{item.grade_name}}</td>
           <td class="text-center">{{item.total_students}}</td>
-          <td>
+          <td >
             <app-button
             [text]="'Xem thống kê'"
             [backgroundColor]="'bg-color-violet'"

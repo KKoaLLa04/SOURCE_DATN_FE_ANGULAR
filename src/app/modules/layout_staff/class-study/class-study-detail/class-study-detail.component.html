@@ -1,5 +1,5 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3 class="text-color-blue-light fs-18">Chi Tiết lớp học</h3>
+  <h4 class="hoangdxph-custom fw-700 fs-18">Chi Tiết lớp học</h4>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
     <app-button-back [routerLink]="'/staff/class-study'"></app-button-back>
@@ -7,12 +7,12 @@
 
   <div class="row">
     <div class="col-3 col-lg-3 col-md-12 py-8 px-5">
-      <h3 clas="fs-20">Thông tin lớp học</h3>
-      <p>Lớp: {{dataDetail?.name}}</p>
-      <p>Khối: {{dataDetail?.grade}}</p>
-      <p>Niên khóa: {{dataDetail?.academic}}</p>
-      <p>Năm học: {{dataDetail?.schoolYear}}</p>
-      <p>GVCN: {{dataDetail?.teacherName}}</p>
+      <h3 clas="fs-20 fw-700">Thông tin lớp học</h3>
+      <p class="fw-700">Lớp: {{dataDetail?.name}}</p>
+      <p class="fw-700">Khối: {{dataDetail?.grade}}</p>
+      <p class="fw-700">Niên khóa: {{dataDetail?.academic}}</p>
+      <p class="fw-700">Năm học: {{dataDetail?.schoolYear}}</p>
+      <p class="fw-700">GVCN: {{dataDetail?.teacherName}}</p>
     </div>
 
     <div class="col-9 col-lg-9 col-md-12 py-8">
@@ -65,11 +65,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of dataDetail?.classSubject, let i = index">
-              <td class="ps-4">{{i+1}}</td>
-              <td>
+              <td class="ps-7 fw-700">{{i+1}}</td>
+              <td class="fw-700">
                 <span>{{item.subjectName}}</span> <br/>
               </td>
-              <td>{{item?.teacher?.name}}</td>
+              <td class="fw-700">{{item?.teacher?.name}}</td>
               <td>
                 <div class="d-flex">
                   <app-button [text]="'sửa'" class="me-4" (onClick)="onOpenModalUpdateAssignSubject(item)" *ngIf="item.subjectName != 'Chào cờ' && item.subjectName != 'Sinh hoạt'"></app-button>

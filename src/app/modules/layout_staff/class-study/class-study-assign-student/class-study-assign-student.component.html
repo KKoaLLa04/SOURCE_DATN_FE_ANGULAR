@@ -37,12 +37,12 @@
           <tbody>
             <tr *ngFor="let item of dataListStudentByClass?.data">
               <td class="ps-4"><app-checkbox (valueChange)="changCheckedObject(item.studentId)" [value]="item.studentId" [checked]="objectIds.has(item.studentId)"></app-checkbox></td>
-              <td>
+              <td class=" fw-700">
                 <span>{{item.studentName}}</span> <br/>
                 <span>Mã: {{item.studentId}}</span>
               </td>
-              <td>{{item.studentDob | formatTime}}</td>
-              <td>{{item.className}}</td>
+              <td class=" fw-700">{{item.studentDob | formatTime}}</td>
+              <td class=" fw-700">{{item.className}}</td>
             </tr>
           </tbody>
         </table>
@@ -80,11 +80,11 @@
           <tbody>
             <tr *ngFor="let item of dataListStudentDetail?.data?.students, let i = index">
               <td class="ps-4">{{i+1}}</td>
-              <td>
+              <td class=" fw-700">
                 <span>{{item?.studentName}}</span> <br/>
                 <span>Mã: {{item?.studentId}}</span>
               </td>
-              <td>{{item?.studentDob | formatTime}}</td>
+              <td class=" fw-700">{{item?.studentDob | formatTime}}</td>
               <!-- <td>Khối 6</td> -->
             </tr>
           </tbody>

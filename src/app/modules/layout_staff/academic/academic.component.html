@@ -1,8 +1,8 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Danh sách niên khóa</h3>
+  <h2 class="hoangdxph-custom fw-700">Danh sách niên khóa</h2>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
-    <p>Số niên khóa: <span class="text-color-blue-light">{{dataList?.data?.total}} niên khóa</span></p>
+    <h4>Số niên khóa: <span class="text-color-blue-light">{{dataList?.data?.total}} niên khóa</span></h4>
     <div class="d-flex">
       <app-input-search [width]="'w-250px'" (valueChange)="onSearchValue($event)"></app-input-search>
       <app-button [text]="'Thêm mới'"
@@ -16,7 +16,7 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead class="bg-color-blue-dark text-color-white">
+      <thead class="bg-color-blue-light text-color-white fw-700">
         <tr>
           <th class=w-5>STT</th>
           <th>Thông tin niên khóa</th>
@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data?.data, let i = index">
+        <tr  class="text-center fw-700" *ngFor="let item of dataList?.data?.data, let i = index">
           <td>{{i+1}}</td>
           <td>
             <span>{{item.name}}</span> <br/>

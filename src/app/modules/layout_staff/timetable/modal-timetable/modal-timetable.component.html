@@ -1,23 +1,23 @@
 <form action="" *transloco="let t; scope: 'role'">
   <div class="modal-header">
-    <h5 class="title-modal-global text-center">{{'Chi tiết thời khóa biểu của lớp'}}</h5>
+    <h4 class="title-modal-global text-center">{{'Chi tiết thời khóa biểu của lớp'}}</h4>
     <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
       name="icon-close" [hidden]="dataModal?.isHiddenBtnClose">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body text-normal-global">
-    
+
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <div class="table table-responsive">
     <div class="d-flex justify-content-between">
-      <h3>Lịch sáng</h3>
+      <h3 class="hoangdxph-custom fw-700">Lịch buổi sáng</h3>
       <app-button (onClick)="viewImportTimetable(1)" [text]="'Import excel'"></app-button>
     </div>
     <table class="table table-custom">
-      <thead>
-        <tr class="text-color-white text-color-blue-dark">
-          <th class=w-5>Tiết</th>
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
+        <tr class="text-color-white">
+          <th class=w-6>Tiết</th>
           <th>Thứ 2</th>
           <th>Thứ 3</th>
           <th>Thứ 4</th>
@@ -26,10 +26,10 @@
           <th>Thứ 7</th>
         </tr>
       </thead>
-      
+
       <tbody>
         <tr *ngFor="let period of periods">
-          <td>Tiết {{ period }}</td>
+          <td class="fw-700">Tiết {{ period }}</td>
           <td *ngFor="let dayData of dataListMorning.days">
             <!-- {{ getPeriodData(dayData.day, period)?.id || '' }} -->
             <app-select [options]="optionSubject" [selected_id]="getPeriodData(dayData.day, period)?.subject_id" (changeSelect)="onEditTimetable($event,getPeriodData(dayData.day, period))"></app-select>
@@ -41,12 +41,12 @@
 
     <div class="mt-10"></div>
     <div class="d-flex justify-content-between">
-      <h3>Lịch sáng</h3>
+      <h3 class="hoangdxph-custom fw-700">Lịch buổi chiều</h3>
       <app-button (onClick)="viewImportTimetable(2)" [text]="'Import excel'"></app-button>
     </div>
     <table class="table table-custom">
-      <thead>
-        <tr class="text-color-white text-color-blue-dark">
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
+        <tr class="text-color-white">
           <th class=w-5>Tiết</th>
           <th>Thứ 2</th>
           <th>Thứ 3</th>
@@ -56,10 +56,10 @@
           <th>Thứ 7</th>
         </tr>
       </thead>
-      
+
       <tbody>
         <tr *ngFor="let period of periods">
-          <td>Tiết {{ period }}</td>
+          <td class="fw-700">Tiết {{ period }}</td>
           <td *ngFor="let dayData of dataListAfternoon.days">
             <app-select [options]="optionSubject" [selected_id]="getPeriodDataAfternoon(dayData.day, period)?.subject_id" (changeSelect)="onEditTimetable($event,getPeriodDataAfternoon(dayData.day, period))"></app-select>
             <p *ngIf="getPeriodDataAfternoon(dayData.day, period)?.validateConfig" class="text-danger fs-11 mb-0 ps-4">{{getPeriodDataAfternoon(dayData.day, period)?.validateConfig}}</p>

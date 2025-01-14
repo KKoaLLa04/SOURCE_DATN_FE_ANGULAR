@@ -5,7 +5,7 @@
   </div> -->
 
   <div class="mt-10"></div>
-  <h3 *ngIf="tabActive==1">Danh sách cột điểm</h3>
+  <h2 *ngIf="tabActive==1"  class="hoangdxph-custom fw-700">Danh sách cột điểm</h2>
   <!-- <h3 *ngIf="tabActive==2">Danh sách Đợt thi</h3> -->
 
   <div class="d-flex justify-content-between align-items-center mb-5">
@@ -29,8 +29,8 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead>
-        <tr class="text-color-white text-color-blue-dark">
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
+        <tr class="text-color-white ">
           <th class=w-5>STT</th>
           <th>Tên bài thi</th>
           <th>năm học</th>
@@ -42,7 +42,7 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let item of dataList?.data?.data, let i = index">
-          <tr>
+          <tr class=" fw-700">
             <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{i+1}}</td>
             <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{item.name}}</td>
             <td [attr.rowSpan]="item?.examPeriod?.length+1 || 1">{{item.schoolYear}}</td>
@@ -51,9 +51,9 @@
               <span *ngIf="item.examPeriod?.length > 0">{{item.examPeriod[0].name}}</span>
             </td>
             <td >
-              <app-button 
-              [text]="'Sửa đợt thi'" 
-              [width]="'w-150px'" 
+              <app-button
+              [text]="'Sửa đợt thi'"
+              [width]="'w-150px'"
               (onClick)="updateTimes(item.examPeriod[0],item.id)"
               *ngIf="item.examPeriod?.length > 0"
               ></app-button>
@@ -63,7 +63,7 @@
             </td>
           </tr>
           <tr *ngFor="let exam of item.examPeriod, let j = index">
-            <td [rowSpan]="1" *ngIf="j > 0">
+            <td [rowSpan]="1" *ngIf="j > 0" class=" fw-700">
               {{exam.name}}
             </td>
             <td [rowSpan]="1" *ngIf="j > 0">
