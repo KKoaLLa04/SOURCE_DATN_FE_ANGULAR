@@ -24,6 +24,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ExportImportService } from '../services/export-import.service';
 import { ModalImportStudentComponent } from './modal-import-student/modal-import-student.component';
+import { debounce, debounceTime, forkJoin } from 'rxjs';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 
 @Component({
   selector: 'app-student',
@@ -38,7 +40,8 @@ import { ModalImportStudentComponent } from './modal-import-student/modal-import
     PaginationComponent,
     NoDataComponent,
     NgIf,
-    StatusClassStudentDirective
+    StatusClassStudentDirective,
+    GenderDirective
   ]
 })
 export class StudentComponent implements OnInit {
@@ -60,6 +63,7 @@ export class StudentComponent implements OnInit {
     }
   ]
   dataExport;
+  flagShowMessage: boolean = false;
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
@@ -254,7 +258,8 @@ export class StudentComponent implements OnInit {
       pageSize: this.pageSize,
     }
 
-    this.studentService.getListStudent(dataRequest).subscribe((res: any) => {
+    this.studentService.getListStudent(dataRequest)
+    .subscribe((res: any) => {
       this.dataList = res;
       this.collectionSize = res?.total
       this.globalStore.isLoading = false;
@@ -287,22 +292,26 @@ export class StudentComponent implements OnInit {
     };
 
     modalRef.componentInstance.dataModal = data;
-    console.log(modalRef.componentInstance);
     // Nhận dữ liệu từ modal khi người dùng xác nhận
     modalRef.componentInstance.dataModalEmit.subscribe((confirmedData) => {
-      console.log(confirmedData);
-      let dataSubmit = {
-        // category_attendance: this.dataModal.dataFromParent?.dataTimetable?.id,
-        // class_id: this.dataModal.dataFromParent?.data?.id,
-        // time: time,
-        // periods: confirmedData
-      }
-      this.importDataTimetable(dataSubmit)
+      let apiCalls =  confirmedData.map((item) => 
+        this.studentService.createNewStudent(item)
+      )
+      
+      forkJoin(apiCalls).subscribe((res: any) => {
+        this.globalStore.isLoading = false;
+        this.showMessageSerivce.success("Import dữ liệu file excel thành công");
+      }, (err) =>{
+        this.globalStore.isLoading = false;
+        // this.showMessageSerivce.error(err);
+      })
     });
     modalRef.result.then(
       (result: boolean) => {
         if (result) {
           this.getListStudent();
+          this.flagShowMessage = true;
+          
         }
       },
       (reason) => { 
@@ -311,15 +320,16 @@ export class StudentComponent implements OnInit {
     );
   }
 
-  importDataTimetable(dataRequest: any){
-    this.globalStore.isLoading = true;
-    console.log(dataRequest);
-    // this.studentService.importExcelData(dataRequest).subscribe((res: any) => {
-    //   this.globalStore.isLoading = false;
-    //   this.showMessageSerivce.success("Import dữ liệu file excel thành công");
-    // }, (err) =>{
-    //   this.globalStore.isLoading = false;
-    //   // this.showMessageSerivce.error(err);
-    // })
-  }
+  // importDataTimetable(dataRequest: any){
+  //   this.globalStore.isLoading = true;
+  //   this.studentService.createNewStudent(dataRequest).subscribe((res: any) => {
+  //     this.globalStore.isLoading = false;
+  //     if(this.flagShowMessage){
+  //       this.showMessageSerivce.success("Import dữ liệu file excel thành công");
+  //     }
+  //   }, (err) =>{
+  //     this.globalStore.isLoading = false;
+  //     // this.showMessageSerivce.error(err);
+  //   })
+  // }
 }

@@ -54,7 +54,7 @@
             <span>{{item.class_name}}</span> <br/>
           </td>
           <td>
-            <span>{{item.gender}}</span>
+            <span appGender [statusValue]="item.gender">{{item.gender}}</span>
           </td>
           <td class="text-center">
             {{item.academic_year_name}}

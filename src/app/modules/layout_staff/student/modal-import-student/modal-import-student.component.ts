@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { translate, TranslocoModule } from '@ngneat/transloco';
@@ -25,7 +25,8 @@ import { AcademicService } from '../../services/academic.service';
     NgIf, 
     InputComponent,
     ButtonComponent
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class ModalImportStudentComponent implements OnInit {
   @Input() dataModal: any;
@@ -50,6 +51,7 @@ export class ModalImportStudentComponent implements OnInit {
     private globalStore:GlobalStore,
     private classStudyService: ClassStudyService,
     private academicService: AcademicService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -102,19 +104,25 @@ export class ModalImportStudentComponent implements OnInit {
     this.activeModal.close(sendData);
   }
 
-  confirmSubmitForm(){
+  confirmSubmitForm(file){
+    if(!this.validateHeaders(file) || !this.validateData(file)){
+      return;
+    }
+
     let dataRequest = [];
     this.data.map((item, index) => {
       console.log(item);
       if(index > 0){
         dataRequest.push({
-          fullname: item[1],
-          
+          fullname: item[2],
+          address: item[7],
+          dob: this.datePipe.transform(item[6], "yyyy-MM-dd"),
+          gender: item[3] == "Nam" ? 1 : 2,
+          status: 2,
         })
       }
     })
-    console.log(this.data)
-    // this.dataModalEmit.emit(dataRequest);
+    this.dataModalEmit.emit(dataRequest);
     this.activeModal.close(true);
   }
 
@@ -146,7 +154,7 @@ export class ModalImportStudentComponent implements OnInit {
         this.data.push(rowData);
       });
 
-      this.confirmSubmitForm();
+      this.confirmSubmitForm(workbook.getWorksheet(1));
     };
 
     // Đọc file dưới dạng ArrayBuffer
@@ -172,7 +180,7 @@ export class ModalImportStudentComponent implements OnInit {
   
     // Thời khóa biểu mẫu
     studentDemoExcel = [
-      { STT: 1, THÔNG_TIN_HOC_SINH: 'Nguyễn Duy Kiên', LỚP_HỌC: '6a1', GIỚI_TÍNH: 'Nam', NIÊN_KHÓA: 'NKNEW12', TRẠNG_THÁI: 'Đang học', NGÀY_SINH: '1/1/2004'},
+      { STT: 1, THÔNG_TIN_HOC_SINH: 'Nguyễn Duy Kiên', GIỚI_TÍNH: 'Nam', NIÊN_KHÓA: 'NKNEW12', TRẠNG_THÁI: 'Đang học', NGÀY_SINH: '1/1/2004', ĐỊA_CHỈ: "HÀ NỘI"},
     ];
   
   exportTimetable(): void {
@@ -184,11 +192,11 @@ export class ModalImportStudentComponent implements OnInit {
     worksheet.columns = [
       { header: 'STT', key: 'STT', width: 10 },
       { header: 'Thông tin học sinh', key: 'THÔNG_TIN_HOC_SINH', width: 15 },
-      { header: 'Lớp học', key: 'LỚP_HỌC', width: 15 },
       { header: 'Giới tính', key: 'GIỚI_TÍNH', width: 15 },
       { header: 'Niên khóa', key: 'NIÊN_KHÓA', width: 15 },
       { header: 'Trạng thái', key: 'TRẠNG_THÁI', width: 15 },
-      { header: 'Ngày sinh', key: 'NGÀY_SINH', width: 15 }
+      { header: 'Ngày sinh', key: 'NGÀY_SINH', width: 15 },
+      { header: 'Địa chỉ', key: 'ĐỊA_CHỈ', width: 15 }
     ];
 
     worksheet.getRow(1).eachCell((cell) => {
@@ -221,26 +229,26 @@ export class ModalImportStudentComponent implements OnInit {
           cell.dataValidation = {
             type: 'list',
             allowBlank: true,
-            formulae: [`"${this.dataListClass.join(',')}"`], // Sử dụng `formulae`
+            formulae: [`"${gender.join(',')}"`], // Sử dụng `formulae`
           };
         }else if(col == "D"){
           cell.dataValidation = {
             type: 'list',
             allowBlank: true,
-            formulae: [`"${gender.join(',')}"`], // Sử dụng `formulae`
+            formulae: [`"${this.dataAcademicName.join(',')}"`], // Sử dụng `formulae`
           };
         }else if(col == "E"){
           cell.dataValidation = {
             type: 'list',
             allowBlank: true,
-            formulae: [`"${this.dataAcademicName.join(',')}"`], // Sử dụng `formulae`
-          };
-        }else if(col == "F"){
-          cell.dataValidation = {
-            type: 'list',
-            allowBlank: true,
             formulae: [`"${dataStatus.join(',')}"`], // Sử dụng `formulae`
           };
+        }else if(col == "F"){
+          // cell.dataValidation = {
+          //   type: 'list',
+          //   allowBlank: true,
+          //   formulae: [`"${dataStatus.join(',')}"`], // Sử dụng `formulae`
+          // };
         }
       }
     });
@@ -250,5 +258,57 @@ export class ModalImportStudentComponent implements OnInit {
       const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       saveAs(blob, 'File_mau_import_hoc_sinh.xlsx');
     });
+  }
+
+  private validateHeaders(worksheet: ExcelJS.Worksheet): boolean {
+    const requiredHeaders = [
+      'STT',
+      'Thông tin học sinh',
+      'Giới tính',
+      'Niên khóa',
+      'Trạng thái',
+      'Ngày sinh',
+      'Địa chỉ',
+    ];
+  
+    const fileHeaders: string[] = [];
+    worksheet.getRow(1).eachCell((cell) => {
+      fileHeaders.push(cell.text.trim());
+    });
+  
+    // Kiểm tra tiêu đề trong file có khớp với tiêu đề yêu cầu
+    const isValidHeaders = requiredHeaders.every(header => fileHeaders.includes(header));
+    if (!isValidHeaders) {
+      this.showMessageService.error('Tiêu đề trong file Excel không đúng định dạng.');
+      return false;
+    }
+  
+    return true;
+  }
+
+  validateData(worksheet: ExcelJS.Worksheet): boolean {
+    let isValid = true;
+  
+    worksheet.eachRow((row, rowNumber) => {
+      if (rowNumber === 1) return; // Bỏ qua tiêu đề
+  
+      const [DEFAULT,stt, studentInfo, gender, year, status, dob, address] = row.values as string[];
+      console.log([stt, studentInfo, gender, year, status, dob, address])
+      if (
+        !stt ||
+        !studentInfo ||
+        !['Nam', 'Nữ'].includes(gender) || // Kiểm tra giới tính
+        !status ||
+        isNaN(Date.parse(dob as string)) || // Kiểm tra ngày sinh
+        !address
+      ) {
+        isValid = false;
+        if(!isValid){
+          this.showMessageService.error(`Dữ liệu dòng ${rowNumber} không đúng định dạng.`);
+        }
+      }
+    });
+  
+    return isValid;
   }
 }
