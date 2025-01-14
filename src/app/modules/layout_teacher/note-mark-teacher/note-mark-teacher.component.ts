@@ -82,7 +82,6 @@ export class NoteMarkTeacherComponent implements OnInit {
       }
       
       this.subjectService.getListSubjectTeacher(dataRequest).subscribe((res: any) => {
-        console.log(res);
         this.optionSubject = [];
         res.data.map((item: any) => {
           this.optionSubject.push({

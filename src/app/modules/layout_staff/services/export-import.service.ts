@@ -21,7 +21,10 @@ export class ExportImportService {
       { wch: 10 }, // Giới tính
       { wch: 15 }, // Niên khóa
       { wch: 20 }, // Trạng thái
-      { wch: 30 }, // Phụ huynh
+      { wch: 15 }, // Phụ huynh
+      { wch: 15 }, // Phụ huynh
+      { wch: 15 }, // Phụ huynh
+      { wch: 15 }, // Phụ huynh
     ];
 
     // Ghi file Excel

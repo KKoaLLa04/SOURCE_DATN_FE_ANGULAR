@@ -4,7 +4,7 @@
   <app-button-back [routerLink]="'/staff/history_attendance/'+classId" class="mb-5"></app-button-back>
 
   <br/>
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between mb-4">
     <p>
       <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.data?.totalStudent}} học sinh</span></span> |
       <span>Số học sinh có mặt: <span class="text-color-green fw-700">{{dataList?.data?.toltalStudentAttendance}} học sinh</span></span> |
@@ -12,9 +12,9 @@
       <span>Số học sinh đi muộn: <span class="text-color-green fw-700">{{dataList?.data?.toltalStudentLate}} học sinh</span></span> |
       <span>Số học sinh nghỉ có phép: <span class="text-color-green fw-700">{{dataList?.data?.toltalStudentUnPresentPer}} học sinh</span></span>
     </p>
-    <!-- <div class="d-flex">
-      <app-input-search [width]="'w-250px'"></app-input-search>
-    </div> -->
+    <div class="d-flex">
+      <app-button [text]="'Export excel'" (onClick)="exportAsExcel()"></app-button>
+    </div>
   </div>
 
   <div class="table table-responsive">
