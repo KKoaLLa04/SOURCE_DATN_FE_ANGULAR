@@ -54,7 +54,8 @@ export class StatisticAttendanceComponent implements OnInit {
     this.globalStore.isLoading = true;
 
     let dataRequest = {
-
+      pageSize: 100,
+      pageIndex: 1,
     }
     this.statisticAttendanceSerivce.getListStatisticAttendance(dataRequest).subscribe((res: any) => {
       this.dataList = res;

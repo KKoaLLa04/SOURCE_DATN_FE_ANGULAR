@@ -72,15 +72,21 @@ export class NoteMarkTeacherComponent implements OnInit {
         console.log(this.classId)
         this.getListNoteMark();
       }
+      this.getListSubject();
     }
   
     getListSubject(){
       this.globalStore.isLoading = true;
-      this.subjectService.getListSubject().subscribe((res: any) => {
+      let dataRequest = {
+        class_id: this.classId
+      }
+      
+      this.subjectService.getListSubjectTeacher(dataRequest).subscribe((res: any) => {
         console.log(res);
+        this.optionSubject = [];
         res.data.map((item: any) => {
           this.optionSubject.push({
-            label: item.subjectName,
+            label: item.subject_name,
             value: item.subject_id,
             selected: this.subject_id == item.subject_id
           })
@@ -98,6 +104,7 @@ export class NoteMarkTeacherComponent implements OnInit {
   
     onChangeClass(value: any){
       this.classId = value;
+      this.getListSubject();
       this.getListNoteMark();
     }
 

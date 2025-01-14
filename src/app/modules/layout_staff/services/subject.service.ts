@@ -45,4 +45,8 @@ export class SubjectService {
   deleteSubject(data: any){
     return this.http.post(`${environment.apiUrl}/manager/subject/delete/${data.id}`, data)
   }
+
+  getListSubjectTeacher(data: any){
+    return this.http.get(`${environment.apiUrl}/teacher/subject`, {params: {...data}})
+  }
 }
