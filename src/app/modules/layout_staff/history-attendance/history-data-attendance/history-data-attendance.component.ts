@@ -15,6 +15,7 @@ import { AttendanceService } from '../../services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { MessagingService } from 'src/firebase/messaging-service';
 import { StatusStudentAttendanceDirective } from 'src/app/_shared/directive/status-student-attendance.directive';
+import { ExportImportService } from '../../services/export-import.service';
 
 @Component({
   selector: 'app-history-data-attendance',
@@ -63,7 +64,8 @@ dataList: any = [];
     private showMessageSerivce: ShowMessageService,
     private route: ActivatedRoute,
     private messagingSerivce: MessagingService,
-    private formatTimePipe: FormatTimePipe
+    private formatTimePipe: FormatTimePipe,
+    private exportImportService: ExportImportService
   ) { }
 
   ngOnInit() {
@@ -132,5 +134,35 @@ dataList: any = [];
       this.globalStore.isLoading = false;
       this.showMessageSerivce.success("Điểm danh thành công!");
     })
+  }
+
+  exportAsExcel() {
+    // Dữ liệu mẫu để export
+    this.getListStudentAll()
+  }
+
+  private getListStudentAll(): void{
+    this.globalStore.isLoading = true;
+
+    let dataExport = [];
+    this.dataList?.data?.data?.map((item, index) => {
+      dataExport.push(
+        {
+          STT: index+1, 
+          "Thông tin học sinh": `${item.fullname} - Mã: ${item.student_code}`, 
+          "Lớp học": this.dataList?.data?.className, 
+          "Ngày sinh": this.formatTimePipe.transform(item.dob, "dd-MM-yyyy"), 
+          "Giới tính": item.gender == 1 ? "Nam": "Nữ",
+          "Ghi chú": item.note,
+          "Có mặt": item.status == 1 ? 'x': '',
+          "Nghỉ có phép": item.status == 3 ? 'x' : '',
+          "Nghỉ không phép": item.status == 2 ? 'x' : '',
+          "Đi muộn": item.status == 4 ? 'x' : '',
+        }
+      )
+    })
+    this.exportImportService.exportToExcel(dataExport, 'Lịch sử điểm danh của lớp ' + this.dataList?.data?.className);
+  
+    this.globalStore.isLoading = false;
   }
 }

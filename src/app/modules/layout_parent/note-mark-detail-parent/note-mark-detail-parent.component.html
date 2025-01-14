@@ -25,6 +25,7 @@
           <th rowspan="2">Mã HS</th>
           <th rowspan="2">Họ và tên</th>
           <th rowspan="2">Ngày sinh</th>
+          <th rowspan="2">Môn học</th>
           <!-- <th colspan="4" class="text-center">ĐĐGtx</th> -->
            <ng-container *ngFor="let item of dataList?.data?.struct">
             <th class="text-center" colspan="1" rowspan="1" *ngIf="item?.examPeriods?.length==1 || item?.examPeriods?.length==0">
@@ -58,7 +59,6 @@
               {{item.examName}}
              </th>
            </ng-container>
-          <th rowspan="2">Action</th>
         </tr>
         <tr *ngIf="dataList?.data?.struct?.length">
           <ng-container *ngFor="let item of dataList?.data?.struct">
@@ -67,39 +67,45 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data?.data, let i = index">
-          <td>
-            {{(pageIndex-1)*pageSize + i + 1}}
-          </td>
-          <td>
-            <span>{{dataDetail?.code}}</span> <br/>
-          </td>
-          <td>
-            <span>{{dataDetail?.fullname}}</span> <br/>
-          </td>
-          <td class="text-center">
-            <span>{{dataDetail?.dob | formatTime}}</span>
-          </td>
-          <ng-container *ngFor="let structs of dataList?.data?.struct">
-            <td *ngIf="!structs?.examPeriods?.length">Chưa thi</td>
-            <ng-container *ngFor="let struct of structs?.examPeriods">
-              <td class="">
-                <span *ngIf="!item?.points?.isEdit">{{ findPoint(item.points, struct.examPeriodId) }}</span>
-                <!-- <app-input [type]="'number'" min value="{{ findPoint(item.points, struct.examPeriodId) }}" *ngIf="item?.points?.isEdit" [width]="'w-50px'"></app-input> -->
-                 <app-input-number
-                  value="{{ findPoint(item.points, struct.examPeriodId) }}"
-                  *ngIf="item?.points?.isEdit"
-                  [width]="'w-50px'"
-                  [minValue]="0"
-                  [maxValue]="10"
-                  [placeholder]="'Điểm số...'"
-                  (valueChange)="onChangeValueInput($event, item.points, struct.examPeriodId)"
-                 ></app-input-number>
-                 <p class="text-danger font-italic fs-11px" *ngIf="item?.points?.isValidate">{{item?.points?.isValidate}}</p>
-              </td>
+        <ng-container *ngFor="let item of dataList?.data?.data, let i = index">
+          <tr *ngFor="let item of dataList?.data?.data, let i = index">
+            <td [rowSpan]="item.subjects?.length">
+              {{(pageIndex-1)*pageSize + i + 1}}
+            </td>
+            <td [rowSpan]="item.subjects?.length">
+              <span>{{dataStudentDetail?.student_code}}</span> <br/>
+            </td>
+            <td [rowSpan]="item.subjects?.length">
+              <span>{{dataStudentDetail?.fullname}}</span> <br/>
+            </td>
+            <td [rowSpan]="item.subjects?.length" class="text-center">
+              <span>{{dataStudentDetail?.dob | formatTime}}</span>
+            </td>
+            <ng-container *ngFor="let structs of dataList?.data?.struct">
+              <td *ngIf="!structs?.examPeriods?.length">Chưa thi</td>
+              <!-- <ng-container *ngFor="let struct of structs?.examPeriods"> -->
+                <!-- <ng-container *ngFor="let history of item.subjects, let j = index">
+                  <td>{{history.subjectName}}</td>
+                  <td class="">
+                    <span>{{ findPoint(item.subjects?.[j].points, struct.examPeriodId) }}</span>
+                  </td>
+                </ng-container> -->
+              <!-- </ng-container> -->
             </ng-container>
-          </ng-container>
-        </tr>
+            <ng-container *ngFor="let structs of dataList?.data?.struct">
+              <ng-container *ngFor="let struct of structs?.examPeriods">
+                <ng-container *ngFor="let history of item.subjects, let j = index">
+                  <tr>
+                    <td>{{history.subjectName}}</td>
+                    <td class="">
+                      <span>{{ findPoint(item.subjects?.[j].points, struct.examPeriodId) }}</span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
     <!-- <app-no-data *ngIf="!dataList?.data?.totalItems"></app-no-data> -->

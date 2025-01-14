@@ -43,6 +43,7 @@ dataList: any;
   ];
   className: string = '';
   dataDetail: any;
+  dataStudentDetail: any;
   constructor(
     private globalStore: GlobalStore,
     private noteMarkParentService: NoteMarkParentService,
@@ -55,6 +56,12 @@ dataList: any;
     let dataUser = localStorage.getItem("UserInfo");
     // let dataUserJsonParse = JSON.parse(dataUser)
     this.dataDetail = JSON.parse(dataUser);
+    this.dataDetail.students.map((item) => {
+      if(item.id == localStorage.getItem('child_id')){
+        this.dataStudentDetail = item;
+      }
+    })
+    console.log(this.dataStudentDetail);
     console.log(this.dataDetail);
     this.getListSubject();
     // this.route.paramMap.subscribe((params) => {
