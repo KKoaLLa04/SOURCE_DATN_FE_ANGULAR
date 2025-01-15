@@ -16,6 +16,7 @@ import { ModalChangePasswordGlobalComponent } from '../_shared/modals/modal-chan
 import { FormatTimePipe } from '../_shared/pipe/format-time.pipe';
 import { SubstringPipe } from '../_shared/pipe/substring.pipe';
 import { FieldErrorDisplayComponent } from '../_shared/components/field-error-display/field-error-display.component';
+import { StudentAvatarPipe } from '../_shared/pipe/student-avatar.pipe';
 @NgModule({
     imports: [
         CommonModule,
@@ -32,6 +33,7 @@ import { FieldErrorDisplayComponent } from '../_shared/components/field-error-di
         PaginationComponent,
         FormatTimePipe,
         SubstringPipe,
+        StudentAvatarPipe,
         SingleDatePickerComponent,
         OnlyNumberDirective,
         ModalChangePasswordGlobalComponent,
@@ -42,6 +44,7 @@ import { FieldErrorDisplayComponent } from '../_shared/components/field-error-di
         PaginationComponent,
         FormatTimePipe,
         SubstringPipe,
+        StudentAvatarPipe,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

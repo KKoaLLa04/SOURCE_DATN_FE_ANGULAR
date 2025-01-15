@@ -1,8 +1,9 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h2 class="hoangdxph-custom fw-700">Điểm danh</h2>
+  <div class="d-flex justify-content-between align-items-center">
+    <app-button-back [routerLink]="'/staff/list_attendance/detail/'+classId"></app-button-back>
+    <h2 class="hoangdxph-custom fw-700 mb-0">Điểm danh</h2>
+  </div>
 
-  <app-button-back [routerLink]="'/staff/list_attendance/detail/'+classId"></app-button-back>
-  <br/>
   <div class="d-flex justify-content-between">
     <p>
       <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.data?.totalStudent}} học sinh</span></span> |
@@ -19,19 +20,26 @@
       <thead class="bg-color-blue-light">
         <tr class="text-white text-center fw-700">
           <th>STT</th>
+          <th>Hình</th>
           <th>Họ tên</th>
           <th>Ngày sinh</th>
           <th>Ghi chú</th>
           <th>Có mặt</th>
-          <th>Nghỉ có phép</th>
-          <th>Nghỉ không phép</th>
-          <th>Đến muộn có phép</th>
+          <th>Có phép</th>
+          <th>Không phép</th>
+          <th>Đến muộn</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of dataList?.data?.data, let i = index">
           <td class="text-center fw-700">{{i+1}}</td>
-          <td class="text-center fw-700">{{item.fullname}} - {{item.student_code}} </td>
+          <td class="text-center">
+            <img class="w-100" [attr.src]="item.avatar | student_avatar" alt="student avatar">
+          </td>
+          <td class="text-center fw-700">
+            <a [routerLink]="['/staff/student/detail/' + item.id]">{{item.fullname}}</a>
+            <div>{{item.student_code}} </div>
+          </td>
           <td class="text-center fw-700">{{item.dob | formatTime}}</td>
           <td>
             <app-input [placeholder]="'Ghi chú học sinh...'" (valueChange)="onChangeNote(item, $event)" [value]="item.note"></app-input>
@@ -52,7 +60,8 @@
       </tbody>
     </table>
 
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end gap-2">
+      <app-button [text]="'Điểm danh bằng QRCOde'" [width]="'w-200px'" (onClick)="startQrCode()"></app-button>
       <app-button [text]="'Lưu'" [width]="'w-100px'" (onClick)="onSubmit()"></app-button>
     </div>
   </div>

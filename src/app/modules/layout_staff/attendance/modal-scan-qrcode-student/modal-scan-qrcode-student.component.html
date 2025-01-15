@@ -1,0 +1,19 @@
+<ng-container class="modal-import" *transloco="let t; scope: 'parent'">
+  <div class="modal-header border-none">
+    <h5 class="title-modal-global fw-700 ">Điểm danh bằng QRCode</h5>
+    <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal(false)"
+            [hidden]="dataModal?.isHiddenBtnClose">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- For camera -->
+    <ngx-scanner-qrcode #action="scanner" (event)="handleDataQr($event)"></ngx-scanner-qrcode>
+  </div>
+  <div class="modal-footer border-none d-flex justify-content-center gap-2">
+
+    <app-button *ngIf="action.isLoading" [otherClass]="'so-btn btn-confirm-import-custom'" [text]="'⌛ Loading...'"></app-button>
+    <app-button *ngIf="!action.isLoading" [otherClass]="'so-btn btn-confirm-import-custom'" [text]="action.isStart ? 'Tạm dừng' : 'Bắt đầu'" (click)="action.isStart ? action.stop() : action.start()"></app-button>
+    <app-button [otherClass]="'so-btn btn-confirm-import-custom'" [text]="'Xác nhận'"></app-button>
+  </div>
+</ng-container>

@@ -1,5 +1,5 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3>Danh sách lớp học</h3>
+  <h2 class="hoangdxph-custom fw-700">Danh sách lớp học</h2>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>Số lớp học: <span class="text-color-blue-light">{{dataList?.data?.length}} lớp học</span></p>
@@ -10,8 +10,8 @@
 
   <div class="table table-responsive">
     <table class="table table-custom">
-      <thead>
-        <tr class="text-color-white text-color-blue-dark">
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
+        <tr class="text-color-white ">
           <th class=w-5>STT</th>
           <th>Thông tin lớp học</th>
           <th>Trạng thái</th>
@@ -22,8 +22,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataList?.data, let i = index">
-          <td>
+        <tr class=" fw-700" *ngFor="let item of dataList?.data, let i = index">
+          <td class="text-center fw-700">
             {{(pageIndex-1)*pageSize + i + 1}}
           </td>
           <td>

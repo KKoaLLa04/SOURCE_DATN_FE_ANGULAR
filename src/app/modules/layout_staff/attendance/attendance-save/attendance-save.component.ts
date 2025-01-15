@@ -14,6 +14,9 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 import { MessagingService } from 'src/firebase/messaging-service';
 import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
 import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
+import { StudentAvatarPipe } from 'src/app/_shared/pipe/student-avatar.pipe';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalScanQrcodeStudentComponent } from '../modal-scan-qrcode-student/modal-scan-qrcode-student.component';
 
 @Component({
   selector: 'app-attendance-save',
@@ -27,6 +30,7 @@ import { ButtonBackComponent } from 'src/app/_shared/components/button-back/butt
     InputComponent,
     ButtonComponent,
     FormatTimePipe,
+    StudentAvatarPipe,
     ButtonBackComponent,
     RouterLink
   ],
@@ -60,7 +64,8 @@ export class AttendanceSaveComponent implements OnInit {
     private showMessageSerivce: ShowMessageService,
     private route: ActivatedRoute,
     private messagingSerivce: MessagingService,
-    private formatTimePipe: FormatTimePipe
+    private formatTimePipe: FormatTimePipe,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -86,7 +91,7 @@ export class AttendanceSaveComponent implements OnInit {
       this.dataList = res;
       console.log(res);
       res.data?.data?.map((item) => {
-        item.status = item.status == 0 ? 1 : item.status 
+        item.status = item.status == 0 ? 1 : item.status
       })
       this.globalStore.isLoading = false;
     }, (err) =>{
@@ -100,6 +105,17 @@ export class AttendanceSaveComponent implements OnInit {
 
   onChangeNote(item: any, value: string){
     item.note = value;
+  }
+
+  startQrCode() {
+    const modalRef = this.modalService.open(ModalScanQrcodeStudentComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      keyboard: false,
+      backdrop: 'static', // prevent click outside modal to close modal
+      centered: false, // vị trí hiển thị modal ở giữa màn hình
+      size: 'lg', // 'sm' | 'md' | 'lg' | 'xl',
+    });
   }
 
   onSubmit(){

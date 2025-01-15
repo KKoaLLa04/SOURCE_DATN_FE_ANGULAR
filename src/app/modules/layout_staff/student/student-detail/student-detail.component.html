@@ -155,13 +155,21 @@
   </div>
 
   <div class="border-custom my-20"></div>
-  <h3 class="fs-30 mb-10">Lịch sử học sinh</h3>
-  <div *ngFor="let item of dataDetail?.class_history" class="border-bottom-custom pb-5">
-    <h4 class="mb-4 fs-18">{{item.school_year_name}}</h4>
-    <div *ngFor="let history of item.classes" class="fw-700">
-      <img [src]="iconSvg.label_icon" alt=""> Lớp: {{history.class_name}} <span class="mx-10"></span>
-      <img [src]="iconSvg.label_icon" alt=""> Trạng thái: <span appStatusClassStudent [statusValue]="history.status"></span> <span class="mx-10"></span>
-      <img [src]="iconSvg.calendar" alt=""> Thời gian: {{history.start_date | formatTime}} - <span *ngIf="history.end_date">{{history.end_date | formatTime}} </span> <span *ngIf="!history.end_date">Hiện tại </span>
+
+  <div class="row">
+    <div class="col-md-7">
+      <h3 class="fs-30 mb-10">Lịch sử học sinh</h3>
+      <div *ngFor="let item of dataDetail?.class_history" class="border-bottom-custom pb-5">
+        <h4 class="mb-4 fs-18">{{item.school_year_name}}</h4>
+        <div *ngFor="let history of item.classes" class="fw-700">
+          <img [src]="iconSvg.label_icon" alt=""> Lớp: {{history.class_name}} <span class="mx-10"></span>
+          <img [src]="iconSvg.label_icon" alt=""> Trạng thái: <span appStatusClassStudent [statusValue]="history.status"></span> <span class="mx-10"></span>
+          <img [src]="iconSvg.calendar" alt=""> Thời gian: {{history.start_date | formatTime}} - <span *ngIf="history.end_date">{{history.end_date | formatTime}} </span> <span *ngIf="!history.end_date">Hiện tại </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <app-card-student *ngIf="dataDetail?.id" [fullname]="dataDetail?.fullname ?? ''" [birthday]="dataDetail?.dob ?? 0" [studentCode]="dataDetail?.student_code ?? ''" [classroomName]="dataDetail?.current_class_name ?? ''" [id]="dataDetail?.id ?? 0"></app-card-student>
     </div>
   </div>
 </div>
