@@ -12,8 +12,8 @@ export class TicketService {
     private http: HttpClient
   ) { }
 
-  getListTicket(){
-    return this.http.get(`${environment.apiUrl}/manager/leaverequest`)
+  getListTicket(data: any){
+    return this.http.get(`${environment.apiUrl}/manager/leaverequest`, {params: {...data}})
   }
 
   getListTicketParent(){

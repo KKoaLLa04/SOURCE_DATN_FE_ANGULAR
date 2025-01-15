@@ -12,6 +12,7 @@ import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
 import { GlobalStore } from 'src/app/_store/global.store';
 import { ParentService } from '../../services/parent.service';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 
 @Component({
   selector: 'app-modal-assign-childrent',
@@ -28,7 +29,8 @@ import { ParentService } from '../../services/parent.service';
     NgFor,
     FormatTimePipe,
     NgIf,
-    InputSearchComponent
+    InputSearchComponent,
+    GenderDirective
   ]
 })
 export class ModalAssignChildrentComponent implements OnInit {

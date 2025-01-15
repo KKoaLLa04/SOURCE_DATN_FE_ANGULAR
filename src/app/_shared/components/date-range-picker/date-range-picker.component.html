@@ -1,0 +1,40 @@
+<div class="position-relative">
+  <input #inputDatePicker type="text"
+    class="form-control position-relative fs-13 w-100 h-37px {{otherClass}} {{ bgColor }} {{ fontWeight }} {{color}} {{ showBorder ? 'border border-color-grey-smoke' : 'border-0' }}"
+    [popover]="popTemplate" container="true"  placeholder="{{placeholder ? placeholder : formatInput}}" [placement]="position"
+    [outsideClick]="!isClickFilter" #popoverRef="bs-popover" [value]="bsRangeValue | formatRangePicker"
+    (click)="showDate()" [readonly]="true" containerClass="customClassPopoverDateTime">
+  <ng-template #popTemplate>
+    <bs-daterangepicker-inline [hidden]="!isDateVisible" [bsValue]="bsRangeValue" [minDate]="minDate"
+      [maxDate]="maxDate" [isDisabled]="isDisabled" (bsValueChange)="onChangeDate($event)"></bs-daterangepicker-inline>
+    <div class="d-flex align-items-center">
+      <timepicker class="me-5" [hidden]="isDateVisible" [disabled]="isDisabled" [(ngModel)]="bsRangeValue[0]">
+      </timepicker>
+      <timepicker class="ms-5" [hidden]="isDateVisible" [disabled]="isDisabled" [(ngModel)]="bsRangeValue[1]">
+      </timepicker>
+    </div>
+    <div class="p-2" *ngIf="isTimePicker">
+      <span class="btn-group pull-left" style="margin-right:10px;">
+        <button type=button class="btn btn-sm bg-color-emerald text-color-white fs-14 fw-700 h-40px"
+          [hidden]="!isDateVisible" (click)="today()">Hôm nay</button>
+        <button type=button class="btn btn-sm btn-info fs-14 fw-700 h-40px" [hidden]="isDateVisible"
+          (click)="now()">Hiện tại</button>
+        <button type=button class="btn btn-sm bg-color-radical-red text-color-white fs-14 fw-700 h-40px"
+          (click)="clear()">Xóa</button>
+      </span>
+      <span class="btn-group pull-right">
+        <button type=button class="btn btn-sm bg-color-emerald text-color-white fs-14 fw-700 h-40px"
+          [hidden]="isDateVisible" (click)="showDate()">Ngày</button>
+        <button *ngIf="isTimePicker" type=button
+          class="btn btn-sm bg-color-emerald text-color-white fs-14 fw-700 h-40px" [hidden]="!isDateVisible"
+          (click)="showTime()">Thời gian
+        </button>
+        <app-button [text]="'Chọn'" [height]="'h-40px'" [fontWeight]="'fw-700'" [sizeText]="'fs-14'"
+          [color]="'text-color-white'" (click)="close()"></app-button>
+      </span> <span class=clearfix></span>
+    </div>
+  </ng-template>
+  <img *ngIf="!isClear || !bsRangeValue[0]" [src]="iconSvg.calendar_icon" alt="" class="position-absolute top-12px right-10px cursor-pointer"
+    (click)="inputDatePicker.click()" />
+  <img *ngIf="isClear && bsRangeValue[0]" src="{{iconSvg.close_icon}}" class="position-absolute top-12px right-10px z-index-99" (click)="clearData()">
+</div>

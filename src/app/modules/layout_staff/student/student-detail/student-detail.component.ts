@@ -13,6 +13,7 @@ import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
 import { NgFor, NgIf } from '@angular/common';
 import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-class-student.directive';
 import { CardStudentComponent } from 'src/app/_shared/components/card-student/card-student.component';
+import { StatusStudentDirective } from 'src/app/_shared/directive/status-student.directive';
 
 @Component({
   selector: 'app-student-detail',
@@ -29,6 +30,7 @@ import { CardStudentComponent } from 'src/app/_shared/components/card-student/ca
     StatusClassStudentDirective,
     NgIf,
     RouterLink,
+    StatusClassStudentDirective
   ]
 })
 export class StudentDetailComponent implements OnInit {

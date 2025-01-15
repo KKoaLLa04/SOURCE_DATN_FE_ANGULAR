@@ -35,7 +35,6 @@
           <th>Thông tin học sinh</th>
           <th>Lớp học</th>
           <th>Giới tính</th>
-          <th>Niên khóa</th>
           <th>Trạng thái</th>
           <th>Phụ huynh</th>
           <th>Thao tác</th>
@@ -55,9 +54,6 @@
           </td>
           <td>
             <span appGender [statusValue]="item.gender">{{item.gender}}</span>
-          </td>
-          <td class="text-center">
-            {{item.academic_year_name}}
           </td>
           <td class="text-center">
             <div appStatusClassStudent [statusValue]="item.status"></div>

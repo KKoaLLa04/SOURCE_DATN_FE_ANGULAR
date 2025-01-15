@@ -36,7 +36,9 @@
               <span class="'text-color-blue-light'">{{item.fullname}}</span> <br/>
               <span class="'text-color-blue-light'">Mã: {{item.student_code}}</span>
             </td>
-            <td>{{item.gender}}</td>
+            <td>
+              <span appGender [statusValue]="item.gender"></span>
+            </td>
             <td>{{item.dob | formatTime}}</td>
           </tr>
         </tbody>

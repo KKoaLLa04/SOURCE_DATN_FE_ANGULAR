@@ -12,7 +12,9 @@
   <div class="table table-responsive">
     <div class="d-flex justify-content-between">
       <h3 class="hoangdxph-custom fw-700">Lịch buổi sáng</h3>
-      <app-button (onClick)="viewImportTimetable(1)" [text]="'Import excel'"></app-button>
+      <div class="d-flex align-items-center">
+        <app-button (onClick)="viewImportTimetable(1)" [text]="'Import excel'"></app-button>
+      </div>
     </div>
     <table class="table table-custom">
       <thead class="text-color-white bg-color-blue-light text-center fw-700">

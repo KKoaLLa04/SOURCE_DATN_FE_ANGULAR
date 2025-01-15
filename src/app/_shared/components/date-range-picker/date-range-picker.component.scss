@@ -1,0 +1,47 @@
+::ng-deep .popover {
+  text-align: center;
+  max-width: 600px !important;
+  min-width: 260px !important;
+  position: absolute;
+}
+
+::ng-deep timepicker {
+  display: inline-block;
+}
+
+.text-color-oxford-blue::placeholder  {
+  color: var(--bs-oxford-blue);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+::ng-deep bs-days-calendar-view{
+  margin-left: 3px !important;
+  margin-right: 3px !important;
+}
+::ng-deep .customClassPopoverDateTime .popover-content.popover-body {
+  padding: 0 !important;
+}
+
+::ng-deep.customClassPopoverDateTime {
+  ::ng-deep.popover-body{
+    padding: 0 !important;
+    .bs-datepicker-container{
+      padding: 5px;
+      .bs-datepicker-head{
+        min-width: 200px;
+        height: 42px;
+        padding: 6px;
+        border-radius: 3px 3px 0 0;
+        text-align: justify;
+      }
+      .bs-datepicker-body {
+        padding: 6px;
+        border-radius: 0 0 3px 3px;
+        min-height: 232px;
+        min-width: 265px;
+        border: 1px solid #e9edf0;
+      }
+    }
+  }
+}

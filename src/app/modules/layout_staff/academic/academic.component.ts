@@ -18,6 +18,7 @@ import { ModalDeleteAcademicComponent } from './modal-delete-academic/modal-dele
 import { NoDataComponent } from 'src/app/_shared/components/no-data/no-data.component';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { statusSchoolYearEnum } from 'src/app/_shared/enums/status-school-year.enum';
+import { StatusSchoolYearDirective } from 'src/app/_shared/directive/status-school-year.directive';
 
 @Component({
   selector: 'app-academic',
@@ -32,7 +33,8 @@ import { statusSchoolYearEnum } from 'src/app/_shared/enums/status-school-year.e
     ContextMenuComponent,
     NoDataComponent,
     NgIf,
-    FormatTimePipe
+    FormatTimePipe,
+    StatusSchoolYearDirective
   ]
 })
 export class AcademicComponent implements OnInit {

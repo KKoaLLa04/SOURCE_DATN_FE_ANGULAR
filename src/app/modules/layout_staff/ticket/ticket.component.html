@@ -5,7 +5,7 @@
     <p>Số lượng đơn do phụ huynh & học sinh gửi: <span class="fw-700 text-color-blue-light">{{dataList?.data?.total}} đơn xin nghỉ</span></p>
     <div class="d-flex">
       <!-- <app-button [text]="'Gán môn học vào lớp'" (onClick)="onChangeAssignPage()" class="ms-4"></app-button> -->
-       <app-input-search></app-input-search>
+       <app-input-search (valueChange)="onSearch($event)"></app-input-search>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
       </thead>
       <tbody>
         <tr  *ngFor="let item of dataList?.data?.data, let i = index">
-          <td class="text-center fw-700">{{i+1}}</td>
+          <td class="text-center fw-700">{{(pageIndex-1)*pageSize + i + 1}}</td>
           <td class="text-center fw-700">{{item.code}}</td>
           <td class="text-center fw-700">{{item.title}}</td>
           <td class="text-center fw-700">
@@ -49,5 +49,8 @@
     <ng-container *ngIf="!dataList?.data?.data?.length">
       <app-no-data></app-no-data>
     </ng-container>
+    <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="dataList?.data?.total"
+      *ngIf="dataList?.data?.total >= sizeOption[0]" [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+    </app-pagination>
   </div>
 </div>

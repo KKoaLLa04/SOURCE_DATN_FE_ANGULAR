@@ -111,11 +111,13 @@ export class NoteMarkDetailComponent implements OnInit {
 
   onChangeEditType(item: any): void{
     item.points.isValidate = ""
+    item.isValidate = "";
     item.points.isEdit = true;
   }
 
   onCancelEdit(item: any): void{
     item.points.isValidate = ""
+    item.isValidate = "";
     item.points.isEdit = false;
   }
 
@@ -190,18 +192,20 @@ export class NoteMarkDetailComponent implements OnInit {
     return matchingPoint ? matchingPoint.point : '';
   }
 
-  findPointValidate(points: any[], examPeriodId: number): string | number {
+  findPointValidate(points: any[], examPeriodId: number, item: any): string | number {
     // Nếu không có điểm
-    if (!points || points.length === 0) {
-      return ''; // Nội dung mặc định
+    if(item.points.isEdit){
+      if (!points || points.length === 0) {
+        return ''; // Nội dung mặc định
+      }
+  
+      // Tìm điểm phù hợp
+      const matchingPoint = points.find(
+        (point) => point.exam_period_id === examPeriodId
+      );
+  
+      // Trả về điểm hoặc để trống nếu không có
+      return matchingPoint ? matchingPoint.isValidate : '';
     }
-
-    // Tìm điểm phù hợp
-    const matchingPoint = points.find(
-      (point) => point.exam_period_id === examPeriodId
-    );
-
-    // Trả về điểm hoặc để trống nếu không có
-    return matchingPoint ? matchingPoint.isValidate : '';
   }
 }

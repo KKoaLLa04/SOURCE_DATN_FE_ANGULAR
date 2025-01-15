@@ -34,7 +34,9 @@
           <td class="text-center fw-700">{{i+1}}</td>
           <td>{{item.fullname}} - {{item.student_code}} </td>
           <td class="text-center fw-700">{{item.dob | formatTime}}</td>
-          <td class="text-center fw-700">{{item.gender}}</td>
+          <td class="text-center fw-700">
+            <span appGender [statusValue]="item.gender"></span>
+          </td>
           <td class="w-30">
             <div class="p-5" style="background-color: #DBDBDB;">
               {{item.note}}

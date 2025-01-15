@@ -203,4 +203,5 @@ export class ModalTimetableComponent implements OnInit {
         // this.showMessageSerivce.error(err);
       })
     }
+
 }

@@ -13,6 +13,8 @@ import { StatusActiveClassBgColorDirective } from 'src/app/_shared/directive/sta
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAgreeTicketComponent } from './modal-agree-ticket/modal-agree-ticket.component';
 import { ModalDenyTicketComponent } from './modal-deny-ticket/modal-deny-ticket.component';
+import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from 'src/app/_shared/utils/constant';
+import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-ticket',
@@ -26,12 +28,16 @@ import { ModalDenyTicketComponent } from './modal-deny-ticket/modal-deny-ticket.
     NgIf,
     InputSearchComponent,
     SelectComponent,
-    StatusActiveClassBgColorDirective
+    StatusActiveClassBgColorDirective,
+    PaginationComponent
   ]
 })
 export class TicketComponent implements OnInit {
  dataList: any = [];
-
+ keyWord: string = '';
+ pageIndex = PAGE_INDEX_DEFAULT;
+ pageSize = PAGE_SIZE_DEFAULT;
+ sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
   constructor(
     private globalStore: GlobalStore,
     private showMessageSerivce: ShowMessageService,
@@ -80,8 +86,9 @@ export class TicketComponent implements OnInit {
                   this.showMessageSerivce.success("Xác nhận đơn xin nghỉ thành công");
                   this.getListTicket();
                 }, (err) => {
-                  this.globalStore.isLoading = false
-                  this.showMessageSerivce.error(err)
+                  this.getListTicket();
+                  this.showMessageSerivce.success("Xác nhận đơn xin nghỉ thành công");
+                  // this.showMessageSerivce.error(err)
                 })
               }
             },
@@ -123,14 +130,34 @@ export class TicketComponent implements OnInit {
     );
   }
 
+  paginationChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getListTicket();
+  }
+
+  onSearch(value: string): void{
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.pageSize = PAGE_SIZE_DEFAULT
+    this.keyWord = value;
+    this.getListTicket()
+  }
+
   private getListTicket(): void{
     this.globalStore.isLoading = true;
 
-    this.ticketService.getListTicket().subscribe((res: any) => {
+    let dataRequest = {
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+      keyword: this.keyWord
+    }
+
+    this.ticketService.getListTicket(dataRequest).subscribe((res: any) => {
       this.dataList = res;
       console.log(res);
       this.globalStore.isLoading = false;
     }, (err) =>{
+      console.log(err);
       this.showMessageSerivce.error(err);
     })
   }

@@ -25,7 +25,7 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
     RouterLink,
     RangeDatePickerComponent,
     SelectComponent,
-    NgIf
+    NgIf,
   ],
   providers: [FormatTimePipe]
 })

@@ -42,13 +42,13 @@
             <span>{{item.class_name}}</span> <br/>
           </td>
           <td>
-            <span>{{item.gender}}</span>
+            <span appGender [statusValue]="item.gender"></span>
           </td>
           <td class="text-center">
             {{item.academic_year_name}}
           </td>
           <td class="text-center">
-            <div appStatusClassStudent [statusValue]="item.status"></div>
+            <div appStatusClassStudent [statusValue]="item.status" class="ps-10"></div>
             <!-- {{item.status}} -->
           </td>
           <td class="text-center">

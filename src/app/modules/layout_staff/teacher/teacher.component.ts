@@ -20,6 +20,7 @@ import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { AccessTypeDirective } from 'src/app/_shared/directive/access-type.directive';
 import { StatusActiveDirective } from 'src/app/_shared/directive/status-active.directive';
 import { ModalAssignSubjectTeacherComponent } from './modal-assign-subject-teacher/modal-assign-subject-teacher.component';
+import { ExportImportService } from '../services/export-import.service';
 
 @Component({
   selector: 'app-teacher',
@@ -37,7 +38,8 @@ import { ModalAssignSubjectTeacherComponent } from './modal-assign-subject-teach
     FormatTimePipe,
     AccessTypeDirective,
     StatusActiveDirective
-  ]
+  ],
+  providers: [FormatTimePipe]
 })
 export class TeacherComponent implements OnInit {
   dataList: any = [];
@@ -63,6 +65,8 @@ export class TeacherComponent implements OnInit {
     private teacherService: TeacherService,
     private router: Router,
     private modalService: NgbModal,
+    private formatTimePipe: FormatTimePipe,
+    private exportImportService: ExportImportService
   ) { }
 
   ngOnInit() {
@@ -287,5 +291,32 @@ export class TeacherComponent implements OnInit {
     //   );
     // }
 
-
+    exportAsExcel() {
+      // Dữ liệu mẫu để export
+      this.getListTeacherExport()
+    }
+  
+    private getListTeacherExport(): void{
+      this.globalStore.isLoading = true;
+  
+      let dataExport = [];
+      this.dataList?.data?.map((item, index) => {
+        dataExport.push(
+          {
+            STT: index+1, 
+            "Họ và tên": `${item.userName} - Mã: ${item.userCode}`, 
+            "Email": `${item.userEmail}`,
+            "Số Điện thoại": item.userPhone,
+            "Lớp Học": item.userMainClassName, 
+            "Môn dạy": item.subject, 
+            "Chức vụ": item.userAccessType == 1 ? "Quản lý trường": "Giáo viên",
+            "Trạng thái": item.userStatus == 1 ? 'Hoạt động' : "Đã khóa",
+            "Ngày sinh": this.formatTimePipe.transform(item.userDob, 'dd-MM-YYY'),
+          }
+        )
+      })
+      this.exportImportService.exportToExcelTeacher(dataExport, 'Danh sách cán bộ nhân viên');
+    
+      this.globalStore.isLoading = false;
+    }
 }

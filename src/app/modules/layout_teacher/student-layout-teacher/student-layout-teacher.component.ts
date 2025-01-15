@@ -18,6 +18,7 @@ import { IProperty } from 'src/app/_models/context-menu.interface';
 import { ModalStudentFormTeacherComponent } from './modal-student-form-teacher/modal-student-form-teacher.component';
 import { ModalLockUnlockParentLayoutTeacherComponent } from './modal-lock-unlock-parent-layout-teacher/modal-lock-unlock-parent-layout-teacher.component';
 import { SelectComponent } from 'src/app/_shared/components/select/select.component';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 
 @Component({
   selector: 'app-student-layout-teacher',
@@ -33,7 +34,8 @@ import { SelectComponent } from 'src/app/_shared/components/select/select.compon
     NoDataComponent,
     NgIf,
     StatusClassStudentDirective,
-    SelectComponent
+    SelectComponent,
+    GenderDirective
   ]
 })
 export class StudentLayoutTeacherComponent implements OnInit {

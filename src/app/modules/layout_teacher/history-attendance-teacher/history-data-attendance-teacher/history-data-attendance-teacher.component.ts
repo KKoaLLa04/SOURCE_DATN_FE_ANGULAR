@@ -15,6 +15,7 @@ import { GlobalStore } from 'src/app/_store/global.store';
 import { AttendanceService } from '../../services/attendance.service';
 import { ShowMessageService } from 'src/app/_services/show-message.service';
 import { MessagingService } from 'src/firebase/messaging-service';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 
 @Component({
   selector: 'app-history-data-attendance-teacher',
@@ -30,7 +31,8 @@ import { MessagingService } from 'src/firebase/messaging-service';
     FormatTimePipe,
     ButtonBackComponent,
     RouterLink,
-    StatusStudentAttendanceDirective
+    StatusStudentAttendanceDirective,
+    GenderDirective
   ],
   providers: [FormatTimePipe]
 })

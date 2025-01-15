@@ -5,6 +5,7 @@
     <h4>Số lượng công nhân viên chức: <span class="text-color-blue-light">{{dataList?.total}}</span> </h4>
     <div class="d-flex">
       <app-input-search [width]="'w-250px'" (valueChange)="onSearch($event)"></app-input-search>
+      <app-button [text]="'Export excel'" (onClick)="exportAsExcel()"></app-button>
       <app-button [text]="'Thêm mới'"
       (onClick)="create()"
       class="ms-4"
