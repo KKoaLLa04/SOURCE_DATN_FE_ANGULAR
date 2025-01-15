@@ -31,7 +31,7 @@ import { NoteMarkParentService } from '../services/note-mark-parent.service';
   ]
 })
 export class NoteMarkDetailParentComponent implements OnInit {
-dataList: any;
+  dataList: any;
   keyWord: string = '';
   pageIndex = PAGE_INDEX_DEFAULT;
   pageSize = PAGE_SIZE_DEFAULT;
@@ -39,11 +39,11 @@ dataList: any;
   sizeOption: number[] = PAGE_SIZE_OPTIONS_DEFAULT
   classId: any;
   subject_id = 1;
-  optionSubject: Select2[] = [
-  ];
+  optionSubject: Select2[] = [];
   className: string = '';
   dataDetail: any;
   dataStudentDetail: any;
+  processedData = []
   constructor(
     private globalStore: GlobalStore,
     private noteMarkParentService: NoteMarkParentService,
@@ -61,8 +61,6 @@ dataList: any;
         this.dataStudentDetail = item;
       }
     })
-    console.log(this.dataStudentDetail);
-    console.log(this.dataDetail);
     this.getListSubject();
     // this.route.paramMap.subscribe((params) => {
       
@@ -111,6 +109,19 @@ dataList: any;
     }
     this.noteMarkParentService.getListNoteMark(dataRequest).subscribe((res: any) => {
       this.dataList = res;
+      this.processedData = this.dataList?.data?.data?.map((student) => ({
+        ...student,
+        subjects: student.subjects.map((subject) => ({
+          ...subject,
+          points: this.dataList?.data?.struct.map((struct) => ({
+            examName: struct.examName,
+            periods: struct.examPeriods.map((period) =>
+              this.findPoint(subject.points, period.examPeriodId)
+            ),
+          })),
+        })),
+      }));
+      console.log(this.processedData);
       // this.collectionSize = res?.data.totalItems;
       this.globalStore.isLoading = false;
     }, (err) =>{

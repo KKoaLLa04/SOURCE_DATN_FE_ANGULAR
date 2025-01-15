@@ -109,7 +109,12 @@
           </ng-container>
           <td class="text-center">
             <div *ngIf="!item?.points?.isEdit">
-              <app-button [text]="'Sửa'" (onClick)="onChangeEditType(item)" [backgroundColor]="'bg-color-butterscotch'"></app-button>
+              <app-button 
+                [text]="'Sửa'" 
+                (onClick)="onChangeEditType(item)" 
+                [backgroundColor]="'bg-color-butterscotch'"
+                *ngIf="dataSubjectNow.is_teach"
+              ></app-button>
             </div>
             <div *ngIf="item?.points?.isEdit">
               <p><app-button [height]="'h-30px'" [color]="'text-color-black'" [text]="'Hủy'" (onClick)="onCancelEdit(item)" [backgroundColor]="'bg-color-white-smoke'"></app-button></p>

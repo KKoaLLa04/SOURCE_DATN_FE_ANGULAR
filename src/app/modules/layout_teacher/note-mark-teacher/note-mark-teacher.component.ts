@@ -51,6 +51,7 @@ export class NoteMarkTeacherComponent implements OnInit {
     subject_id = 1;
     optionSubject: Select2[] = [];
     dataOptionsStatus: Select2[] = [];
+    dataSubjectNow: any;
     constructor(
       private globalStore: GlobalStore,
       private noteMarkService: NoteMarkService,
@@ -87,9 +88,14 @@ export class NoteMarkTeacherComponent implements OnInit {
           this.optionSubject.push({
             label: item.subject_name,
             value: item.subject_id,
-            selected: this.subject_id == item.subject_id
+            selected: this.subject_id == item.subject_id,
+            data: item
           })
+          if(this.subject_id == item.subject_id){
+            this.dataSubjectNow = item;
+          }
         })
+        console.log(this.optionSubject);
         this.globalStore.isLoading = false;
       }, (err) =>{
         this.showMessageService.error(err);
@@ -98,6 +104,9 @@ export class NoteMarkTeacherComponent implements OnInit {
   
     onChangeSubject(value: any){
       this.subject_id = value;
+      if(this.subject_id == value){
+        this.dataSubjectNow = value;
+      }
       this.getListNoteMark();
     }
   
