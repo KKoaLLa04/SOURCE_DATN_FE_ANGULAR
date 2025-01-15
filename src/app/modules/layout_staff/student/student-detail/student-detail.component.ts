@@ -12,6 +12,7 @@ import { ModalAssignParentComponent } from '../modal-assign-parent/modal-assign-
 import { iconSVG } from 'src/app/_shared/enums/icon-svg.enum';
 import { NgFor, NgIf } from '@angular/common';
 import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-class-student.directive';
+import { CardStudentComponent } from 'src/app/_shared/components/card-student/card-student.component';
 
 @Component({
   selector: 'app-student-detail',
@@ -19,6 +20,7 @@ import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-cl
   styleUrls: ['./student-detail.component.scss'],
   standalone: true,
   imports: [
+    CardStudentComponent,
     ButtonBackComponent,
     InputComponent,
     FormatTimePipe,
@@ -26,7 +28,7 @@ import { StatusClassStudentDirective } from 'src/app/_shared/directive/status-cl
     NgFor,
     StatusClassStudentDirective,
     NgIf,
-    RouterLink
+    RouterLink,
   ]
 })
 export class StudentDetailComponent implements OnInit {
@@ -55,7 +57,7 @@ export class StudentDetailComponent implements OnInit {
     }
 
     this.studentService.getStudentDetail(dataRequest).subscribe((res: any) => {
-      this.dataDetail = res?.data
+      this.dataDetail = res?.data;
       console.log(res?.data);
       this.globalStore.isLoading = false;
     },(err) => {

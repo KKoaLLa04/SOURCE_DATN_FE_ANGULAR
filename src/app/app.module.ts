@@ -43,7 +43,7 @@ registerLocaleData(en);
 // #fake-end#
 
 @NgModule({
-    declarations: [	
+    declarations: [
       DemoComponent
    ],
     imports: [

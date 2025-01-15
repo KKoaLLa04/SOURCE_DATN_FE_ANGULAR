@@ -1,21 +1,21 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
   <div class="d-flex justify-content-end">
-    <app-button 
-      [text]="'Buổi sáng'" 
-      [backgroundColor]="tabSelect == 1 ? 'bg-color-azure' : 'bg-color-white-smoke'" 
+    <app-button
+      [text]="'Buổi sáng'"
+      [backgroundColor]="tabSelect == 1 ? 'bg-color-azure' : 'bg-color-white-smoke'"
       [color]="tabSelect == 1 ? 'text-color-white' : 'text-color-black'"
       class="me-5"
       (onClick)="onChangeSelect(1)"
      ></app-button>
-    <app-button 
-      [text]="'Buổi chiều'" 
-      [backgroundColor]="tabSelect == 2 ? 'bg-color-azure' : 'bg-color-white-smoke'" 
+    <app-button
+      [text]="'Buổi chiều'"
+      [backgroundColor]="tabSelect == 2 ? 'bg-color-azure' : 'bg-color-white-smoke'"
       [color]="tabSelect == 2 ? 'text-color-white' : 'text-color-black'"
       (onClick)="onChangeSelect(2)"
     ></app-button>
   </div>
   <app-button-back [routerLink]="'/teacher/history-attendance'" class="mb-5"></app-button-back>
-  <h3>Tiết học điểm danh</h3>
+  <h3 class="hoangdxph-custom fw-700">Tiết học điểm danh</h3>
 
   <div class="d-flex justify-content-end mb-5">
     <!-- <p>
@@ -32,7 +32,7 @@
 
   <div class="table table-responsive" *ngIf="tabSelect == 1">
     <table class="table table-custom">
-      <thead>
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
         <tr>
           <th>STT</th>
           <th>Ngày điểm danh</th>
@@ -46,14 +46,14 @@
       <tbody>
        <ng-container *ngIf="dataList?.data?.[0]?.morning_timetable?.length">
         <ng-container *ngFor="let item of dataList?.data, let i = index">
-          <tr *ngFor="let item of dataList?.data, let i = index">
+          <tr class="fw-700" *ngFor="let item of dataList?.data, let i = index">
             <td [rowSpan]="item.morning_timetable?.length + 1">{{i+1}}</td>
             <td [rowSpan]="item.morning_timetable?.length + 1">{{item.date | formatTime}}</td>
             <ng-container >
-              <td>
+              <td class="text-center fw-700">
                 {{item.morning_timetable[0].subject}}
               </td>
-              <td class="">
+              <td class="text-center fw-700">
                 <div appStatusDayOfWeek [statusValue]="item.morning_timetable[0].day"></div>
               </td>
               <td class="">
