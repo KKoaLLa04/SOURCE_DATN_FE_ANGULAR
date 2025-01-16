@@ -56,7 +56,7 @@ export class ModalScanQrcodeStudentComponent implements OnInit {
     if (this.checkedStudents.findIndex(f => f.id === student.id) !== -1) return;
     this.checkedStudents.push(student);
     student.status = 1;
-    this.attendanceService.callApiQrDataAttendance(this.fromParent?.classId, student).subscribe();
+    // this.attendanceService.callApiQrDataAttendance(this.fromParent?.classId, student).subscribe();
     
 
   }
