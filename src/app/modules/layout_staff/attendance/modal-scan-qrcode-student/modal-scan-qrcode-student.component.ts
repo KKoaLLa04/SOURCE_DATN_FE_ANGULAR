@@ -6,6 +6,7 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
 import { InputComponent } from 'src/app/_shared/components/input/input.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxScannerQrcodeModule, LOAD_WASM, ScannerQRCodeResult } from 'ngx-scanner-qrcode';
+import { AttendanceService } from '../../services/attendance.service';
 
 LOAD_WASM('/assets/wasm/ngx-scanner-qrcode.wasm').subscribe();
 
@@ -27,12 +28,13 @@ LOAD_WASM('/assets/wasm/ngx-scanner-qrcode.wasm').subscribe();
 })
 export class ModalScanQrcodeStudentComponent implements OnInit {
   @Input() dataModal: any;
-  fromParent?: {students: any[]};
+  fromParent?: any;
   @Output() dataModalEmit = new EventEmitter<any>();
   checkedStudents: any[] = [];
 
   constructor(
-    private activeModal: NgbActiveModal
+    private activeModal: NgbActiveModal,
+    private attendanceService: AttendanceService
   ) { }
 
   ngOnInit(): void {}
@@ -51,5 +53,9 @@ export class ModalScanQrcodeStudentComponent implements OnInit {
     if(!student) return;
     if (this.checkedStudents.findIndex(f => f.id === student.id) !== -1) return;
     this.checkedStudents.push(student);
+    student.status = 1;
+    this.attendanceService.callApiQrDataAttendance(this.fromParent?.classId, student).subscribe();
+    
+
   }
 }

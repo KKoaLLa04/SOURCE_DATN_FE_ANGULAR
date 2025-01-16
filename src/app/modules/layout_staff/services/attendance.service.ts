@@ -35,4 +35,8 @@ export class AttendanceService {
   getHistoryListStudentAttendance(data: any){
     return this.http.get(`${environment.apiUrl}/manager/rollcallhistory/student/${data.class_id}/${data.teacher_subject_timetable_id}`);
   }
+
+  callApiQrDataAttendance(classId: any, data: any){
+    return this.http.post(`${environment.apiUrl}/rollcall/update/attendaced/${data.classId}/student`, data);
+  }
 }

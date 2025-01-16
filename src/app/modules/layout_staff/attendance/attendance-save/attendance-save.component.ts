@@ -108,6 +108,12 @@ export class AttendanceSaveComponent implements OnInit {
   }
 
   startQrCode() {
+    if(this.dataList){
+      this.dataList?.data?.data.map((item) => {
+        item.status = 2;
+      })
+    }
+
     const modalRef = this.modalService.open(ModalScanQrcodeStudentComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
@@ -118,7 +124,8 @@ export class AttendanceSaveComponent implements OnInit {
     });
 
     let data = {
-      students: this.dataList?.data?.data ?? []
+      students: this.dataList?.data?.data ?? [],
+      classId: this.classId
     }
 
     modalRef.componentInstance.fromParent = data;
