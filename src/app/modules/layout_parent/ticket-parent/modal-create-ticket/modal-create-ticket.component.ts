@@ -60,7 +60,8 @@ export class ModalCreateTicketComponent implements OnInit {
   nowTimestamp: any = new Date().getTime() / 1000;
   endDate: any = this.nowTimestamp + 86400;
   fullname: string = '';
-  childName: string = ''
+  childName: string = '';
+  className: string = '';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -75,7 +76,6 @@ export class ModalCreateTicketComponent implements OnInit {
   ngOnInit(): void {
     this.fullname = localStorage.getItem('fullname');
     this.childName = localStorage.getItem('child_name');
-
     this.dataFromParent = this.dataModal.dataFromParent;
     this.isUpdate = this.dataFromParent.nameForm === "update" ? true : false;
     this.initForm();

@@ -50,21 +50,22 @@ export class AsideMenuComponent implements OnInit {
       ]
     }else if (Number(layout) == Number(AccessType.TEACHER)){
       this.menuLayout = [
-        {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Điểm danh", url:"/teacher/attendance", permissionCode : '', code: 'attendance', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Lịch dạy", url:"/teacher/timetable", permissionCode : '', code: 'student', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Sổ điểm", url:"/teacher/note-mark", permissionCode : '', code: 'note-mark', children: []},
-        // {icon: "assets/images/svg/address.svg", name:"Lớp học", url:"/teacher/class", permissionCode : '', code: 'class', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Điểm danh", url:"/teacher/attendance", permissionCode : '', code: 'attendance', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Lịch sử điểm danh", url:"/teacher/history-attendance", permissionCode : '', code: 'history_attendance', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Học sinh", url:"/teacher/student", permissionCode : '', code: 'student', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Lịch dạy", url:"/teacher/timetable", permissionCode : '', code: 'student', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Sổ điểm", url:"/teacher/note-mark", permissionCode : '', code: 'note-mark', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Phụ Huynh", url:"/teacher/parents", permissionCode : '', code: 'parents', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Đơn", url:"/teacher/ticket", permissionCode : '', code: 'ticket', children: []},
       ]
     }else if (Number(layout) == Number(AccessType.GUARDIAN)){
       this.menuLayout = [
-        {icon: "assets/images/svg/address.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Lịch sử điểm danh", url:"/parent/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Đơn xin nghỉ", url:"/parent/ticket", permissionCode : '', code: 'ticket', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Thời khóa biểu", url:"/parent/timetable", permissionCode : '', code: 'timetable', children: []},
-        {icon: "assets/images/svg/address.svg", name:"Điểm con", url:"/parent/note-mark", permissionCode : '', code: 'note-mark', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Trang chủ", url:"/home", permissionCode : '', code: 'home', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Lịch sử điểm danh", url:"/parent/list_attendance_statistic", permissionCode : '', code: 'statistic', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Đơn xin nghỉ", url:"/parent/ticket", permissionCode : '', code: 'ticket', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Thời khóa biểu", url:"/parent/timetable", permissionCode : '', code: 'timetable', children: []},
+        {icon: "assets/images/svg/icon-sidebar/icon-ql-menu-khach-hang.svg", name:"Điểm con", url:"/parent/note-mark", permissionCode : '', code: 'note-mark', children: []},
       ]
     }
   }

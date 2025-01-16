@@ -18,6 +18,7 @@ import { StatusClassDirective } from 'src/app/_shared/directive/status-class.dir
 import { StatusDayOfWeekDirective } from 'src/app/_shared/directive/status-day-of-week.directive';
 import { StatusClassAttendanceDirective } from 'src/app/_shared/directive/status-class-attendance.directive';
 import { StatusStudentAttendanceDirective } from 'src/app/_shared/directive/status-student-attendance.directive';
+import { SingleDatePickerComponent } from 'src/app/_shared/components/single-date-picker/single-date-picker.component';
 
 @Component({
   selector: 'app-history-attendance',
@@ -33,9 +34,11 @@ import { StatusStudentAttendanceDirective } from 'src/app/_shared/directive/stat
     NoDataComponent,
     NgIf,
     StatusStudentAttendanceDirective,
-    StatusDayOfWeekDirective
+    StatusDayOfWeekDirective,
+    SingleDatePickerComponent
   ],
-  standalone: true
+  standalone: true,
+  providers: [FormatTimePipe]
 })
 export class HistoryAttendanceComponent implements OnInit {
   dataList: any = [];
@@ -58,14 +61,15 @@ export class HistoryAttendanceComponent implements OnInit {
     }
   ]
   rollcallData: any = [];
-  dateTimestampNow: number = new Date().getTime()/1000;
+  dateTimestampNow: any = new Date().getTime()/1000;
   attendanceEnum = StatusStudent
   constructor(
     private globalStore: GlobalStore,
     private attendanceParentService: AttendanceParentService,
     private showMessageSerivce: ShowMessageService,
     private route: ActivatedRoute,
-    private messagingSerivce: MessagingService
+    private messagingSerivce: MessagingService,
+    private formatTimePipe: FormatTimePipe
   ) { }
 
   ngOnInit() {
@@ -81,11 +85,11 @@ export class HistoryAttendanceComponent implements OnInit {
 
     let dataRequest = {
       studentId: localStorage.getItem('child_id'),
+      date: this.formatTimePipe.transform(this.dateTimestampNow, "yyyy-MM-dd")
     }
 
     this.attendanceParentService.getListHistoryParent(dataRequest).subscribe((res: any) => {
       this.dataList = res;
-      console.log(res);
       res.data?.data?.map((item) => {
         item.status = item.status == 0 ? 1 : item.status 
       })
@@ -103,4 +107,10 @@ export class HistoryAttendanceComponent implements OnInit {
     item.note = value;
   }
 
+  onSearchDate(event: any){
+    this.pageSize = PAGE_SIZE_DEFAULT;
+    this.pageIndex = PAGE_INDEX_DEFAULT;
+    this.dateTimestampNow = event;
+    this.getHistoryAttendance();
+  }
 }

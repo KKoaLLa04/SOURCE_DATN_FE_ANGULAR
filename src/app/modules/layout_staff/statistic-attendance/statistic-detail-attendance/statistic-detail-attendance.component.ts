@@ -87,7 +87,6 @@ export class StatisticDetailAttendanceComponent implements OnInit {
     }
     this.statisticAttendanceSerivce.getListStatistic(dataRequest).subscribe((res: any) => {
       this.dataList = res?.data;
-      console.log(res.data);
       this.dataDateMonth = res.data[0]?.data;
       this.globalStore.isLoading = false;
     }, (err) =>{
@@ -95,4 +94,7 @@ export class StatisticDetailAttendanceComponent implements OnInit {
     })
   }
 
+  getTooltipContent(period: any): string {
+    return `Giảng viên: ${period.user_name} - môn học: ${period.subject_name}`;
+  }
 }

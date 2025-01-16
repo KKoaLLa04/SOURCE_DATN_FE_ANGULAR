@@ -5,9 +5,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonComponent } from 'src/app/_shared/components/button/button.component';
 
 @Component({
-  selector: 'app-modal-agree-ticket',
-  templateUrl: './modal-agree-ticket.component.html',
-  styleUrls: ['./modal-agree-ticket.component.scss'],
+  selector: 'app-modal-agree-ticket-teacher',
+  templateUrl: './modal-agree-ticket-teacher.component.html',
+  styleUrls: ['./modal-agree-ticket-teacher.component.scss'],
   standalone: true,
   imports: [
     ButtonComponent,
@@ -16,7 +16,8 @@ import { ButtonComponent } from 'src/app/_shared/components/button/button.compon
     TranslocoModule
   ]
 })
-export class ModalAgreeTicketComponent implements OnInit {
+export class ModalAgreeTicketTeacherComponent implements OnInit {
+
   @Input() dataModal: any;
   formGroup: FormGroup;
   dataFromParent: any;
@@ -39,6 +40,5 @@ export class ModalAgreeTicketComponent implements OnInit {
   closeModal(sendData: any) {
     this.activeModal.close(sendData);
   }
-
 
 }

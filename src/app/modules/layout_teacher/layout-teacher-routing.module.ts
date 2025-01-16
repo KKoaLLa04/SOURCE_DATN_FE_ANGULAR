@@ -12,6 +12,8 @@ import { HistoryAttendanceTeacherComponent } from "./history-attendance-teacher/
 import { HistoryDetailAttendanceTeacherComponent } from "./history-attendance-teacher/history-detail-attendance-teacher/history-detail-attendance-teacher.component";
 import { HistoryDataAttendanceTeacherComponent } from "./history-attendance-teacher/history-data-attendance-teacher/history-data-attendance-teacher.component";
 import { NoteMarkTeacherComponent } from "./note-mark-teacher/note-mark-teacher.component";
+import { ParentsLayoutTeacherComponent } from "./parents-layout-teacher/parents-layout-teacher.component";
+import { TicketTeacherComponent } from "./ticket-teacher/ticket-teacher.component";
 
 const routes: Routes = [
   {
@@ -99,6 +101,24 @@ const routes: Routes = [
         //   path: 'detail/:id',
         //   component: NoteMarkDetailComponent
         // }
+      ]
+    },
+    {
+      path: 'parents',
+      children: [
+        {
+          path: '',
+          component: ParentsLayoutTeacherComponent
+        },
+      ]
+    },
+    {
+      path: 'ticket',
+      children: [
+        {
+          path: '',
+          component: TicketTeacherComponent
+        },
       ]
     },
 ];

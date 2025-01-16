@@ -13,6 +13,7 @@ import { PAGE_INDEX_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS_DEFAULT } from
 import { GlobalStore } from 'src/app/_store/global.store';
 import { StudentService } from 'src/app/modules/layout_staff/services/student.service';
 import { StudentLayoutTeacherService } from '../../services/student-layout-teacher.service';
+import { GenderDirective } from 'src/app/_shared/directive/gender.directive';
 
 @Component({
   selector: 'app-modal-assign-parent-layout-teacher',
@@ -29,7 +30,8 @@ import { StudentLayoutTeacherService } from '../../services/student-layout-teach
     NgFor,
     FormatTimePipe,
     NgIf,
-    InputSearchComponent
+    InputSearchComponent,
+    GenderDirective
   ]
 })
 export class ModalAssignParentLayoutTeacherComponent implements OnInit {

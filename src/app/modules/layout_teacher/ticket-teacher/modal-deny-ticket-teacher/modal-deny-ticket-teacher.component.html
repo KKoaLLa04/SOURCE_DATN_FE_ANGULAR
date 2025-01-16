@@ -9,26 +9,14 @@
   <div class="modal-body text-normal-global">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-6">
-        <p class="fw-700">Kính gửi: Ban giám hiệu nhà trường và thầy,cô giáo chủ nhiệm bộ môn</p>
+        <p class="fw-700">Kính gửi: phụ huynh cháu {{dataFromParent.data.studentName}}</p>
         <p>Tên tôi là: <b>{{fullname}}</b></p>
-        <p>Phụ huynh em: <b>{{childName}}</b></p>
 
-        <p class="mt-10 fw-700">Gia đình xin phép cho con được nghỉ học ngày: </p>
+        <p class="mt-10 fw-700">Tối từ chối đơn này vì: </p>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-6">
         <div class="form-group so-form-group">
-          <label  class="fw-600">Từ ngày - Ngày đi học trở lại<span class="text-danger">*</span></label>
-           <app-range-date-picker
-           [minDate]="nowTimestamp"
-           [startDate]="nowTimestamp"
-           [endDate]="endDate"
-           (dataTimeOutput)="onChangeDate($event)"
-           ></app-range-date-picker>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-6">
-        <div class="form-group so-form-group">
-          <label  class="fw-600">Lý do xin nghỉ<span class="text-danger">*</span></label>
+          <label  class="fw-600">Lý do từ chối<span class="text-danger">*</span></label>
             <app-textarea
               [formGroupInput]="formGroup"
               [formControlNameInput]="'reason'"
@@ -42,7 +30,7 @@
   </div>
   <div class="modal-footer">
     <app-button [width]="'w-80px'" [text]="'Hủy'" [backgroundColor]="'bg-color-white-lilac'" [color]="'text-color-river-bed'" (click)="closeModal(false)"></app-button>
-    <app-button [width]="'w-80px'" [text]="'Lưu'" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
+    <app-button [width]="'w-80px'" [text]="'Đồng ý'" [backgroundColor]="'bg-color-azure'" (click)="submit(formGroup.value)"></app-button>
   </div>
 </form>
 
