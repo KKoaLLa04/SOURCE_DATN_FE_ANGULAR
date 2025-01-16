@@ -58,4 +58,8 @@ export class ModalScanQrcodeStudentComponent implements OnInit {
     
 
   }
+
+  initData(): void{
+    this.checkedStudents = this.fromParent.students.filter(s => s.status == 1)
+  }
 }

@@ -129,6 +129,7 @@ export class AttendanceSaveComponent implements OnInit {
     }
 
     modalRef.componentInstance.fromParent = data;
+    modalRef.componentInstance.initData();
   }
 
   onSubmit(){
