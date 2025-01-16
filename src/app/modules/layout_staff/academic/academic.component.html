@@ -34,8 +34,8 @@
             <span>{{item.name}}</span> <br/>
             <span>Mã: {{item.code}}</span>
           </td>
-          <td>
-            <span appStatusSchoolYear [statusValue]="item.status"></span> <br/>
+          <td >
+            <span appStatusSchoolYear [statusValue]="item.status" class="fw-700 fs-13"></span> <br/>
           </td>
           <td class="text-center">
             {{item.start_year | formatTime}}

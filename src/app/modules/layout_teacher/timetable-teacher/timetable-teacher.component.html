@@ -1,5 +1,5 @@
 <div class="card card-flush shadow-sm p-0 h-full p-10">
-  <h3 class="text-color-azure">Lịch dạy của bạn</h3>
+  <h2 class="hoangdxph-custom fw-700">Lịch dạy của bạn</h2>
 
   <div class="d-flex justify-content-between align-items-center mb-5">
     <p>
@@ -8,26 +8,26 @@
       <app-single-date-picker class="me-4" (dataTimeOutput)="onSearchDate($event)" [currentDate]="nowTimestamp"></app-single-date-picker>
     </div>
   </div>
-  
+
   <br/>
   <div class="table table-responsive">
       <table class="table table-custom">
-        <thead>
-          <tr class="text-color-white text-color-blue-dark">
+        <thead class="text-color-white bg-color-blue-light fw-700">
+          <tr class="text-color-white">
             <th class="w-15">STT</th>
             <th class="w-14">Lớp học</th>
             <th class="w-14">Môn học</th>
             <th class="w-14">thời gian dạy</th>
           </tr>
         </thead>
-        
+
         <tbody>
-          <tr *ngFor="let item of dataList, let i = index">
-            <td>{{i+1}}</td>
+          <tr class="fw-700" *ngFor="let item of dataList, let i = index">
+            <td class=" fw-700">{{i+1}}</td>
             <td>{{item.class_name}}</td>
             <td>{{item.subject_name}}</td>
             <td>{{item.timetable_day_name + ' - tiết ' + item.timetable_period + ' (' + item.timetable_from_time + ' - ' + item.timetable_to_time +')' }}</td>
-          </tr>          
+          </tr>
         </tbody>
       </table>
   </div>
