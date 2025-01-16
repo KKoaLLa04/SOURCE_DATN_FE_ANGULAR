@@ -14,6 +14,8 @@ import { MessagingService } from 'src/firebase/messaging-service';
 import { FormatTimePipe } from 'src/app/_shared/pipe/format-time.pipe';
 import { ButtonBackComponent } from 'src/app/_shared/components/button-back/button-back.component';
 import { StatusStudent } from 'src/app/_shared/enums/status-student.enum';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalScanQrcodeStudentComponent } from 'src/app/modules/layout_staff/attendance/modal-scan-qrcode-student/modal-scan-qrcode-student.component';
 
 @Component({
   selector: 'app-attendance-save',
@@ -58,7 +60,8 @@ export class AttendanceSaveComponent implements OnInit {
       private attendanceSerivce: AttendanceService,
       private showMessageSerivce: ShowMessageService,
       private route: ActivatedRoute,
-      private messagingSerivce: MessagingService
+      private messagingSerivce: MessagingService,
+      private modalService: NgbModal,
     ) { }
   
     ngOnInit() {
@@ -126,5 +129,30 @@ export class AttendanceSaveComponent implements OnInit {
         this.globalStore.isLoading = false;
         this.showMessageSerivce.success("Điểm danh thành công!");
       })
+    }
+
+    startQrCode() {
+      if(this.dataList){
+        this.dataList?.data?.data.map((item) => {
+          item.status = 2;
+        })
+      }
+  
+      const modalRef = this.modalService.open(ModalScanQrcodeStudentComponent, {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        keyboard: false,
+        backdrop: 'static', // prevent click outside modal to close modal
+        centered: false, // vị trí hiển thị modal ở giữa màn hình
+        size: 'lg', // 'sm' | 'md' | 'lg' | 'xl',
+      });
+  
+      let data = {
+        students: this.dataList?.data?.data ?? [],
+        classId: this.classId
+      }
+  
+      modalRef.componentInstance.fromParent = data;
+      modalRef.componentInstance.initData();
     }
 }

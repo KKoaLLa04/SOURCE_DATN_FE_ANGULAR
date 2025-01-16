@@ -110,8 +110,11 @@ export class ModalImportStudentComponent implements OnInit {
     }
 
     let dataRequest = [];
+    if(this.data.length > 30){
+      this.showMessageService.error("File excel số lượng học sinh > 30");
+      return;
+    }
     this.data.map((item, index) => {
-      console.log(item);
       if(index > 0){
         dataRequest.push({
           fullname: item[2],
@@ -293,7 +296,6 @@ export class ModalImportStudentComponent implements OnInit {
       if (rowNumber === 1) return; // Bỏ qua tiêu đề
   
       const [DEFAULT,stt, studentInfo, gender, year, status, dob, address] = row.values as string[];
-      console.log([stt, studentInfo, gender, year, status, dob, address])
       if (
         !stt ||
         !studentInfo ||
