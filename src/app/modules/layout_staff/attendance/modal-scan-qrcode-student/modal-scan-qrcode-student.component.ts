@@ -1,4 +1,4 @@
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe, NgIf, NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -18,6 +18,7 @@ LOAD_WASM('/assets/wasm/ngx-scanner-qrcode.wasm').subscribe();
     TranslocoModule,
     FormsModule,
     NgIf,
+    NgFor,
     InputComponent,
     ButtonComponent,
     NgxScannerQrcodeModule
@@ -26,7 +27,9 @@ LOAD_WASM('/assets/wasm/ngx-scanner-qrcode.wasm').subscribe();
 })
 export class ModalScanQrcodeStudentComponent implements OnInit {
   @Input() dataModal: any;
+  fromParent?: {students: any[]};
   @Output() dataModalEmit = new EventEmitter<any>();
+  checkedStudents: any[] = [];
 
   constructor(
     private activeModal: NgbActiveModal
@@ -44,5 +47,9 @@ export class ModalScanQrcodeStudentComponent implements OnInit {
     const linkRedirectStudent = data[0].value;
     if (!linkRedirectStudent.concat('redirect-student')) return;
     const studentID = linkRedirectStudent.split('/').pop();
+    const student = this.fromParent.students.find(f => f.id === Number(studentID));
+    if(!student) return;
+    if (this.checkedStudents.findIndex(f => f.id === student.id) !== -1) return;
+    this.checkedStudents.push(student);
   }
 }

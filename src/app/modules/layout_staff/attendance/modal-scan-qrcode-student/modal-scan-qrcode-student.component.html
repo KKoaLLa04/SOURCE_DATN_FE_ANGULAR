@@ -7,8 +7,16 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- For camera -->
-    <ngx-scanner-qrcode #action="scanner" (event)="handleDataQr($event)"></ngx-scanner-qrcode>
+    <div class="row">
+      <div class="col-md-8">
+        <!-- For camera -->
+        <ngx-scanner-qrcode #action="scanner" (event)="handleDataQr($event)"></ngx-scanner-qrcode>
+      </div>
+      <div class="col-md-4">
+        <div>Danh sách học sinh đã được ghi nhận:</div>
+        <div *ngFor="let student of checkedStudents">{{ student.fullname }}</div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer border-none d-flex justify-content-center gap-2">
 

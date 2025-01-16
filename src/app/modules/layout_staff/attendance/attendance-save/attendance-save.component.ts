@@ -116,6 +116,12 @@ export class AttendanceSaveComponent implements OnInit {
       centered: false, // vị trí hiển thị modal ở giữa màn hình
       size: 'lg', // 'sm' | 'md' | 'lg' | 'xl',
     });
+
+    let data = {
+      students: this.dataList?.data?.data ?? []
+    }
+
+    modalRef.componentInstance.fromParent = data;
   }
 
   onSubmit(){
