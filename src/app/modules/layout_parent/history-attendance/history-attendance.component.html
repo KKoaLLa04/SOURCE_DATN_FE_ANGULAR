@@ -16,16 +16,16 @@
   </div>
   <h3>Điểm danh</h3>
 
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between mb-5">
     <p>
       <span>Số lượng học sinh: <span class="text-color-azure fw-700">{{dataList?.total}} học sinh</span></span> |
       <span>Số học sinh nghỉ học: <span class="text-color-red fw-700">{{dataList?.total_absent}} học sinh</span></span> |
       <span>Số học sinh đi muộn: <span class="text-color-red fw-700">{{dataList?.total_late}} học sinh</span></span> |
       <span>Số học sinh có mặt: <span class="text-color-green fw-700">{{dataList?.total_present}} học sinh</span></span>
     </p>
-    <!-- <div class="d-flex">
-      <app-input-search [width]="'w-250px'"></app-input-search>
-    </div> -->
+    <div class="d-flex">
+      <app-single-date-picker class="me-4" (dataTimeOutput)="onSearchDate($event)" [currentDate]="dateTimestampNow"></app-single-date-picker>
+    </div>
   </div>
 
   <div class="table table-responsive" *ngIf="tabSelect == 1">

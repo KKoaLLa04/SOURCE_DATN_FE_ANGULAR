@@ -1,0 +1,26 @@
+.table-custom tr, .table-custom th, .table-custom td{
+    border: 1px solid var(--bs-grey);
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  
+  .header-color{
+    background-color: #0078FF;
+    color: white;
+    font-weight: 700;
+  }
+  
+  .title-custom{
+    color: #4154F1;
+  }
+  .hoangdxph-custom-status{
+    display: flex
+    ;
+        justify-content: center;
+        border: none;
+        align-items: center;
+        height: 100%;
+        margin-top: 8px;
+  }
+  

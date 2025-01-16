@@ -42,7 +42,9 @@
               <span class="'text-color-blue-light'">Mã: {{item.code}}</span>
             </td>
             <td>{{item.email}}</td>
-            <td>{{item.gender}}</td>
+            <td>
+              <span appGender [statusValue]="item.gender"></span>
+            </td>
             <td>{{item.dob | formatTime}}</td>
             <td>{{item.phone}}</td>
             <td>{{item.username}}</td>

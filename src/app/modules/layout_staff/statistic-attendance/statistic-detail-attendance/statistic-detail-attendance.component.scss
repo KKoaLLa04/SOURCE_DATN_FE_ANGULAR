@@ -37,3 +37,23 @@ body {
 .hoangdxph-custom{
   color: #4154F1;
 }
+
+.tooltip {
+	--bs-tooltip-bg: #007bff; /* Nền xanh dương */
+  }
+  
+  .tooltip .tooltip-inner {
+	color: white; /* Màu chữ trắng */
+	background-color: #007bff;
+	text-align: left; /* Canh trái nội dung */
+	white-space: pre-line; /* Hỗ trợ xuống dòng */
+	font-size: 14px; /* Kích thước chữ */
+	padding: 8px 10px; /* Khoảng cách padding */
+	border-radius: 5px; /* Bo góc */
+  }
+
+$tooltip-font-size:                 14px;
+$tooltip-max-width:                 200px;
+$tooltip-color:                     white;
+$tooltip-bg:                        red;
+$tooltip-opacity:                   .9;

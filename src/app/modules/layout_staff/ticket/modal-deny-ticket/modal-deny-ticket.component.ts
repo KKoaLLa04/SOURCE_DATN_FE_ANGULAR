@@ -33,7 +33,7 @@ import { ValidatorNotEmptyString } from 'src/app/_services/validator-custom.serv
     providers: [FormatTimePipe]
 })
 export class ModalDenyTicketComponent implements OnInit {
-@Input() dataModal: any;
+  @Input() dataModal: any;
   formGroup: FormGroup;
   dataForm: any
   dataFromParent: any;

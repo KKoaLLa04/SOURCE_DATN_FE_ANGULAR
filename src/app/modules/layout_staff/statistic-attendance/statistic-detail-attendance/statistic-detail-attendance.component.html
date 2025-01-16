@@ -69,7 +69,7 @@
             <td class="text-center fw-700">{{item.total_late}}</td>
             <ng-container *ngFor="let date of item.data">
               <td *ngFor="let period of date.data">
-                <div appStatusStudent [statusValue]="period.status"></div>
+                <div appStatusStudent [statusValue]="period.status" data-bs-toggle="tooltip" data-bs-html="true"  [title]="getTooltipContent(period)"></div>
                 <!-- {{date.status}} -->
               </td>
               <td class="w-50px text-center" *ngIf="!date?.data?.length">...</td>

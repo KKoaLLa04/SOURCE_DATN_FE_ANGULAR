@@ -35,4 +35,16 @@ export class TicketService {
   denyTicket(data: any){
     return this.http.put(`${environment.apiUrl}/manager/leaverequest/reject/${data.id}`, data)
   }
+
+  confirmTicketTeacher(data: any){
+    return this.http.put(`${environment.apiUrl}/teacher/leaverequest/accept/${data.id}`, data)
+  }
+
+  denyTicketTeacher(data: any){
+    return this.http.put(`${environment.apiUrl}/teacher/leaverequest/reject/${data.id}`, data)
+  }
+
+  getListTicketTeacher(data: any){
+    return this.http.get(`${environment.apiUrl}/teacher/leaverequest`, {params: {...data}})
+  }
 }
