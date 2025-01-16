@@ -66,7 +66,7 @@
         </tr>
         <tr *ngIf="dataList?.data?.struct?.length">
           <ng-container *ngFor="let item of dataList?.data?.struct">
-            <th class="text-center fw-700 bg-color-abc" *ngFor="let exam of item.examPeriods">{{exam.examPeriodName}}</th>
+            <th class="text-center fw-700 bg-color-abc text-info" *ngFor="let exam of item.examPeriods">{{exam.examPeriodName}}</th>
           </ng-container>
         </tr>
       </thead>
@@ -87,7 +87,7 @@
           <ng-container *ngFor="let structs of dataList?.data?.struct">
             <td *ngIf="!structs?.examPeriods?.length">Chưa thi</td>
             <ng-container *ngFor="let struct of structs?.examPeriods">
-              <td class="text-center fw-700">
+              <td class="text-center fw-700 text-color-red">
                 <span *ngIf="!item?.points?.isEdit">{{ findPoint(item.points, struct.examPeriodId) }}</span>
                 <!-- <app-input [type]="'number'" min value="{{ findPoint(item.points, struct.examPeriodId) }}" *ngIf="item?.points?.isEdit" [width]="'w-50px'"></app-input> -->
                  <app-input-number

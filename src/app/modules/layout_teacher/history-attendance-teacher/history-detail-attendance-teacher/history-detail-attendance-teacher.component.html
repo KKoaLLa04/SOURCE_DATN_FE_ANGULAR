@@ -47,19 +47,19 @@
        <ng-container *ngIf="dataList?.data?.[0]?.morning_timetable?.length">
         <ng-container *ngFor="let item of dataList?.data, let i = index">
           <tr class="fw-700" *ngFor="let item of dataList?.data, let i = index">
-            <td [rowSpan]="item.morning_timetable?.length + 1">{{i+1}}</td>
-            <td [rowSpan]="item.morning_timetable?.length + 1">{{item.date | formatTime}}</td>
+            <td [rowSpan]="item.morning_timetable?.length + 1" class="text-center fw-700">{{i+1}}</td>
+            <td class="text-center fw-700" [rowSpan]="item.morning_timetable?.length + 1">{{item.date | formatTime}}</td>
             <ng-container >
-              <td class="text-center fw-700">
+              <td class=" fw-700">
                 {{item.morning_timetable[0].subject}}
               </td>
-              <td class="text-center fw-700">
-                <div appStatusDayOfWeek [statusValue]="item.morning_timetable[0].day"></div>
+              <td class="fw-700">
+                <div  class="fw-700" appStatusDayOfWeek [statusValue]="item.morning_timetable[0].day"></div>
               </td>
-              <td class="">
+              <td class=" fw-700">
                 Tiết {{item.morning_timetable[0].period}} ({{item.morning_timetable[0].from_time}} - {{item.morning_timetable[0].to_time}})
               </td>
-              <td class="">
+              <td class="fw-700">
                 {{item.morning_timetable[0].teacher_name}} <br/>
                 {{item.morning_timetable[0].teacher_email}}
               </td>
@@ -69,22 +69,22 @@
             </ng-container>
           </tr>
           <ng-container *ngIf="item.morning_timetable?.length > 1">
-            <tr *ngFor="let history of item.morning_timetable, let i = index">
+            <tr  *ngFor="let history of item.morning_timetable, let i = index">
               <ng-container *ngIf="i > 0">
-                <td>
+                <td class="fw-700">
                   {{history.subject}}
                 </td>
-                <td class="">
-                  <div appStatusDayOfWeek [statusValue]="history.day"></div>
+                <td class="fw-700">
+                  <div  class="fw-700" appStatusDayOfWeek [statusValue]="history.day"></div>
                 </td>
-                <td class="">
+                <td class="fw-700">
                   Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
                 </td>
-                <td class="">
+                <td class="fw-700">
                   {{history.teacher_name}} <br/>
                   {{history.teacher_email}}
                 </td>
-                <td class="">
+                <td class="fw-700">
                   <app-button [text]="'Chi tiết'" [routerLink]="['/teacher/history-attendance', dataList?.class_id, history.teacherSubject]"></app-button>
                 </td>
               </ng-container>
@@ -100,7 +100,7 @@
 
   <div class="table table-responsive" *ngIf="tabSelect == 2">
     <table class="table table-custom">
-      <thead>
+      <thead class="text-color-white bg-color-blue-light text-center fw-700">
         <tr>
           <th>STT</th>
           <th>Ngày điểm danh</th>
@@ -114,15 +114,15 @@
       <tbody>
         <ng-container *ngIf="dataList?.data?.[0]?.afternoon_timetable?.length">
             <ng-container *ngFor="let item of dataList?.data, let i = index">
-              <tr *ngFor="let item of dataList?.data, let i = index">
-                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{i+1}}</td>
-                <td [rowSpan]="item.afternoon_timetable?.length + 1">{{item.date | formatTime}}</td>
-                <ng-container >
+              <tr class="fw-700" *ngFor="let item of dataList?.data, let i = index">
+                <td class="text-center fw-700" [rowSpan]="item.afternoon_timetable?.length + 1">{{i+1}}</td>
+                <td class="text-center fw-700" [rowSpan]="item.afternoon_timetable?.length + 1">{{item.date | formatTime}}</td>
+                <ng-container class="fw-700">
                   <td>
                     {{item.afternoon_timetable[0].subject}}
                   </td>
                   <td class="">
-                    <div appStatusDayOfWeek [statusValue]="item.afternoon_timetable[0].day"></div>
+                    <div  class="fw-700" appStatusDayOfWeek [statusValue]="item.afternoon_timetable[0].day"></div>
                   </td>
                   <td class="">
                     Tiết {{item.afternoon_timetable[0].period}} ({{item.afternoon_timetable[0].from_time}} - {{item.afternoon_timetable[0].to_time}})
@@ -139,18 +139,18 @@
               <ng-container *ngIf="item.afternoon_timetable?.length > 1">
                 <tr *ngFor="let history of item.afternoon_timetable, let i = index">
                   <ng-container *ngIf="i > 0">
-                    <td>
+                    <td class="fw-700">
                       {{history.subject}}
                     </td>
                     <td class="">
-                      <div appStatusDayOfWeek [statusValue]="history.day"></div>
+                      <div class="fw-700" appStatusDayOfWeek [statusValue]="history.day"></div>
                     </td>
-                    <td class="">
+                    <td class="fw-700">
                       Tiết {{history.period}} ({{history.from_time}} - {{history.to_time}})
                     </td>
-                    <td class="">
+                    <td class="fw-700">
                       {{history.teacher_name}} <br/>
-                      {{history.teacher_phone}}
+                      {{history.teacher_email}}
                     </td>
                     <td class="">
                       <app-button [text]="'Chi tiết'" [routerLink]="['/teacher/history-attendance', dataList?.class_id, history.teacherSubject]" ></app-button>
