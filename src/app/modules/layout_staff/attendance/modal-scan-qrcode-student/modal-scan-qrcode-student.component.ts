@@ -37,7 +37,9 @@ export class ModalScanQrcodeStudentComponent implements OnInit {
     private attendanceService: AttendanceService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.fromParent);
+  }
 
   closeModal(sendData: any) {
     this.activeModal.close(sendData);

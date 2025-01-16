@@ -37,6 +37,6 @@ export class AttendanceService {
   }
 
   callApiQrDataAttendance(classId: any, data: any){
-    return this.http.post(`${environment.apiUrl}/rollcall/update/attendaced/${data.classId}/student`, data);
+    return this.http.post(`${environment.apiUrl}/rollcall/update/attendaced/${classId}/student`, data);
   }
 }
